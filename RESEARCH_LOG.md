@@ -27,26 +27,27 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-03 23:15 CDT
+- **Last updated**: 2026-09-03 23:22 CDT
 - **Research phase**: Active starter phase — E0–E2 exact-capture calibration
   on controlled tiny checkpoint fixtures
-- **Repository commit**: `b4afab63918d1a41dfff3e9e8a22397b28b10bc5`
-  on `main`; `AGENTS.md` and `RESEARCH_LOG.md` are currently untracked
+- **Repository commit**: `14bce330cd1259192c2d8209ecb0a556346a2534`
+  on `main`, pushed and verified equal to `origin/main`; worktree clean after
+  ignored artifacts
 - **Research objective**: Detect activation-checkpoint recomputation value
   changes before model or optimizer state is mutated
-- **Current baseline**: E0 implementation smoke-tested once on CPU at ignored
-  artifact `artifacts/starter/e0-counter-correct-20260904T041106.752118Z-20a3c56b`;
-  the required clean-commit three-run sequence remains pending
-- **Current experiment**: E0, E1, and E2 are implemented and the 19-test suite
-  passes; required clean-commit CPU experiment execution is next
+- **Current baseline**: Required E0 CPU sequence completed three times from the
+  clean pushed commit; each run passed all preregistered gates
+- **Current experiment**: CPU E0/E1/E2 execution is complete. E1's six
+  scenarios passed all intended-fault/control/repeat gates. E2 returned
+  `PUBLIC_HOOKS_INSUFFICIENT`; interpretation remains pending Analyst review
 - **Best validated result**: None; no scientific experiment has run
-- **Compute status**: UTCS Condor access and GPU inventory verified; scheduled
-  CUDA/PyTorch execution not yet verified; TACC not configured
+- **Compute status**: Apple Silicon CPU suite complete; starter-only UTCS
+  Condor GPU execution is next; TACC not configured
 - **Active blockers**: None for the CPU sequence; the Condor environment and
   Pascal compatibility remain unverified
-- **Immediate next action**: Commit and push the verified starter
-  implementation, then run the required clean-commit E0, E1, and E2 CPU
-  sequence before preparing the scheduled GPU job
+- **Immediate next action**: Append/version the factual CPU record, add only
+  the required starter Condor runner/submit files, push them, query the live
+  pool/queue, synchronize the exact commit, and submit one scheduled GPU job
 - **Canonical Notion context**: `MOOTAZ PROJECT`, page ID
   `3c65d66f-2c23-80c6-879f-e0aff5e92706`
 - **Last synchronized with Notion**: The user explicitly selected `Starter
@@ -61,10 +62,10 @@ other secrets.
 | ID | Priority | Action | Reason | Dependencies | Status |
 |---|---:|---|---|---|---|
 | A001 | 1 | Commit and push `AGENTS.md` and `RESEARCH_LOG.md` when authorized | Makes the operating rules available to GitHub and remote agents | User authorization to commit/push | Ready |
-| A002 | 2 | Pull the documentation commit into the `darmok` checkout | Keeps remote work under the same instructions | A001 and stable CPU suite | Deferred until Condor phase |
-| A003 | 2 | Pin compatible Python, PyTorch, and CUDA versions and create a dedicated remote environment | Existing base Conda environment is not reproducible | A016 and stable CPU suite | Deferred until Condor phase |
-| A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Deferred until Condor phase |
-| A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Deferred until Condor phase |
+| A002 | 2 | Pull the documentation commit into the `darmok` checkout | Keeps remote work under the same instructions | A001 and stable CPU suite | Ready |
+| A003 | 2 | Pin compatible Python, PyTorch, and CUDA versions and create a dedicated remote environment | Existing base Conda environment is not reproducible | A016 and stable CPU suite | Ready |
+| A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Active |
+| A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Ready after A004 |
 | A006 | 2 | Define the first falsifiable hypothesis, baseline, metrics, and falsification criterion | No scientific run should start without a preregistered contract | Notion plan and source audit | Completed |
 | A007 | 3 | Verify and document TACC access, allocation, paths, scheduler, and environment | Required for final modern-GPU evaluation | Live TACC access/allocation | Blocked |
 | A008 | — | Select and exactly replay R0 in its documented pinned environment | Preserved production-shaped evidence track | A003 and compatibility review | Deferred by L0007 |
@@ -78,7 +79,7 @@ other secrets.
 | A016 | 1 | Pin the local `uv` environment and exact stable PyTorch and NumPy versions | Makes starter results reproducible | None | Completed |
 | A017 | 1 | Implement only the E0–E2 starter package, CLI, artifact writer, and focused tests specified in L0007 | Builds the selected weekly scope without production-shaped expansion | A016 | Completed |
 | A018 | 1 | Run the full automated test suite, then make E0 pass | E0 is the trust gate for the fixture and comparator | A017 | Completed |
-| A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Blocked on E0 pass |
+| A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Completed; pending Analyst |
 | A020 | 1 | Analyze and append every CPU result, failure, artifact path, and verdict | Results cannot drive later work until reviewed and archived | A019 | Blocked on completed runs |
 | A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Checks portability after the CPU suite is stable | A020 plus synchronized commit and pinned remote environment | Planned after CPU suite |
 
@@ -86,9 +87,9 @@ other secrets.
 
 | ID | Date | Hypothesis | Baseline | Status | Verdict | Record |
 |---|---|---|---|---|---|---|
-| E0 | 2026-09-03 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64` no-checkpoint run and independent formulas | Implementation smoke PASS; required clean-commit repetitions pending | Pending Analyst | L0007, L0009 |
-| E1 | 2026-09-03 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | Automated coverage passes; required clean-commit repetitions pending | Pending Analyst | L0007, L0009 |
-| E2 | 2026-09-03 | Public `context_fn` and `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` exactly once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | Automated coverage path exercised; required clean-commit run pending | Pending Analyst | L0007, L0009 |
+| E0 | 2026-09-03 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64` no-checkpoint run and independent formulas | Three clean-commit CPU repetitions PASS | Pending Analyst | L0007, L0009, L0010 |
+| E1 | 2026-09-03 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | Six CPU scenarios, 54 isolated arms PASS | Pending Analyst | L0007, L0009, L0010 |
+| E2 | 2026-09-03 | Public `context_fn` and `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` exactly once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | `PUBLIC_HOOKS_INSUFFICIENT`: hooks suppressed recompute | Pending Analyst | L0007, L0009, L0010 |
 | R0 | 2026-09-02 | A documented natural activation-checkpoint bug reproduces in its pinned original environment without a project-invented fault | Exact upstream safe/failing comparison | Preserved; deferred | — | L0006, L0007 |
 | M0.1 | 2026-09-02 | Clean no-checkpoint and checkpointed genuine LM pretraining agree | Identical data/model/optimizer state | Preserved; deferred | — | L0006, L0007 |
 | M0.2 | 2026-09-02 | A controlled mutable-state fault changes a recomputed LM activation, gradient, and optimizer update while metadata remain equal | M0.1 clean oracle | Preserved; deferred | — | L0006, L0007 |
@@ -738,6 +739,110 @@ experiments, unless they test a preregistered research hypothesis.
   interpretation remains pending Analyst review.
 - **Next actions**: Commit and push the tested implementation, verify remote
   `main`, then execute A019 without changing experiment logic.
+- **Secrets**: No secret material recorded.
+
+### L0010 — 2026-09-03 23:22 CDT — Required Apple Silicon CPU sequence completed
+
+- **Type**: experiment / success / failure
+- **Status**: completed; pending Analyst review
+- **Objective**: Execute the complete L0007 CPU sequence from one clean,
+  pushed commit and preserve each arm's exact tensor and structured evidence.
+- **Repository state**: `main` at clean commit
+  `14bce330cd1259192c2d8209ecb0a556346a2534`; local and `origin/main` were
+  verified equal before execution. Ignored artifacts do not dirty Git state.
+- **Shared environment and hardware**: Apple Silicon ARM64 CPU on macOS
+  26.4.1; CPython 3.13.15; PyTorch 2.13.0; NumPy 2.5.2; pytest 9.1.1; no CUDA;
+  seed 20260903; `use_reentrant=False`; early stop disabled through
+  `set_checkpoint_early_stop(False)`; `preserve_rng_state=True`;
+  `determinism_check="default"`; phase-labeling `context_fn`.
+- **Test evidence**: `uv run pytest -q` -> 19 passed in 42.56 seconds from the
+  clean commit.
+
+- **Experiment ID**: E0
+- **Falsifiable hypothesis and criterion**: As preregistered in L0007; any
+  phase-count, pairing, tensor, output, loss, autograd-gradient, or independent
+  formula mismatch fails E0.
+- **Baseline and isolated change**: Fixed literal CPU `float64` no-checkpoint
+  evaluation plus independent formulas; isolated change is the configured
+  non-reentrant checkpoint wrapper and direct tags.
+- **Exact command**: `uv run aci-starter run E0`, invoked three times.
+- **Start/end timestamps**: 2026-09-04T04:16:21.911697Z through
+  2026-09-04T04:16:35.565536Z; no scheduler job.
+- **Raw artifacts and results**:
+  - `e0-counter-correct-20260904T041621.910016Z-cbce59d8` -> PASS, 1.287 s
+  - `e0-counter-correct-20260904T041625.574015Z-64a78dbe` -> PASS, 1.249 s
+  - `e0-counter-correct-20260904T041634.248155Z-349df9f0` -> PASS, 1.317 s
+  - All are under ignored `artifacts/starter/<run_id>/`; each has one original
+    and one recompute phase, three unambiguous exact tensor pairs, no missing,
+    duplicate, value, or metadata mismatch, and exact output/loss/all-gradient
+    equality to the no-checkpoint and independent formula references.
+- **Baseline integrity / validity**: All three manifests record the exact
+  commit with `dirty=false`; repeated scientific and tensor results agree.
+- **Result classification**: `PASS` for all three runs.
+- **Analyst verdict / interpretation**: Pending Analyst.
+
+- **Experiment ID**: E1
+- **Falsifiable hypothesis and criterion**: As preregistered in L0007; every
+  clean/trigger-disabled arm must remain exact, and every broken arm must first
+  differ at same-metadata `h`, change at least one gradient, match its correct
+  original, and repeat exactly three times.
+- **Baseline and isolated changes**: E0-style same-state no-checkpoint/correct
+  controls versus one counter, registered-buffer, Python RNG, NumPy RNG,
+  precision-policy, or toy delayed-scaling trigger at a time.
+- **Exact command**: `uv run aci-starter run E1 --case all`.
+- **Start/end timestamps**: 2026-09-04T04:16:47.876596Z through
+  2026-09-04T04:20:38.132250Z; duration 230.411 s; no scheduler job.
+- **Raw artifact**:
+  `artifacts/starter/e1-all-20260904T041647.718907Z-4f759aa3/summary.json` links
+  all 54 immutable child runs: six scenarios times three repetitions times
+  correct/broken/trigger-off fresh processes.
+- **Observed result**: Aggregate `PASS`. All six scenarios pass; every broken
+  original equals its correct original, every broken first mismatch is `h`
+  with unchanged metadata and at least one different gradient, trigger removal
+  restores equality, PyTorch's default metadata check does not raise, and
+  saved tensor/scientific contents repeat across all three seeded repetitions.
+- **Baseline integrity / validity**: Every child manifest records commit
+  `14bce33` and `dirty=false`; fresh-process isolation is recorded by the
+  aggregate.
+- **Result classification**: `PASS` for the intended controlled calibration.
+- **Analyst verdict / interpretation**: Pending Analyst.
+
+- **Experiment ID**: E2
+- **Falsifiable hypothesis and criterion**: As preregistered in L0007; public
+  hooks must capture each semantic tag once per phase with unpack/access and
+  must not change recomputation or numerical behavior.
+- **Baseline and isolated change**: Isolated no-observer `TaggedSave`
+  checkpoint baseline versus the same fixture with public
+  `saved_tensors_hooks` installed inside the phase `context_fn`.
+- **Exact command**: `uv run aci-starter run E2`.
+- **Start/end timestamps**: 2026-09-04T04:20:47.114152Z through
+  2026-09-04T04:20:56.926239Z; duration 9.971 s; no scheduler job.
+- **Raw artifacts**:
+  - Aggregate:
+    `artifacts/starter/e2-coverage-20260904T042046.953728Z-aab0a6b4/`
+  - No-hook baseline:
+    `e2-counter-correct-20260904T042049.181490Z-8359e6dc` -> PASS, phases 1/1,
+    three exact pairs
+  - Hook candidate:
+    `e2-counter-correct-hooks-20260904T042054.099751Z-ba76592a`
+- **Observed result**: `PUBLIC_HOOKS_INSUFFICIENT`, CLI exit 1. The candidate
+  observed one token-identified pack and two unpack/access events for each of
+  `h`, `g`, and `y` in the original phase, but installing the hooks suppressed
+  checkpoint recomputation: phase counts were original=1/recompute=0, with all
+  three recompute tags and hook events missing. Output and gradients remained
+  exact, but the preregistered behavioral and coverage gate failed.
+- **Baseline integrity / validity**: Baseline passed, only observation was
+  toggled, both manifests record the same clean commit, and the failure is
+  explicit rather than replaced with a different capture mechanism.
+- **Result classification**: `PUBLIC_HOOKS_INSUFFICIENT`.
+- **Analyst verdict / interpretation**: Pending Analyst.
+
+- **Failure or caveat**: E2 is a preregistered coverage failure and does not
+  invalidate E0/E1. CPU results do not establish CUDA/Pascal behavior.
+- **Decision / lesson**: No scientific decision here; pending Analyst review.
+- **Next actions**: Version this factual record, execute the unchanged starter
+  logic in one scheduled Condor GPU job, and route all results to Analyst before
+  follow-up planning.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title
