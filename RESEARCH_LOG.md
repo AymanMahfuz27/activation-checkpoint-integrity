@@ -27,27 +27,34 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-03 23:27 CDT
+- **Last updated**: 2026-09-03 23:30 CDT
 - **Research phase**: Active starter phase — E0–E2 exact-capture calibration
-  on controlled tiny checkpoint fixtures
-- **Repository commit**: `14bce330cd1259192c2d8209ecb0a556346a2534`
-  on `main`, pushed and verified equal to `origin/main`; worktree clean after
-  ignored artifacts
+  on controlled tiny checkpoint fixtures; CPU results analyzed and archived,
+  Condor FP32 portability confirmation authorized
+- **Repository commit**: `d5940c75abf7528bd4f322e2e9dc45e9a07a974d`
+  on `main`, pushed and verified equal to `origin/main`; the worktree was clean
+  before this L0012 archival update, and only `RESEARCH_LOG.md` is now modified
 - **Research objective**: Detect activation-checkpoint recomputation value
   changes before model or optimizer state is mutated
-- **Current baseline**: Required E0 CPU sequence completed three times from the
-  clean pushed commit; each run passed all preregistered gates
-- **Current experiment**: CPU E0/E1/E2 execution is complete. E1's six
-  scenarios passed all intended-fault/control/repeat gates. E2 returned
-  `PUBLIC_HOOKS_INSUFFICIENT`; interpretation remains pending Analyst review
-- **Best validated result**: None; no scientific experiment has run
+- **Current baseline**: E0 is promoted as a bounded oracle for this exact tiny
+  CPU `float64` fixture and comparator after three clean repetitions passed all
+  preregistered gates
+- **Current experiment**: CPU analysis is complete. E0 and E1 are `PROMOTE`;
+  E2 is `KILL` for the exact PyTorch 2.13 CPU composition of `context_fn` with
+  inner `saved_tensors_hooks`, classified `PUBLIC_HOOKS_INSUFFICIENT`
+- **Best validated result**: The exact E0 fixture/comparator is a bounded clean
+  oracle, and E1 is a bounded controlled regression suite. Neither is
+  production or natural-failure evidence
 - **Compute status**: Apple Silicon CPU suite complete; starter-only UTCS
-  Condor GPU execution is next; TACC not configured
-- **Active blockers**: None for the CPU sequence; the Condor environment and
-  Pascal compatibility remain unverified
-- **Immediate next action**: Append/version the factual CPU record, add only
-  the required starter Condor runner/submit files, push them, query the live
-  pool/queue, synchronize the exact commit, and submit one scheduled GPU job
+  Condor GPU execution authorized as an unchanged FP32 portability
+  confirmation; TACC not configured
+- **Active blockers**: The Condor PyTorch 2.12.1+cu126 environment and Pascal
+  kernel compatibility remain unverified. E2 did not establish any sufficient
+  production capture path; internal integration remains unproven
+- **Immediate next action**: Query the live Condor pool/queue, synchronize
+  commit `d5940c75abf7528bd4f322e2e9dc45e9a07a974d`, build the repository-local
+  hash-locked environment, dry-run the submit description, and execute the
+  single authorized scheduled FP32 portability job
 - **Canonical Notion context**: `MOOTAZ PROJECT`, page ID
   `3c65d66f-2c23-80c6-879f-e0aff5e92706`
 - **Last synchronized with Notion**: The user explicitly selected `Starter
@@ -61,11 +68,11 @@ other secrets.
 
 | ID | Priority | Action | Reason | Dependencies | Status |
 |---|---:|---|---|---|---|
-| A001 | 1 | Commit and push `AGENTS.md` and `RESEARCH_LOG.md` when authorized | Makes the operating rules available to GitHub and remote agents | User authorization to commit/push | Ready |
-| A002 | 2 | Pull the documentation commit into the `darmok` checkout | Keeps remote work under the same instructions | A001 and stable CPU suite | Ready after operational commit |
+| A001 | 1 | Commit and push `AGENTS.md` and `RESEARCH_LOG.md` when authorized | Makes the operating rules available to GitHub and remote agents | User authorization to commit/push | Completed |
+| A002 | 2 | Pull the current operational commit into the `darmok` checkout | Keeps remote work under the same instructions and code | A001 and stable CPU suite | Ready at `d5940c7` |
 | A003 | 2 | Pin compatible Python, PyTorch, and CUDA versions and create a dedicated remote environment | Existing base Conda environment is not reproducible | A016 and stable CPU suite | Environment lock complete; remote sync pending |
-| A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Implemented locally; remote dry-run pending |
-| A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Ready after A004 |
+| A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Implemented, committed, and pushed; remote dry-run pending |
+| A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Analyst-authorized after sync and dry-run |
 | A006 | 2 | Define the first falsifiable hypothesis, baseline, metrics, and falsification criterion | No scientific run should start without a preregistered contract | Notion plan and source audit | Completed |
 | A007 | 3 | Verify and document TACC access, allocation, paths, scheduler, and environment | Required for final modern-GPU evaluation | Live TACC access/allocation | Blocked |
 | A008 | — | Select and exactly replay R0 in its documented pinned environment | Preserved production-shaped evidence track | A003 and compatibility review | Deferred by L0007 |
@@ -79,17 +86,17 @@ other secrets.
 | A016 | 1 | Pin the local `uv` environment and exact stable PyTorch and NumPy versions | Makes starter results reproducible | None | Completed |
 | A017 | 1 | Implement only the E0–E2 starter package, CLI, artifact writer, and focused tests specified in L0007 | Builds the selected weekly scope without production-shaped expansion | A016 | Completed |
 | A018 | 1 | Run the full automated test suite, then make E0 pass | E0 is the trust gate for the fixture and comparator | A017 | Completed |
-| A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Completed; pending Analyst |
-| A020 | 1 | Analyze and append every CPU result, failure, artifact path, and verdict | Results cannot drive later work until reviewed and archived | A019 | Blocked on completed runs |
-| A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Checks portability after the CPU suite is stable | A020 plus synchronized commit and pinned remote environment | Planned after CPU suite |
+| A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Completed and analyzed |
+| A020 | 1 | Analyze and append every CPU result, failure, artifact path, and verdict | Results cannot drive later work until reviewed and archived | A019 | Completed in L0012 |
+| A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Portability confirmation only; it does not broaden CPU verdicts | A020 plus synchronized commit and pinned remote environment | Analyst-authorized; ready after A002–A005 |
 
 ## Experiment index
 
 | ID | Date | Hypothesis | Baseline | Status | Verdict | Record |
 |---|---|---|---|---|---|---|
-| E0 | 2026-09-03 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64` no-checkpoint run and independent formulas | Three clean-commit CPU repetitions PASS | Pending Analyst | L0007, L0009, L0010 |
-| E1 | 2026-09-03 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | Six CPU scenarios, 54 isolated arms PASS | Pending Analyst | L0007, L0009, L0010 |
-| E2 | 2026-09-03 | Public `context_fn` and `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` exactly once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | `PUBLIC_HOOKS_INSUFFICIENT`: hooks suppressed recompute | Pending Analyst | L0007, L0009, L0010 |
+| E0 | 2026-09-03 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64` no-checkpoint run and independent formulas | Three clean-commit CPU repetitions PASS; bounded oracle | PROMOTE | L0007, L0009, L0010, L0012 |
+| E1 | 2026-09-03 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | Six CPU scenarios, 54 fresh processes PASS; bounded regression suite | PROMOTE | L0007, L0009, L0010, L0012 |
+| E2 | 2026-09-03 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | `PUBLIC_HOOKS_INSUFFICIENT`: hook candidate suppressed recompute | KILL exact candidate | L0007, L0009, L0010, L0012 |
 | R0 | 2026-09-02 | A documented natural activation-checkpoint bug reproduces in its pinned original environment without a project-invented fault | Exact upstream safe/failing comparison | Preserved; deferred | — | L0006, L0007 |
 | M0.1 | 2026-09-02 | Clean no-checkpoint and checkpointed genuine LM pretraining agree | Identical data/model/optimizer state | Preserved; deferred | — | L0006, L0007 |
 | M0.2 | 2026-09-02 | A controlled mutable-state fault changes a recomputed LM activation, gradient, and optimizer update while metadata remain equal | M0.1 clean oracle | Preserved; deferred | — | L0006, L0007 |
@@ -897,6 +904,149 @@ experiments, unless they test a preregistered research hypothesis.
   `darmok`, build the repository-local environment via named `remote-run`, and
   syntax-check the submit description. Do not call `condor_submit` for the live
   job until the Analyst gate is cleared.
+- **Secrets**: No secret material recorded.
+
+### L0012 — 2026-09-03 23:30 CDT — CPU E0–E2 Analyst verdicts archived
+
+- **Type**: analysis / decision / success / failure / archival
+- **Status**: completed; Condor portability confirmation authorized
+- **Objective**: Archive the supplied Analyst verdict for each completed CPU
+  experiment, bound each resulting claim to its evidence, and decide whether
+  the preregistered starter-only Condor repeat may proceed.
+- **Context consulted**: L0007 preregistration, L0009 implementation record,
+  L0010 factual CPU results and immutable artifact identifiers, L0011 Condor
+  preparation, and the supplied Analyst review.
+- **Repository state**: Current local `main` was clean at
+  `d5940c75abf7528bd4f322e2e9dc45e9a07a974d`, equal to `origin/main`. The CPU
+  artifacts analyzed below were generated from clean implementation commit
+  `14bce330cd1259192c2d8209ecb0a556346a2534`; L0010 and the Condor preparation
+  were subsequently committed and pushed in `86c0781` and `d5940c7`.
+
+- **Experiment E0 — clean checkpoint baseline and exact comparator**:
+  - **Parent idea / branch**: L0007 active starter calibration.
+  - **Hypothesis and baseline**: The preregistered fixed CPU `float64` fixture
+    should agree across no-checkpoint execution, original/recompute checkpoint
+    execution, and independently implemented forward and gradient formulas.
+  - **Change introduced / config diff**: No-checkpoint fixed calculation to the
+    same calculation under the preregistered non-reentrant checkpoint wrapper;
+    no unregistered change from L0007.
+  - **Parameter count**: Not applicable; this is the fixed tiny matrix fixture,
+    not a parameter-budget model experiment.
+  - **Command and artifacts**: `uv run aci-starter run E0`, repeated three
+    times. Run IDs:
+    - `e0-counter-correct-20260904T041621.910016Z-cbce59d8`
+    - `e0-counter-correct-20260904T041625.574015Z-64a78dbe`
+    - `e0-counter-correct-20260904T041634.248155Z-349df9f0`
+  - **Metrics**: Three of three runs passed. Each executed one original and one
+    recompute phase; all three expected `h`/`g`/`y` pairs were present and exact
+    (`3/3` per run); there were no missing, duplicate, value, or metadata
+    mismatches; and output, loss, all autograd gradients, and independent
+    formula/gradient references were exact.
+  - **Baseline integrity**: Confirmed for the recorded CPU runs; all manifests
+    identify clean commit `14bce33`, and the three repetitions agree.
+  - **Validity**: The Analyst supplied no separate categorical validity grade;
+    the verdict is explicitly bounded to this exact tiny CPU `float64` fixture,
+    comparator, and environment.
+  - **Result classification**: Clean calibration success.
+  - **Analyst verdict**: `PROMOTE`.
+  - **Analyst interpretation / lesson**: The evidence authorizes this exact tiny
+    fixture and comparator as a bounded oracle. It does not establish a
+    production baseline, natural pretraining failure, or broader capture
+    coverage.
+  - **Status / follow-up**: Promoted as the oracle for the controlled starter
+    regression suite and unchanged Condor portability confirmation.
+
+- **Experiment E1 — five fault families, six required scenarios**:
+  - **Parent idea / branch**: E0 bounded oracle and L0007 controlled-fault
+    calibration. The randomness family contains separate Python and NumPy
+    scenarios, yielding six required scenarios across five families.
+  - **Hypothesis and baseline**: Each correct and trigger-off arm should remain
+    exact; every broken original should equal its correct original; and every
+    broken recomputation should first differ at same-metadata `h`, alter a
+    gradient, and repeat deterministically.
+  - **Change introduced / config diff**: Exactly one preregistered counter,
+    buffer, Python RNG, NumPy RNG, precision-policy, or delayed-scaling trigger
+    at a time against identical fresh-process control and trigger-off state.
+  - **Parameter count**: Not applicable; these reuse the fixed tiny fixture.
+  - **Command and artifacts**: `uv run aci-starter run E1 --case all`; aggregate
+    run ID `e1-all-20260904T041647.718907Z-4f759aa3`, whose summary links all 54
+    fresh child processes: six scenarios times three repetitions times
+    correct/broken/trigger-off arms.
+  - **Metrics**: All six scenarios passed. Every correct and trigger-off arm was
+    exact; every broken original equaled the corresponding correct original;
+    every first mismatch was `h` with unchanged shape, dtype, device, layout,
+    and stride; at least one gradient differed; the default PyTorch metadata
+    check did not raise; and scientific and saved-tensor contents repeated
+    deterministically across all three seeded repetitions.
+  - **Baseline integrity**: Confirmed for the recorded CPU suite; all child
+    manifests identify clean commit `14bce33`, and fresh-process isolation is
+    recorded in the aggregate.
+  - **Validity**: The Analyst supplied no separate categorical validity grade;
+    the verdict is bounded to these six controlled scenarios, implementation,
+    CPU environment, and preregistered gates.
+  - **Result classification**: Controlled fault-regression success.
+  - **Analyst verdict**: `PROMOTE`.
+  - **Analyst interpretation / lesson**: The evidence authorizes E1 as a
+    controlled regression suite only. It does not show that any fault occurs
+    naturally or that the mechanism generalizes beyond the declared fixtures.
+  - **Status / follow-up**: Promoted for regression and unchanged Condor
+    portability confirmation.
+
+- **Experiment E2 — exact public-hook candidate**:
+  - **Parent idea / branch**: E0 bounded oracle plus L0007 public capture
+    coverage question.
+  - **Hypothesis and baseline**: The exact composition of checkpoint
+    `context_fn` with inner `torch.autograd.graph.saved_tensors_hooks` should
+    observe `h`, `g`, and `y` in original and recompute phases without changing
+    checkpoint behavior. Its no-hook baseline should execute both phases once.
+  - **Change introduced / config diff**: Only the inner public pack/unpack
+    observer was enabled around the otherwise identical `TaggedSave` fixture.
+  - **Parameter count**: Not applicable; this is the fixed tiny fixture.
+  - **Command and artifacts**: `uv run aci-starter run E2`; aggregate run ID
+    `e2-coverage-20260904T042046.953728Z-aab0a6b4`, no-hook baseline
+    `e2-counter-correct-20260904T042049.181490Z-8359e6dc`, and hook candidate
+    `e2-counter-correct-hooks-20260904T042054.099751Z-ba76592a`.
+  - **Metrics**: The no-hook baseline executed original/recompute phases `1/1`
+    with three exact pairs. The hook candidate executed phases `1/0`:
+    recomputation was suppressed, and recompute `h`, `g`, and `y` were all
+    missing. Output and gradients remained unchanged, which does not repair the
+    failed behavioral and coverage gate.
+  - **Baseline integrity**: Confirmed for this comparison; both arms identify
+    the same clean implementation commit and toggle only the observer.
+  - **Validity**: The Analyst supplied no separate categorical validity grade;
+    the verdict is bounded to this exact composition under PyTorch 2.13.0 on
+    the recorded Apple Silicon CPU environment.
+  - **Result classification**: `PUBLIC_HOOKS_INSUFFICIENT`.
+  - **Analyst verdict**: `KILL` the exact `context_fn` plus inner
+    `saved_tensors_hooks` candidate.
+  - **Analyst interpretation / lesson**: The likely mechanism is that the
+    innermost user hook displaced checkpoint's internal saved-tensor hook, so
+    recomputation was no longer triggered. This mechanism is an Analyst
+    inference from the observed phase suppression, not an independently proven
+    PyTorch implementation fact.
+  - **Claim boundary**: This verdict does not kill every public PyTorch API or
+    every possible public-hook composition. It does not prove that an internal
+    integration point is sufficient. The observer's retention of direct tensor
+    objects is diagnostic instrumentation and is not production code.
+  - **Status / follow-up**: Exact candidate killed and retained as negative
+    evidence. No replacement capture design or internal integration has been
+    validated by these results.
+
+- **Cross-experiment decision**: The Analyst authorizes the unchanged
+  preregistered E0–E2 experiment logic and gates to run in FP32 in one scheduled
+  Condor job as portability confirmation. The required PyTorch 2.12.1+cu126
+  environment difference is already disclosed in L0011. The Condor result may
+  confirm or contradict portability on Pascal, but cannot broaden the bounded
+  CPU claims or revive the killed E2 composition without a new Analyst review.
+- **Failure or caveat**: CPU evidence does not establish CUDA/Pascal behavior,
+  production overhead, natural-failure prevalence, general public-hook
+  insufficiency, or internal-hook sufficiency.
+- **Next actions**: Complete A002–A005 and A021 from exact operational commit
+  `d5940c75abf7528bd4f322e2e9dc45e9a07a974d`: re-query the live pool and queue,
+  synchronize the remote checkout, build the repository-local locked
+  environment, dry-run the submit description, and submit the one authorized
+  scheduler job. Append every setup failure and run result without overwrite,
+  then obtain another Analyst verdict before follow-up planning.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title
