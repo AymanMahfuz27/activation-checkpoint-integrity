@@ -27,14 +27,14 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-04 13:03 CDT
+- **Last updated**: 2026-09-04 13:07 CDT
 - **Research phase**: Active starter phase — E0–E2 exact-capture calibration
   on controlled tiny checkpoint fixtures; CPU results analyzed and archived,
   Condor FP32 portability confirmation blocked during setup
-- **Repository state**: Implementation work is based on clean `main` commit
-  `2231b2981e686cf626c4ed04983396b6d09a9e40`. The worktree contains the
-  preserved L0014–L0015 updates plus the locally verified A022 changes recorded
-  in L0016; the implementation commit and push are pending
+- **Repository state**: Local `main`, `origin/main`, and the clean `darmok`
+  checkout match implementation commit
+  `05b477a9b3246b56b4be6a64c04280ebbfad1150`; only this L0017 remediation
+  record is now modified locally
 - **Research objective**: Detect activation-checkpoint recomputation value
   changes before model or optimizer state is mutated
 - **Current baseline**: E0 is promoted as a bounded oracle for this exact tiny
@@ -42,8 +42,8 @@ other secrets.
   preregistered gates
 - **Current experiment**: CPU verdicts remain E0/E1 `PROMOTE` and exact E2
   candidate `KILL`. Condor job 1553506.0 remains `BLOCKED —
-  REMOTE_DISK_QUOTA`. A022 is implemented and locally verified; the authorized
-  A023 removal and one retry have not started
+  REMOTE_DISK_QUOTA`. A022 is synchronized and A023's exact authorized removal
+  is complete; the one authorized retry has not been submitted
 - **Best validated result**: The exact E0 fixture/comparator is a bounded clean
   oracle, and E1 is a bounded controlled regression suite. Neither is
   production or natural-failure evidence
@@ -52,13 +52,13 @@ other secrets.
   `eldar-44`; its 19 passing tests exercised CPU fixtures only. The job stopped
   before E0 artifact creation, so no GPU experiment or CUDA-kernel validation
   occurred; TACC is not configured
-- **Active blockers**: No Condor E0/E1/E2 result exists. The authorized remote
-  environment removal, scratch rebuild, live preflights, and one scheduler
-  retry remain pending. The 6.1 GiB environment is a likely quota contributor,
-  not a quantified sole cause
-- **Immediate next action**: Commit and synchronize the A022 implementation,
-  then revalidate and remove only the authorized generated remote environment,
-  record the outcome, and submit exactly one unchanged-science retry
+- **Active blockers**: No Condor E0/E1/E2 result exists. The scratch rebuild,
+  live preflights, and one scheduler retry remain pending. Removing the 6.1 GiB
+  environment freed enough submit-side storage for a durable write probe and
+  Git synchronization, but does not establish it as the sole quota cause
+- **Immediate next action**: Commit and synchronize L0017, re-query the live
+  pool and queue, dry-run the submit description, and submit exactly one
+  unchanged-science retry
 - **Canonical Notion context**: `MOOTAZ PROJECT`, page ID
   `3c65d66f-2c23-80c6-879f-e0aff5e92706`
 - **Last synchronized with Notion**: The user explicitly selected `Starter
@@ -93,8 +93,8 @@ other secrets.
 | A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Completed and analyzed |
 | A020 | 1 | Analyze and append every CPU result, failure, artifact path, and verdict | Results cannot drive later work until reviewed and archived | A019 | Completed in L0012 |
 | A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Portability confirmation only; it does not broaden CPU verdicts | A020, A022, A023, and L0015 authorization | `REPEAT` after A023 remediation is separately recorded; one new job authorized |
-| A022 | 1 | Move `ArtifactWriter` setup into classified exception handling and add writable-artifact and CUDA-kernel preflights | Ensures setup failures return exit 2 and kernel incompatibility is detected before scientific execution | L0014 diagnosis | Implemented and locally verified in L0016; commit/push pending |
-| A023 | 1 | Preserve prior logs/spec, remove only `.condor-venv-968f64415c1731fa`, and rebuild the same locked environment in per-job scratch | Frees the likely 6.1 GiB home-storage contributor without changing scientific logic or destroying prior evidence | A022 local verification and L0015 authorization | Authorized; outcome must be logged before retry submission |
+| A022 | 1 | Move `ArtifactWriter` setup into classified exception handling and add writable-artifact and CUDA-kernel preflights | Ensures setup failures return exit 2 and kernel incompatibility is detected before scientific execution | L0014 diagnosis | Completed in L0016 at `05b477a`; synchronized locally, on origin, and remotely |
+| A023 | 1 | Preserve prior logs/spec, remove only `.condor-venv-968f64415c1731fa`, and rebuild the same locked environment in per-job scratch | Frees the likely 6.1 GiB home-storage contributor without changing scientific logic or destroying prior evidence | A022 local verification and L0015 authorization | Authorized persistent-environment removal completed in L0017; per-job scratch rebuild pending in retry |
 
 ## Experiment index
 
@@ -1369,6 +1369,76 @@ experiments, unless they test a preregistered research hypothesis.
   generated environment, record the removal outcome and remaining sizes, then
   re-query Condor, dry-run the unchanged submit description, and submit exactly
   one newly identified retry.
+- **Secrets**: No secret material recorded.
+
+### L0017 — 2026-09-04 13:07 CDT — Authorized remote environment removed
+
+- **Type**: setup / remediation / failure / success
+- **Status**: completed; retry not submitted
+- **Objective**: Execute only L0015's authorized removal of the generated,
+  reproducible persistent Condor environment, prove the retained evidence and
+  specification remained unchanged, and restore enough home storage for the
+  scratch-based retry workflow.
+- **Context consulted**: L0013–L0016, exact remote job 1553506.0 records,
+  implementation commit `05b477a9b3246b56b4be6a64c04280ebbfad1150`,
+  remote Git state, dependency-lock hash, target type/path, and directory sizes.
+- **Repository state before removal**: Local and `origin/main` were clean and
+  equal at `05b477a9b3246b56b4be6a64c04280ebbfad1150`. The first remote
+  `git pull --ff-only` from clean commit
+  `bb952254ebe1fc2466cb2b00f2635455d616ae3d` failed while closing a loose Git
+  object with `Disk quota exceeded`; `git fsck --no-dangling` then passed, the
+  remote HEAD stayed unchanged, and the worktree stayed clean.
+- **Exact target validation**:
+  - Target:
+    `/u/ayman27/activation-checkpoint-integrity/.condor-venv-968f64415c1731fa`.
+  - The resolved parent was exactly
+    `/u/ayman27/activation-checkpoint-integrity`; the target existed as a
+    directory, was not a symbolic link, was ignored by Git, and its basename
+    exactly matched `.condor-venv-` plus the first 16 characters of the current
+    dependency-lock SHA-256.
+  - Lock SHA-256 remained
+    `968f64415c1731fa2729ecb519169d74389d661ce1c78c9aac0a7d4c72c6e72e`.
+  - Measured target size before removal: 6,297,092 KiB, reported by `du -sh` as
+    6.1 GiB.
+- **Action**: Removed only that exact generated environment. No cache, tool,
+  source, lock, submit description, job log, artifact, or other data was
+  removed. The environment is reproducible from
+  `condor/requirements-cu126.lock` with project-local `uv` 0.12.3.
+- **Post-removal evidence**:
+  - Confirmed the exact target no longer existed.
+  - Created a 28-byte file under `artifacts/condor`, wrote, flushed, fsynced,
+    read back the exact content, and removed it; the probe passed.
+  - Remaining remote sizes: `.git` 572 KiB, `.condor-tools` 54 MiB,
+    `artifacts` 32 KiB, `condor` 32 KiB, `src` 188 KiB, and `tests` 56 KiB.
+  - The system has no `quota` command, so an assigned numeric quota and total
+    account usage remain unknown.
+  - After storage was freed, `git pull --ff-only` succeeded. Remote HEAD,
+    remote `origin/main`, local HEAD, and local `origin/main` all matched
+    `05b477a9b3246b56b4be6a64c04280ebbfad1150`, and both worktrees were clean.
+  - Retained job hashes remained: `1553506.log`
+    `00db2a17266c47119a4d98330222ba4339a796e292edc67606c465d89f66ff16`,
+    `1553506.0.out`
+    `27351240b313c7dc47442bf2e32fd0f15a0d24345225b035f35b3f836e313c65`,
+    and `1553506.0.err`
+    `e0334b16ed96b9f8531b4ed38571c592f694a9b036c5b73e7d6be27d305cbda9`.
+  - Retained submit-description hash remained
+    `bca9cd94ef40b02378aff70064c8130e0f23164089c5f6bc17672ad277ca31de`.
+- **Outcome**: The authorized persistent-environment removal and post-removal
+  storage probe completed. Prior failed-job evidence, hash-locked requirements,
+  project-local tooling, source, and submit specification remain intact.
+- **Failure or caveat**: The failed first pull is additional direct evidence of
+  submit-side quota exhaustion before removal. The successful post-removal
+  write and pull show usable space was restored, but do not quantify the quota
+  or prove the environment was the sole cause. The scratch environment has not
+  yet been built because that action belongs inside the one scheduled retry.
+- **Scientific result**: None. E0–E2 logic did not execute and job 1553506.0
+  remains `BLOCKED — REMOTE_DISK_QUOTA`.
+- **Analyst verdict / interpretation**: Pending for the remediation evidence;
+  no scientific interpretation is made here.
+- **Next actions**: Commit and synchronize this record, re-query live Condor
+  state, run the scheduler dry-run, and submit exactly one newly identified
+  retry. Preserve its scratch-bootstrap, preflight, tests, E0/E1/E2, scheduler,
+  and artifact evidence without another substitute if it blocks.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title
