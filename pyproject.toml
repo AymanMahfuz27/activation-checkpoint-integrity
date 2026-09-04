@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "activation-checkpoint-integrity"
+version = "0.1.0"
+description = "Exact calibration fixtures for activation-checkpoint recomputation"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "numpy==2.5.2",
+  "torch==2.13.0",
+]
+
+[project.scripts]
+aci-starter = "ac_integrity.cli:main"
+
+[dependency-groups]
+dev = ["pytest==9.1.1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ac_integrity"]
