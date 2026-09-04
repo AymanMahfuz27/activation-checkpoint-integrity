@@ -219,10 +219,28 @@ def run_arm(
 
     label = "-".join(part for part in (case, variant, mode, "hooks" if hooks else None) if part)
     run_id = run_id or _new_run_id(experiment, label)
-    writer = ArtifactWriter(artifact_root, run_id)
     started_wall = time.monotonic()
     started_at = _utc_now()
     command = command or sys.argv
+    try:
+        writer = ArtifactWriter(artifact_root, run_id)
+    except OSError as error:
+        summary = {
+            "run_id": run_id,
+            "experiment": experiment,
+            "case": case,
+            "mode": mode,
+            "variant": variant,
+            "result": "BLOCKED",
+            "environment_error": f"{type(error).__name__}: {error}",
+            "artifacts_persisted": False,
+        }
+        return RunOutcome(
+            exit_code=2,
+            run_id=run_id,
+            run_dir=artifact_root / run_id,
+            summary=summary,
+        )
     manifest: dict[str, Any] | None = None
     try:
         device = resolve_device(device_name)

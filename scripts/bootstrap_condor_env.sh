@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Input: the synchronized repository on the Condor submit host.
-# Output: a content-addressed, repository-local Python environment.
-# Sequence: verify the host, install a checksum-verified local uv binary, then
-# sync the complete hash-locked CUDA 12.6 dependency graph.
+# Input: the synchronized repository and one Condor per-job scratch directory.
+# Output: a content-addressed Python environment inside that scratch directory.
+# Sequence: verify the host, verify/install the checksum-locked project-local
+# uv binary, then sync the complete hash-locked CUDA 12.6 dependency graph.
 
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 uv_version=0.12.3
@@ -14,10 +14,15 @@ uv_dir="$repo_dir/.condor-tools"
 uv_bin="$uv_dir/uv"
 requirements="$repo_dir/condor/requirements-cu126.lock"
 python_bin=/u/ayman27/miniconda3/bin/python3
+environment_parent=${1:-${_CONDOR_SCRATCH_DIR:-}}
 
 cd "$repo_dir"
 test -x "$python_bin"
 test -f "$requirements"
+if [[ -z "$environment_parent" ]] || [[ ! -d "$environment_parent" ]]; then
+    printf 'ERROR: a valid Condor scratch directory is required\n' >&2
+    exit 2
+fi
 "$python_bin" -c 'import sys; assert sys.version_info[:2] == (3, 13), sys.version'
 
 if [[ ! -x "$uv_bin" ]] || [[ "$($uv_bin --version)" != "uv $uv_version"* ]]; then
@@ -33,12 +38,13 @@ if [[ ! -x "$uv_bin" ]] || [[ "$($uv_bin --version)" != "uv $uv_version"* ]]; th
 fi
 
 lock_hash=$(sha256sum "$requirements" | awk '{print $1}')
-environment_dir="$repo_dir/.condor-venv-${lock_hash:0:16}"
+environment_dir="$environment_parent/aci-condor-venv-${lock_hash:0:16}"
 if [[ ! -x "$environment_dir/bin/python" ]]; then
     "$uv_bin" venv --python "$python_bin" "$environment_dir"
 fi
 
-"$uv_bin" pip sync \
+UV_CACHE_DIR="$environment_parent/uv-cache" "$uv_bin" pip sync \
+    --no-cache \
     --python "$environment_dir/bin/python" \
     --python-platform x86_64-manylinux_2_28 \
     --require-hashes \
@@ -46,11 +52,6 @@ fi
     --index https://pypi.org/simple \
     --index-strategy unsafe-best-match \
     "$requirements"
-
-mkdir -p "$repo_dir/artifacts/condor"
-printf '%s\n' "$environment_dir" > "$repo_dir/artifacts/condor/environment_path.txt"
-"$uv_bin" pip freeze --python "$environment_dir/bin/python" \
-    > "$repo_dir/artifacts/condor/environment-freeze.txt"
 
 printf 'environment=%s\n' "$environment_dir"
 printf 'lock_sha256=%s\n' "$lock_hash"

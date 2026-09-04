@@ -238,5 +238,51 @@ def test_cli_exit_codes(tmp_path: Path) -> None:
         capture_output=True,
         text=True,
     )
+    artifact_parent_is_file = tmp_path / "not-a-directory"
+    artifact_parent_is_file.write_text("setup must fail before science\n")
+    setup_failure = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "ac_integrity.cli",
+            "run",
+            "E0",
+            "--artifact-root",
+            str(artifact_parent_is_file),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    scientific_failure = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "ac_integrity.cli",
+            "_arm",
+            "E2",
+            "--case",
+            "counter",
+            "--mode",
+            "correct",
+            "--device",
+            "cpu",
+            "--dtype",
+            "float64",
+            "--artifact-root",
+            str(tmp_path / "scientific-failure"),
+            "--hooks",
+            "--tagged-save",
+        ],
+        capture_output=True,
+        text=True,
+    )
     assert success.returncode == 0
     assert invalid.returncode == 2
+    assert setup_failure.returncode == 2
+    setup_payload = json.loads(setup_failure.stdout)
+    assert setup_payload["result"] == "BLOCKED"
+    assert Path(setup_payload["run_dir"]).parent == artifact_parent_is_file
+    assert "NotADirectoryError" in setup_failure.stdout
+    assert not setup_failure.stderr
+    assert scientific_failure.returncode == 1
+    assert json.loads(scientific_failure.stdout)["result"] == "PUBLIC_HOOKS_INSUFFICIENT"

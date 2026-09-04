@@ -90,7 +90,15 @@ def main(argv: list[str] | None = None) -> int:
             artifact_root=arguments.artifact_root,
             command=command,
         )
-    print(json.dumps({"run_id": outcome.run_id, "run_dir": str(outcome.run_dir), "result": outcome.summary["result"]}))
+    payload = {
+        "run_id": outcome.run_id,
+        "run_dir": str(outcome.run_dir),
+        "result": outcome.summary["result"],
+    }
+    for key in ("environment_error", "artifacts_persisted"):
+        if key in outcome.summary:
+            payload[key] = outcome.summary[key]
+    print(json.dumps(payload))
     return outcome.exit_code
 
 
