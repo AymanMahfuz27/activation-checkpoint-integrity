@@ -27,7 +27,7 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-03 23:22 CDT
+- **Last updated**: 2026-09-03 23:27 CDT
 - **Research phase**: Active starter phase — E0–E2 exact-capture calibration
   on controlled tiny checkpoint fixtures
 - **Repository commit**: `14bce330cd1259192c2d8209ecb0a556346a2534`
@@ -62,9 +62,9 @@ other secrets.
 | ID | Priority | Action | Reason | Dependencies | Status |
 |---|---:|---|---|---|---|
 | A001 | 1 | Commit and push `AGENTS.md` and `RESEARCH_LOG.md` when authorized | Makes the operating rules available to GitHub and remote agents | User authorization to commit/push | Ready |
-| A002 | 2 | Pull the documentation commit into the `darmok` checkout | Keeps remote work under the same instructions | A001 and stable CPU suite | Ready |
-| A003 | 2 | Pin compatible Python, PyTorch, and CUDA versions and create a dedicated remote environment | Existing base Conda environment is not reproducible | A016 and stable CPU suite | Ready |
-| A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Active |
+| A002 | 2 | Pull the documentation commit into the `darmok` checkout | Keeps remote work under the same instructions | A001 and stable CPU suite | Ready after operational commit |
+| A003 | 2 | Pin compatible Python, PyTorch, and CUDA versions and create a dedicated remote environment | Existing base Conda environment is not reproducible | A016 and stable CPU suite | Environment lock complete; remote sync pending |
+| A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Implemented locally; remote dry-run pending |
 | A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Ready after A004 |
 | A006 | 2 | Define the first falsifiable hypothesis, baseline, metrics, and falsification criterion | No scientific run should start without a preregistered contract | Notion plan and source audit | Completed |
 | A007 | 3 | Verify and document TACC access, allocation, paths, scheduler, and environment | Required for final modern-GPU evaluation | Live TACC access/allocation | Blocked |
@@ -843,6 +843,60 @@ experiments, unless they test a preregistered research hypothesis.
 - **Next actions**: Version this factual record, execute the unchanged starter
   logic in one scheduled Condor GPU job, and route all results to Analyst before
   follow-up planning.
+- **Secrets**: No secret material recorded.
+
+### L0011 — 2026-09-03 23:27 CDT — Starter-only Condor execution prepared
+
+- **Type**: setup / implementation / environment / cluster probe
+- **Status**: in progress; submission paused pending the CPU Analyst verdict
+- **Objective**: Prepare one reproducible scheduled Pascal GPU job that repeats
+  unchanged E0–E2 logic in FP32 without installing persistent account-wide
+  tooling or running compute on the submit host.
+- **Context consulted**: AGENTS remote policy, L0007 and L0010, official
+  PyTorch previous-version wheel matrix, official PyTorch package indexes, and
+  the current UTCS pool/queue.
+- **Repository state**: Local `main` at
+  `86c0781eb45544b41524947a03c3ee2c5591ea0c`, equal to `origin/main` before
+  the operational-file changes. Remote checkout remained clean at historical
+  commit `b4afab63918d1a41dfff3e9e8a22397b28b10bc5` and has not yet been pulled.
+- **Environment decision**:
+  - PyTorch 2.13.0 is the stable local CPU pin but its official Linux wheel
+    matrix provides CUDA 13.0 and 13.2, not CUDA 12.6. CUDA 13 removes Pascal
+    support, so using the 2.13 CUDA wheel would violate the cluster constraint.
+  - PyTorch 2.12.1 is the newest official build with a CUDA 12.6 wheel. The
+    GPU-only environment therefore pins `torch==2.12.1+cu126`, retains
+    `numpy==2.5.2` and `pytest==9.1.1`, and records this required environment
+    config difference without changing fixture, fault, capture, gate, or
+    runner logic.
+  - Generated `condor/requirements-cu126.lock` with hashes for the complete
+    35-package CPython 3.13 / manylinux 2.28 graph. The selected x86-64 torch
+    wheel is published with SHA-256
+    `b30ef03ebb87d6b7f5d8b1982bb08cf6a42bde552c9e6acf6a9c097b2700d0f1`.
+  - The bootstrap downloads `uv` 0.12.3 into ignored `.condor-tools/`, verifies
+    its archive SHA-256
+    `600cf9a742aca00d292673b16b5acffaa7b8c269a364ad0c2e79498dcb1fe101`,
+    and syncs a content-addressed ignored `.condor-venv-<lock-hash>/`. No
+    account-wide installation or base-Conda mutation is performed.
+- **Operational files**: Added the hash-locked Condor input/lock, project-local
+  environment bootstrap, one-job E0/E1/E2 runner with fail-fast CUDA/Pascal
+  checks and complete metadata output, submit description, and ignore rules.
+  `bash -n` and `git diff --check` pass locally.
+- **Live cluster evidence**: At 2026-09-03 23:25 CDT, bounded SSH checks found
+  `darmok` on glibc 2.31, 1024 total advertised slots with 954 unclaimed,
+  numerous idle `eldar` GTX 1080 and GTX 1080 Ti slots at compute capability
+  6.1, and no jobs owned by `ayman27`. The global queue had 385 jobs: 65
+  running, 318 idle, and 2 held. Availability is dynamic and will be queried
+  again immediately before submission.
+- **Failure or caveat**: PyTorch 2.12.1+cu126 import and kernel compatibility
+  on the `eldar` execution image remain unverified until a scheduled job runs.
+  No scientific GPU job has been submitted.
+- **Decision / lesson**: Submission is explicitly paused until the Orchestrator
+  relays the CPU Analyst verdict. Environment synchronization and submit-file
+  dry-run may proceed without executing scientific compute.
+- **Next actions**: Commit/push the operational files, pull the exact commit on
+  `darmok`, build the repository-local environment via named `remote-run`, and
+  syntax-check the submit description. Do not call `condor_submit` for the live
+  job until the Analyst gate is cleared.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title
