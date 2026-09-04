@@ -27,46 +27,48 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-04 13:20 CDT
-- **Research phase**: Active starter phase — E0–E2 exact-capture calibration
-  on controlled tiny checkpoint fixtures; CPU results analyzed and archived,
-  Condor FP32 retry results available and pending Analyst review
-- **Repository state**: Local `main`, `origin/main`, and the clean `darmok`
-  checkout match remediation-record commit
-  `7cdce891c8ef4d9418f1ece0a8dbcb88e5accc67`; only this L0018 factual result
-  record is now modified locally
+- **Last updated**: 2026-09-04 13:46 CDT
+- **Research phase**: E0–E2 starter phase complete for the controlled tiny
+  checkpoint fixtures. CPU and bundled Pascal CUDA FP32 results are analyzed
+  and archived, and both non-gating diagnostic/provenance defects are corrected
+  for future runs. Production-shaped work remains deferred
+- **Repository state**: The local working tree is based on
+  `e05660c35100ebae9986789ba6ce2d2dc333bd56` with append-only L0019 plus A024,
+  A025, documentation, and verification changes prepared for one commit;
+  `origin/main` and the clean `darmok` checkout still match `e05660c` before
+  final synchronization
 - **Research objective**: Detect activation-checkpoint recomputation value
   changes before model or optimizer state is mutated
 - **Current baseline**: E0 is promoted as a bounded oracle for this exact tiny
-  CPU `float64` fixture and comparator after three clean repetitions passed all
-  preregistered gates
-- **Current experiment**: CPU verdicts remain E0/E1 `PROMOTE` and exact E2
-  candidate `KILL`. Retry 1553510.0 completed with scheduler exit 0 and emitted
-  E0 `PASS`, E1 `PASS`, and E2 `PUBLIC_HOOKS_INSUFFICIENT`; those are raw
-  classifications pending a new Analyst verdict. Job 1553506.0 remains the
-  preserved blocked attempt
+  fixture and comparator after three CPU `float64` and three CUDA FP32
+  repetitions passed their preregistered gates
+- **Current experiment**: None active. Retry 1553510.0 is analyzed and archived:
+  E0 GPU and E1 GPU are `PROMOTE` for their bounded roles; the exact E2
+  public-hook candidate is `KILL` after reproducing baseline phases 1/1 and
+  candidate phases 1/0 across the bundled CUDA environment change. Job
+  1553506.0 remains the preserved blocked attempt
 - **Best validated result**: The exact E0 fixture/comparator is a bounded clean
-  oracle, and E1 is a bounded controlled regression suite. Neither is
-  production or natural-failure evidence
+  CPU/GPU oracle, and E1 is a bounded CPU/GPU controlled regression suite. E2
+  supplies replicated negative evidence for one exact capture composition.
+  None is production, natural-failure, overhead, or hardware-isolation evidence
 - **Compute status**: Apple Silicon CPU suite complete. Condor job 1553506.0
   remains `BLOCKED — REMOTE_DISK_QUOTA`. Retry 1553510.0 ran once on a GTX 1080
   Ti at `eldar-44`, built the environment in Condor scratch, passed artifact and
   real CUDA-kernel preflights plus 19 tests, and produced the E0–E2 FP32 raw
   artifacts recorded in L0018; TACC is not configured
-- **Active blockers**: Analyst validity review and archival are pending. The E1
-  and E2 aggregate manifests contain a pre-existing metadata defect that labels
-  their aggregate environment device as CPU; every scientific child manifest
-  and the scheduler record identify CUDA correctly
-- **Immediate next action**: Route L0018 and the raw artifacts to Analyst, then
-  archive the verdict before any follow-up planning or implementation
+- **Active blockers**: None within the completed starter scope. TACC remains
+  unconfigured, and all production-shaped experiments remain explicitly
+  deferred rather than blocked starter work
+- **Immediate next action**: Keep the production-shaped plan deferred until it
+  is separately activated; do not infer production, overhead, modern-GPU, or
+  universal public-hook claims from E0–E2
 - **Canonical Notion context**: `MOOTAZ PROJECT`, page ID
   `3c65d66f-2c23-80c6-879f-e0aff5e92706`
-- **Last synchronized with Notion**: The user explicitly selected `Starter
-  E0–E2 Plan: Five Tiny Checkpoint Failures and Capture Validation`, page ID
-  `3d05d66f-2c23-8068-b52a-ca774781771e`, last edited
-  `2026-09-03T04:15:45.303Z`, as this week's active scope. The separately
-  preserved production-shaped plan, page ID
-  `3d05d66f-2c23-80d1-882f-ea6c45c89a7e`, is deferred.
+- **Last synchronized with Notion**: Re-read on 2026-09-04. The user-selected
+  `Starter E0–E2 Plan: Five Tiny Checkpoint Failures and Capture Validation`,
+  page ID `3d05d66f-2c23-8068-b52a-ca774781771e`, was last edited
+  `2026-09-03T04:15:45.303Z`. The separately preserved production-shaped plan,
+  page ID `3d05d66f-2c23-80d1-882f-ea6c45c89a7e`, remains deferred.
 
 ## Planned actions
 
@@ -92,19 +94,21 @@ other secrets.
 | A018 | 1 | Run the full automated test suite, then make E0 pass | E0 is the trust gate for the fixture and comparator | A017 | Completed |
 | A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Completed and analyzed |
 | A020 | 1 | Analyze and append every CPU result, failure, artifact path, and verdict | Results cannot drive later work until reviewed and archived | A019 | Completed in L0012 |
-| A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Portability confirmation only; it does not broaden CPU verdicts | A020, A022, A023, and L0015 authorization | Completed once as 1553510.0; results available, Analyst verdict pending |
+| A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Portability confirmation only; it does not broaden CPU verdicts | A020, A022, A023, and L0015 authorization | Completed once as 1553510.0; E0/E1 `PROMOTE`, exact E2 candidate `KILL` in L0019 |
 | A022 | 1 | Move `ArtifactWriter` setup into classified exception handling and add writable-artifact and CUDA-kernel preflights | Ensures setup failures return exit 2 and kernel incompatibility is detected before scientific execution | L0014 diagnosis | Completed in L0016 at `05b477a`; synchronized locally, on origin, and remotely |
-| A023 | 1 | Preserve prior logs/spec, remove only `.condor-venv-968f64415c1731fa`, and rebuild the same locked environment in per-job scratch | Frees the likely 6.1 GiB home-storage contributor without changing scientific logic or destroying prior evidence | A022 local verification and L0015 authorization | Authorized persistent-environment removal completed in L0017; per-job scratch rebuild pending in retry |
+| A023 | 1 | Preserve prior logs/spec, remove only `.condor-venv-968f64415c1731fa`, and rebuild the same locked environment in per-job scratch | Frees the likely 6.1 GiB home-storage contributor without changing scientific logic or destroying prior evidence | A022 local verification and L0015 authorization | Completed: removal in L0017 and scratch rebuild in retry 1553510.0 |
+| A024 | 1 | Repair aggregate provenance to derive the actual child device and add a regression test | Historical E1/E2 aggregates hardcode CPU while authoritative child evidence records CUDA | L0019; preserve historical artifacts | Completed in L0020; future aggregate manifests record selected device/dtype/environment, no scientific rerun |
+| A025 | 1 | Correct transform-scale derivatives in `independent_reference` for Python/NumPy RNG and add focused tests | The forward reference applies scale but its `x`/`w1` derivatives omit it, making the diagnostic false on CPU and GPU | L0019; same-state E1 gates remain authoritative | Completed in L0020; Python and NumPy focused references pass, no scientific rerun |
 
 ## Experiment index
 
 | ID | Date | Hypothesis | Baseline | Status | Verdict | Record |
 |---|---|---|---|---|---|---|
-| E0 | 2026-09-03 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64` no-checkpoint run and independent formulas | Three clean-commit CPU repetitions PASS; bounded oracle | PROMOTE | L0007, L0009, L0010, L0012 |
-| E1 | 2026-09-03 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | Six CPU scenarios, 54 fresh processes PASS; bounded regression suite | PROMOTE | L0007, L0009, L0010, L0012 |
-| E2 | 2026-09-03 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | `PUBLIC_HOOKS_INSUFFICIENT`: hook candidate suppressed recompute | KILL exact candidate | L0007, L0009, L0010, L0012 |
+| E0 | 2026-09-03/04 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64`/CUDA FP32 no-checkpoint runs and independent formulas | Three CPU and three GPU repetitions pass; bounded oracle; identity formula reconfirmed after diagnostic fix | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
+| E1 | 2026-09-03/04 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | CPU and GPU suites each pass all 54 fresh arms; future Python/NumPy formula diagnostic corrected | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
+| E2 | 2026-09-03/04 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | CPU and bundled CUDA runs both show baseline 1/1, candidate 1/0 | KILL exact candidate | L0007, L0009, L0010, L0012, L0018, L0019 |
 | Condor 1553506.0 | 2026-09-03 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results | `BLOCKED — REMOTE_DISK_QUOTA`; no GPU experiment ran | REPEAT only after separately recorded storage remediation; one retry authorized by L0015 | L0011, L0013, L0014, L0015 |
-| Condor 1553510.0 | 2026-09-04 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results and preserved blocked job 1553506.0 | Completed once; raw E0 PASS, E1 PASS, E2 `PUBLIC_HOOKS_INSUFFICIENT` | Pending Analyst | L0015, L0016, L0017, L0018 |
+| Condor 1553510.0 | 2026-09-04 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results and preserved blocked job 1553506.0 | Completed and analyzed; bundled portability evidence only | E0 `PROMOTE`; E1 `PROMOTE`; exact E2 candidate `KILL` | L0015, L0016, L0017, L0018, L0019 |
 | R0 | 2026-09-02 | A documented natural activation-checkpoint bug reproduces in its pinned original environment without a project-invented fault | Exact upstream safe/failing comparison | Preserved; deferred | — | L0006, L0007 |
 | M0.1 | 2026-09-02 | Clean no-checkpoint and checkpointed genuine LM pretraining agree | Identical data/model/optimizer state | Preserved; deferred | — | L0006, L0007 |
 | M0.2 | 2026-09-02 | A controlled mutable-state fault changes a recomputed LM activation, gradient, and optimizer update while metadata remain equal | M0.1 clean oracle | Preserved; deferred | — | L0006, L0007 |
@@ -1584,6 +1588,256 @@ experiments, unless they test a preregistered research hypothesis.
 - **Next actions**: Commit and push this factual result record, verify local,
   origin, and remote state, then route the raw evidence to Analyst. Do not run
   another scheduler substitute or begin the deferred production-shaped plan.
+- **Secrets**: No secret material recorded.
+
+### L0019 — 2026-09-04 13:30 CDT — GPU E0–E2 Analyst verdicts archived
+
+- **Type**: analysis / decision / success / failure / archival
+- **Status**: GPU verdicts complete; two non-gating instrumentation corrections
+  required before starter-scope completion
+- **Objective**: Archive the Analyst's separate verdicts for the E0, E1, and E2
+  results from Condor retry 1553510.0, preserve the exact claim boundaries, and
+  record two discovered instrumentation defects without changing historical
+  evidence.
+- **Context consulted**: L0012 CPU verdicts, L0014 conditional repeat, L0015
+  authorization, L0016–L0017 remediation, L0018 factual GPU results, every
+  aggregate and child record, raw tensors and comparisons, exact commands, and
+  the supplied Analyst review.
+- **Repository state**: Local `main`, `origin/main`, and the clean `darmok`
+  checkout matched factual-result commit
+  `e05660c35100ebae9986789ba6ce2d2dc333bd56` before this archival edit.
+- **Environment bundle**: NVIDIA GeForce GTX 1080 Ti, CUDA FP32, Linux,
+  PyTorch 2.12.1+cu126, CUDA runtime 12.6, driver 535.247.01, CPython 3.13.5,
+  and NumPy 2.5.2. Compared with the CPU baseline, device, dtype, operating
+  system, and PyTorch build changed together; the result tests bundled
+  portability and does not isolate a hardware, dtype, OS, or framework cause.
+- **Baseline integrity**: `CONFIRMED`. All 59 scientific child manifests identify
+  clean commit `7cdce891c8ef4d9418f1ece0a8dbcb88e5accc67`, CUDA FP32, seed 20260903,
+  job 1553510.0, PyTorch 2.12.1+cu126, and compute capability 6.1. The prior CPU
+  artifacts and blocked-job records remain intact.
+
+- **Experiment E0 GPU — clean checkpoint baseline and exact comparator**:
+  - **Parent idea / branch**: E0 bounded CPU oracle and L0014 conditional
+    portability repeat.
+  - **Hypothesis**: The fixed clean fixture preserves original/recompute tensor
+    values and metadata and checkpoint/no-checkpoint behavior in the bundled
+    Pascal CUDA FP32 environment.
+  - **Baseline**: Archived E0 CPU `float64` oracle plus each CUDA run's
+    no-checkpoint execution and separately implemented closed-form reference.
+  - **Change introduced / config diff**: Apple CPU `float64`, macOS, and PyTorch
+    2.13.0 -> GTX 1080 Ti CUDA FP32, Linux, and PyTorch 2.12.1+cu126; fixture,
+    seed, comparator, formulas, phase gates, and three-run count unchanged.
+  - **Parameter count**: N/A — fixed tiny fixture; no scientific source or
+    parameterization changed.
+  - **Metrics and artifacts**: All three runs recorded original/recompute phases
+    1/1. Saved `h`, `g`, and `y` pairs were bit-exact. Checkpoint and
+    no-checkpoint output, loss, and gradients were bit-exact. Independent
+    closed-form gradients agreed within the configured `1e-6` tolerance but
+    were not all bit-exact: maximum absolute differences were
+    `b=0`, `w1=1.1920929e-7`, `w2=0`, and `x=4.7683716e-7`.
+  - **Validity**: High for the exact bounded fixture and environment bundle;
+    attribution to any one changed environment dimension is not established.
+  - **Result classification**: improvement/neutral are not applicable; bounded
+    clean-oracle and portability gates passed.
+  - **Analyst verdict**: `PROMOTE` as a bounded GPU clean oracle.
+  - **Analyst interpretation / lesson**: Exact checkpoint equivalence and
+    comparator behavior survive this bundled CUDA FP32 change. Tolerance-level
+    closed-form differences are expected FP32 arithmetic-order effects and do
+    not contradict the preregistered gate.
+  - **Status / follow-up**: Promoted for the bounded regression harness. No
+    additional GPU run is required for this verdict.
+
+- **Experiment E1 GPU — five controlled fault families**:
+  - **Parent idea / branch**: Promoted E0 bounded oracle and the CPU E1
+    controlled-fault suite.
+  - **Hypothesis**: Each fault family produces the preregistered same-metadata
+    value and gradient divergence while correct and trigger-disabled controls
+    remain exact in the bundled CUDA FP32 environment.
+  - **Baseline**: Same-state no-checkpoint and correct checkpoint arms with
+    identical fixture tensors, seeds, and process isolation.
+  - **Change introduced / config diff**: CPU-to-CUDA environment bundle only;
+    FP32 dtype, seed, six scenarios, three repetitions, 54 fresh processes,
+    fault triggers, controls, and causal gates unchanged.
+  - **Parameter count**: N/A — fixed tiny fixtures; no scientific source or
+    parameterization changed.
+  - **Metrics and artifacts**: Authoritative aggregate
+    `e1-all-20260904T181230.773563Z-27b4793b`. All 54 fresh child arms passed:
+    18 correct arms were exact, 18 broken arms first mismatched at `h` with
+    same metadata and a gradient difference, and 18 trigger-disabled arms were
+    exact with restoration true. All scenario and repeatability gates passed.
+  - **Validity**: High for the preregistered causal gates across these six
+    bounded fixtures; it does not estimate natural-failure prevalence.
+  - **Result classification**: bounded controlled-fault regression suite passed.
+  - **Analyst verdict**: `PROMOTE` as a bounded GPU regression suite only.
+  - **Analyst interpretation / lesson**: The same-state autograd controls and
+    broken-arm divergences preserve the intended causal chain across the
+    bundled CUDA environment change.
+  - **Status / follow-up**: Promoted for bounded regression use. The
+    independent-formula instrumentation defect below is excluded from the E1
+    pass gate and does not change this verdict.
+
+- **Experiment E2 GPU — exact public-hook capture candidate**:
+  - **Parent idea / branch**: E0 bounded oracle plus the exact public
+    `context_fn` and inner `saved_tensors_hooks` composition killed on CPU.
+  - **Hypothesis**: The candidate observes backward-relevant `h`, `g`, and `y`
+    once in original and recompute without changing checkpoint behavior.
+  - **Baseline**: No-hook CUDA FP32 checkpoint execution.
+  - **Change introduced / config diff**: No-hook baseline -> exact public-hook
+    candidate within the same GPU environment; relative to CPU, the complete
+    environment bundle changed.
+  - **Parameter count**: N/A — fixed tiny fixture; no model parameters.
+  - **Metrics and artifacts**: Authoritative aggregate
+    `e2-coverage-20260904T181743.638925Z-bd490760`. The no-hook baseline
+    recorded phases 1/1; the exact candidate recorded phases 1/0, missed
+    recompute `h`, `g`, and `y`, and did not preserve behavior.
+  - **Validity**: High for this exact candidate on the tested CPU and bundled
+    CUDA environments; it does not cover all possible public PyTorch APIs or
+    compositions.
+  - **Result classification**: replicated exact-candidate coverage failure.
+  - **Analyst verdict**: `KILL` the exact candidate.
+  - **Analyst interpretation / lesson**: The candidate suppresses recomputation
+    in both tested environment bundles. Replication strengthens the negative
+    result for this composition but is not a universal public-API insufficiency
+    claim.
+  - **Status / follow-up**: Preserve as negative evidence. Do not revive this
+    exact candidate without a new mechanism or new evidence.
+
+- **Artifact identity correction**: The aggregate IDs included earlier in the
+  Analyst handoff prompt did not exist. The authoritative aggregate artifacts
+  are `e1-all-20260904T181230.773563Z-27b4793b` and
+  `e2-coverage-20260904T181743.638925Z-bd490760`; these match L0018 and the
+  retained remote artifacts.
+- **Non-gating defect A — aggregate provenance**:
+  - `_aggregate_writer` hardcodes a CPU device only in aggregate provenance.
+    Every E1/E2 child manifest, comparison, exact command, raw tensor, and
+    scheduler record proves CUDA execution, so child records are authoritative
+    for the historical GPU result.
+  - Preserve the historical aggregate files unchanged and append this
+    correction rather than rewriting executed evidence. Repair the writer to
+    derive truthful provenance and add a regression test. No scientific rerun
+    is required solely for this metadata correction.
+- **Non-gating defect B — independent reference derivatives**:
+  - `independent_reference` applies the transform scale in its forward formula
+    but omits that scale from the `x` and `w1` derivatives for the Python RNG
+    and NumPy RNG cases. Consequently,
+    `no_checkpoint_matches_independent_formulas=false` for those cases on both
+    CPU and GPU.
+  - E1 intentionally excludes this diagnostic from its causal pass gate, and
+    its same-state autograd baseline remains valid. Correct the reference
+    derivatives and add focused tests before starter-scope completion. This
+    defect does not retroactively alter the E1 verdict or require a scientific
+    GPU rerun by itself.
+- **Claim boundary**: These verdicts establish bounded fixture behavior across
+  one bundled CPU-to-Pascal-CUDA environment change. They do not establish
+  hardware-isolated causality, production capture coverage, natural-failure
+  prevalence, training consequence, detector overhead, TorchTitan integration,
+  modern-GPU behavior, or general public-API insufficiency.
+- **Next actions**: Complete A024 and A025, preserve all raw and historical
+  aggregate artifacts, rerun focused/full regression tests, and archive the
+  correction evidence before declaring the starter scope complete. Do not run
+  another scientific GPU job solely for these non-gating corrections.
+- **Secrets**: No secret material recorded.
+
+### L0020 — 2026-09-04 13:46 CDT — Starter diagnostics corrected and scope completed
+
+- **Type**: setup / implementation / verification / documentation / success
+- **Status**: completed; E0–E2 starter scope complete
+- **Objective**: Complete A024 and A025 without changing E1 causal gates,
+  historical artifacts, archived verdicts, or the deferred production-shaped
+  plan; restore the documented local commands and replace the planning-only
+  README with a bounded implementation and result description.
+- **Context consulted**:
+  - `AGENTS.md`, `README.md`, the complete user-attached starter plan, source,
+    tests, scripts, and `RESEARCH_LOG.md` through uncommitted L0019.
+  - Exact Notion page `MOOTAZ PROJECT`, page ID
+    `3c65d66f-2c23-80c6-879f-e0aff5e92706`, last edited
+    `2026-09-03T04:15:43.249Z`, and its child `Starter E0–E2 Plan: Five Tiny
+    Checkpoint Failures and Capture Validation`, page ID
+    `3d05d66f-2c23-8068-b52a-ca774781771e`, last edited
+    `2026-09-03T04:15:45.303Z`.
+- **Repository state**: Work began from local `main` at
+  `e05660c35100ebae9986789ba6ce2d2dc333bd56`, matching `origin/main` and the
+  clean `darmok` checkout. L0019 was preserved as an uncommitted append-only
+  change and extended rather than rewritten or discarded.
+- **A024 implementation — aggregate provenance**:
+  - `_aggregate_writer` now receives the requested device and dtype for both E1
+    and E2, records normalized `device` and `dtype` fields, and builds the
+    aggregate environment record from that selected device instead of CPU.
+  - Aggregate provenance capture does not require local CUDA availability;
+    child arms still validate whether the selected execution device exists.
+  - A regression uses a mocked unavailable-CUDA state with selected `cuda:0`
+    and proves that `device=cuda:0`, `dtype=torch.float32`, and
+    `environment.device=cuda:0` survive into the aggregate manifest.
+- **A025 implementation — independent derivative formulas**:
+  - For `A = x @ W1`, `h = T(A) + b`, the reference now computes
+    `dA = VJP_T(dh)`, then `dx = dA @ W1.T` and `dW1 = x.T @ dA`. The bias and
+    second-matrix derivatives remain `db = sum(dh)` and `dW2 = g.T @ dy`.
+  - The base controller's original transform has the identity vector-Jacobian
+    product. The Python and NumPy RNG controllers multiply that gradient by
+    the same fixed scale used by their original forward transform. The toy FP8
+    straight-through transform correctly retains the identity derivative.
+  - Focused Python and NumPy tests compare all four closed-form gradients with
+    autograd at `1e-12` tolerance. The pre-existing E0 identity-transform test
+    still requires bit-exact forward, loss, and gradient formulas and passed.
+- **Local environment repair**:
+  - Initial exact `uv run pytest` failed during collection with
+    `ModuleNotFoundError: No module named 'ac_integrity'` even though the
+    distribution metadata existed. CPython 3.13.15 verbose startup showed that
+    it skipped the editable-install path file because the migrated local
+    `.venv` and its `.pth` descendants carried the macOS `UF_HIDDEN` flag; the
+    environment also contained a duplicate editable path file with ` 2` in its
+    name.
+  - The generated, ignored environment was rebuilt as a normal directory with
+    `uv sync --locked`, which recreated one non-hidden editable path file. No
+    tracked dependency changed, no external `PYTHONPATH` is required, and bare
+    `uv run pytest` now imports the source package from `src/ac_integrity`.
+- **Documentation**: `README.md` now explains the file responsibilities, exact
+  local commands, E0/E1/E2 measurements, bounded CPU and GTX 1080 Ti results,
+  raw Condor job 1553510.0, E2's exact-candidate limitation, ignored artifact
+  locations, the historical aggregate provenance disposition, and explicit
+  production exclusions.
+- **Parameter count**: N/A — fixed literal fixtures and diagnostics only; no
+  model architecture or parameter set changed.
+- **Configuration diff**: No scientific experiment configuration changed.
+  Future aggregate provenance changed from an unconditional CPU label to the
+  selected device and dtype. The independent formula changed only from using
+  `dh` directly in the `x` and `W1` derivatives to applying the original
+  transform's vector-Jacobian product first.
+- **Verification evidence**:
+  - Focused provenance, E0 identity-formula, and two RNG derivative tests:
+    `4 passed`.
+  - Exact required full command `uv run pytest -q`: `22 passed in 21.02s`.
+  - From the freshly rebuilt normal `.venv`, documented bare
+    `uv run pytest`: `22 passed in 37.27s`.
+  - `uv lock --check` found the lock current; `uv sync --check` found all 17
+    installed packages synchronized and would make no changes.
+  - CLI smoke root `/tmp/aci-cli-smoke.PLWFdV`: E0 `PASS`; Python RNG E1
+    `PASS`; NumPy RNG E1 `PASS`; both future correct-arm formula diagnostics
+    true; E2 returned the expected exit 1 and `PUBLIC_HOOKS_INSUFFICIENT`.
+    The two E1 aggregate smoke manifests recorded CPU and `torch.float32`.
+  - `bash -n scripts/bootstrap_condor_env.sh scripts/run_condor_starter.sh` and
+    `git diff --check` passed.
+  - SHA-256 inventories of all 625 files under the retained local `artifacts/`
+    tree matched exactly before and after the work. No remote artifact was
+    written, rewritten, or deleted, and no Condor job was run.
+- **Baseline preservation**: Confirmed for the implementation. All 22 tests
+  pass, E0's original exact formula test passes, the E1 scientific gate code is
+  unchanged, and the E2 candidate and gate are unchanged. A024/A025 affect
+  future provenance and formula diagnostics only.
+- **Outcome**: A024 and A025 are complete. The starter package is reproducible
+  from the documented local commands, and the README and current state now
+  describe the completed bounded phase rather than planned work.
+- **Scientific disposition**: No new scientific experiment or verdict. Per the
+  L0019 Analyst review, neither correction requires a scientific rerun and
+  neither changes the archived E0/E1 `PROMOTE` or exact E2 candidate `KILL`.
+- **Failure or caveat**: Historical E1/E2 aggregate manifests intentionally
+  retain their incorrect CPU device label, with child manifests authoritative.
+  E2 rejects only the exact tested public-hook composition. Production-shaped,
+  overhead, TorchTitan, distributed, native-FP8, BF16, and modern-GPU work
+  remain deferred.
+- **Next actions**: Commit and push this coherent completion change, verify
+  local and `origin/main` equality with a clean tree, then fast-forward the
+  clean `darmok` checkout to the same commit without submitting a job.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title

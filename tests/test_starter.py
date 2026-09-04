@@ -15,8 +15,9 @@ from ac_integrity.starter.capture import (
     pair_records,
     tensor_metadata,
 )
+from ac_integrity.starter.cases import make_controller
 from ac_integrity.starter.fixture import TAGS, independent_reference, make_fixture
-from ac_integrity.starter.runner import run_arm, run_e1, run_e2
+from ac_integrity.starter.runner import _aggregate_writer, run_arm, run_e1, run_e2
 
 
 def captured(value: torch.Tensor, side: str = "original") -> CapturedTensor:
@@ -33,7 +34,11 @@ def captured(value: torch.Tensor, side: str = "original") -> CapturedTensor:
 
 def test_independent_forward_and_gradient_formulas() -> None:
     tensors = make_fixture(device=torch.device("cpu"), dtype=torch.float64)
-    reference = independent_reference(tensors, lambda value: value)
+    reference = independent_reference(
+        tensors,
+        lambda value: value,
+        lambda grad_output: grad_output,
+    )
     h = tensors.x @ tensors.w1 + tensors.b
     g = h.square() + 0.5 * h
     y = g @ tensors.w2
@@ -44,6 +49,56 @@ def test_independent_forward_and_gradient_formulas() -> None:
     assert torch.equal(loss, reference["loss"])
     for name, tensor in tensors.differentiable().items():
         assert torch.equal(tensor.grad, reference["gradients"][name])
+
+
+@pytest.mark.parametrize("variant", ["python", "numpy"])
+def test_rng_reference_applies_transform_derivative(variant: str) -> None:
+    tensors = make_fixture(device=torch.device("cpu"), dtype=torch.float64)
+    controller = make_controller(
+        "rng",
+        mode="correct",
+        seed=20260903,
+        device=torch.device("cpu"),
+        variant=variant,
+    )
+    reference = independent_reference(
+        tensors,
+        controller.original_transform,
+        controller.original_transform_vjp,
+    )
+
+    h = controller.original_transform(tensors.x @ tensors.w1) + tensors.b
+    g = h.square() + 0.5 * h
+    y = g @ tensors.w2
+    loss = (y * tensors.target).sum()
+    loss.backward()
+
+    for name, tensor in tensors.differentiable().items():
+        torch.testing.assert_close(
+            tensor.grad,
+            reference["gradients"][name],
+            rtol=1e-12,
+            atol=1e-12,
+        )
+
+
+def test_aggregate_manifest_records_selected_device_and_dtype(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
+    _, _, manifest, _ = _aggregate_writer(
+        artifact_root=tmp_path,
+        experiment="E1",
+        label="cuda-provenance-test",
+        command=["aci-starter", "run", "E1", "--device", "cuda:0"],
+        device_name="cuda:0",
+        dtype_name="float32",
+    )
+
+    assert manifest["device"] == "cuda:0"
+    assert manifest["dtype"] == "torch.float32"
+    assert manifest["environment"]["device"] == "cuda:0"
+    assert manifest["environment"]["cuda_available"] is False
 
 
 def test_phase_labels_stable_pair_ids_and_rejection() -> None:

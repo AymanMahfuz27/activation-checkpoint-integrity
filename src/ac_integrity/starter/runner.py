@@ -80,7 +80,13 @@ def _git_state() -> dict[str, Any]:
         return {"commit": "unknown", "dirty": "unknown", "status_short": []}
 
 
-def _environment(device: torch.device) -> dict[str, Any]:
+def _environment(device: torch.device | str) -> dict[str, Any]:
+    device_name = str(device)
+    try:
+        parsed_device = torch.device(device_name)
+        device_name = str(parsed_device)
+    except (RuntimeError, ValueError):
+        parsed_device = None
     result: dict[str, Any] = {
         "python": platform.python_version(),
         "python_executable": sys.executable,
@@ -88,17 +94,23 @@ def _environment(device: torch.device) -> dict[str, Any]:
         "numpy": np.__version__,
         "platform": platform.platform(),
         "machine": platform.machine(),
-        "device": str(device),
+        "device": device_name,
         "cuda_runtime": torch.version.cuda,
         "cuda_available": torch.cuda.is_available(),
     }
-    if device.type == "cuda" and torch.cuda.is_available():
-        properties = torch.cuda.get_device_properties(device)
+    if (
+        parsed_device is not None
+        and parsed_device.type == "cuda"
+        and torch.cuda.is_available()
+    ):
+        properties = torch.cuda.get_device_properties(parsed_device)
         result.update(
             {
                 "gpu_name": properties.name,
                 "gpu_memory_bytes": properties.total_memory,
-                "gpu_compute_capability": list(torch.cuda.get_device_capability(device)),
+                "gpu_compute_capability": list(
+                    torch.cuda.get_device_capability(parsed_device)
+                ),
                 "cudnn": torch.backends.cudnn.version(),
             }
         )
@@ -267,7 +279,11 @@ def run_arm(
             initial_state=controller.initial_state(),
         )
         tensors = make_fixture(device=device, dtype=dtype)
-        reference = independent_reference(tensors, controller.original_transform)
+        reference = independent_reference(
+            tensors,
+            controller.original_transform,
+            controller.original_transform_vjp,
+        )
         baseline = _autograd_baseline(
             device=device, dtype=dtype, original_transform=controller.original_transform
         )
@@ -600,18 +616,29 @@ def _all_tensor_contents_equal(left_dir: Path, right_dir: Path, case: str) -> bo
 
 
 def _aggregate_writer(
-    *, artifact_root: Path, experiment: str, label: str, command: list[str]
+    *,
+    artifact_root: Path,
+    experiment: str,
+    label: str,
+    command: list[str],
+    device_name: str,
+    dtype_name: str,
 ) -> tuple[str, ArtifactWriter, dict[str, Any], float]:
     run_id = _new_run_id(experiment, label)
     writer = ArtifactWriter(artifact_root, run_id)
     start = time.monotonic()
-    device = torch.device("cpu")
+    # Aggregate records describe the requested execution environment. Child
+    # arms remain responsible for validating that the device is available.
+    dtype = resolve_dtype(dtype_name)
+    environment = _environment(device_name)
     manifest = {
         "run_id": run_id,
         "experiment": experiment,
         "exact_command": shlex.join(command),
         "git": _git_state(),
-        "environment": _environment(device),
+        "environment": environment,
+        "device": environment["device"],
+        "dtype": str(dtype),
         "started_at": _utc_now(),
         "ended_at": None,
         "duration_seconds": None,
@@ -633,7 +660,12 @@ def run_e1(
 
     command = command or sys.argv
     run_id, writer, manifest, start = _aggregate_writer(
-        artifact_root=artifact_root, experiment="E1", label=selected_case, command=command
+        artifact_root=artifact_root,
+        experiment="E1",
+        label=selected_case,
+        command=command,
+        device_name=device,
+        dtype_name="float32",
     )
     scenarios: list[tuple[str, str | None]] = []
     cases = VALID_CASES if selected_case == "all" else (selected_case,)
@@ -755,7 +787,12 @@ def run_e2(
 
     command = command or sys.argv
     run_id, writer, manifest, start = _aggregate_writer(
-        artifact_root=artifact_root, experiment="E2", label="coverage", command=command
+        artifact_root=artifact_root,
+        experiment="E2",
+        label="coverage",
+        command=command,
+        device_name=device,
+        dtype_name=dtype,
     )
     baseline = _spawn_arm(
         experiment="E2",

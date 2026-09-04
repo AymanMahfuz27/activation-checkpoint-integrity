@@ -101,6 +101,7 @@ def _tag_if_requested(tensor: torch.Tensor, tag: str, enabled: bool) -> torch.Te
 def independent_reference(
     tensors: FixtureTensors,
     transform_original: Callable[[torch.Tensor], torch.Tensor],
+    transform_original_vjp: Callable[[torch.Tensor], torch.Tensor],
 ) -> dict[str, torch.Tensor | dict[str, torch.Tensor]]:
     """Calculate forward values and all gradients from closed-form derivatives."""
 
@@ -113,9 +114,10 @@ def independent_reference(
         d_y = tensors.target
         d_g = d_y @ tensors.w2.transpose(0, 1)
         d_h = d_g * (2.0 * h + 0.5)
+        d_matmul = transform_original_vjp(d_h)
         gradients = {
-            "x": d_h @ tensors.w1.transpose(0, 1),
-            "w1": tensors.x.transpose(0, 1) @ d_h,
+            "x": d_matmul @ tensors.w1.transpose(0, 1),
+            "w1": tensors.x.transpose(0, 1) @ d_matmul,
             "b": d_h.sum(dim=0),
             "w2": g.transpose(0, 1) @ d_y,
         }

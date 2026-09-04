@@ -26,6 +26,11 @@ class CaseController:
     def original_transform(self, base: torch.Tensor) -> torch.Tensor:
         return base
 
+    def original_transform_vjp(self, grad_output: torch.Tensor) -> torch.Tensor:
+        """Map an output gradient back through the original transform."""
+
+        return grad_output
+
     def transform(
         self, left: torch.Tensor, right: torch.Tensor, phase: str
     ) -> torch.Tensor:
@@ -112,6 +117,9 @@ class RngController(CaseController):
 
     def original_transform(self, base: torch.Tensor) -> torch.Tensor:
         return base * self._scale(self.fixed_draw)
+
+    def original_transform_vjp(self, grad_output: torch.Tensor) -> torch.Tensor:
+        return grad_output * self._scale(self.fixed_draw)
 
     def transform(
         self, left: torch.Tensor, right: torch.Tensor, phase: str
