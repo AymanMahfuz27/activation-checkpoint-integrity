@@ -27,13 +27,13 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-04 13:07 CDT
+- **Last updated**: 2026-09-04 13:20 CDT
 - **Research phase**: Active starter phase — E0–E2 exact-capture calibration
   on controlled tiny checkpoint fixtures; CPU results analyzed and archived,
-  Condor FP32 portability confirmation blocked during setup
+  Condor FP32 retry results available and pending Analyst review
 - **Repository state**: Local `main`, `origin/main`, and the clean `darmok`
-  checkout match implementation commit
-  `05b477a9b3246b56b4be6a64c04280ebbfad1150`; only this L0017 remediation
+  checkout match remediation-record commit
+  `7cdce891c8ef4d9418f1ece0a8dbcb88e5accc67`; only this L0018 factual result
   record is now modified locally
 - **Research objective**: Detect activation-checkpoint recomputation value
   changes before model or optimizer state is mutated
@@ -41,24 +41,24 @@ other secrets.
   CPU `float64` fixture and comparator after three clean repetitions passed all
   preregistered gates
 - **Current experiment**: CPU verdicts remain E0/E1 `PROMOTE` and exact E2
-  candidate `KILL`. Condor job 1553506.0 remains `BLOCKED —
-  REMOTE_DISK_QUOTA`. A022 is synchronized and A023's exact authorized removal
-  is complete; the one authorized retry has not been submitted
+  candidate `KILL`. Retry 1553510.0 completed with scheduler exit 0 and emitted
+  E0 `PASS`, E1 `PASS`, and E2 `PUBLIC_HOOKS_INSUFFICIENT`; those are raw
+  classifications pending a new Analyst verdict. Job 1553506.0 remains the
+  preserved blocked attempt
 - **Best validated result**: The exact E0 fixture/comparator is a bounded clean
   oracle, and E1 is a bounded controlled regression suite. Neither is
   production or natural-failure evidence
 - **Compute status**: Apple Silicon CPU suite complete. Condor job 1553506.0
-  recognized PyTorch 2.12.1+cu126, CUDA 12.6, and a GTX 1080 Ti on
-  `eldar-44`; its 19 passing tests exercised CPU fixtures only. The job stopped
-  before E0 artifact creation, so no GPU experiment or CUDA-kernel validation
-  occurred; TACC is not configured
-- **Active blockers**: No Condor E0/E1/E2 result exists. The scratch rebuild,
-  live preflights, and one scheduler retry remain pending. Removing the 6.1 GiB
-  environment freed enough submit-side storage for a durable write probe and
-  Git synchronization, but does not establish it as the sole quota cause
-- **Immediate next action**: Commit and synchronize L0017, re-query the live
-  pool and queue, dry-run the submit description, and submit exactly one
-  unchanged-science retry
+  remains `BLOCKED — REMOTE_DISK_QUOTA`. Retry 1553510.0 ran once on a GTX 1080
+  Ti at `eldar-44`, built the environment in Condor scratch, passed artifact and
+  real CUDA-kernel preflights plus 19 tests, and produced the E0–E2 FP32 raw
+  artifacts recorded in L0018; TACC is not configured
+- **Active blockers**: Analyst validity review and archival are pending. The E1
+  and E2 aggregate manifests contain a pre-existing metadata defect that labels
+  their aggregate environment device as CPU; every scientific child manifest
+  and the scheduler record identify CUDA correctly
+- **Immediate next action**: Route L0018 and the raw artifacts to Analyst, then
+  archive the verdict before any follow-up planning or implementation
 - **Canonical Notion context**: `MOOTAZ PROJECT`, page ID
   `3c65d66f-2c23-80c6-879f-e0aff5e92706`
 - **Last synchronized with Notion**: The user explicitly selected `Starter
@@ -76,7 +76,7 @@ other secrets.
 | A002 | 2 | Pull the current operational commit into the `darmok` checkout | Keeps remote work under the same instructions and code | A001 and stable CPU suite | Completed at `bb95225` |
 | A003 | 2 | Pin compatible Python, PyTorch, and CUDA versions and create a dedicated remote environment | Existing base Conda environment is not reproducible | A016 and stable CPU suite | Completed; 6.1 GiB environment exposed quota blocker |
 | A004 | 2 | Add a metadata-printing Condor runner and submit file | Required for reproducible scheduled work | A003 | Completed; scheduler dry-run PASS |
-| A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Metadata discovery PASS in 1553506.0; CUDA kernels untested |
+| A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Completed in 1553510.0; deterministic CUDA tensor kernel PASS |
 | A006 | 2 | Define the first falsifiable hypothesis, baseline, metrics, and falsification criterion | No scientific run should start without a preregistered contract | Notion plan and source audit | Completed |
 | A007 | 3 | Verify and document TACC access, allocation, paths, scheduler, and environment | Required for final modern-GPU evaluation | Live TACC access/allocation | Blocked |
 | A008 | — | Select and exactly replay R0 in its documented pinned environment | Preserved production-shaped evidence track | A003 and compatibility review | Deferred by L0007 |
@@ -92,7 +92,7 @@ other secrets.
 | A018 | 1 | Run the full automated test suite, then make E0 pass | E0 is the trust gate for the fixture and comparator | A017 | Completed |
 | A019 | 1 | Run E0 three times, every E1 control/fault pair three times including both RNG variants, and E2 on the Apple Silicon CPU | Produces the required repeatable calibration and coverage evidence | A018 | Completed and analyzed |
 | A020 | 1 | Analyze and append every CPU result, failure, artifact path, and verdict | Results cannot drive later work until reviewed and archived | A019 | Completed in L0012 |
-| A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Portability confirmation only; it does not broaden CPU verdicts | A020, A022, A023, and L0015 authorization | `REPEAT` after A023 remediation is separately recorded; one new job authorized |
+| A021 | 2 | Repeat unchanged E0–E2 logic in FP32 inside one scheduled Condor GPU job | Portability confirmation only; it does not broaden CPU verdicts | A020, A022, A023, and L0015 authorization | Completed once as 1553510.0; results available, Analyst verdict pending |
 | A022 | 1 | Move `ArtifactWriter` setup into classified exception handling and add writable-artifact and CUDA-kernel preflights | Ensures setup failures return exit 2 and kernel incompatibility is detected before scientific execution | L0014 diagnosis | Completed in L0016 at `05b477a`; synchronized locally, on origin, and remotely |
 | A023 | 1 | Preserve prior logs/spec, remove only `.condor-venv-968f64415c1731fa`, and rebuild the same locked environment in per-job scratch | Frees the likely 6.1 GiB home-storage contributor without changing scientific logic or destroying prior evidence | A022 local verification and L0015 authorization | Authorized persistent-environment removal completed in L0017; per-job scratch rebuild pending in retry |
 
@@ -104,6 +104,7 @@ other secrets.
 | E1 | 2026-09-03 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | Six CPU scenarios, 54 fresh processes PASS; bounded regression suite | PROMOTE | L0007, L0009, L0010, L0012 |
 | E2 | 2026-09-03 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | `PUBLIC_HOOKS_INSUFFICIENT`: hook candidate suppressed recompute | KILL exact candidate | L0007, L0009, L0010, L0012 |
 | Condor 1553506.0 | 2026-09-03 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results | `BLOCKED — REMOTE_DISK_QUOTA`; no GPU experiment ran | REPEAT only after separately recorded storage remediation; one retry authorized by L0015 | L0011, L0013, L0014, L0015 |
+| Condor 1553510.0 | 2026-09-04 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results and preserved blocked job 1553506.0 | Completed once; raw E0 PASS, E1 PASS, E2 `PUBLIC_HOOKS_INSUFFICIENT` | Pending Analyst | L0015, L0016, L0017, L0018 |
 | R0 | 2026-09-02 | A documented natural activation-checkpoint bug reproduces in its pinned original environment without a project-invented fault | Exact upstream safe/failing comparison | Preserved; deferred | — | L0006, L0007 |
 | M0.1 | 2026-09-02 | Clean no-checkpoint and checkpointed genuine LM pretraining agree | Identical data/model/optimizer state | Preserved; deferred | — | L0006, L0007 |
 | M0.2 | 2026-09-02 | A controlled mutable-state fault changes a recomputed LM activation, gradient, and optimizer update while metadata remain equal | M0.1 clean oracle | Preserved; deferred | — | L0006, L0007 |
@@ -1439,6 +1440,150 @@ experiments, unless they test a preregistered research hypothesis.
   state, run the scheduler dry-run, and submit exactly one newly identified
   retry. Preserve its scratch-bootstrap, preflight, tests, E0/E1/E2, scheduler,
   and artifact evidence without another substitute if it blocks.
+- **Secrets**: No secret material recorded.
+
+### L0018 — 2026-09-04 13:20 CDT — Condor retry completed with E0–E2 results
+
+- **Type**: experiment / setup / success / result
+- **Status**: completed once; pending Analyst review
+- **Objective**: Execute the one L0015-authorized retry of unchanged E0–E2
+  scientific logic in the preregistered Pascal CUDA FP32 environment after the
+  separately recorded storage remediation.
+- **Context consulted**: L0012 CPU verdicts, blocked attempt L0013–L0014,
+  authorization L0015, implementation L0016, remediation L0017, exact commit,
+  live pool/queue, scheduler dry-run, job history, stdout/stderr, and every
+  aggregate and child manifest/summary from retry 1553510.0.
+- **Repository state**: Before submission, local `main`, local `origin/main`,
+  remote `main`, and remote `origin/main` were clean and equal at
+  `7cdce891c8ef4d9418f1ece0a8dbcb88e5accc67`. The scheduled job and all 59
+  scientific child manifests record that commit with `dirty=false`.
+- **Experiment ID**: E0/E1/E2 Condor FP32 portability retry, scheduler job
+  1553510.0.
+- **Parent idea / branch**: L0007 starter plan, L0012 CPU results, L0014
+  conditional `REPEAT`, and L0015 exact authorization.
+- **Falsifiable hypothesis**: The unchanged E0–E2 gates remain valid when the
+  recorded environment changes from Apple CPU/PyTorch 2.13.0 to Pascal CUDA
+  FP32/PyTorch 2.12.1+cu126.
+- **Falsification criterion**: Any setup/preflight failure blocks the result.
+  Otherwise, any E0 clean-oracle gate failure, E1 case/repetition gate failure,
+  or change from E2's declared coverage behavior contradicts the corresponding
+  bounded portability expectation and requires Analyst review.
+- **Baseline and metrics**: Archived CPU results in L0010/L0012 and blocked job
+  1553506.0. Recorded metrics include setup and CUDA preflights, automated
+  tests, E0 tensor/phase/formula/gradient gates, E1 all case/repetition/control/
+  mismatch/gradient/trigger-restoration gates, E2 baseline/candidate phase and
+  hook counts, exact environment, scheduler facts, and full tensor artifacts.
+- **Change introduced and configuration diff**:
+  - CPU -> NVIDIA GeForce GTX 1080 Ti CUDA device.
+  - E0/E2 `float64` -> `float32`; E1 remains `float32`.
+  - PyTorch 2.13.0 macOS -> 2.12.1+cu126 Linux because the locked CUDA 12.6
+    environment is required for Pascal.
+  - Operationally, the same lock-derived environment was built under Condor
+    scratch and artifact/CUDA-kernel preflights ran before tests or science.
+  - Seed 20260903, deterministic settings, fixtures, cases, triggers, controls,
+    capture candidate, gates, three E0 runs, six E1 scenarios, three E1
+    repetitions, 54 fresh E1 processes, and E2 logic were unchanged.
+- **Parameter count**: N/A — fixed tiny fixtures; no model or scientific source
+  changed.
+- **Pre-submit evidence**:
+  - Local and remote repositories were clean at the exact commit.
+  - Live eligible pool contained 57 unclaimed/idle GTX 1080 Ti slots.
+  - `ayman27` owned zero queued jobs. The global queue had 3,586 jobs: 3,519
+    idle, 65 running, and 2 held.
+  - `/lusr/opt/condor/bin/condor_submit -dry-run /dev/stdout
+    condor/starter.submit` emitted exactly one valid job with the unchanged
+    requests and requirements.
+- **Exact submission and scheduler record**:
+  - Exact command: `/lusr/opt/condor/bin/condor_submit condor/starter.submit`.
+  - Exactly one job was submitted as 1553510.0 at
+    `2026-09-04T18:09:27Z`; it began at `2026-09-04T18:09:28Z` on
+    `slot1@eldar-44.cs.utexas.edu` and ended normally at
+    `2026-09-04T18:17:56Z` with scheduler return value 0.
+  - One start, no restart, 508 seconds remote wall time, 471 seconds user CPU,
+    97 seconds system CPU, 489 MiB recorded memory, and 288 MiB GPU memory in
+    the terminal scheduler log.
+- **Environment and hardware**:
+  - Scratch environment:
+    `/var/condor/execute/dir_3377999/aci-condor-venv-968f64415c1731fa`.
+  - Lock SHA-256:
+    `968f64415c1731fa2729ecb519169d74389d661ce1c78c9aac0a7d4c72c6e72e`;
+    project-local `uv` 0.12.3; CPython 3.13.5; PyTorch 2.12.1+cu126; NumPy
+    2.5.2; CUDA runtime 12.6; cuDNN 9.10.2; driver 535.247.01.
+  - NVIDIA GeForce GTX 1080 Ti, compute capability 6.1, and 11,714,887,680
+    bytes reported by PyTorch.
+- **Preflight and test results**:
+  - Artifact preflight `PASS`: created the artifact root, wrote 51 bytes,
+    flushed/fsynced, read the exact content, and removed the probe.
+  - CUDA tensor-kernel preflight `PASS`: synchronized one FP32 2x2
+    matmul-plus-bias on `cuda:0` and matched exact expected result
+    `[[0.25, 6.0], [2.25, 13.0]]`.
+  - Automated suite: 19 passed in 66.16 seconds with cache writes disabled.
+- **E0 observed results**:
+  - Three runs all reported `PASS`:
+    `e0-counter-correct-20260904T181213.251421Z-563c04d9`,
+    `e0-counter-correct-20260904T181219.054351Z-ade699c2`, and
+    `e0-counter-correct-20260904T181224.856296Z-296db303`.
+  - Each recorded original/recompute phase counts 1/1, three exact pairs,
+    zero value or metadata mismatches, exact independent-formula agreement,
+    no gradient differences, exit 0, CUDA FP32, seed 20260903, and job
+    1553510.0.
+- **E1 observed results**:
+  - Aggregate run `e1-all-20260904T181230.773563Z-27b4793b` reported `PASS`
+    for six scenarios: counter, buffer, Python RNG, NumPy RNG, precision, and
+    toy FP8 scaling.
+  - All 54 unique fresh-process child arms reported `PASS`, phase counts 1/1,
+    three pairs, zero metadata mismatches, and no default PyTorch check.
+  - The 18 correct arms had three exact pairs and no gradient difference. The
+    18 broken arms had three same-metadata value mismatches, first mismatch at
+    `h`, and at least one gradient difference. The 18 trigger-off arms had
+    three exact pairs, no gradient difference, and trigger restoration true.
+  - Each scenario recorded three repetitions, identical scientific signatures
+    and tensor contents across repeats, broken-original equality with the
+    correct original, and trigger restoration.
+- **E2 observed results**:
+  - Aggregate run `e2-coverage-20260904T181743.638925Z-bd490760` reported
+    `PUBLIC_HOOKS_INSUFFICIENT`, which the preregistered runner accepted while
+    returning overall scheduler exit 0.
+  - No-hook baseline
+    `e2-counter-correct-20260904T181746.258627Z-82f42e43` reported `PASS`,
+    phases 1/1, and child exit 0.
+  - Public-hook candidate
+    `e2-counter-correct-hooks-20260904T181752.258091Z-e9164fcb` reported
+    `PUBLIC_HOOKS_INSUFFICIENT`, phases 1/0, missing recompute `h`, `g`, and
+    `y`, hooks-preserve-behavior false, and child exit 1. Original-phase direct
+    matches were one per tag, while recompute-phase direct matches and all hook
+    counts were zero.
+- **Raw artifacts**:
+  - Scientific root:
+    `/u/ayman27/activation-checkpoint-integrity/artifacts/starter` — 3.2 MiB
+    after the run, with 595 files newer than submission.
+  - Scheduler log/stdout/stderr:
+    `/u/ayman27/activation-checkpoint-integrity/artifacts/condor/1553510.log`,
+    `1553510.0.out`, and `1553510.0.err`.
+  - SHA-256 values: log
+    `c2ac854c7373cb8510e3346e02549fb9d0efc716b8eec8d67f626f8158093128`,
+    stdout
+    `98bc8098dc7f082496fba7168ef92c9f41289502929373efa7541d9c69620fb0`,
+    and stderr
+    `607cf488c4383602446cd818fc3e780cad2127655e7466ae4645a856c0c3bea0`.
+- **Baseline integrity**: Every E0 run, all 54 E1 child runs, and both E2 child
+  runs identify clean commit `7cdce89`, CUDA FP32, seed 20260903, Condor job
+  1553510.0, PyTorch 2.12.1+cu126, and compute capability 6.1. The archived CPU
+  records and blocked-job evidence were not modified.
+- **Validity caveat**: `_aggregate_writer` has a pre-existing metadata defect:
+  the E1 and E2 aggregate manifests report `environment.device=cpu` because the
+  aggregate writer hardcodes a CPU device for environment capture. Their exact
+  commands and timestamps are intact, and all 54 E1 plus both E2 scientific
+  child manifests record CUDA correctly. This must be considered by Analyst;
+  it was not changed after execution and no substitute run is authorized.
+- **Result classification**: `RESULTS_AVAILABLE — PENDING_ANALYST`. The strings
+  `PASS` and `PUBLIC_HOOKS_INSUFFICIENT` above are runner outputs, not a new
+  scientific verdict.
+- **Analyst verdict / interpretation**: Pending. No scientific claim is made by
+  this entry.
+- **Next actions**: Commit and push this factual result record, verify local,
+  origin, and remote state, then route the raw evidence to Analyst. Do not run
+  another scheduler substitute or begin the deferred production-shaped plan.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title
