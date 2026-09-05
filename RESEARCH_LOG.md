@@ -27,16 +27,18 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-04 13:46 CDT
+- **Last updated**: 2026-09-04 19:21 CDT
 - **Research phase**: E0–E2 starter phase complete for the controlled tiny
   checkpoint fixtures. CPU and bundled Pascal CUDA FP32 results are analyzed
   and archived, and both non-gating diagnostic/provenance defects are corrected
   for future runs. Production-shaped work remains deferred
-- **Repository state**: The local working tree is based on
-  `e05660c35100ebae9986789ba6ce2d2dc333bd56` with append-only L0019 plus A024,
-  A025, documentation, and verification changes prepared for one commit;
-  `origin/main` and the clean `darmok` checkout still match `e05660c` before
-  final synchronization
+- **Repository state**: Implementation, results, documentation, and verification
+  through L0020 were committed and synchronized cleanly across local `main`,
+  `origin/main`, and the `darmok` checkout at
+  `3ae4aa9429a168a2c416a6bb905c6f1878aa58c3`, reconfirmed live in L0022.
+  Only `RESEARCH_LOG.md` changed subsequently: interrupted L0021 is preserved,
+  and L0022 records recovery verification. The archival commit and
+  synchronization follow this record; their final SHA is reported externally
 - **Research objective**: Detect activation-checkpoint recomputation value
   changes before model or optimizer state is mutated
 - **Current baseline**: E0 is promoted as a bounded oracle for this exact tiny
@@ -1835,9 +1837,92 @@ experiments, unless they test a preregistered research hypothesis.
   E2 rejects only the exact tested public-hook composition. Production-shaped,
   overhead, TorchTitan, distributed, native-FP8, BF16, and modern-GPU work
   remain deferred.
-- **Next actions**: Commit and push this coherent completion change, verify
-  local and `origin/main` equality with a clean tree, then fast-forward the
-  clean `darmok` checkout to the same commit without submitting a job.
+- **Next actions**: Completed after this entry and recorded in L0021: the
+  coherent implementation/results/documentation change was committed as
+  `3ae4aa9429a168a2c416a6bb905c6f1878aa58c3`, pushed, fast-forwarded on
+  `darmok`, and verified clean and equal. Keep the production-shaped plan
+  deferred until separately activated.
+- **Secrets**: No secret material recorded.
+
+### L0021 — 2026-09-04 13:51 CDT — Starter record synchronized
+
+- **Type**: archival / synchronization / verification
+- **Status**: completed through verified implementation commit; final
+  archival-only commit follows this record
+- **Objective**: Correct the stale pre-commit repository description and record
+  the final synchronized state of the completed E0–E2 starter phase without
+  changing code, artifacts, or scientific conclusions.
+- **Base and verified implementation commit**:
+  `3ae4aa9429a168a2c416a6bb905c6f1878aa58c3`.
+- **Verification evidence**:
+  - Local `main`, `origin/main`, and the clean `darmok` checkout matched
+    `3ae4aa9429a168a2c416a6bb905c6f1878aa58c3` before this archival-only edit.
+  - L0020 already records exact `uv run pytest -q` as 22 passed and bare
+    `uv run pytest` as 22 passed. No test was rerun for this archival entry.
+  - A live read-only queue query showed no Condor job owned by `ayman27`.
+- **Change and evidence boundary**: This entry changes only the research log.
+  No scientific experiment ran, no Condor job was submitted, and no raw or
+  historical artifact was written, rewritten, or deleted. The final archival
+  commit cannot record its own SHA and must be reported externally after push.
+- **Scientific disposition**: Unchanged from L0019–L0020: E0/E1 remain
+  `PROMOTE` for bounded CPU/GPU use, the exact E2 candidate remains `KILL`, and
+  no production, overhead, hardware-isolation, or universal public-API claim is
+  added.
+- **Next actions**: Keep the production-shaped plan deferred until it is
+  separately activated; do not infer production, overhead, modern-GPU, or
+  universal public-hook claims from E0–E2.
+- **Secrets**: No secret material recorded.
+
+### L0022 — 2026-09-04 19:21 CDT — Interrupted starter closure recovered
+
+- **Type**: context / archival / verification / synchronization
+- **Initial status**: in progress; documentation-only recovery.
+- **Objective**: Finish the interrupted archival commit and synchronization
+  after verifying that the selected E0–E2 completion gates are already met.
+- **Context consulted**: `AGENTS.md`, `README.md`, current state and L0020–L0021;
+  interrupted task `01a06a8c-56af-7621-bc2e-449d1f11a8b4`; exact Notion parent
+  `MOOTAZ PROJECT` (`3c65d66f-2c23-80c6-879f-e0aff5e92706`, last edited
+  `2026-09-03T04:15:43.249Z`) and its selected starter child
+  `3d05d66f-2c23-8068-b52a-ca774781771e` (last edited
+  `2026-09-03T04:15:45.303Z`), both successfully re-read.
+- **Base commit**: `3ae4aa9429a168a2c416a6bb905c6f1878aa58c3` on `main`;
+  the interrupted L0021 documentation edit is preserved.
+- **Planned action and expected evidence**: Read-only audit of retained CPU
+  artifacts, Condor output and queue, and local/GitHub/remote revisions; retain
+  existing Analyst verdicts, then commit and synchronize the archival record
+  under the prior push authorization. No new scientific run is needed.
+- **Verification outcome**: Local HEAD, GitHub `refs/heads/main`, and the clean
+  `darmok` checkout all match the base commit. Local modifications are confined
+  to `RESEARCH_LOG.md`; `git diff --check` passes. The live
+  `condor_q ayman27` query returns no jobs.
+- **Retained evidence audit**: All 62 local run directories contain manifest,
+  events, comparisons, and summary files. The three clean CPU E0 runs pass;
+  all 54 E1 child arms and their aggregate pass (six scenarios, three
+  repetitions, fresh-process isolation). Every retained E0/E1 child contains
+  full original/recompute `h`, `g`, and `y` tensor files, with zero missing.
+  E2's baseline passes and its candidate/aggregate record
+  `PUBLIC_HOOKS_INSUFFICIENT`. The clean CPU run commit is
+  `14bce330cd1259192c2d8209ecb0a556346a2534`; earlier dirty smoke evidence remains
+  preserved. Exact raw run IDs and paths remain in L0010–L0012.
+- **Retained GPU evidence**: `artifacts/condor/1553510.0.out` on `darmok`
+  confirms CUDA kernel PASS, 19 tests passed, three E0 passes, E1 all PASS,
+  E2 `PUBLIC_HOOKS_INSUFFICIENT`, and completion at
+  `2026-09-04T18:17:56Z`. L0018–L0019 retain the exact GPU run provenance and
+  analysis. L0020 records 22 tests passed on the final implementation; no
+  tests or experiments were rerun for this documentation-only recovery.
+- **Completion-gate disposition**: Existing L0012/L0019 Analyst verdicts are
+  unchanged: bounded E0/E1 `PROMOTE`, exact E2 candidate `KILL`. The selected
+  starter plan explicitly permits an honest E2 insufficiency result. All
+  scientific starter work is complete and archived; this recovery adds no
+  scientific interpretation or broader coverage claim.
+- **Caveats and scope**: Historical aggregate-device and RNG-formula diagnostic
+  corrections remain as documented in L0019–L0020. Production-shaped work is
+  still deferred. No code or historical artifacts changed.
+- **Final status**: Recovery verification complete; archival commit, push, and
+  remote synchronization follow this entry. Report their resulting SHA
+  externally to avoid a self-referential archival commit.
+- **Next actions**: Synchronize this final archival record under the existing
+  authorization, then stop at the completed starter scope.
 - **Secrets**: No secret material recorded.
 
 ### LNNNN — YYYY-MM-DD HH:MM TZ — Short title
