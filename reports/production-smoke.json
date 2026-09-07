@@ -1,0 +1,95 @@
+{
+  "acceptance": {
+    "M0.1": "not accepted at 40M",
+    "M0.2": "gated",
+    "M0.3": "not accepted at 40M",
+    "R0": "current assertion symptom reproduced; trigger-off passes; review pending",
+    "TorchTitan": "not implemented/validated"
+  },
+  "clean": "artifacts/production/pair-verified-clean-smoke-cba066acf601",
+  "natural": [
+    {
+      "arms": {
+        "capture_off": {
+          "path": "artifacts/production/pair-verified-natural-smoke-17-ebd6c647511b",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "e07056b0f24eabe902ede85362734e9ee78c5c9566ea165ad5f707c06c3979e3"
+        },
+        "enforce": {
+          "path": "artifacts/production/pair-verified-natural-smoke-17-3fdee2231fde",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "cfe732661ce96db88f0c878c0c8578fb038d35f42d3a09350cf5b2c321941789"
+        },
+        "observe": {
+          "path": "artifacts/production/pair-verified-natural-smoke-17-485c27b4800f",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "abc57d26466796a26185210d0c89c7313b349a28b86480b552bdf88e3f4730eb"
+        },
+        "trigger_off": {
+          "path": "artifacts/production/pair-verified-natural-smoke-17-90a43a96d983",
+          "status": "EXACT_MATCH",
+          "summary_sha256": "72977e9afa4f38bc570eb174347b681ea797fc8642a512a820c49383d7f5cd81"
+        }
+      },
+      "seed": 17,
+      "snapshot": "artifacts/production/verified-natural-smoke-17-684188137fd7/states/pre_step_1.pt"
+    },
+    {
+      "arms": {
+        "capture_off": {
+          "path": "artifacts/production/pair-verified-natural-smoke-23-356ca377b64c",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "b933fc652cab659b1df8a78d2912d22333909e2faf31b7b0ef1e77101ada4f61"
+        },
+        "enforce": {
+          "path": "artifacts/production/pair-verified-natural-smoke-23-344a3c1eaa44",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "ac055f408f5e137696c49c69c56818090beb033864b4d73de8efcdf374f69ea3"
+        },
+        "observe": {
+          "path": "artifacts/production/pair-verified-natural-smoke-23-c8e543d7923e",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "7b9fb4ee1d85974be8478cf6a5fa7a05784dedf3b7ba90f016a48f364b118493"
+        },
+        "trigger_off": {
+          "path": "artifacts/production/pair-verified-natural-smoke-23-c9e612a671b4",
+          "status": "EXACT_MATCH",
+          "summary_sha256": "bec6fb9baa03504f289fef6e966266205066cad767dfb5de350f5094bf9c245c"
+        }
+      },
+      "seed": 23,
+      "snapshot": "artifacts/production/verified-natural-smoke-23-b06a5662a935/states/pre_step_1.pt"
+    },
+    {
+      "arms": {
+        "capture_off": {
+          "path": "artifacts/production/pair-verified-natural-smoke-47-3b83170d33af",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "6f7b8fc82f44f6b521e049ecf787186cfd6dd1034625edeb0aa181b5ca7dfe34"
+        },
+        "enforce": {
+          "path": "artifacts/production/pair-verified-natural-smoke-47-095aedf6bf97",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "ba87dd3c72e04eda8511b45620b3d56f3760d7e655d5e61e866c5f2ffe53e777"
+        },
+        "observe": {
+          "path": "artifacts/production/pair-verified-natural-smoke-47-64a033a1b677",
+          "status": "DIVERGENCE_OR_ABORT",
+          "summary_sha256": "eb89fc107418f7be933f44be0c41b7443dd76842a433151b2ddb2b5384978af5"
+        },
+        "trigger_off": {
+          "path": "artifacts/production/pair-verified-natural-smoke-47-1f4e1f955510",
+          "status": "EXACT_MATCH",
+          "summary_sha256": "815c15ec7e4cc75fb6c9ae35ed715407ca78fb9230426f0a1150457cd62d3c47"
+        }
+      },
+      "seed": 47,
+      "snapshot": "artifacts/production/verified-natural-smoke-47-696d0e260b69/states/pre_step_1.pt"
+    }
+  ],
+  "scope": "miniature text-fixture smoke; no 40M M0.3 acceptance",
+  "test_evidence": {
+    "prior_complete_suite": "33 passed in 34.27s",
+    "production_tests": "17 passed in 17.51s"
+  }
+}

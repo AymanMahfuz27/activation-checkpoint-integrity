@@ -1,0 +1,20 @@
+universe = vanilla
+initialdir = /u/ayman27/activation-checkpoint-integrity
+executable = /bin/bash
+arguments = scripts/run_condor_production.sh probe configs/lm125m.toml
+output = artifacts/condor/production-$(Cluster).$(Process).out
+error = artifacts/condor/production-$(Cluster).$(Process).err
+log = artifacts/condor/production-$(Cluster).log
+environment = "CONDOR_CLUSTER_ID=$(Cluster) CONDOR_PROCESS_ID=$(Process)"
+notification = Error
+should_transfer_files = NO
+request_cpus = 4
+request_memory = 16GB
+request_disk = 24GB
+request_gpus = 1
+requirements = TARGET.GPUSlot && TARGET.Eldar && TARGET.GTX1080Ti
++GPUJob = true
++Group = "UNDER"
++Project = "OPERATING_DISTRIBUTED_SYSTEMS"
++ProjectDescription = "activation checkpoint production trainer fit probe"
+queue 1

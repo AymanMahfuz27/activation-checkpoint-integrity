@@ -1,0 +1,4 @@
+# New program only. Keep historical starter pins untouched.
+numpy==2.5.2
+pytest==9.1.1
+torch==2.13.0+cu126

@@ -1,0 +1,116 @@
+{
+  "corpus_sha256": "314862232c3e15eb21b7830b30d237d02cb793d07fd22864713237b03e59e0fb",
+  "differences": [],
+  "runs": [
+    {
+      "artifact": "/Users/ayman/Documents/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/production/lm40m-clean-three-plain-d2428c9c9912",
+      "status": "PASS",
+      "steps": [
+        {
+          "comparison": null,
+          "cursor": 4,
+          "default_check_raised": false,
+          "gradient_norm": 3.6173107624053955,
+          "incorrect_update_observed": false,
+          "losses": [
+            10.460379600524902,
+            10.489516258239746,
+            10.426931381225586,
+            10.442037582397461
+          ],
+          "optimizer_updates": 1,
+          "seconds": 4.041483124950901,
+          "step": 1
+        },
+        {
+          "comparison": null,
+          "cursor": 8,
+          "default_check_raised": false,
+          "gradient_norm": 4.567516326904297,
+          "incorrect_update_observed": false,
+          "losses": [
+            10.460310935974121,
+            10.43445873260498,
+            10.437826156616211,
+            10.466583251953125
+          ],
+          "optimizer_updates": 1,
+          "seconds": 2.3195262500084937,
+          "step": 2
+        },
+        {
+          "comparison": null,
+          "cursor": 12,
+          "default_check_raised": false,
+          "gradient_norm": 4.14061975479126,
+          "incorrect_update_observed": false,
+          "losses": [
+            10.431909561157227,
+            10.404367446899414,
+            10.452865600585938,
+            10.479948997497559
+          ],
+          "optimizer_updates": 1,
+          "seconds": 2.7337042500730604,
+          "step": 3
+        }
+      ]
+    },
+    {
+      "artifact": "/Users/ayman/Documents/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/production/lm40m-clean-three-checkpoint-d7c627e6212b",
+      "status": "PASS",
+      "steps": [
+        {
+          "comparison": null,
+          "cursor": 4,
+          "default_check_raised": false,
+          "gradient_norm": 3.6173107624053955,
+          "incorrect_update_observed": false,
+          "losses": [
+            10.460379600524902,
+            10.489516258239746,
+            10.426931381225586,
+            10.442037582397461
+          ],
+          "optimizer_updates": 1,
+          "seconds": 3.43635716708377,
+          "step": 1
+        },
+        {
+          "comparison": null,
+          "cursor": 8,
+          "default_check_raised": false,
+          "gradient_norm": 4.567516326904297,
+          "incorrect_update_observed": false,
+          "losses": [
+            10.460310935974121,
+            10.43445873260498,
+            10.437826156616211,
+            10.466583251953125
+          ],
+          "optimizer_updates": 1,
+          "seconds": 4.456018832977861,
+          "step": 2
+        },
+        {
+          "comparison": null,
+          "cursor": 12,
+          "default_check_raised": false,
+          "gradient_norm": 4.14061975479126,
+          "incorrect_update_observed": false,
+          "losses": [
+            10.431909561157227,
+            10.404367446899414,
+            10.452865600585938,
+            10.479948997497559
+          ],
+          "optimizer_updates": 1,
+          "seconds": 2.060664084041491,
+          "step": 3
+        }
+      ]
+    }
+  ],
+  "scope": "40M deterministic CPU FP32, three real-corpus updates, capture off; not long control or M0.1",
+  "status": "EXACT_MATCH"
+}

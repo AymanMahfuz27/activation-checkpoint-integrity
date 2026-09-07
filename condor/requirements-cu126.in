@@ -1,5 +1,6 @@
-# PyTorch 2.13 has no CUDA 12.6 wheel. PyTorch 2.12.1 is the newest official
-# CUDA 12.6 build and is required because CUDA 13 removes Pascal support.
+# Frozen starter environment from September 4. Preserve its historical lock.
+# Production work has a separate production-cu126 lock; 2.13.0+cu126 was found
+# in the official wheel index on September 7.
 numpy==2.5.2
 pytest==9.1.1
 torch==2.12.1+cu126

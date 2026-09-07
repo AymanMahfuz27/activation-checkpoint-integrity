@@ -27,50 +27,30 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-04 19:21 CDT
-- **Research phase**: E0–E2 starter phase complete for the controlled tiny
-  checkpoint fixtures. CPU and bundled Pascal CUDA FP32 results are analyzed
-  and archived, and both non-gating diagnostic/provenance defects are corrected
-  for future runs. Production-shaped work remains deferred
-- **Repository state**: Implementation, results, documentation, and verification
-  through L0020 were committed and synchronized cleanly across local `main`,
-  `origin/main`, and the `darmok` checkout at
-  `3ae4aa9429a168a2c416a6bb905c6f1878aa58c3`, reconfirmed live in L0022.
-  Only `RESEARCH_LOG.md` changed subsequently: interrupted L0021 is preserved,
-  and L0022 records recovery verification. The archival commit and
-  synchronization follow this record; their final SHA is reported externally
-- **Research objective**: Detect activation-checkpoint recomputation value
-  changes before model or optimizer state is mutated
-- **Current baseline**: E0 is promoted as a bounded oracle for this exact tiny
-  fixture and comparator after three CPU `float64` and three CUDA FP32
-  repetitions passed their preregistered gates
-- **Current experiment**: None active. Retry 1553510.0 is analyzed and archived:
-  E0 GPU and E1 GPU are `PROMOTE` for their bounded roles; the exact E2
-  public-hook candidate is `KILL` after reproducing baseline phases 1/1 and
-  candidate phases 1/0 across the bundled CUDA environment change. Job
-  1553506.0 remains the preserved blocked attempt
-- **Best validated result**: The exact E0 fixture/comparator is a bounded clean
-  CPU/GPU oracle, and E1 is a bounded CPU/GPU controlled regression suite. E2
-  supplies replicated negative evidence for one exact capture composition.
-  None is production, natural-failure, overhead, or hardware-isolation evidence
-- **Compute status**: Apple Silicon CPU suite complete. Condor job 1553506.0
-  remains `BLOCKED — REMOTE_DISK_QUOTA`. Retry 1553510.0 ran once on a GTX 1080
-  Ti at `eldar-44`, built the environment in Condor scratch, passed artifact and
-  real CUDA-kernel preflights plus 19 tests, and produced the E0–E2 FP32 raw
-  artifacts recorded in L0018; TACC is not configured
-- **Active blockers**: None within the completed starter scope. TACC remains
-  unconfigured, and all production-shaped experiments remain explicitly
-  deferred rather than blocked starter work
-- **Immediate next action**: Keep the production-shaped plan deferred until it
-  is separately activated; do not infer production, overhead, modern-GPU, or
-  universal public-hook claims from E0–E2
-- **Canonical Notion context**: `MOOTAZ PROJECT`, page ID
-  `3c65d66f-2c23-80c6-879f-e0aff5e92706`
-- **Last synchronized with Notion**: Re-read on 2026-09-04. The user-selected
-  `Starter E0–E2 Plan: Five Tiny Checkpoint Failures and Capture Validation`,
-  page ID `3d05d66f-2c23-8068-b52a-ca774781771e`, was last edited
-  `2026-09-03T04:15:45.303Z`. The separately preserved production-shaped plan,
-  page ID `3d05d66f-2c23-80d1-882f-ea6c45c89a7e`, remains deferred.
+- **Last updated**: 2026-09-07 CDT.
+- **Active contract**: User activated `docs/production-plan.md`; Notion access
+  explicitly waived by the user. Earlier starter work is historical, preserved
+  below, and excluded from the new evidence gates.
+- **Repository**: Base `0241f1bda17f1a7044382c0086fdf4b03e0764b7`, local uncommitted
+  implementation. Pre-existing README edit preserved. No push performed.
+- **Implemented**: Configured decoder/training lifecycle, exact parameter counts,
+  corpus materialization, snapshots/resume, fresh-process pair CLI, eager dispatch
+  capture, append-only shards, exact comparisons, failure gate, reports and replay.
+- **Verified**: Current unchanged #84864 assertion failure; miniature three-step
+  clean/resume equivalence; miniature full capture and natural observe/enforce
+  mechanism tests. Final complete suite: 39 passed in 34.26s; wheel build, lock validation,
+  shell syntax, Python compilation and whitespace checks pass.
+- **Evidence limits**: These local results are smoke/unit evidence. R0 review,
+  40M M0.1/M0.3, 2,000-step control, 10-step exhaustive audit, Condor 125M,
+  TorchTitan integration and native FP8 are not accepted or complete.
+- **Data**: Exact public dataset/tokenizer revisions selected. 100M-token
+  materialization complete, manifest hash frozen in production configs; tokenizer
+  dependency failures retained in logs.
+- **Blockers**: Remote publication/synchronization not authorized in this task;
+  scheduled GPU fit/quota proof outstanding; modern GPU/TACC unconfigured;
+  TorchTitan candidate commit retrieved but compatible stack not validated.
+- **Next**: Finish verification and audit remaining contract gaps,
+  then scheduled full-model controls after synchronization and quota checks.
 
 ## Planned actions
 
@@ -83,14 +63,14 @@ other secrets.
 | A005 | 2 | Run a one-GPU Condor probe | Verify driver, CUDA, GPU, memory, compute capability, and PyTorch CUDA availability | A004 | Completed in 1553510.0; deterministic CUDA tensor kernel PASS |
 | A006 | 2 | Define the first falsifiable hypothesis, baseline, metrics, and falsification criterion | No scientific run should start without a preregistered contract | Notion plan and source audit | Completed |
 | A007 | 3 | Verify and document TACC access, allocation, paths, scheduler, and environment | Required for final modern-GPU evaluation | Live TACC access/allocation | Blocked |
-| A008 | — | Select and exactly replay R0 in its documented pinned environment | Preserved production-shaped evidence track | A003 and compatibility review | Deferred by L0007 |
-| A009 | — | Build the genuine small decoder-only LM pipeline and run M0.1 | Preserved production-shaped clean oracle | A003 plus frozen data/model contract | Deferred by L0007 |
-| A010 | — | Add one controlled mutable-state fault to the same LM and run M0.2 | Preserved production-shaped causal chain | M0.1 passes | Deferred by L0007 |
-| A011 | — | Preserve R0's natural trigger inside the genuine LM and run M0.3 | Preserved production-shaped natural-trigger proof | R0 and M0.1 | Deferred by L0007 |
-| A012 | — | Add the remaining fault families one at a time | Preserved production-shaped breadth work | Production-shaped Milestone 0 | Deferred by L0007 |
-| A013 | — | Measure production capture and saved-tensor coverage | Defines the honest supported production scope | Production-shaped Milestone 0 and A012 | Deferred by L0007 |
-| A014 | — | Implement and validate position-sensitive GPU fingerprints | Tests the proposed low-memory detector against the exact oracle | A013 | Deferred by L0007 |
-| A015 | — | Integrate one pinned TorchTitan workload | Tests external validity after detector work | Modern GPU access and later detector milestones | Deferred by L0007 |
+| A008 | — | Select and exactly replay R0 in its documented pinned environment | Preserved production-shaped evidence track | A003 and compatibility review | Superseded by active production contract L0023 |
+| A009 | — | Build the genuine small decoder-only LM pipeline and run M0.1 | Preserved production-shaped clean oracle | A003 plus frozen data/model contract | Superseded by active production contract L0023 |
+| A010 | — | Add one controlled mutable-state fault to the same LM and run M0.2 | Preserved production-shaped causal chain | M0.1 passes | Superseded by active production contract L0023 |
+| A011 | — | Preserve R0's natural trigger inside the genuine LM and run M0.3 | Preserved production-shaped natural-trigger proof | R0 and M0.1 | Superseded by active production contract L0023 |
+| A012 | — | Add the remaining fault families one at a time | Preserved production-shaped breadth work | Production-shaped Milestone 0 | Superseded by active production contract L0023 |
+| A013 | — | Measure production capture and saved-tensor coverage | Defines the honest supported production scope | Production-shaped Milestone 0 and A012 | Superseded by active production contract L0023 |
+| A014 | — | Implement and validate position-sensitive GPU fingerprints | Tests the proposed low-memory detector against the exact oracle | A013 | Superseded by active production contract L0023 |
+| A015 | — | Integrate one pinned TorchTitan workload | Tests external validity after detector work | Modern GPU access and later detector milestones | Superseded by active production contract L0023 |
 | A016 | 1 | Pin the local `uv` environment and exact stable PyTorch and NumPy versions | Makes starter results reproducible | None | Completed |
 | A017 | 1 | Implement only the E0–E2 starter package, CLI, artifact writer, and focused tests specified in L0007 | Builds the selected weekly scope without production-shaped expansion | A016 | Completed |
 | A018 | 1 | Run the full automated test suite, then make E0 pass | E0 is the trust gate for the fixture and comparator | A017 | Completed |
@@ -101,6 +81,14 @@ other secrets.
 | A023 | 1 | Preserve prior logs/spec, remove only `.condor-venv-968f64415c1731fa`, and rebuild the same locked environment in per-job scratch | Frees the likely 6.1 GiB home-storage contributor without changing scientific logic or destroying prior evidence | A022 local verification and L0015 authorization | Completed: removal in L0017 and scratch rebuild in retry 1553510.0 |
 | A024 | 1 | Repair aggregate provenance to derive the actual child device and add a regression test | Historical E1/E2 aggregates hardcode CPU while authoritative child evidence records CUDA | L0019; preserve historical artifacts | Completed in L0020; future aggregate manifests record selected device/dtype/environment, no scientific rerun |
 | A025 | 1 | Correct transform-scale derivatives in `independent_reference` for Python/NumPy RNG and add focused tests | The forward reference applies scale but its `x`/`w1` derivatives omit it, making the diagnostic false on CPU and GPU | L0019; same-state E1 gates remain authoritative | Completed in L0020; Python and NumPy focused references pass, no scientific rerun |
+| P001 | 1 | Reproduce exact #84864 and preserve source/control evidence | R0 | None | Implemented and current symptom reproduced; review pending |
+| P002 | 1 | Build decoder, corpus, lifecycle, snapshot and fresh replay | Phase B | P001 | Implemented; corpus frozen; miniature and three-step 40M checks pass |
+| P003 | 1 | Validate exhaustive eager capture and pre-update gate | Phase C | P002 | Implemented; miniature/adversarial validation in progress |
+| P004 | 2 | Execute full 40M controls and M0.1/M0.3 | Real-model evidence | Corpus, quota, scheduled compute | Pending |
+| P005 | 2 | Execute controlled mechanism suite | M0.2 | Accepted M0.3 | Gated; not executed |
+| P006 | 2 | Run 125M CUDA 12.6 fit probe/control | Phase E | Explicit synchronization, scheduler and quota | Prepared; not submitted |
+| P007 | 3 | Implement pinned TorchTitan extension and modern GPU proof | Production transfer | Verified compatible stack and hardware | Pending |
+
 
 ## Experiment index
 
@@ -111,15 +99,15 @@ other secrets.
 | E2 | 2026-09-03/04 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | CPU and bundled CUDA runs both show baseline 1/1, candidate 1/0 | KILL exact candidate | L0007, L0009, L0010, L0012, L0018, L0019 |
 | Condor 1553506.0 | 2026-09-03 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results | `BLOCKED — REMOTE_DISK_QUOTA`; no GPU experiment ran | REPEAT only after separately recorded storage remediation; one retry authorized by L0015 | L0011, L0013, L0014, L0015 |
 | Condor 1553510.0 | 2026-09-04 | Unchanged E0–E2 gates remain valid under the preregistered Pascal CUDA FP32 environment change | Archived CPU E0/E1/E2 results and preserved blocked job 1553506.0 | Completed and analyzed; bundled portability evidence only | E0 `PROMOTE`; E1 `PROMOTE`; exact E2 candidate `KILL` | L0015, L0016, L0017, L0018, L0019 |
-| R0 | 2026-09-02 | A documented natural activation-checkpoint bug reproduces in its pinned original environment without a project-invented fault | Exact upstream safe/failing comparison | Preserved; deferred | — | L0006, L0007 |
-| M0.1 | 2026-09-02 | Clean no-checkpoint and checkpointed genuine LM pretraining agree | Identical data/model/optimizer state | Preserved; deferred | — | L0006, L0007 |
-| M0.2 | 2026-09-02 | A controlled mutable-state fault changes a recomputed LM activation, gradient, and optimizer update while metadata remain equal | M0.1 clean oracle | Preserved; deferred | — | L0006, L0007 |
-| M0.3 | 2026-09-02 | R0's documented natural trigger produces the same failure class inside the genuine LM pipeline | R0 and M0.1 | Preserved; deferred | — | L0006, L0007 |
-| M1 | 2026-09-02 | Remaining fault families reproduce one at a time in the LM or bounded fixtures | Production-shaped Milestone 0 | Preserved; deferred | — | L0006, L0007 |
-| M2 | 2026-09-02 | Capture path covers every site in each claimed checkpoint pattern | Production-shaped Milestone 0 evidence | Preserved; deferred | — | L0006, L0007 |
-| M3 | 2026-09-02 | Exact debug checking and position-sensitive GPU fingerprints detect oracle-confirmed mismatches | M1 and M2 | Preserved; deferred | — | L0006, L0007 |
-| M4 | 2026-09-02 | Longer LM runs establish downstream consequence and reproducibility | M3 | Preserved; deferred | — | L0006, L0007 |
-| M5 | 2026-09-02 | TorchTitan and modern-GPU validation establish external compatibility and overhead | M3 and modern GPU access | Preserved; deferred | — | L0006, L0007 |
+| R0 | 2026-09-02 | A documented natural activation-checkpoint bug reproduces in its pinned original environment without a project-invented fault | Exact upstream safe/failing comparison | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M0.1 | 2026-09-02 | Clean no-checkpoint and checkpointed genuine LM pretraining agree | Identical data/model/optimizer state | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M0.2 | 2026-09-02 | A controlled mutable-state fault changes a recomputed LM activation, gradient, and optimizer update while metadata remain equal | M0.1 clean oracle | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M0.3 | 2026-09-02 | R0's documented natural trigger produces the same failure class inside the genuine LM pipeline | R0 and M0.1 | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M1 | 2026-09-02 | Remaining fault families reproduce one at a time in the LM or bounded fixtures | Production-shaped Milestone 0 | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M2 | 2026-09-02 | Capture path covers every site in each claimed checkpoint pattern | Production-shaped Milestone 0 evidence | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M3 | 2026-09-02 | Exact debug checking and position-sensitive GPU fingerprints detect oracle-confirmed mismatches | M1 and M2 | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M4 | 2026-09-02 | Longer LM runs establish downstream consequence and reproducibility | M3 | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
+| M5 | 2026-09-02 | TorchTitan and modern-GPU validation establish external compatibility and overhead | M3 and modern GPU access | Reactivated by L0023; acceptance pending | — | L0006, L0007 |
 
 Infrastructure probes and environment checks are log entries, not scientific
 experiments, unless they test a preregistered research hypothesis.
@@ -1962,3 +1950,120 @@ For an experiment entry, also include:
 - **Analyst verdict**:
 - **Analyst interpretation**:
 - **Lesson and follow-up**:
+
+### L0023 — 2026-09-06 CDT — Production plan activated
+
+- **Status**: RUNNING.
+- **Objective**: Implement the user-supplied Production-Shaped Activation Checkpoint Reproduction and Capture Plan, archived verbatim at `docs/production-plan.md`.
+- **Base**: `0241f1bda17f1a7044382c0086fdf4b03e0764b7`; README already modified by user, preserved. Starter history and implementation are retained as historical evidence; E0–E2 are excluded from the new program.
+- **Context**: AGENTS.md, README.md, current state and latest ledger entries read. No Notion connector available; exact parent URL web retrieval failed; browser retrieval in progress. The attached complete plan is sufficient to implement without substituting another page.
+- **Preregistered R0**: Execute the exact #84864 issue code on locked local PyTorch 2.13.0. Hypothesis: unpreserved dispatch mode changes backward gradient without a metadata exception. Failure criterion: assertion passes or unrelated runtime failure. Preserve source hash, command, environment and output; pdb input is external, never remove the source debugger line.
+- **Planned implementation**: strict TOML configuration, genuine decoder and immutable packed data, snapshots and fresh-process arms, dispatch capture and durable shards, exact pairing and optimizer gate, reports/replay and adversarial tests. Long controls and modern GPU claims require actual hardware/data/quota evidence. No detector/repair work before R0 and M0.3.
+- **Evidence limits**: Local CPU/MPS PyTorch 2.13.0; 56 GiB free at inspection. Existing Condor environment is historical 2.12.1+cu126; do not silently relabel as the requested 2.13 build. Remote synchronization requires explicit push authorization under AGENTS.md.
+
+### L0024 — 2026-09-06 CDT — Upstream extraction and context access
+
+- **Status**: PASS source retrieval; BLOCKED live Notion access (sign-in required). Proceed from exact user attachment.
+- **Action/outcome**: Initial source extraction failed with StopIteration because upstream uses a `py` fence and CRLF. Corrected extraction to accept that exact fence and preserved original code bytes, including debugger statement. No source semantics changed.
+- **Source/evidence**: `upstream/pytorch_84864/{reproducer.py,source.json}`; complete issue response and run output in `artifacts/production-bootstrap/`. Command: local locked Python executing reproducer with 100 `c` debugger commands on stdin.
+- **Next**: Inspect R0 outcome, then implement clean trainer. No controlled injectors executed.
+
+### L0025 — 2026-09-07 CDT — R0 result and first implementation increment
+
+- **Status**: PASS observed current R0 reproduction; implementation RUNNING; scientific Analyst review pending.
+- **R0 evidence**: `artifacts/production-bootstrap/r0.json`, `r0.stdout`, `r0.stderr`; exact upstream source fails its final assertion on Python 3.13.15, Torch 2.13.0, macOS arm64. No metadata exception. Classification: current reproduction. Historical fallback is unnecessary for this cell; trigger-off evidence remains to be added.
+- **Implementation**: Added strict config, explicit Llama-style decoder, immutable packed corpus, atomic pre-step state and RNG replay, training/accumulation/AdamW/scheduler, operator capture, bounded shard writer, exact comparator, pre-optimizer failure agreement, fresh-process pair orchestration and CLI.
+- **Preregistered clean checks**: Tiny two-layer text-fixture smoke only. Compare three no-checkpoint/checkpoint steps; snapshot resume and fresh one-step pair must match loss, named gradients, parameters, optimizer, scheduler, RNG and cursor bitwise. Capture must preserve these outcomes; any missing/structural pair fails clean coverage.
+- **Commands**: `uv run aci data prepare --config configs/smoke.toml`; `uv run aci train --config configs/smoke.toml`. Outcomes pending below.
+- **User steering**: User explicitly says Notion is unnecessary; continue from attachment, no further Notion access.
+- **Limits**: No 40M/125M milestone accepted. No controlled suite or detector implemented/executed yet. Pinned-host CUDA copies implemented, reusable preallocated buffer pool still pending. Hardware proof and TorchTitan remain pending.
+
+### L0026 — 2026-09-07 CDT — Clean lifecycle and census probes
+
+- **Status**: PASS three-step checkpoint smoke and first fresh-process pair; full-capture test RUNNING.
+- **Evidence**: `artifacts/production/smoke-312e6cd15cc9` runs three updates; `artifacts/production/pair-smoke-529cd1e68a68` reports EXACT_MATCH for model/optimizer/scheduler/gradients/losses/cursor/RNG. Both arms are separate interpreter subprocesses.
+- **Architecture**: Meta-device parameter count independently inspected: 39,985,664 (8x512) and 125,264,640 (16x768), including tied embeddings.
+- **Census**: `artifacts/production/smoke-ac7709bef363/census.json`: 2,155 visible tensor outputs, 5,850,727 payload bytes for one miniature step. Conservative two-arm/three-step estimate including indexes and snapshots: 179,518,298 bytes. These are smoke measurements, not 40M storage estimates.
+- **Environment failure**: Editable import intermittently failed. Python verbose startup and filesystem flags establish that a macOS hidden flag on `.pth` files makes Python 3.13 skip them. Clearing it was transient; use `PYTHONPATH=src .venv/bin/python` for local development tests. The package source itself is intact. Cause of recurrent flag setting is unknown.
+- **Verification command**: `PYTHONPATH=src .venv/bin/python -m pytest tests/test_production.py -q`; output pending.
+- **Next**: Resolve any capture completeness defect before natural LM smoke; preserve first failed artifacts.
+
+### L0027 — 2026-09-07 CDT — Capture defect isolated and natural integration smoke
+
+- **Status**: PASS local implementation tests (11 tests); scientific milestone acceptance pending.
+- **Failed clean capture**: First attempt reported 396 original versus 532 recompute outputs and aborted before update. First differing event was original `aten.pow.Tensor_Scalar` versus recompute `aten.detach.default`.
+- **Cause and scoped change**: Inspection of exact operator stacks identifies PyTorch checkpoint.py `pack_hook`'s internal `x.detach()`. Those outputs remain fully captured under `checkpoint_bookkeeping`, intentionally unpaired with an explicit reason. Only detach calls originating in that exact upstream hook receive this classification; user detach operations remain pair eligible. No heuristic trace realignment is used.
+- **Verification**: `PYTHONPATH=src .venv/bin/python -m pytest tests/test_production.py -q`: 11 passed in 9.63s. Tests cover parameter counts, config rejection, corpus corruption, three-step clean equality, resume equality, NaN/signed-zero bytes, mutation-safe copying/alias metadata, writer failure cleanup, clean full capture and measurement equivalence, natural mechanism smoke plus trigger-off/observe/enforce, IDs/missing pairs, multi-output/checksum corruption.
+- **Natural smoke bounds**: The miniature text fixture exhibits value-only first mismatch, exact forward loss but different gradients/updates, identical capture-on/off outcomes, zero optimizer/scheduler/model mutation in enforce, and equality after removing the dispatch trigger. This is integration validation only; it does not pass the real-corpus 40M M0.3 gate or authorize controlled-suite execution.
+- **Pin discovery**: FineWeb-Edu `87f09149ef4734204d70ed1d046ddc9ca3f2b8f9`; open_llama_3b tokenizer `141067009124b9c0aea62c76b3eb952174864057`; TorchTitan candidate `d263ca0a1b569ed198b9943b6e8c2117a61d8843` (compatibility pending). Official CUDA index contains torch 2.13.0+cu126 cp313 manylinux_2_28 x86_64 wheel, SHA256 `4198c8d7478ab47ad2569309387d88b21fb553a1cf8ab06260fbd5a6ab9b9712`. Availability is not proof of Pascal kernel compatibility; scheduled probe remains required.
+- **Next**: Pin data extra, materialize exact corpus, adversarial tests, durable smoke evidence, prepare Condor bootstrap/probe. TorchTitan compatibility and modern hardware remain separate gates.
+
+### L0028 — 2026-09-07 CDT — Corpus frozen and bounded 40M control preregistered
+
+- **Status**: PASS corpus preparation, 17 production/adversarial tests, all three fresh-process natural smoke matrices.
+- **Corpus**: Exactly 100,000,000 tokens, 99M train/1M validation. `data/fineweb-edu-100m/manifest.json` SHA256 `314862232c3e15eb21b7830b30d237d02cb793d07fd22864713237b03e59e0fb`. Every shard and source record ledger is hashed. Both production configs now freeze that manifest hash.
+- **Dependency failures**: AutoTokenizer first required SentencePiece, then protobuf through its conversion path. Used the pinned tokenizer's native SentencePiece model directly, preserving the declared tokenization algorithm (native IDs plus EOS per record); no tiktoken fallback. Both failed outputs retained in `artifacts/production-bootstrap/data-prepare*.stderr`.
+- **R0 control**: `upstream/pytorch_84864/trigger_off.py` changes only the checkpoint call to direct `f(x)`, is separately labeled and exits 0. Original source remains unchanged. `r0-trigger-off.json` records control source hash and change.
+- **Natural smoke**: `artifacts/production-bootstrap/verified-smoke.json` indexes all fresh-process arms at seeds 17/23/47: capture off, full observe, full trigger off, full enforce. Each seed passes same failure status with/without capture, trigger-off equality, and optimizer/model/scheduler non-mutation in enforce. Clean full pair: `pair-verified-clean-smoke-cba066acf601`. These do not accept M0.3.
+- **Nested capture**: A further nested-checkpoint probe found inner original replay during parent recomputation. Added explicit `recompute_parent` role and compare each replay to its original; every visible payload retained. Nested test now passes six eligible comparisons, full coverage. No heuristic realignment.
+- **Verification**: `PYTHONPATH=src .venv/bin/python -m pytest tests/test_capture_failures.py tests/test_production.py -q`: 17 passed in 17.51s. Prior whole suite 33 passed; historical starter code untouched.
+- **Preregistered next run**: 40M model, immutable real corpus, deterministic CPU FP32, seed17, 4 CPU threads, full planned optimizer/batch/sequence configuration, stop after three updates. Fresh processes with checkpoint off/on must match losses, gradients, parameters, optimizer/scheduler, RNG and data cursor exactly. This is Phase B bounded correctness, not a long-control or exhaustive milestone. Failure criterion is any mismatch or runtime failure. About 51 GiB free; capture remains off and snapshots/results remain bounded to several GiB.
+- **Commands**: `PYTHONPATH=src .venv/bin/python -m ac_integrity.production_cli train --config artifacts/production-bootstrap/lm40m-three-{plain,checkpoint}.toml` in separate processes; stdout/stderr retained beside configs.
+
+### L0029 — 2026-09-07 CDT — Failure-test follow-up and durable evidence index
+
+- **Status**: PASS all 17 production tests. Prior 33-test complete suite passed before adding the final six adversarial tests; final whole-suite check remains pending.
+- **Failure correction**: Tensor-subclass test initially expected the internal error message, but Torch's Python operator translated it to an unsupported-operand TypeError. Relaxed only the message assertion; retained assertions that capture records the unsupported input, aborts and cleans up. No implementation behavior changed to satisfy that test.
+- **Durable records**: `reports/production-smoke.json` contains seed17/23/47 fresh-process artifact paths/statuses/summary hashes; `reports/corpus-manifest.json` is the versioned corpus manifest. Raw tensors, source data and checkpoints remain ignored.
+- **Remaining boundary**: CPU collective test proves two-rank failure agreement before AdamW state creation, not FSDP2/TorchTitan behavior. Full-model controls and modern hardware acceptance remain pending.
+
+### L0030 — 2026-09-07 CDT — Real 40M clean control passes
+
+- **Status**: PASS bounded exact equality; no long-control/M0.1/M0.3 acceptance.
+- **Environment**: Deterministic PyTorch 2.13.0 CPU FP32, Apple Silicon,
+  seed17, four threads, 39,985,664 parameters, 2x256 tokens per microbatch,
+  four accumulation groups, original planned AdamW and LR schedule.
+- **Runs**: `artifacts/production/lm40m-clean-three-plain-d2428c9c9912`
+  and `artifacts/production/lm40m-clean-three-checkpoint-d7c627e6212b`.
+  Each completed three real-corpus optimizer updates in a separate process.
+- **Result**: Exact equality of complete final model, named gradients,
+  optimizer, scheduler, losses, CPU/MPS/Python/NumPy RNG state and data cursor.
+  `reports/lm40m-three-step.json` contains zero differences and both run records.
+- **Source provenance**: Both runs retain `source.zip` verified against every
+  code-file digest in their recorded environment. Future runs now archive their
+  source automatically, including dirty local changes and dependency locks.
+- **Timing limit**: These three steps were correctness runs with snapshots and
+  no pristine three-repeat benchmark. Their times establish no overhead claim.
+- **Next**: Scheduled long controls and exhaustive
+  40M audits after exact remote synchronization and quota validation. Controlled
+  faults remain gated on accepted M0.3. TorchTitan/native FP8 remain unimplemented
+  or hardware-blocked, as itemized in `docs/production-status.md`.
+
+### L0031 — 2026-09-07 CDT — Local verification and execution boundary
+
+- **Status**: PASS local verification; full production contract INCOMPLETE.
+- **Checks**: `PYTHONPATH=src .venv/bin/python -m pytest -q`: 39 passed in
+  34.26s. `uv lock --check`, wheel build, shell syntax, Python compileall and
+  `git diff --check` pass. Outputs: `artifacts/production-bootstrap/final-all-tests.*`
+  and `build.*`; wheel in adjacent `dist/`.
+- **Preservation**: Existing user README text retained with a scoped status
+  addition. Starter code, tests, historical artifacts and CUDA lock retained.
+  All new source and reports remain local/uncommitted. No remote submission,
+  publication, commit, push or Notion mutation was performed.
+- **Execution boundary**: AGENTS.md requires commit/push and remote fast-forward
+  synchronization before remote runs, and forbids pushing without explicit user
+  authorization. New Condor fit probe is prepared for that next stage; not yet
+  scheduler-validated or submitted. User quota must be rechecked before capture.
+- **Unfinished scope**: Long 40M controls, full-model exhaustive M0.1/M0.3,
+  controlled-suite implementation/execution after M0.3, complete CUDA buffer pool
+  and crash/distributed commit protocol, full causal report coverage, TorchTitan
+  extension/compatible-stack validation, native modern-GPU cases and overhead
+  measurements. See `docs/production-status.md`; none is silently accepted.
+
+### L0032 — 2026-09-07 CDT — Publication and real-error reproduction authorized
+
+- **Status**: RUNNING.
+- **Authorization**: User explicitly authorizes commit/push, Condor synchronization and the GPU fit probe, and asks to reproduce the target error in the real model. Existing Notion waiver remains in force.
+- **Analysis of clean control**: Exact clean equality is the expected positive control, not evidence against the hypothesis. The falsifiable failure hypothesis concerns forward-only dispatch-mode state across checkpoint recomputation. Prior miniature observations support testing that unchanged mechanism in the full architecture; they do not establish 40M M0.3.
+- **Preregistration**: Fresh 40M FP32 seed17 pre-step snapshot, full immutable FineWeb-Edu corpus, planned batch/sequence/optimizer. Trigger-on reference versus candidate must have equal forward loss, divergent named gradients and model/optimizer update; trigger-off must restore exact equality. Full-capture census must pass before tensor payload retention, and the first eligible mismatch must have matching shape/dtype/device with no default checkpoint exception. Capture-on/off outcome must agree; enforce must preserve pre-step parameters/optimizer/scheduler. Failure or storage blocks are recorded, not replaced with synthetic success.
+- **Planned actions**: Review/stage the already verified implementation, add a reusable bounded real-model evidence runner, commit/push, remote fast-forward and scheduled probe. Run real-model CPU error arms while scheduler access is prepared. Raw SSH limited to short status/quota/queue checks; remote setup/submission through named remote-run.

@@ -1,0 +1,40 @@
+schema_version = 1
+run_id = "smoke"
+evidence_class = "smoke"
+seed = 17
+device = "cpu"
+dtype = "float32"
+threads = 1
+
+[model]
+layers = 2
+width = 32
+heads = 4
+kv_heads = 2
+intermediate = 80
+vocab_size = 128
+attention = "explicit"
+
+[data]
+path = "data/smoke"
+fixture = true
+tokens = 4096
+validation_tokens = 512
+shard_tokens = 1024
+
+[training]
+steps = 3
+sequence_length = 8
+microbatch_size = 2
+accumulation = 2
+warmup_steps = 0
+decay_steps = 0
+snapshot_steps = [1, 3]
+checkpoint_every = 1
+
+[capture]
+mode = "off"
+policy = "enforce"
+max_bytes = 1000000000
+reserve_bytes = 5000000000
+verified_quota_bytes = 1000000000

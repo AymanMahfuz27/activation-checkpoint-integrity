@@ -12,7 +12,7 @@ uv_archive=uv-x86_64-unknown-linux-gnu.tar.gz
 uv_sha256=600cf9a742aca00d292673b16b5acffaa7b8c269a364ad0c2e79498dcb1fe101
 uv_dir="$repo_dir/.condor-tools"
 uv_bin="$uv_dir/uv"
-requirements="$repo_dir/condor/requirements-cu126.lock"
+requirements=${ACI_REQUIREMENTS_FILE:-"$repo_dir/condor/requirements-cu126.lock"}
 python_bin=/u/ayman27/miniconda3/bin/python3
 environment_parent=${1:-${_CONDOR_SCRATCH_DIR:-}}
 

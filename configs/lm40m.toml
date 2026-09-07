@@ -1,0 +1,80 @@
+schema_version = 1
+run_id = "lm40m"
+evidence_class = "clean"
+seed = 17
+device = "cuda"
+dtype = "float32"
+threads = 1
+artifact_root = "artifacts/production"
+expected_torch = "2.13.0+cu126"
+
+[model]
+layers = 8
+width = 512
+heads = 8
+kv_heads = 4
+intermediate = 1408
+vocab_size = 32000
+norm_eps = 1e-05
+rope_theta = 10000.0
+dropout = 0.0
+attention = "explicit"
+
+[data]
+path = "data/fineweb-edu-100m"
+source = "HuggingFaceFW/fineweb-edu"
+source_revision = "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9"
+tokenizer = "openlm-research/open_llama_3b"
+tokenizer_revision = "141067009124b9c0aea62c76b3eb952174864057"
+manifest_sha256 = "314862232c3e15eb21b7830b30d237d02cb793d07fd22864713237b03e59e0fb"
+tokens = 100000000
+validation_tokens = 1000000
+shard_tokens = 1000000
+source_files = ["data/CC-MAIN-2013-20/train-00000-of-00014.parquet", "data/CC-MAIN-2013-20/train-00001-of-00014.parquet", "data/CC-MAIN-2013-20/train-00002-of-00014.parquet", "data/CC-MAIN-2013-20/train-00003-of-00014.parquet", "data/CC-MAIN-2013-20/train-00004-of-00014.parquet", "data/CC-MAIN-2013-20/train-00005-of-00014.parquet", "data/CC-MAIN-2013-20/train-00006-of-00014.parquet", "data/CC-MAIN-2013-20/train-00007-of-00014.parquet"]
+fixture = false
+
+[training]
+steps = 2000
+sequence_length = 256
+microbatch_size = 2
+accumulation = 4
+learning_rate = 0.0003
+beta1 = 0.9
+beta2 = 0.95
+epsilon = 1e-08
+weight_decay = 0.1
+clip_norm = 1.0
+warmup_steps = 100
+decay_steps = 200
+snapshot_steps = [1, 1000, 2000]
+checkpoint_every = 100
+stop_after = 0
+
+[checkpoint]
+enabled = true
+blocks = []
+use_reentrant = false
+preserve_rng_state = true
+early_stop = false
+determinism_check = "default"
+
+[capture]
+mode = "off"
+policy = "enforce"
+audit_steps = "all"
+max_bytes = 10000000000
+reserve_bytes = 5000000000
+verified_quota_bytes = 0
+queue_size = 8
+shard_bytes = 268435456
+census_path = ""
+
+[adapter]
+name = "none"
+trigger = false
+
+[distributed]
+world_size = 1
+pipeline_parallel = 1
+tensor_parallel = 1
+timeout_seconds = 120
