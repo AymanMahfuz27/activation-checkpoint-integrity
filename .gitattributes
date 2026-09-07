@@ -1,0 +1,2 @@
+# Preserve the exact upstream issue code, including its CRLF line endings.
+upstream/pytorch_84864/reproducer.py -text whitespace=cr-at-eol

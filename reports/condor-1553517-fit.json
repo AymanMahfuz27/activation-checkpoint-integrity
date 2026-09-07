@@ -1,0 +1,19 @@
+{
+  "cuda": "12.6",
+  "evidence_class": "generated-token-memory-probe",
+  "job_id": "1553517.0",
+  "losses": [
+    10.521728515625,
+    10.521728515625,
+    10.521728515625,
+    10.521728515625
+  ],
+  "parameters": 125264640,
+  "peak_allocated": 2348692992,
+  "peak_reserved": 2503999488,
+  "pytorch": "2.13.0+cu126",
+  "scope": "125M generated-token allocated GPU memory fit only; not natural-error GPU evidence",
+  "source_commit": "6218f329848eddfec6537a55a8f0719756618e2f",
+  "status": "FIT_PROBE_PASS",
+  "stdout_sha256": "e6df5ef46dfd481a3fc0cf881437c821948969799ee63409e30ed29a343f90df"
+}

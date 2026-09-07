@@ -7,6 +7,10 @@ real-corpus 40M updates agree exactly with and without checkpointing. The full
 research milestone and TorchTitan integration remain incomplete. See
 [implementation status](docs/production-status.md) and
 [40M validation evidence](reports/lm40m-three-step.json).
+The documented dispatch-mode trigger now also reproduces silent gradient/update
+divergence in the real 40M model, with trigger-off equality restored:
+[natural-error evidence](reports/lm40m-natural-seed17.json). Full tensor capture
+is blocked by the measured storage requirement; the full milestone is pending.
 
 The sections below describe the completed historical starter work.
 

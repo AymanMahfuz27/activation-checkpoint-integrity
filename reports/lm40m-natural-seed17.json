@@ -1,0 +1,83 @@
+{
+  "census": {
+    "identity": {
+      "code_sha256": "844fd2b28bbb3ebd9af44fc18d21e470b3956fa979db7882e1ceab2ae7af4e9e",
+      "configuration_sha256": "551aa9de901fa769b358c62a1e5520945d19f5eeb883db9a09fdb45c4abdad15",
+      "snapshot_sha256": "46c61975d366f273bd479bc5d4b432eb8ac2195a4f24920c9759617395da2a6c"
+    },
+    "per_step_payload_bytes": 23977519895,
+    "per_step_tensor_count": 15329,
+    "projected_bytes_with_margin": 61949406248
+  },
+  "classification": "Documented dispatch-mode mechanism transplanted into real LM; capture-off silent gradient/update error reproduced, trigger-off exact; full M0.3 not accepted",
+  "differing_model_entries": 74,
+  "differing_named_gradients": 73,
+  "first_gradient": {
+    "different_elements": 474112,
+    "first_flat_index": 1024,
+    "first_index": [
+      2,
+      0
+    ],
+    "local_view": {
+      "original": [
+        "1.996477112697903e-05",
+        "-1.1667805210890947e-07",
+        "2.493582996976329e-06",
+        "0.0012555866269394755",
+        "0.0008533231448382139",
+        "-0.003924457356333733",
+        "0.0003586043312679976"
+      ],
+      "recompute": [
+        "1.996477112697903e-05",
+        "-1.1667805210890947e-07",
+        "2.493582996976329e-06",
+        "0.0011438725050538778",
+        "0.0007775172707624733",
+        "-0.004247754346579313",
+        "0.00015837383398320526"
+      ],
+      "start": 1021
+    },
+    "max_abs_error": 0.006260307971388102,
+    "max_relative_error": 44660.431686541735,
+    "max_ulp_finite": 1984420865,
+    "mean_abs_error": 2.482481019730125e-06,
+    "name": "gradients.embedding.weight",
+    "original_special": {
+      "nan": 0,
+      "negative_infinity": 0,
+      "negative_zero": 0,
+      "positive_infinity": 0,
+      "positive_zero": 0
+    },
+    "raw_equal": false,
+    "recompute_special": {
+      "nan": 0,
+      "negative_infinity": 0,
+      "negative_zero": 0,
+      "positive_infinity": 0,
+      "positive_zero": 0
+    },
+    "relative_l1": 0.068908935701511,
+    "relative_l2": 0.09843773970885245,
+    "torch_equal": false
+  },
+  "full_capture_status": "BLOCKED_LOCAL_STORAGE: estimate 61,949,406,248 bytes exceeds about 45.4GB free before reserve",
+  "limitation": "Full activation capture and enforcement remain separate gates",
+  "seed": 17,
+  "snapshot": "/Users/ayman/Documents/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/production/real-natural-off-c958c44bc3ca/pre_step_1.pt",
+  "snapshot_sha256": "46c61975d366f273bd479bc5d4b432eb8ac2195a4f24920c9759617395da2a6c",
+  "status": "REAL_LM_CAPTURE_OFF_FAILURE_REPRODUCED",
+  "trigger_off": {
+    "path": "/Users/ayman/Documents/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/production/pair-real-natural-17-93674c73b61b",
+    "sha256": "94f330e87c5079a465cdf27af81498d6fa36e919267651322d2de820ff4f49a2",
+    "status": "EXACT_MATCH"
+  },
+  "trigger_on": {
+    "path": "/Users/ayman/Documents/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/production/pair-real-natural-17-5bae2d4fc9b7",
+    "sha256": "23d5b8106f8ed0a29b395afc49f0691bbe119e657fdbd034a827e1b06314054e",
+    "status": "DIVERGENCE_OR_ABORT"
+  }
+}

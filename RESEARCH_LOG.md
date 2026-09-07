@@ -31,8 +31,9 @@ other secrets.
 - **Active contract**: User activated `docs/production-plan.md`; Notion access
   explicitly waived by the user. Earlier starter work is historical, preserved
   below, and excluded from the new evidence gates.
-- **Repository**: Base `0241f1bda17f1a7044382c0086fdf4b03e0764b7`, local uncommitted
-  implementation. Pre-existing README edit preserved. No push performed.
+- **Repository**: Implementation published at `6218f329848eddfec6537a55a8f0719756618e2f`
+  and synchronized to Condor. Bounded result records are being archived in a
+  follow-up commit under the same explicit authorization.
 - **Implemented**: Configured decoder/training lifecycle, exact parameter counts,
   corpus materialization, snapshots/resume, fresh-process pair CLI, eager dispatch
   capture, append-only shards, exact comparisons, failure gate, reports and replay.
@@ -40,17 +41,19 @@ other secrets.
   clean/resume equivalence; miniature full capture and natural observe/enforce
   mechanism tests. Final complete suite: 39 passed in 34.26s; wheel build, lock validation,
   shell syntax, Python compilation and whitespace checks pass.
-- **Evidence limits**: These local results are smoke/unit evidence. R0 review,
-  40M M0.1/M0.3, 2,000-step control, 10-step exhaustive audit, Condor 125M,
-  TorchTitan integration and native FP8 are not accepted or complete.
+- **Evidence**: Real-corpus 40M clean control passes. Real-corpus 40M natural
+  capture-off trigger produces gradient/update divergence; trigger-off restores
+  equality. Condor 125M GPU fit probe passes. Full 40M activation capture,
+  M0.1/M0.3 acceptance, long controls, TorchTitan and native FP8 remain incomplete.
 - **Data**: Exact public dataset/tokenizer revisions selected. 100M-token
   materialization complete, manifest hash frozen in production configs; tokenizer
   dependency failures retained in logs.
-- **Blockers**: Remote publication/synchronization not authorized in this task;
-  scheduled GPU fit/quota proof outstanding; modern GPU/TACC unconfigured;
+- **Blockers**: Full 40M capture estimates 61.95GB retention, exceeding local
+  free space; remote user quota is unverified. Modern GPU/TACC unconfigured;
   TorchTitan candidate commit retrieved but compatible stack not validated.
-- **Next**: Finish verification and audit remaining contract gaps,
-  then scheduled full-model controls after synchronization and quota checks.
+- **Next**: Establish a retained storage location with sufficient verified quota
+  for exhaustive 40M evidence, then complete capture/effect/enforcement gates.
+  Continue scheduled long controls and modern-GPU integration separately.
 
 ## Planned actions
 
@@ -86,7 +89,7 @@ other secrets.
 | P003 | 1 | Validate exhaustive eager capture and pre-update gate | Phase C | P002 | Implemented; miniature/adversarial validation in progress |
 | P004 | 2 | Execute full 40M controls and M0.1/M0.3 | Real-model evidence | Corpus, quota, scheduled compute | Pending |
 | P005 | 2 | Execute controlled mechanism suite | M0.2 | Accepted M0.3 | Gated; not executed |
-| P006 | 2 | Run 125M CUDA 12.6 fit probe/control | Phase E | Explicit synchronization, scheduler and quota | Prepared; not submitted |
+| P006 | 2 | Run 125M CUDA 12.6 fit probe/control | Phase E | Explicit synchronization, scheduler and quota | GPU fit passed in 1553517.0; long control pending |
 | P007 | 3 | Implement pinned TorchTitan extension and modern GPU proof | Production transfer | Verified compatible stack and hardware | Pending |
 
 
@@ -2067,3 +2070,50 @@ For an experiment entry, also include:
 - **Analysis of clean control**: Exact clean equality is the expected positive control, not evidence against the hypothesis. The falsifiable failure hypothesis concerns forward-only dispatch-mode state across checkpoint recomputation. Prior miniature observations support testing that unchanged mechanism in the full architecture; they do not establish 40M M0.3.
 - **Preregistration**: Fresh 40M FP32 seed17 pre-step snapshot, full immutable FineWeb-Edu corpus, planned batch/sequence/optimizer. Trigger-on reference versus candidate must have equal forward loss, divergent named gradients and model/optimizer update; trigger-off must restore exact equality. Full-capture census must pass before tensor payload retention, and the first eligible mismatch must have matching shape/dtype/device with no default checkpoint exception. Capture-on/off outcome must agree; enforce must preserve pre-step parameters/optimizer/scheduler. Failure or storage blocks are recorded, not replaced with synthetic success.
 - **Planned actions**: Review/stage the already verified implementation, add a reusable bounded real-model evidence runner, commit/push, remote fast-forward and scheduled probe. Run real-model CPU error arms while scheduler access is prepared. Raw SSH limited to short status/quota/queue checks; remote setup/submission through named remote-run.
+
+### L0033 — 2026-09-07 CDT — Implementation published and probe dispatched
+
+- **Status**: PASS publication; GPU dispatch and local real-error arms RUNNING.
+- **Commit**: `6218f32` pushed to origin/main under explicit user authorization. Existing README changes included as previewed. Raw corpus/tensors/checkpoints remain ignored.
+- **Whitespace caveat**: Staged diff check flags the intentionally byte-preserved upstream reproducer's CRLF endings; source was preserved rather than normalized. Prior whitespace checks omitted untracked files; no claim that the initial staged check passed. Add a scoped CRLF attribute in follow-up documentation, leaving source bytes unchanged.
+- **Live remote check**: darmok checkout was clean; no current user jobs. `quota` is absent from PATH, so user quota remains unverified. GPU fit probe writes its environment into allocated scratch and does not require full tensor capture or corpus transfer.
+- **Dispatch**: `remote-run --name aci-production-probe-0907 --cd /u/ayman27/activation-checkpoint-integrity ayman27@darmok.cs.utexas.edu` runs fast-forward pull, records HEAD, scheduler dry-run, then submits `condor/production-probe.submit`. Scheduler result pending.
+- **Local real-error command**: `PYTHONPATH=src .venv/bin/python scripts/verify_real_natural.py --stage off`; outputs in `artifacts/production-bootstrap/real-natural-off.{stdout,stderr}`. Fresh snapshot, trigger-on pair and trigger-off pair; assertions require no arm exception and actual gradient/update divergence.
+
+### L0034 — 2026-09-07 CDT — Real 40M capture-off error reproduced
+
+- **Status**: PASS preregistered capture-off causal arms; exhaustive activation gate pending.
+- **Evidence**: `artifacts/production/real-natural-off-c958c44bc3ca/evidence.json`; stdout in `artifacts/production-bootstrap/real-natural-off.stdout`. Seed17, full 39,985,664-parameter LM and immutable FineWeb-Edu batch.
+- **Observed**: Trigger-on fresh-process reference and checkpointed candidate both finish without an exception, produce exactly equal forward losses, but differ in 73 named gradients and 74 model state entries (tied embedding/output counted twice in state_dict). Trigger-off fresh-process pair restores exact equality. This reproduces the requested silent downstream error in real next-token training; first activation evidence, capture measurement-effect and enforce gates remain to be measured at this scale.
+- **Next command**: `PYTHONPATH=src .venv/bin/python scripts/verify_real_natural.py --stage census --snapshot artifacts/production/real-natural-off-c958c44bc3ca/pre_step_1.pt`; estimate both arms with the complete configured microbatches before considering full capture. No payload coverage will be reduced to fit.
+- **Remote outcome**: Named dispatch fast-forwarded to `6218f329848eddfec6537a55a8f0719756618e2f`, scheduler dry-run passed, and job `1553517.0` was submitted successfully. This is submission evidence, not GPU-fit completion.
+
+### L0035 — 2026-09-07 CDT — Full 40M capture exceeds local retention budget
+
+- **Status**: PASS census; BLOCKED full capture on local storage.
+- **Measurement**: 15,329 visible tensor outputs and 23,977,519,895 payload bytes for the candidate's complete 40M step. The prescribed two-arm retention estimate including indexes/snapshots and 25% safety margin is 61,949,406,248 bytes. Live APFS capacity not allocated is about 45.4GB before reserve (df about 42GiB).
+- **Decision**: Do not start exhaustive capture, reduce audited microbatches, sample tensors, remove old artifacts, or call M0.3 complete. A retained capture location with sufficient verified quota is required. Condor home quota is still unverified; shared free space is not substituted.
+- **Causal evidence retained**: `reports/lm40m-natural-seed17.json`. All four microbatch forward losses are identical in trigger-on reference/candidate; default_check_raised is false in both. First differing named gradient is embedding.weight: 474,112 differing elements, relative L2 error 0.09843773970885245 for that gradient tensor. Removing only the mode trigger restores exact equality. This is real-model downstream silent corruption, not yet full first-activation or production-trainer acceptance.
+- **Analyst assessment**: PROMOTE the bounded capture-off reproduction for follow-up forensic capture. Baseline equality and trigger-off reversal support the transplanted #84864 mechanism; no arbitrary synthetic fault or convergence claim. Remaining confounder checks are full capture measurement-effect and full-model enforcement, explicitly blocked on storage.
+- **Next**: Finish scheduled GPU fit probe, preserve its raw evidence and publish the bounded findings. Full-capture storage remains a separate action item.
+
+### L0036 — 2026-09-07 CDT — GPU fit probe completes and results archived
+
+- **Status**: PASS scheduled fit probe and bounded capture-off reproduction.
+- **Scheduler**: `condor_history 1553517` reports JobStatus 4, ExitCode 0,
+  113.0 seconds remote wall time, `slot1@eldar-44.cs.utexas.edu`.
+- **GPU evidence**: `reports/condor-1553517-fit.json`; retained raw stdout/stderr
+  copied to `artifacts/production-bootstrap/condor-1553517.{stdout,stderr}`.
+  Exact PyTorch 2.13.0+cu126, CUDA12.6 and Pascal (6,1) checks and a CUDA
+  matrix kernel passed, then the 125,264,640-parameter generated-token probe
+  completed one optimizer update. Peak allocated 2,348,692,992 bytes;
+  peak reserved 2,503,999,488 bytes. This is memory-fit evidence only.
+- **Real-error assessment**: The requested error is recreated in the actual
+  40M model on CPU with capture off. The GPU probe is not mislabeled as a
+  natural-error reproduction. Trigger-on/off reference/candidate evidence and
+  full capture storage block are in L0034–L0035.
+- **Archival**: Add scoped `.gitattributes` preserving upstream CRLF bytes and
+  allowing its source-verbatim whitespace convention. Publish documentation
+  and bounded result manifests under existing commit/push authorization.
+- **Remaining**: No full capture, full-model enforcement, M0.3 acceptance,
+  controlled-suite execution, 2,000-step control or TorchTitan claim.

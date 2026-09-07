@@ -90,9 +90,25 @@ The official torch 2.13.0+cu126 wheel was resolved with its published SHA256.
 The scheduler-only runner checks exact build, CUDA runtime, Pascal capability
 and a real CUDA matrix operation before the 125M fit probe.
 
-`condor/production-probe.submit` is prepared but has not been submitted or
-scheduler-validated. The repository's AGENTS.md requires commit/push, remote
+`condor/production-probe.submit` passed scheduler dry-run and job 1553517.0
+completed successfully on eldar-44 with exit 0. The exact CUDA12.6/Pascal
+kernel check and 125M generated-token memory-fit update passed. The repository's AGENTS.md requires commit/push, remote
 fast-forward synchronization and recorded revision before remote execution;
 it explicitly forbids pushing without user authorization. Complete local review
 and verification before that boundary. Shared filesystem free space must never
 be substituted for the user's quota.
+
+
+## September 7 real-error reproduction
+
+The real 40M model reproduces the transplanted #84864 silent error with capture
+ disabled: identical forward losses, 73 differing named gradients, different
+parameter updates, no default checkpoint exception, and exact equality restored
+by removing only the dispatch-mode trigger. See
+[seed17 evidence](../reports/lm40m-natural-seed17.json).
+
+The complete candidate census measured 15,329 tensors and 23,977,519,895 payload
+bytes. Required two-arm retention with snapshots/indexes and 25% reserve is
+61,949,406,248 bytes. This exceeds available local storage, so exhaustive
+capture was not started. M0.3 remains unaccepted until first-activation,
+capture-effect and full-model enforcement evidence can be retained and reviewed.
