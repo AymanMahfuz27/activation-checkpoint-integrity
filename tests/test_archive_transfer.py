@@ -57,3 +57,18 @@ def test_lossless_archive_roundtrip_with_verified_chunk_retirement(tmp_path):
         assert archive.getmember("two.bin").islnk()
         assert archive.extractfile("other.bin").read() == b"different" * 100
     assert (root / "one.bin").read_bytes() == payload
+
+
+def test_resume_verifies_prefix_and_rejects_corruption(tmp_path):
+    import pytest
+    from ac_integrity.archive_transfer import verify_prefix
+    archive = tmp_path / "archive"
+    archive.write_bytes(b"abcde")
+    records = [{"index": i, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
+               for i, data in enumerate((b"abc", b"de"))]
+    total, digest = verify_prefix(archive, records)
+    assert total == 5 and digest.hexdigest() == hashlib.sha256(b"abcde").hexdigest()
+    for damaged in (b"abXde", b"abcd", b"abcdef"):
+        archive.write_bytes(damaged)
+        with pytest.raises(ValueError):
+            verify_prefix(archive, records)

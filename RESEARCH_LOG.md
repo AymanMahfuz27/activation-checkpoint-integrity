@@ -27,34 +27,30 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-11 CDT.
-- **Active contract**: User requests the four follow-through steps: GPU reproduction,
-  first-intermediate localization, recording noninterference and optimizer guard,
-  plus initial adapter-free upstream LLM screening. The older full research plan
-  remains context; the exact Notion project and production child were read today.
-- **Repository**: Local and origin/main at `d63d326`; follow-through implementation
-  is local and tested. Publication permission requested and pending under AGENTS.md.
-  Earlier uncommitted research-log entries are preserved.
-- **Implemented**: Existing research trainer plus lossless compressed/deduplicated
-  full capture, warmed-state fresh-process causal suite, upstream Transformers
-  Llama integration/screen, complete-trace versus optimizer-commit distinction,
-  isolated scheduled source clones and checksum-verified bounded archive transfer.
-- **Verified now**: 44 tests pass; two causal miniature suite runs pass (final run
-  10 gates); five upstream CPU smoke cells EXACT_MATCH over two steps, including
-  dropout, SDPA, BF16 autocast and aot_eager compilation. No natural failure found
-  in those small cells. Final GPU submit profiles pass scheduler dry-run.
-- **Existing real-model evidence**: Historical 40M CPU capture-off trigger gives
-  73 differing gradients and different updates with identical forward losses;
-  trigger-off restores equality. Previous 125M GPU fit probe passed. These are
-  not the new GPU causal/capture results, which have not run yet.
-- **Storage/access**: UT Condor access works; home quota15GiB, used9GiB. Cluster
-  scratch quota exists but no writable user directory. Scheduled scratch plus
-  acknowledged local archive transfer is prepared. TACC BatchMode login fails;
-  password/token authentication and allocation verification remain outstanding.
-- **Pending**: Commit/push authorization, corpus transfer and synchronized GPU
-  runs; retain and analyze full evidence, then explain actual results. TorchTitan,
-  native GPU BF16/FP8, saved-tensor-complete coverage, optimized fingerprints,
-  2,000-step controls and low-overhead performance claims remain unestablished.
+- **Last updated**: 2026-09-12 CDT, archive recovery and Box uploads in progress.
+- **Active contract**: Complete the requested four bounded follow-through steps
+  and retain evidence in the user's explicitly selected UT Box account.
+- **Repository**: Published2233d31; original core scientific run9b922d7. Local
+  verified-prefix resume and documentation updates pending final commit.
+- **Core GPU result**: Condor1553917.0, GTX1080Ti,40M,seed17,one warmed-state
+  audited update. All10 causal gates PASS:73 gradient tensors differ, same
+  losses, full recording preserves outcomes, first intermediate located,
+  optimizer abort preserves model/Adam/scheduler/cursor and clean update passes.
+- **Upstream GPU result**: Failed setup1553917.1 retained; linker repair enabled
+ 1553918.0. Four eager cells EXACT_MATCH including recorder controls. Inductor
+  reference repeat exact but checkpoint differs slightly (maxgradabs1.38e-7);
+  mechanism unresolved, not established corruption. BF16 unsupported.
+- **Verification**: Full44 tests pass; subsequent archive-resume tests2 pass.
+  Raw summaries and compiler differences are local; full archive recovery pending.
+- **Retention**: Core receiver resumes31 verified512MiB chunks at30GB total cap;
+  upstream cap4GB. Live free-space guards remain active. Remote allocated sources
+  stay intact until whole-archive checksum ACK. UT Box personal folder
+  https://utexas.app.box.com/folder/417516268415 created;50GB file limit verified.
+  First failed-attempt archive upload started. No sharing or credentials changed.
+- **Pending**: Finish/check both archives, upload and verify Box files plus
+  checksums/report, update final state/docs, run relevant final checks and publish
+  source/docs. Larger contract remains incomplete: long training, TorchTitan,
+  multi-GPU, nativeBF16/FP8, fused-internal coverage and low-overhead detector.
 
 ## Planned actions
 
@@ -94,9 +90,9 @@ other secrets.
 | P007 | 3 | Implement pinned TorchTitan extension and modern GPU proof | Production transfer | Verified compatible stack and hardware | Pending |
 
 | F001 | 1 | Lossless capture and warmed-state proof suite | Close full-model evidence gates | Local tests | Implemented; 10 miniature gates pass |
-| F002 | 1 | Execute and archive full-size GPU causal suite | Establish CUDA localization/noninterference/enforcement | Publication permission and scheduled scratch | Ready; permission pending |
-| F003 | 1 | Adapter-free upstream Llama screen | Begin production-feature compatibility | Pinned upstream environment | Five CPU smoke cells pass; GPU screen ready |
-| F004 | 1 | Analyze measured GPU results and teach mechanisms with code | User requested explanation and conclusions | F002 and F003 | Pending actual runs |
+| F002 | 1 | Execute and archive full-size GPU causal suite | Establish CUDA localization/noninterference/enforcement | Scheduled scratch and verified retention | GPU10gates PASS; archive recovery in progress |
+| F003 | 1 | Adapter-free upstream Llama screen | Begin production-feature compatibility | Pinned upstream environment | Four GPU eager cells exact; compiled discrepancy analyzed; archive in progress |
+| F004 | 1 | Analyze measured GPU results and teach mechanisms with code | User requested explanation and conclusions | F002 and F003 | Report written; final retention and delivery pending |
 
 
 ## Experiment index
@@ -2385,3 +2381,54 @@ For an experiment entry, also include:
 - Repair validation:44 tests passed in58.99s; runner syntax and diff whitespace
   checks pass. GPU preflight is the decisive check for the missing-linker fix.
   Preparing synchronized upstream-only rerun; core source remains9b922d7.
+
+### L0044 — 2026-09-12 CDT — Resume retention and analyze upstream rerun
+
+- Published compiler/provenance fix2233d31. Initial push from a non-login shell
+  lacked the configured authentication helper; normal login environment pushed
+  successfully. Named remote-run aci-upstream-linker-retry synchronized exact
+  revision and submitted upstream-only1553918.0; setup finished successfully.
+- GPU rerun on nandor-3, QuadroRTX6000, completed. gcc/ld shared-library preflight
+  PASS. Four cells EXACT_MATCH: eagerFP32, SDPAFP32, dropoutFP32 and AMPFP16;
+  checkpoint/no-checkpoint and recorder-on/off outcomes all exact. BF16 remains
+  unsupported. InductorFP32 baseline repeats exactly but checkpoint arm differs.
+- Compiled result: same starting state, same loss10.36438274383545 and gradient
+  norm12.381913185119629.64 gradient tensors differ (largest absolute difference
+  1.3783574104309082e-7; largest per-tensor relativeL2 6.470352444904228e-7),
+ 52 model tensors (maxabs5.60469925403595e-6),128 optimizer-state entries
+  (maxabs1.1059455573558807e-9). This is observed numerical divergence requiring
+  interpretation, not established hidden-state corruption or a new PyTorch bug.
+  Compiled intermediate internals are outside current recorder coverage.
+- User suggested Box/Drive. Box plugin absent; install request rejected by plugin
+  catalog validation, browser reaches Box sign-in. No credentials entered or
+  uploads performed. Local archive16,642,998,272bytes retained, exactly31 verified
+ 512MiB chunks. Current Mac free17GiB permits recovery attempt under fresh30GB
+  total core budget with1GiB live free-space reserve. No existing files deleted.
+- Added checksum-verified receive resume with durable chunk progress. Imported
+ 31 remote SHA256 acknowledgements for legacy prefix; resume rehashes each.
+  Prefix tests reject corruption, truncation and unexpected tail. Archive tests
+ 2 passed23.49s. Core collector4088 and upstream collector4089 started; latter
+  uses4GB total cap. Full archived evidence remains pending checksum completion.
+- Read-only evidence fetch once used an incorrect scratch path and failed;
+  corrected using verified location.json scratch /var/condor/execute/dir_3693647.
+  Actual compile differences saved artifacts/followthrough/compile-differences.json.
+
+- **Box authorization and preparation (L0044 continuation)**: User signed into
+  UT Box and explicitly instructed do it now. Verified account enterprise50GB
+  file limit. Created personal folder417516268415, no additional collaborators.
+  Began browser upload of verified419236012byte setup-failure archive via stable
+  hardlink artifacts/followthrough/box-upload/setup-failure-1553917.1.tar.gz.
+  Hardlink consumes no second copy. Final core/upstream archives will be uploaded
+  intact after local checksum verification, with report and checksum manifest.
+- Box shows upload complete for setup-failure-1553917.1.tar.gz, file2462680059802.
+  Upstream raw manifest retrieved:177files,20,622,005,324total bytes and
+ 7,617,657,213unique whole-file bytes before final gzip. Its conservative archive
+  cap must be raised from4GB to9GB if reached; the live1GiB free-space guard
+  remains decisive. Core transfer continues with all acknowledged chunks intact.
+- Final code checks45 tests PASS56.13s, diff whitespace check passes. To reduce
+  transfer time, restarted collectors with larger documented OpenSSH SFTP buffers
+  (128requests,262144bytes) through a local transient wrapper. Verified prefix
+  lengths before restart. New PIDs13524(core30GBcap),13525(upstream9GBcap).
+  Automated streaming verifier14052 waits for complete-archive ACK, checks every
+  tar member against the original remote manifest (including hard-link targets),
+  then stages hardlinks for Box without creating duplicate archive storage.

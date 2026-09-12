@@ -90,3 +90,10 @@ A failed or interrupted transfer leaves the scheduled source waiting for up to
 its complete-archive hash matches. Artifacts include source/config/environment,
 CUDA/driver/hardware, scheduler identity, immutable initial states, per-arm
 outcomes, all recorded tensors, comparisons and the complete file manifest.
+
+
+Interrupted receivers can resume with `--resume` and the same output directory.
+Each durable chunk is rehashed against `progress.json` before appending. Missing,
+corrupted or extra bytes fail closed for explicit recovery. The receiver records
+progress before acknowledging each chunk; a restart can repeat the last ACK.
+Full verification still requires the final complete-archive SHA256.

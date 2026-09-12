@@ -127,9 +127,34 @@ def send(root, inbox, chunk_bytes=512 * 1024**2):
     return sink.finish()
 
 
-def receive(host, inbox, output, max_bytes):
+def verify_prefix(path, records):
+    """Verify every durable received chunk before resuming an interrupted copy."""
+    digest = hashlib.sha256()
+    total = 0
+    with Path(path).open("rb") as source:
+        for index, record in enumerate(records):
+            if record["index"] != index:
+                raise ValueError("Non-contiguous archive progress")
+            part_digest = hashlib.sha256()
+            remaining = record["bytes"]
+            while remaining:
+                block = source.read(min(remaining, 1024 * 1024))
+                if not block:
+                    raise ValueError("Truncated received archive")
+                part_digest.update(block)
+                digest.update(block)
+                remaining -= len(block)
+            if part_digest.hexdigest() != record["sha256"]:
+                raise ValueError("Received archive prefix checksum mismatch")
+            total += record["bytes"]
+        if source.read(1):
+            raise ValueError("Archive contains an uncommitted tail; preserve for recovery")
+    return total, digest
+
+
+def receive(host, inbox, output, max_bytes, resume=False):
     output = Path(output)
-    output.mkdir(parents=True, exist_ok=False)
+    output.mkdir(parents=True, exist_ok=resume)
     inbox = str(Path(inbox))
     if not inbox.startswith("/u/ayman27/activation-checkpoint-integrity/artifacts/"):
         raise ValueError("Inbox must be an experiment transfer directory")
@@ -138,10 +163,22 @@ def receive(host, inbox, output, max_bytes):
         process = subprocess.run(ssh + ["cat " + shlex.quote(inbox + "/" + name)],
                                  capture_output=True, text=True, timeout=30)
         return json.loads(process.stdout) if process.returncode == 0 else None
+    records = []
     index, total = 0, 0
     digest = hashlib.sha256()
+    archive_path = output / "evidence.tar.gz"
+    if resume:
+        records = json.loads((output / "progress.json").read_text())["chunks"]
+        total, digest = verify_prefix(archive_path, records)
+        index = len(records)
+        # A crash can occur between persisting progress and acknowledging it.
+        for record in records[-1:]:
+            subprocess.run(ssh + ["printf '%s\\n' " + shlex.quote(record["sha256"]) + " > "
+                + shlex.quote(inbox + f"/ack_{record['index']:05d}")], check=True, timeout=30)
+    else:
+        write_json(output / "progress.json", {"chunks": []})
     deadline = time.monotonic() + 12 * 3600
-    with (output / "evidence.tar.gz").open("xb") as target:
+    with archive_path.open("ab" if resume else "xb") as target:
         while time.monotonic() < deadline:
             complete = read_json("complete.json")
             if complete and index == len(complete["chunks"]):
@@ -174,6 +211,8 @@ def receive(host, inbox, output, max_bytes):
             target.flush()
             os.fsync(target.fileno())
             total += ready["bytes"]
+            records.append(ready)
+            write_json(output / "progress.json", {"chunks": records})
             subprocess.run(ssh + ["printf '%s\\n' " + shlex.quote(ready["sha256"]) + " > "
                                   + shlex.quote(inbox + f"/ack_{index:05d}")], check=True, timeout=30)
             temporary.unlink()
@@ -190,8 +229,9 @@ def main():
     parser.add_argument("--host", default="ayman27@darmok.cs.utexas.edu")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--max-bytes", type=int, default=20_000_000_000)
+    parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
-    result = send(args.root, args.inbox) if args.action == "send" else receive(args.host, args.inbox, args.output, args.max_bytes)
+    result = send(args.root, args.inbox) if args.action == "send" else receive(args.host, args.inbox, args.output, args.max_bytes, args.resume)
     print(json.dumps(result), flush=True)
 
 

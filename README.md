@@ -1,16 +1,18 @@
 # Activation Checkpoint Integrity
 
-The production-shaped program is now implemented in part and under validation.
-It includes the 40M/125M decoder definitions, real packed corpus, training and
-replay lifecycle, exhaustive eager capture, and optimizer enforcement. Three
-real-corpus 40M updates agree exactly with and without checkpointing. The full
-research milestone and TorchTitan integration remain incomplete. See
+The 40M-parameter research model now has a GPU proof of controlled failure
+reproduction, first-intermediate localization, recording noninterference and
+pre-optimizer enforcement. All ten causal checks passed on a GTX 1080 Ti.
+An adapter-free upstream Llama GPU screen produced four exact eager results;
+Inductor compilation produced small numerical differences requiring analysis.
+See [GPU results and limitations](docs/followthrough-results.md),
 [implementation status](docs/production-status.md) and
-[40M validation evidence](reports/lm40m-three-step.json).
-The documented dispatch-mode trigger now also reproduces silent gradient/update
-divergence in the real 40M model, with trigger-off equality restored:
-[natural-error evidence](reports/lm40m-natural-seed17.json). Full tensor capture
-is blocked by the measured storage requirement; the full milestone is pending.
+[reproduction commands](docs/FOLLOWTHROUGH.md).
+
+The recorder retains full supported eager operator outputs and is expensive.
+The long training milestone, fused-internal coverage, TorchTitan integration and
+low-overhead production detector remain incomplete. Full GPU archive recovery
+is in progress; generated raw evidence stays outside Git.
 
 The sections below describe the completed historical starter work.
 
@@ -50,8 +52,9 @@ check against. Saving complete tensors provides a reference for evaluating a
 faster detector later. The hook experiment also exposes a capture problem we
 need to resolve before integrating with real training.
 
-The current code tests deliberately created failures in a tiny calculation.
-Real-model validation and an efficient production detector are still ahead.
+The starter results below describe deliberately created failures in a tiny
+calculation. The linked GPU report records subsequent real-model validation;
+an efficient production detector remains future work.
 
 ## Run it
 

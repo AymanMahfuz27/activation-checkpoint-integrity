@@ -1,7 +1,9 @@
 # Production implementation and evidence status
 
-The new implementation is local. All 39 tests pass; wheel build and dependency
-lock validation pass. The full production-shaped
+The implementation is published and has completed the bounded GPU follow-through
+reported in [GPU results](followthrough-results.md). The last full test run passed
+44 tests; two archive tests also pass after adding verified-prefix recovery.
+The full production-shaped
 milestone is **not complete**. The attached contract is preserved verbatim in
 [production-plan.md](production-plan.md); the chronological evidence is in
 [RESEARCH_LOG.md](../RESEARCH_LOG.md).
@@ -62,8 +64,8 @@ Its versioned manifest is `reports/corpus-manifest.json`.
   and snapshots/audits at steps 1/1,000/2,000 on suitable allocated compute.
   The preliminary real-corpus three-step 40M checkpoint/no-checkpoint control
   passes exact equality for the complete final training state.
-- Accept R0 and real-corpus 40M M0.1/M0.3 with complete causal reports. Current
-  natural mechanism tests are miniature integration checks only.
+- Accept R0 and real-corpus 40M M0.1/M0.3 with complete causal reports. The controlled 40M GPU causal suite now passes ten gates; complete archive
+  retention is pending. This does not imply acceptance of every longer-plan gate.
 - Implement the full controlled mechanism suite after M0.3; no substitute
   synthetic result is allowed to satisfy that gate.
 - Extend the passing nested-checkpoint and multi-output tests to deeper nesting
@@ -112,3 +114,13 @@ bytes. Required two-arm retention with snapshots/indexes and 25% reserve is
 61,949,406,248 bytes. This exceeds available local storage, so exhaustive
 capture was not started. M0.3 remains unaccepted until first-activation,
 capture-effect and full-model enforcement evidence can be retained and reviewed.
+
+
+## September 12 follow-through correction
+
+The September 7 storage blocker above is historical. Scheduled scratch,
+lossless compression/deduplication and acknowledged archive transfer enabled
+full 40M GPU capture and all ten causal/localization/enforcement gates. Full
+local archive recovery is in progress. See the current [GPU report](followthrough-results.md)
+for the upstream clean cells, compiled numerical discrepancy, setup failure,
+recorder cost and remaining limits.
