@@ -2331,3 +2331,57 @@ For an experiment entry, also include:
 - **Planned action**: Commit/push source/config/tests/docs/log, transfer the frozen
   398MiB public corpus to UT, fast-forward remote through GitHub, submit two
   named profiles, collect evidence with bounded storage and analyze all failures.
+
+- **Synchronization outcome (L0042 continuation)**: Published commit
+  `9b922d74168728081d2b8c79c3f9607904d4514d`, local/origin equality verified.
+  Started persistent remote task `aci-gpu-followthrough-sync` on darmok for
+  fast-forward and scheduler dry-run. Initial log query raced task creation and
+  reported window not found; the launch subsequently confirmed its window.
+  Corpus rsync is in progress; no GPU scientific result yet.
+
+- **Submission outcome (L0042 continuation; now2026-09-11 20:26CDT)**: Full100M
+  corpus verified by every shard, records and manifest SHA256. Remote HEAD exactly
+  `9b922d7`, clean. Named task submitted Condor cluster **1553917**, processes0
+  (core) and1 (upstream). Local archive collectors started for both processes;
+  per-transfer limits plus actual free-space checks prevent filling the laptop.
+  UT home usage after corpus transfer9.40GiB of15GiB. Queue/run/results pending.
+
+- **Run progress (L0042 continuation)**: Both allocations started immediately:
+ 1553917.0 on eldar-44 GTX1080Ti;1553917.1 on nandor-5 QuadroRTX6000. Locked
+ environments installed, real CUDA matrix kernel passed. Core scratch reports
+ 254913163264 free bytes after setup. Upstream now executing real40M cells.
+- **Provenance correction identified**: Validation environment.json was collected
+ before build/configure, so its backend flags describe startup defaults. The
+ actual immutable snapshot backend flags are recorded after configuration and
+ load_snapshot checks them against the live execution. Added future-facing
+ environment collection after build and explicit execution_backend summary.
+ Running source clones remain unchanged at9b922d7; use their snapshot backend
+ plus pinned configure source as authoritative, not the startup flags. This is
+ metadata correction, not an algorithm change or justification to erase a run.
+
+### L0043 — 2026-09-11 CDT — GPU result recovery and setup failure diagnosis
+
+- Core 1553917.0 completed its scientific suite at immutable commit9b922d7:
+  all10 gates PASS,73 differing gradients, exact recording-on/off outcomes,
+ 96 value-mismatching pairs of3232, first original-order mismatch blocks.0
+  aten.rand.default and first backward encounter blocks.7. Enforced abort calls
+  optimizer zero times; clean enforcement calls it once. Full archive pending.
+- Resumed local collector in a new output directory because interrupted original
+  collector held an empty archive and had acknowledged no chunks. Remote source
+  and chunk0 remain intact. New collector max17GB, per-chunk/full SHA256 checks.
+- Upstream1553917.1 archive verified419236012bytes. Analysis REJECT scientific
+  comparison: five cells EXECUTION_ERROR, BF16 UNSUPPORTED. Earlier commentary
+  mentioned only the compilation cell; eager cells also use Triton internally
+  in this PyTorch version and failed at the same environment setup boundary.
+  No training result exists from this GPU upstream attempt.
+- Root evidence: retained compile_fp32/checkpoint.stderr reports collect2 fatal
+  error cannot find ld. Even eager Llama rotary embedding invokes a native
+  PyTorch Triton bmm kernel; this is not a checkpoint-gradient failure.
+- Next isolated repair: explicitly export a system-tool PATH in scheduled runner,
+  compile a tiny shared C library as preflight, record compiler/linker identity,
+  propagate matrix execution errors to process exit. Re-run only upstream with
+  unchanged model/corpus/cells/seed, retain failed attempt, analyze fresh results.
+  Also retain previously prepared backend-provenance correction for future runs.
+- Repair validation:44 tests passed in58.99s; runner syntax and diff whitespace
+  checks pass. GPU preflight is the decisive check for the missing-linker fix.
+  Preparing synchronized upstream-only rerun; core source remains9b922d7.

@@ -45,9 +45,9 @@ def run_arm(config, snapshot_path, root):
     root.mkdir(parents=True, exist_ok=False)
     write_config(config, root / "config.toml")
     started = datetime.now(timezone.utc).isoformat()
+    model, optimizer, scheduler = build(config)
     environment = state.environment()
     state.write_json(root / "environment.json", environment)
-    model, optimizer, scheduler = build(config)
     corpus = PackedCorpus(config)
     snapshot = state.load_snapshot(snapshot_path, model, optimizer, scheduler)
     verify_snapshot(config, corpus, snapshot)
@@ -92,6 +92,7 @@ def run_arm(config, snapshot_path, root):
                "finished_at": datetime.now(timezone.utc).isoformat(),
                "seconds": time.monotonic() - start, "error": error,
                "optimizer_step_calls": len(updates),
+               "execution_backend": state.backend_state(),
                "snapshot_sha256": state.sha256(snapshot_path),
                "result": {k: v for k, v in (result or {}).items() if k != "gradients"},
                "capture": runtime.summary() if runtime else None,
@@ -148,10 +149,10 @@ def suite(config, root, budget_bytes, stages="all"):
     c.training.checkpoint_every = 0
     c.training.stop_after = 0
     c.validate()
+    model, optimizer, scheduler = build(c)
     environment = state.environment()
     state.write_json(root / "environment.json", environment)
     state.archive_source(root / "source.zip", environment)
-    model, optimizer, scheduler = build(c)
     corpus = PackedCorpus(c)
     batches, cursor = collect_batches(corpus, 0, c)
     # Populate real Adam moments before checking that an abort preserves them.

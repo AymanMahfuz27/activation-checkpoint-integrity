@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Condor need not export PATH. GCC can start by absolute path while its linker
+# lookup fails in Python subprocesses unless system tool directories are exported.
+export PATH="/usr/local/bin:/usr/bin:/bin:${PATH:-}"
+
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 profile=${1:?Pass core or upstream}
 [[ "$profile" == core || "$profile" == upstream ]]
@@ -33,7 +37,7 @@ cd "$source_dir"
 mkdir -p artifacts
 nvidia-smi > "$record_dir/nvidia-smi.txt"
 "$python_bin" - "$profile" <<'PY'
-import json, os, pathlib, shutil, sys
+import json, os, pathlib, shutil, subprocess, sys, tempfile
 import torch
 from ac_integrity.config import load_config, write_config
 from ac_integrity.state import environment, write_json
@@ -57,6 +61,15 @@ record = {"environment": environment(), "profile": sys.argv[1],
           "scratch_free_bytes": shutil.disk_usage(os.environ["_CONDOR_SCRATCH_DIR"]).free,
           "source": str(pathlib.Path.cwd()), "cuda_capability": torch.cuda.get_device_capability(),
           "dependency_lock_sha256": os.environ["ACI_DEPENDENCY_LOCK_SHA256"]}
+if sys.argv[1] == "upstream":
+    record["toolchain"] = {name: shutil.which(name) for name in ("gcc", "ld")}
+    record["toolchain"]["PATH"] = os.environ["PATH"]
+    with tempfile.TemporaryDirectory() as temporary:
+        source = pathlib.Path(temporary) / "probe.c"
+        source.write_text("int probe(void) { return 0; }\n")
+        subprocess.run(["gcc", "-shared", "-fPIC", str(source), "-o",
+                        str(pathlib.Path(temporary) / "probe.so")], check=True)
+    record["toolchain"]["shared_library_probe"] = "PASS"
 write_json(pathlib.Path(os.environ["ACI_JOB_RECORD"]) / "location.json", record)
 required = 100_000_000_000 if sys.argv[1] == "core" else 40_000_000_000
 assert record["scratch_free_bytes"] >= required, record["scratch_free_bytes"]

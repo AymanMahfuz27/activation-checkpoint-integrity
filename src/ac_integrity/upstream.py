@@ -262,8 +262,8 @@ def main():
         result = arm(config, args.output, cell=args.cells, checkpointed=args.checkpoint,
                      recorded=args.record, steps=args.steps, backend=args.backend)
         return 0 if result["status"] in {"PASS", "UNSUPPORTED"} else 1
-    matrix(config, args.output, args.cells.split(","), args.steps, args.backend, args.record)
-    return 0
+    results = matrix(config, args.output, args.cells.split(","), args.steps, args.backend, args.record)
+    return 1 if any(cell["verdict"] == "EXECUTION_ERROR" for cell in results.values()) else 0
 
 
 if __name__ == "__main__":
