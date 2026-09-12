@@ -311,6 +311,11 @@ def census(config, snapshot):
 def compare_state(a, b, prefix=""):
     differences = []
     if isinstance(a, torch.Tensor) and isinstance(b, torch.Tensor):
+        if a.shape == b.shape and a.dtype == b.dtype:
+            left = a.detach().cpu().contiguous().reshape(-1).view(torch.uint8)
+            right = b.detach().cpu().contiguous().reshape(-1).view(torch.uint8)
+            if torch.equal(left, right):
+                return differences
         result = compare_tensors(a, b)
         if not result["raw_equal"]:
             differences.append({"name": prefix, **result})

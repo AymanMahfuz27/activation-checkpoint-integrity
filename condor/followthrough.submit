@@ -1,0 +1,25 @@
+universe = vanilla
+initialdir = /u/ayman27/activation-checkpoint-integrity
+executable = /bin/bash
+arguments = scripts/run_condor_followthrough.sh $(profile)
+output = artifacts/condor/followthrough-$(Cluster).$(Process).out
+error = artifacts/condor/followthrough-$(Cluster).$(Process).err
+log = artifacts/condor/followthrough-$(Cluster).log
+environment = "CONDOR_CLUSTER_ID=$(Cluster) CONDOR_PROCESS_ID=$(Process)"
+notification = Never
+should_transfer_files = NO
+request_cpus = 4
+request_memory = 24GB
+request_disk = $(disk)
+request_gpus = 1
+requirements = TARGET.GPUSlot && (("$(profile)" == "core" && TARGET.Eldar && TARGET.GTX1080Ti) || ("$(profile)" == "upstream" && TARGET.CUDACapability >= 7.5))
++GPUJob = true
++Group = "UNDER"
++Project = "OPERATING_DISTRIBUTED_SYSTEMS"
++ProjectDescription = "activation checkpoint GPU causal proof and adapter-free Llama screen"
+# Source artifacts stay on scheduled scratch until their complete local archive
+# has been acknowledged. Start a collector for each submitted process.
+queue profile,disk from (
+core,110GB
+upstream,50GB
+)

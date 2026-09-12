@@ -76,6 +76,8 @@ class CaptureConfig:
     queue_size: int = 8
     shard_bytes: int = 268435456
     census_path: str = ""
+    encoding: str = "raw"
+    deduplicate: bool = False
 
 
 @dataclass
@@ -130,6 +132,8 @@ class Config:
             raise ValueError("Unknown capture mode")
         if self.capture.policy not in {"observe", "enforce"}:
             raise ValueError("Unknown mismatch policy")
+        if self.capture.encoding not in {"raw", "zlib"}:
+            raise ValueError("Unknown lossless payload encoding")
         if self.capture.audit_steps != "all" and not (
             isinstance(self.capture.audit_steps, list) and
             all(type(s) is int and 1 <= s <= t.steps for s in self.capture.audit_steps)

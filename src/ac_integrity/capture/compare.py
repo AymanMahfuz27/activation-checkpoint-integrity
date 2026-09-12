@@ -101,6 +101,10 @@ def compare_events(root, step=None, rank=0):
         a, b = pair.get("original"), pair.get("recompute")
         row = {"pair_id": pair_id, "original": a["event_id"] if a else None,
                "recompute": b["event_id"] if b else None, "recompute_role": recompute_role}
+        if a or b:
+            source = a or b
+            row.update({key: source[key] for key in ("operator", "region", "microbatch", "op_ordinal", "module")})
+            row["recompute_sequence"] = b.get("sequence") if b else None
         if a is None or b is None:
             row["status"] = "missing_original" if a is None else "missing_recompute"
         elif a["operator"] != b["operator"] or a["output_schema"] != b["output_schema"]:
@@ -130,16 +134,20 @@ def compare_events(root, step=None, rank=0):
         import os
         os.fsync(output.fileno())
     first = next((row for row in rows if row["status"] != "exact_match"), None)
+    observed = [row for row in rows if row["status"] != "exact_match"
+                and row.get("recompute_sequence") is not None]
+    first_observed = min(observed, key=lambda row: row["recompute_sequence"]) if observed else None
     if first:
         capsule = Path(root) / "mismatches" / f"rank_{rank}_step_{step}"
         capsule.mkdir(parents=True, exist_ok=True)
         write_json(capsule / "first_divergence.json", first)
     return {"counts": dict(counts), "eligible_pairs": len(comparisons), "exact_pairs": complete,
             "failed": bool(failures), "first_divergence": first,
+            "first_observed_in_backward": first_observed,
             "pair_coverage": (sum(bool(p["original"] and p["recompute"]) for _, p, _ in comparisons) / len(comparisons)) if comparisons else None}
 
 
-def validate_artifacts(root, allow_partial=False):
+def validate_artifacts(root, allow_partial=False, require_step_commit=True):
     root = Path(root)
     failures = []
     count = 0
@@ -160,8 +168,14 @@ def validate_artifacts(root, allow_partial=False):
     if partials and not allow_partial:
         failures.append({"error": "Unsealed shards", "paths": partials})
     commits = sorted(root.glob("steps/*/STEP_COMMIT"))
-    if not commits:
+    if not commits and require_step_commit:
         failures.append({"error": "No STEP_COMMIT; artifact is incomplete/abandoned"})
+    if not require_step_commit:
+        capture_commit = root / "CAPTURE_COMMIT"
+        if not capture_commit.exists():
+            failures.append({"error": "No CAPTURE_COMMIT; trace is incomplete"})
+        else:
+            commits = [capture_commit]
     for path in commits:
         try:
             commit = json.loads(path.read_text())
@@ -175,4 +189,6 @@ def validate_artifacts(root, allow_partial=False):
     if not (root / "summary.json").exists():
         failures.append({"error": "Missing final summary"})
     return {"valid": not failures, "verified_tensors": count, "failures": failures,
-            "partial_shards": partials, "committed_steps": len(commits)}
+            "partial_shards": partials,
+            "committed_steps": len(list(root.glob("steps/*/STEP_COMMIT"))),
+            "capture_complete": bool(commits) and not failures}

@@ -37,7 +37,8 @@ class CaptureRuntime:
         self.writer = None
         if config.capture.mode == "full":
             c = config.capture
-            self.writer = ShardWriter(root, rank, c.queue_size, c.shard_bytes, c.max_bytes)
+            self.writer = ShardWriter(root, rank, c.queue_size, c.shard_bytes, c.max_bytes,
+                                      encoding=c.encoding, deduplicate=c.deduplicate)
 
     @contextmanager
     def phase_context(self, name):
@@ -147,6 +148,7 @@ class CaptureRuntime:
             event_id = f"{self.config.run_id}/{self.attempt}/{self.rank}/{self.step}/{self.microbatch}/{phase}/{path}/{call}/{ordinal}/{position}"
             size = tensor.numel() * tensor.element_size()
             event = {"event_id": event_id, "pair_id": pair if region and not framework else None,
+                     "sequence": self.events,
                      "unpaired_reason": "checkpoint_pack_hook_detach" if framework else (None if region else "outside_checkpoint_region"),
                      "operator": str(func), "output_schema": schema, "output_path": position,
                      "step": self.step, "microbatch": self.microbatch, "phase": phase,
@@ -183,6 +185,8 @@ class CaptureRuntime:
 
     def summary(self):
         return {"captured_tensors": self.events, "payload_bytes": self.bytes,
+                "stored_payload_bytes": self.writer.total_bytes if self.writer else None,
+                "reused_payloads": self.writer.reused_payloads if self.writer else 0,
                 "by_phase": dict(self.counts), "unsupported": self.unsupported,
                 "queue_high_water": self.writer.high_water if self.writer else 0,
                 "capture_blocked_seconds": self.writer.blocked_seconds if self.writer else 0.0}

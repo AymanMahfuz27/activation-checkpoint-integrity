@@ -7,12 +7,14 @@ from pathlib import Path
 import queue
 import threading
 import time
+import zlib
 import torch
 from ac_integrity.state import fsync_directory
 
 
 class ShardWriter:
-    def __init__(self, root, rank=0, queue_size=8, shard_bytes=268435456, max_bytes=10**10):
+    def __init__(self, root, rank=0, queue_size=8, shard_bytes=268435456,
+                 max_bytes=10**10, encoding="raw", deduplicate=False):
         self.root = Path(root)
         self.rank = rank
         self.folder = self.root / "tensors" / f"rank_{rank}"
@@ -23,6 +25,13 @@ class ShardWriter:
         self.shard_bytes = shard_bytes
         self.max_bytes = max_bytes
         self.total_bytes = 0
+        if encoding not in {"raw", "zlib"}:
+            raise ValueError("Unsupported lossless encoding")
+        self.encoding = encoding
+        self.deduplicate = deduplicate
+        self.logical_bytes = 0
+        self.reused_payloads = 0
+        self._locations = {}
         self.high_water = 0
         self.blocked_seconds = 0.0
         self.error = None
@@ -92,24 +101,43 @@ class ShardWriter:
         if completion is not None:
             completion.synchronize()
         payload = host.reshape(-1).view(torch.uint8).numpy().tobytes()
-        if self.total_bytes + len(payload) > self.max_bytes:
+        self.logical_bytes += len(payload)
+        digest = hashlib.sha256(payload).hexdigest()
+        # Hashes index candidates; a byte comparison, not the hash, authorizes
+        # reuse. Even a hash collision cannot change the captured tensor.
+        for location in self._locations.get(digest, []):
+            previous = {"event_id": "dedup-verification", "payload": location}
+            if read_payload(self.root, previous, allow_partial=True) == payload:
+                event["payload"] = dict(location)
+                self.reused_payloads += 1
+                self._write_index(event)
+                return
+        encoded = zlib.compress(payload, level=1) if self.encoding == "zlib" else payload
+        if self.total_bytes + len(encoded) > self.max_bytes:
             raise OSError("Capture artifact byte limit exceeded")
         if self._file is None:
             self._open_shard()
-        if self._offset and self._offset + len(payload) > self.shard_bytes:
+        if self._offset and self._offset + len(encoded) > self.shard_bytes:
             self._seal_shard()
             self._open_shard()
         event["payload"] = {"path": f"tensors/rank_{self.rank}/shard_{self._number:06d}.bin",
-                            "offset": self._offset, "length": len(payload),
-                            "sha256": hashlib.sha256(payload).hexdigest()}
-        self._file.write(payload)
+                            "offset": self._offset, "length": len(encoded),
+                            "sha256": digest}
+        if self.encoding != "raw":
+            event["payload"].update(encoding=self.encoding, raw_length=len(payload))
+        self._file.write(encoded)
         self._file.flush()
         os.fsync(self._file.fileno())
+        if self.deduplicate:
+            self._locations.setdefault(digest, []).append(dict(event["payload"]))
+        self._write_index(event)
+        self._offset += len(encoded)
+        self.total_bytes += len(encoded)
+
+    def _write_index(self, event):
         self.index.write(json.dumps(event, allow_nan=False) + "\n")
         self.index.flush()
         os.fsync(self.index.fileno())
-        self._offset += len(payload)
-        self.total_bytes += len(payload)
 
     def _run(self):
         while True:
@@ -158,7 +186,21 @@ def read_payload(root, event, allow_partial=False):
     with path.open("rb") as source:
         source.seek(location["offset"])
         payload = source.read(location["length"])
-    if len(payload) != location["length"] or hashlib.sha256(payload).hexdigest() != location["sha256"]:
+    if len(payload) != location["length"]:
+        raise ValueError(f"Payload checksum/length mismatch: {event['event_id']}")
+    encoding = location.get("encoding", "raw")
+    if encoding == "zlib":
+        try:
+            decoder = zlib.decompressobj()
+            payload = decoder.decompress(payload, location["raw_length"] + 1)
+            if (not decoder.eof or decoder.unused_data or decoder.unconsumed_tail
+                    or len(payload) != location["raw_length"]):
+                raise ValueError("Invalid compressed payload length")
+        except zlib.error as error:
+            raise ValueError("Compressed payload checksum failure") from error
+    elif encoding != "raw":
+        raise ValueError("Unsupported payload encoding")
+    if hashlib.sha256(payload).hexdigest() != location["sha256"]:
         raise ValueError(f"Payload checksum/length mismatch: {event['event_id']}")
     return payload
 

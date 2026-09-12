@@ -1,0 +1,2 @@
+-r production-cu126.in
+transformers==5.16.1

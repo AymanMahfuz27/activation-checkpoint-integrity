@@ -27,33 +27,34 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-07 CDT.
-- **Active contract**: User activated `docs/production-plan.md`; Notion access
-  explicitly waived by the user. Earlier starter work is historical, preserved
-  below, and excluded from the new evidence gates.
-- **Repository**: Implementation published at `6218f329848eddfec6537a55a8f0719756618e2f`
-  and synchronized to Condor. Bounded result records are being archived in a
-  follow-up commit under the same explicit authorization.
-- **Implemented**: Configured decoder/training lifecycle, exact parameter counts,
-  corpus materialization, snapshots/resume, fresh-process pair CLI, eager dispatch
-  capture, append-only shards, exact comparisons, failure gate, reports and replay.
-- **Verified**: Current unchanged #84864 assertion failure; miniature three-step
-  clean/resume equivalence; miniature full capture and natural observe/enforce
-  mechanism tests. Final complete suite: 39 passed in 34.26s; wheel build, lock validation,
-  shell syntax, Python compilation and whitespace checks pass.
-- **Evidence**: Real-corpus 40M clean control passes. Real-corpus 40M natural
-  capture-off trigger produces gradient/update divergence; trigger-off restores
-  equality. Condor 125M GPU fit probe passes. Full 40M activation capture,
-  M0.1/M0.3 acceptance, long controls, TorchTitan and native FP8 remain incomplete.
-- **Data**: Exact public dataset/tokenizer revisions selected. 100M-token
-  materialization complete, manifest hash frozen in production configs; tokenizer
-  dependency failures retained in logs.
-- **Blockers**: Full 40M capture estimates 61.95GB retention, exceeding local
-  free space; remote user quota is unverified. Modern GPU/TACC unconfigured;
-  TorchTitan candidate commit retrieved but compatible stack not validated.
-- **Next**: Establish a retained storage location with sufficient verified quota
-  for exhaustive 40M evidence, then complete capture/effect/enforcement gates.
-  Continue scheduled long controls and modern-GPU integration separately.
+- **Last updated**: 2026-09-11 CDT.
+- **Active contract**: User requests the four follow-through steps: GPU reproduction,
+  first-intermediate localization, recording noninterference and optimizer guard,
+  plus initial adapter-free upstream LLM screening. The older full research plan
+  remains context; the exact Notion project and production child were read today.
+- **Repository**: Local and origin/main at `d63d326`; follow-through implementation
+  is local and tested. Publication permission requested and pending under AGENTS.md.
+  Earlier uncommitted research-log entries are preserved.
+- **Implemented**: Existing research trainer plus lossless compressed/deduplicated
+  full capture, warmed-state fresh-process causal suite, upstream Transformers
+  Llama integration/screen, complete-trace versus optimizer-commit distinction,
+  isolated scheduled source clones and checksum-verified bounded archive transfer.
+- **Verified now**: 44 tests pass; two causal miniature suite runs pass (final run
+  10 gates); five upstream CPU smoke cells EXACT_MATCH over two steps, including
+  dropout, SDPA, BF16 autocast and aot_eager compilation. No natural failure found
+  in those small cells. Final GPU submit profiles pass scheduler dry-run.
+- **Existing real-model evidence**: Historical 40M CPU capture-off trigger gives
+  73 differing gradients and different updates with identical forward losses;
+  trigger-off restores equality. Previous 125M GPU fit probe passed. These are
+  not the new GPU causal/capture results, which have not run yet.
+- **Storage/access**: UT Condor access works; home quota15GiB, used9GiB. Cluster
+  scratch quota exists but no writable user directory. Scheduled scratch plus
+  acknowledged local archive transfer is prepared. TACC BatchMode login fails;
+  password/token authentication and allocation verification remain outstanding.
+- **Pending**: Commit/push authorization, corpus transfer and synchronized GPU
+  runs; retain and analyze full evidence, then explain actual results. TorchTitan,
+  native GPU BF16/FP8, saved-tensor-complete coverage, optimized fingerprints,
+  2,000-step controls and low-overhead performance claims remain unestablished.
 
 ## Planned actions
 
@@ -92,11 +93,19 @@ other secrets.
 | P006 | 2 | Run 125M CUDA 12.6 fit probe/control | Phase E | Explicit synchronization, scheduler and quota | GPU fit passed in 1553517.0; long control pending |
 | P007 | 3 | Implement pinned TorchTitan extension and modern GPU proof | Production transfer | Verified compatible stack and hardware | Pending |
 
+| F001 | 1 | Lossless capture and warmed-state proof suite | Close full-model evidence gates | Local tests | Implemented; 10 miniature gates pass |
+| F002 | 1 | Execute and archive full-size GPU causal suite | Establish CUDA localization/noninterference/enforcement | Publication permission and scheduled scratch | Ready; permission pending |
+| F003 | 1 | Adapter-free upstream Llama screen | Begin production-feature compatibility | Pinned upstream environment | Five CPU smoke cells pass; GPU screen ready |
+| F004 | 1 | Analyze measured GPU results and teach mechanisms with code | User requested explanation and conclusions | F002 and F003 | Pending actual runs |
+
 
 ## Experiment index
 
 | ID | Date | Hypothesis | Baseline | Status | Verdict | Record |
 |---|---|---|---|---|---|---|
+| Follow-through smoke | 2026-09-11 | Recording preserves a warmed-state controlled failure and blocks only unsafe updates | Fresh no-capture/reference/repeat/trigger-off arms | Two runs PASS, final 10 gates | PROMOTE infrastructure only | L0039-L0041 |
+| Upstream CPU smoke | 2026-09-11 | Unmodified upstream Llama checkpoint arms agree within each execution setting | Fresh repeated reference and checkpoint arms | Five cells EXACT_MATCH, two steps each | Bounded clean result | L0041 |
+
 | E0 | 2026-09-03/04 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64`/CUDA FP32 no-checkpoint runs and independent formulas | Three CPU and three GPU repetitions pass; bounded oracle; identity formula reconfirmed after diagnostic fix | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E1 | 2026-09-03/04 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | CPU and GPU suites each pass all 54 fresh arms; future Python/NumPy formula diagnostic corrected | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E2 | 2026-09-03/04 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | CPU and bundled CUDA runs both show baseline 1/1, candidate 1/0 | KILL exact candidate | L0007, L0009, L0010, L0012, L0018, L0019 |
@@ -2117,3 +2126,208 @@ For an experiment entry, also include:
   and bounded result manifests under existing commit/push authorization.
 - **Remaining**: No full capture, full-model enforcement, M0.3 acceptance,
   controlled-suite execution, 2,000-step control or TorchTitan claim.
+
+### L0037 — 2026-09-07 CDT — Repository synchronization and evidence walkthrough
+
+- **Status**: Complete read-only evidence review and user-requested local pull.
+- **Synchronization**: Fast-forwarded local main from `9c78d88` to user commit
+  `d63d326`. The checkout was clean after the pull. User-added root
+  `activation_checkpoint_reproduction.md` matches `docs/production-plan.md`
+  except for a final newline; `starter_test_cases.md` describes E0–E2.
+- **Review**: Rechecked real-model trigger-on/off summaries, saved outcomes,
+  reports, storage census, starter history and GPU-fit evidence. Both trigger-on
+  arms completed successfully; pair divergence means differing training state,
+  not a process crash. The 61.95GB figure is a projected full-capture budget,
+  not an existing archive. Current writer stores uncompressed payloads.
+- **Clarification**: The older miniature-only sentence in the status document's
+  remaining-gaps section is superseded by its September 7 section and L0034–L0036.
+  Real-model capture-off failure is reproduced; full activation localization,
+  measurement-effect checks and enforcement remain unaccepted at that scale.
+- **Scope**: No new experiment, archive, upload, deletion or remote run in this
+  walkthrough. Notion remains waived by the user's session instruction. This
+  log addition is local and uncommitted.
+
+### L0038 — 2026-09-08 CDT — Code walkthrough and professor-update preparation
+
+- **Status**: Read-only source/evidence review; explanatory response and unsent
+  email draft prepared. No new training or benchmark was run.
+- **Sources**: User-attached twelve-week Semester 1 master plan; starter fixture,
+  controllers and hook observer; real-model adapter, model and training loop;
+  causal-arm assertions, stored gradient report and upstream issue #84864.
+- **Clarification**: Reproduction of a known bug is a valid result, distinct from
+  discovery of a new bug. The LM experiment deliberately enables an adapter;
+  it is not an unchanged production-workload failure. The planned contribution
+  is position-sensitive fingerprints plus pre-optimizer enforcement, neither
+  novelty nor performance yet established. Exact full capture is the reference
+  for that checker, not the intended low-overhead implementation.
+- **Plan alignment**: Next proposed work is retained full 40M capture,
+  capture-effect comparison and real-model enforcement validation, followed by
+  the master plan's two fingerprint baselines and interior-only test. Finding
+  the first differing recorded value supports experiment validation; automatic
+  root-cause diagnosis and repair remain outside Semester 1. Current observer
+  coverage does not yet close the master plan's saved-tensor coverage gate.
+- **Boundary**: External storage/quota, full 40M enforcement, native BF16/FP8,
+  TorchTitan integration and runtime-overhead evidence remain outstanding.
+  Email is a draft only. Research log changes remain local and uncommitted.
+
+### L0038 — 2026-09-08 CDT — Plan-grounded code teaching and professor draft
+
+- **In progress**: Explain PyTorch fundamentals, exact gradient failure, E0–E2
+  implementation and motivation, reproduction versus discovery, and next-week
+  priorities. User supplied the twelve-week Semester 1 meeting plan directly;
+  Notion remains waived. Read current source, archived evidence and primary
+  PyTorch issue #84864 and checkpoint documentation. Starting HEAD `d63d326`,
+  dirty only from L0037 in this log.
+- **Scope**: Run a tiny instructional example using the existing mode adapter,
+  inspect saved real-model gradients and E2 summaries, then draft (do not send)
+  the professor email. No training-scale run or production implementation change.
+- **Expected evidence**: Toy forward/gradient disagreement only with checkpointing
+  and forward-only mode; agreement when the mode is supplied for both phases.
+  This illustrates the known mechanism and is not a new milestone experiment.
+- **Outcome**: Instructional CPU example on torch 2.13.0, seed 17, three
+  differentiable ones and loss `sum(x * torch.rand(x.shape))`: direct forward
+  under NoRandomnessMode gives loss 1.5 and gradients [0.5,0.5,0.5]; checkpoint
+  under a forward-only mode gives loss 1.5 and gradients
+  [0.43424123525619507,0.5351095795631409,0.8302087187767029]; supplying separate
+  NoRandomnessMode instances through checkpoint context_fn for both phases
+  restores [0.5,0.5,0.5]. No production source was changed.
+- **Raw evidence review**: Reloaded trusted local reference/candidate outcome.pt
+  from `artifacts/production/pair-real-natural-17-5bae2d4fc9b7`; embedding gradient
+  shape is (32000,512), and row 2 columns 0–3 reproduce the report values.
+  E2 aggregate `artifacts/starter/e2-coverage-20260904T042046.953728Z-aab0a6b4/summary.json`
+  reports hooks_preserve_behavior=false and zero recompute direct/hook events;
+  explain this as behavior-changing observation, not simply missing callbacks.
+- **Plan mapping**: Attached Semester 1 plan targets probabilistic position-sensitive
+  GPU fingerprints and pre-update enforcement. Current exact full capture is
+  reference infrastructure, not that optimized detector. Next-week draft focuses
+  on storage, full real-model localization, capture-on/off equivalence, and
+  pre-update enforcement; no promise of new bugs in an untouched trainer,
+  completed coverage, native FP8, TorchTitan, or measured low overhead.
+- **Status**: Explanation and unsent email draft prepared from source and saved
+  evidence. No training-scale experiment, production edit, send, commit or push.
+
+### L0039 — 2026-09-11 CDT — GPU, forensic capture, enforcement and upstream follow-through
+
+- **Status**: In progress, preregistered before implementation or experiment.
+- **Request**: Complete the four next steps from the referenced Codex and ChatGPT
+  conversations: GPU failure reproduction, first intermediate mismatch, recorder
+  noninterference and optimizer enforcement, and initial adapter-free upstream
+  LLM compatibility experiments. Explain mechanisms and measured results plainly.
+- **Context**: Read both referenced tasks, current README/source/status and ledger.
+  Starting HEAD `d63d326`; RESEARCH_LOG.md already dirty from prior user work and
+  preserved. Actual local checkout is now `/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity`.
+  Notion exact root verified: `3c65d66f-2c23-80c6-879f-e0aff5e92706`, edited
+  2026-09-10T21:00:36.980Z; one unknown alias block, relevant production-plan child
+  `3d05d66f-2c23-80d1-882f-ea6c45c89a7e` fetched, edited 2026-09-03T04:04:10.547Z.
+  Current user request supplies the active bounded scope; no claim to complete
+  the older 2,000-step or optimized-fingerprint milestones in this session.
+- **Live access**: Condor SSH key access works; remote clean at `6218f329`;
+  no current user jobs. Pool advertises idle GTX1080Ti and one Quadro RTX6000.
+  `quota` absent; official UTCS storage docs identify `chkquota`, to check next.
+  Remote corpus absent. Local free space about 24 GiB, prior artifacts 16 GiB.
+- **Implementation plan**: Lossless payload compression/deduplication with every
+  event retained and exact reconstruction checked; bounded fresh-process GPU
+  experiment runner with common snapshots; preserve trigger-on/off controls;
+  compare capture-on/off losses, gradients, model/optimizer/scheduler/RNG; prove
+  enforcement preserves pre-step persistent state including warmed Adam moments.
+  Initial upstream compatibility runs separately label supported precision/compiler
+  cells, runtime errors, clean controls and any actual discrepancies.
+- **Hypotheses**: (H1) Trigger-on CUDA arms finish with equal forward losses but
+  differing gradients/updates, trigger-off restores exact equality. (H2) Full
+  recording preserves capture-off outcomes and finds same-metadata divergence
+  at the adapter rand output. (H3) Enforce aborts before model/optimizer/scheduler
+  mutation, while clean enforcement allows an update. (H4) Adapter-free upstream
+  checkpoint/no-checkpoint arms agree within identical execution settings; a
+  negative result is valid and no injected trigger may count as natural discovery.
+- **Falsification**: Any failed clean/repeatability/noninterference gate invalidates
+  dependent corruption claims. Missing/ambiguous pairs fail closed. Ordinary
+  compiler numerical drift is classified separately from inconsistent recompute.
+- **Evidence**: Exact source/config/environment/seed/job ID, immutable snapshots,
+  full lossless payloads and indexes, outcomes, comparisons and machine-readable
+  gate summaries. No performance or saved-tensor-complete claim without evidence.
+
+### L0040 — 2026-09-11 CDT — Lossless storage and causal runner validation
+
+- **Outcome**: Added optional zlib payload encoding and exact byte-verified
+  deduplication; defaults preserve existing raw artifacts. Every event and full
+  logical payload remain recoverable. SHA256 only indexes reuse candidates;
+  actual bytes must also match, including an adversarial hash-collision test.
+- **Tests**: 5 targeted tests pass in 6.58s (lossless views/mutation/special values,
+  corruption rejection, forced hash collision, existing miniature enforcement).
+- **Experiment**: `PYTHONPATH=src .venv/bin/python -m ac_integrity.validation suite
+  --config configs/smoke.toml --device cpu --output artifacts/followthrough/smoke-v1
+  --budget-bytes 1000000000` passed all 11 gates. Nine fresh causal arms plus
+  complete census arms; warmed Adam state; full capture on reference/candidate;
+  repeatability, trigger reversal, recording equivalence, bad-update prevention
+  and clean update allowed. Source archive/environment in that run, CPU torch2.13.
+  This is fixture validation only, not the requested GPU or 40M result.
+- **Analysis**: PROMOTE infrastructure for the unchanged-size real model, subject
+  to full storage/hardware preflight. Distinguish first mismatch in original
+  execution order from first mismatch encountered while backward visits blocks
+  in reverse order; report both identities. Completed trace gets CAPTURE_COMMIT
+  separately from optimizer STEP_COMMIT, so blocked updates remain auditable.
+- **Storage finding**: `/lusr/bin/chkquota` verifies home quota 15GiB and usage9GiB.
+  Cluster scratch reports a 200GiB quota but no user directory and root isn't
+  writable. Quota without a writable allocation is not usable retention space.
+  Scheduled local scratch is available and can hold the conservative census.
+- **Upstream decision**: Begin the user-requested adapter-free screen with the
+  installed, version-pinned Hugging Face Transformers5.16.1 Llama implementation
+  (real corpus, checkpoint off/on, SDPA/dropout/autocast/compiler cells). This is
+  an upstream-model integration, not completed TorchTitan/FSDP/distributed work.
+  The older TorchTitan candidate now has a different source layout and additional
+  dependencies; its milestone remains separate and will not be falsely accepted.
+
+### L0041 — 2026-09-11 CDT — Local gates complete; GPU launch prepared
+
+- **Validation**: Full suite 44 passed in 53.17s, including lossless archive
+  round trip across acknowledged chunks and duplicate-file hard links. Shell
+  syntax, Python compilation and whitespace checks pass. Final causal smoke-v2
+  passes all **10** gates (correcting L0040's prose count of 11). First original
+  mismatch: blocks.0 aten.rand; first seen in backward: blocks.1 aten.rand.
+- **Upstream experiment**: `PYTHONPATH=src .venv/bin/python -m ac_integrity.upstream
+  matrix --config configs/smoke.toml --output artifacts/followthrough/upstream-smoke-v1
+  --cells eager_fp32,sdpa_fp32,dropout_fp32,eager_bf16,compile_fp32 --steps 2 --record`.
+  Five cells EXACT_MATCH; no differing entries across baseline repeats,
+  checkpoint/no-checkpoint or recording-on/off where supported. All eager
+  recorded comparisons pass. Compile used aot_eager; no kernel-fusion claim.
+- **Analysis**: PROMOTE these bounded implementation checks. CPU BF16 is not
+  evidence for native GPU BF16. No naturally occurring inconsistency observed in
+  these small upstream runs; this does not prove the absence of other failures.
+- **GPU plan**: Two scheduler profiles: full unchanged 40M/2048-token accumulated
+  causal step on Pascal, and 40M upstream Llama one-step cells using 64-token
+  microbatches on a Quadro RTX6000-class capability7.5 GPU. The latter permits
+  an actual Inductor compile attempt. Unsupported native BF16 is recorded.
+  Live idle node nandor-5 has a Quadro RTX6000 and about75GB local disk; choose
+  50GB upstream scratch reservation,110GB core. No experiment on login nodes.
+- **Packaging**: CUDA2.13.0+cu126 lock preserved; separate fully hashed 56-package
+  upstream lock pins Transformers5.16.1. Scheduled source clone is immutable.
+  Archive sender uses scheduled scratch, exact-verified file reuse and bounded
+  512MiB temporary chunks; original evidence stays until full local verification.
+- **Pending boundary**: Local AGENTS.md requires GitHub synchronization before
+  remote runs and explicitly forbids pushing without user authorization. Prepare
+  reviewable docs/diff, request only that publication permission, then carry out
+  the already requested UT runs without additional confirmation.
+
+- **Scheduler preflight (L0041 continuation)**: Condor accepted both submit
+  profiles in a read-only dry run, including core RequestDisk115343360KiB and
+  upstream52428800KiB. No jobs submitted yet. Local HEAD and origin/main both
+  `d63d326aa37d1f4fadccfcc78faaa27dd361185c`; dependency lock check passes.
+  Publication permission requested with exact AGENTS.md requirement; pending.
+
+- **TACC check (L0041 continuation)**: Existing `ls6` alias reached the login
+  service, which requires password/token authentication; BatchMode returned
+  Permission denied. No credentials entered and no settings changed. This does
+  not block the prepared Condor experiments.
+
+### L0042 — 2026-09-11 CDT — Resume and synchronized execution
+
+- **Authorization**: After the concrete implementation review and publication
+  permission request, user instructed to keep going following a usage-limit
+  interruption. Proceed with the proposed commit/push, synchronization, and
+  already requested scheduled UT experiments. Scope remains the reviewed work.
+- **Recheck**: Worktree still contains only the recorded implementation and prior
+  log changes. Latest archive test passed in23.45s. Local free storage about21GiB;
+  collectors enforce budget and preserve remote sources until acknowledged.
+- **Planned action**: Commit/push source/config/tests/docs/log, transfer the frozen
+  398MiB public corpus to UT, fast-forward remote through GitHub, submit two
+  named profiles, collect evidence with bounded storage and analyze all failures.
