@@ -161,6 +161,7 @@ def fingerprint_tensor(
     chunk_bytes=2 * 1024 * 1024,
     include_sketch=True,
     signature_output=None,
+    backend="full",
 ):
     """Fingerprint one tensor without transferring its payload to the host.
 
@@ -177,27 +178,45 @@ def fingerprint_tensor(
     """
     if chunk_bytes < 8:
         raise ValueError("fingerprint chunk_bytes must be at least 8")
+    if backend not in {"full", "bookkeeping", "launch"}:
+        raise ValueError("Unknown fingerprint backend")
+    if backend != "full" and include_sketch:
+        raise ValueError("Diagnostic fingerprint backends cannot collect sketches")
     if (tensor.layout != torch.strided or tensor.is_quantized
             or tensor.device.type == "meta"):
         raise TypeError(
             "Fingerprinting requires a dense, non-quantized, materialized tensor"
         )
 
-    value = tensor.detach().contiguous()
-    raw = value.view(torch.uint8).reshape(-1)
-    payload_bytes = raw.numel()
+    source = tensor.detach()
+    payload_bytes = source.numel() * source.element_size()
+    if backend == "full":
+        value = source.contiguous()
+        raw = value.view(torch.uint8).reshape(-1)
+    else:
+        # Diagnostic backends must not copy or scan payload data. Keeping the
+        # original layout cleanly separates those costs from observer work.
+        value = source
+        raw = None
     device = tensor.device
     if signature_output is None:
-        signatures = torch.empty(2, dtype=torch.int64, device=device)
+        factory = torch.zeros if backend == "bookkeeping" else torch.empty
+        signatures = factory(2, dtype=torch.int64, device=device)
     else:
         signatures = signature_output
         if (signatures.shape != (2,) or signatures.dtype != torch.int64
                 or signatures.device != device or not signatures.is_contiguous()):
             raise ValueError("signature_output must be a contiguous int64[2] row")
 
-    if device.type == "cuda":
+    if backend == "bookkeeping":
+        # FingerprintSession pre-zeros its bounded signature buffers once. This
+        # path deliberately performs no per-observation device operation.
+        pass
+    elif device.type == "cuda":
         from ac_integrity.capture.cuda_fingerprint import fingerprint_cuda_into
-        fingerprint_cuda_into(value, signatures)
+        fingerprint_cuda_into(value, signatures, scan_payload=backend == "full")
+    elif backend == "launch":
+        signatures.zero_()
     else:
         _fingerprint_reference_into(raw, chunk_bytes, signatures)
 
@@ -275,15 +294,21 @@ def numerical_sketch(tensor, chunk_bytes=2 * 1024 * 1024):
 class _DeviceBuffers:
     """Fixed-capacity device storage; overflow is an integrity failure."""
 
-    def __init__(self, device, capacity, chunk_bytes, include_sketches):
+    def __init__(self, device, capacity, chunk_bytes, include_sketches, backend):
         self.device = torch.device(device)
         self.capacity = capacity
         self.chunk_bytes = chunk_bytes
         self.include_sketches = include_sketches
+        self.backend = backend
         self.original_count = 0
         self.comparison_count = 0
-        self.original_signatures = torch.empty((capacity, 2), dtype=torch.int64, device=device)
-        self.recompute_signatures = torch.empty((capacity, 2), dtype=torch.int64, device=device)
+        signature_factory = torch.zeros if backend == "bookkeeping" else torch.empty
+        self.original_signatures = signature_factory(
+            (capacity, 2), dtype=torch.int64, device=device
+        )
+        self.recompute_signatures = signature_factory(
+            (capacity, 2), dtype=torch.int64, device=device
+        )
         self.flags = torch.zeros(capacity, dtype=torch.int64, device=device)
 
         self.original_stats = None
@@ -331,6 +356,10 @@ class _DeviceBuffers:
         target = self.recompute_signatures[result_index]
         if digest.signatures.data_ptr() != target.data_ptr():
             target.copy_(digest.signatures)
+        if self.backend == "bookkeeping" and not structural_failure:
+            # The buffer was pre-zeroed. Avoid every per-output device op so
+            # this diagnostic arm measures observer bookkeeping by itself.
+            return
         mismatch = (self.original_signatures[original_index] != digest.signatures).any()
         if structural_failure:
             mismatch = torch.ones((), dtype=torch.bool, device=self.device)
@@ -366,16 +395,21 @@ class FingerprintSession:
     """Pair, compare and summarize fingerprints without retaining tensor payloads."""
 
     def __init__(self, root, capacity=16384, chunk_bytes=2 * 1024 * 1024,
-                 include_sketches=True, require_pairs=True):
+                 include_sketches=True, require_pairs=True, backend="full"):
         if capacity <= 0:
             raise ValueError("fingerprint capacity must be positive")
         if chunk_bytes < 8:
             raise ValueError("fingerprint chunk size must be at least 8 bytes")
+        if backend not in {"full", "bookkeeping", "launch"}:
+            raise ValueError("Unknown fingerprint backend")
+        if backend != "full" and include_sketches:
+            raise ValueError("Diagnostic fingerprint backends cannot collect sketches")
         self.root = Path(root)
         self.capacity = capacity
         self.chunk_bytes = chunk_bytes
         self.include_sketches = include_sketches
         self.require_pairs = require_pairs
+        self.backend = backend
         self.devices = {}
         self.originals = {}
         self.comparisons = []
@@ -389,7 +423,8 @@ class FingerprintSession:
         key = str(device)
         if key not in self.devices:
             self.devices[key] = _DeviceBuffers(
-                device, self.capacity, self.chunk_bytes, self.include_sketches
+                device, self.capacity, self.chunk_bytes, self.include_sketches,
+                self.backend,
             )
         return key, self.devices[key]
 
@@ -414,6 +449,7 @@ class FingerprintSession:
                 digest = fingerprint_tensor(
                     tensor, self.chunk_bytes, self.include_sketches,
                     signature_output=buffers.original_signatures[index],
+                    backend=self.backend,
                 )
                 buffers.store_original(index, digest)
             except FingerprintCapacityError:
@@ -459,6 +495,7 @@ class FingerprintSession:
             digest = fingerprint_tensor(
                 tensor, self.chunk_bytes, self.include_sketches,
                 signature_output=buffers.recompute_signatures[result_index],
+                backend=self.backend,
             )
             buffers.store_comparison(result_index, original.buffer_index, digest,
                                      structural_status is not None)
@@ -505,7 +542,10 @@ class FingerprintSession:
         original_signature = values["original_signatures"][original_index]
         recompute_signature = values["recompute_signatures"][result_index]
         row["signatures"] = {
-            "algorithm": ALGORITHM,
+            "algorithm": (
+                ALGORITHM if self.backend == "full"
+                else f"diagnostic-{self.backend}-only"
+            ),
             "original": [_hex64(value) for value in original_signature],
             "recompute": [_hex64(value) for value in recompute_signature],
         }
@@ -658,7 +698,10 @@ class FingerprintSession:
             "mode": "fingerprint",
             "algorithm": ALGORITHM,
             "byte_order": sys.byteorder,
-            "policy": "bit_exact_fail_closed",
+            "policy": (
+                "bit_exact_fail_closed" if self.backend == "full"
+                else "diagnostic_timing_only"
+            ),
             "sketch_policy": "diagnostic_only" if self.include_sketches else "disabled",
             "counts": dict(final_counts),
             "eligible_pairs": len(self.comparisons) + len(missing_rows),

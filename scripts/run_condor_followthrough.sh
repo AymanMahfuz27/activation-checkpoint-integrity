@@ -6,8 +6,8 @@ set -euo pipefail
 export PATH="/usr/local/bin:/usr/bin:/bin:${PATH:-}"
 
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-profile=${1:?Pass core, upstream, or fingerprint}
-[[ "$profile" == core || "$profile" == upstream || "$profile" == fingerprint ]]
+profile=${1:?Pass core, upstream, fingerprint, or ablation}
+[[ "$profile" == core || "$profile" == upstream || "$profile" == fingerprint || "$profile" == ablation ]]
 [[ -n "${_CONDOR_SCRATCH_DIR:-}" ]]
 [[ -z "$(git -C "$repo_dir" status --porcelain)" ]]
 job_id="${CONDOR_CLUSTER_ID:?}.${CONDOR_PROCESS_ID:?}"
@@ -72,7 +72,7 @@ if sys.argv[1] == "upstream":
         subprocess.run(["gcc", "-shared", "-fPIC", str(source), "-o",
                         str(pathlib.Path(temporary) / "probe.so")], check=True)
     record["toolchain"]["shared_library_probe"] = "PASS"
-elif sys.argv[1] == "fingerprint":
+elif sys.argv[1] in {"fingerprint", "ablation"}:
     record["fingerprint_extension"] = preload_cuda_fingerprint()
     for byte_count in range(20):
         cpu = torch.arange(byte_count, dtype=torch.uint8)
@@ -87,6 +87,7 @@ required = {
     "core": 100_000_000_000,
     "upstream": 40_000_000_000,
     "fingerprint": 15_000_000_000,
+    "ablation": 15_000_000_000,
 }[sys.argv[1]]
 assert record["scratch_free_bytes"] >= required, record["scratch_free_bytes"]
 print(json.dumps(record), flush=True)
@@ -110,6 +111,10 @@ elif [[ "$profile" == fingerprint ]]; then
         --output "$run_root" --budget-bytes 2000000000 --stages fingerprint \
         --oracle-summary "$oracle" \
         --fingerprint-baseline-summary "$fingerprint_baseline" || exit_code=$?
+elif [[ "$profile" == ablation ]]; then
+    "$python_bin" -m ac_integrity.validation suite --config artifacts/job-config.toml \
+        --output "$run_root" --budget-bytes 2000000000 \
+        --stages fingerprint_ablation || exit_code=$?
 else
     "$python_bin" -m ac_integrity.upstream matrix --config artifacts/job-config.toml \
         --output "$run_root" --steps 1 --record \
@@ -120,7 +125,7 @@ printf '%s\n' "$exit_code" > "$record_dir/experiment-exit-code"
 if [[ -f "$run_root/summary.json" ]]; then
     cp "$run_root/summary.json" "$record_dir/summary.json"
 fi
-if [[ -d "$run_root" && "$profile" == fingerprint ]]; then
+if [[ -d "$run_root" && ( "$profile" == fingerprint || "$profile" == ablation ) ]]; then
     # The timing suite compares full state in scratch, then retains the compact
     # decisions and provenance. Multi-gigabyte snapshots/outcomes are excluded.
     "$python_bin" - "$run_root" "$record_dir/evidence" <<'PY'

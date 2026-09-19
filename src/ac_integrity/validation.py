@@ -166,6 +166,20 @@ def arm_specifications(stages):
         ("fingerprinted_candidate", True, True, "fingerprint", "enforce"),
         ("clean_fingerprinted", True, False, "fingerprint", "enforce"),
     ]
+    if stages == "fingerprint_ablation":
+        arms = []
+        for repeat in range(1, 4):
+            suffix = f"_{repeat}"
+            arms.extend([
+                (f"ablation_off{suffix}", True, False, "off", "observe"),
+                (f"ablation_bookkeeping{suffix}", True, False,
+                 "fingerprint", "observe"),
+                (f"ablation_launch{suffix}", True, False,
+                 "fingerprint", "observe"),
+                (f"ablation_full{suffix}", True, False,
+                 "fingerprint", "enforce"),
+            ])
+        return arms
     if stages == "fingerprint":
         repeated_clean = [
             ("trigger_off_candidate_repeat_2", True, False, "off", "observe"),
@@ -264,6 +278,12 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
         arm.run_id = name
         arm.checkpoint.enabled, arm.adapter.trigger = checkpointed, trigger
         arm.capture.mode, arm.capture.policy = capture, policy
+        if "ablation_bookkeeping" in name:
+            arm.capture.fingerprint_backend = "bookkeeping"
+        elif "ablation_launch" in name:
+            arm.capture.fingerprint_backend = "launch"
+        else:
+            arm.capture.fingerprint_backend = "full"
         arm.capture.encoding, arm.capture.deduplicate = "zlib", True
         arm.capture.max_bytes = budget_bytes
         if capture == "full":
@@ -306,6 +326,83 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
         if left in arms and right in arms:
             comparisons[label] = outcomes_equal(root / left, root / right)
             state.write_json(root / (label + "_comparison.json"), comparisons[label])
+    if stages == "fingerprint_ablation":
+        backend_names = {
+            backend: [f"ablation_{backend}_{repeat}" for repeat in range(1, 4)]
+            for backend in ("off", "bookkeeping", "launch", "full")
+        }
+        for repeat in range(1, 4):
+            off_name = f"ablation_off_{repeat}"
+            for backend in ("bookkeeping", "launch", "full"):
+                name = f"ablation_{backend}_{repeat}"
+                label = f"ablation_{backend}_effect_{repeat}"
+                comparisons[label] = outcomes_equal(root / off_name, root / name)
+                state.write_json(root / (label + "_comparison.json"), comparisons[label])
+
+        times = {
+            backend: [arms[name]["seconds"] for name in names]
+            for backend, names in backend_names.items()
+        }
+        medians = {
+            backend: statistics.median(values)
+            for backend, values in times.items()
+        }
+        surcharges = {
+            backend: medians[backend] - medians["off"]
+            for backend in ("bookkeeping", "launch", "full")
+        }
+        launch_increment = medians["launch"] - medians["bookkeeping"]
+        scan_increment = medians["full"] - medians["launch"]
+        observer_plus_launch = max(0.0, medians["launch"] - medians["off"])
+        full_surcharge = medians["full"] - medians["off"]
+        gates = {
+            "all_arms_completed": all(
+                arm["status"] == "PASS" for arm in arms.values()
+            ),
+            "all_outcomes_match_capture_off": all(
+                not any(comparisons[f"ablation_{backend}_effect_{repeat}"].values())
+                for backend in ("bookkeeping", "launch", "full")
+                for repeat in range(1, 4)
+            ),
+            "all_fingerprint_pairs_complete": all(
+                not arms[name]["result"]["comparison"]["failed"]
+                and arms[name]["result"]["comparison"]["pair_coverage"] == 1.0
+                and arms[name]["result"]["comparison"]["decision_host_checks"] == 1
+                for backend in ("bookkeeping", "launch", "full")
+                for name in backend_names[backend]
+            ),
+            "full_backend_exact": all(
+                arms[name]["result"]["comparison"]["exact_pairs"]
+                == arms[name]["result"]["comparison"]["eligible_pairs"]
+                for name in backend_names["full"]
+            ),
+            "observer_plus_launch_at_least_half_of_full_surcharge":
+                full_surcharge > 0 and observer_plus_launch >= 0.5 * full_surcharge,
+        }
+        timing = {
+            "seconds": times,
+            "median_seconds": medians,
+            "surcharge_over_off_seconds": surcharges,
+            "launch_increment_over_bookkeeping_seconds": launch_increment,
+            "payload_scan_increment_over_launch_seconds": scan_increment,
+            "observer_plus_launch_fraction_of_full_surcharge":
+                observer_plus_launch / full_surcharge if full_surcharge > 0 else None,
+            "peak_cuda_allocated": {
+                backend: [arms[name]["peak_cuda_allocated"] for name in names]
+                for backend, names in backend_names.items()
+            },
+        }
+        result = {
+            "status": "PASS" if all(gates.values()) else "FAIL",
+            "gates": gates,
+            "device": c.device,
+            "seed": c.seed,
+            "arms": arms,
+            "timing": timing,
+            "scope": "diagnostic timing ablation; non-full backends cannot enforce",
+        }
+        state.write_json(root / "summary.json", result)
+        return result
     gates = {
         "silent_gpu_or_cpu_reproduction": bool(comparisons["trigger"]["gradients"]
                     and comparisons["trigger"]["model"] and not comparisons["trigger"]["losses"]
@@ -498,7 +595,11 @@ def main():
     parser.add_argument("--device")
     parser.add_argument("--seed", type=int)
     parser.add_argument("--budget-bytes", type=int, default=0)
-    parser.add_argument("--stages", choices=["all", "off", "fingerprint"], default="all")
+    parser.add_argument(
+        "--stages",
+        choices=["all", "off", "fingerprint", "fingerprint_ablation"],
+        default="all",
+    )
     parser.add_argument("--oracle-summary", type=Path)
     parser.add_argument("--fingerprint-baseline-summary", type=Path)
     args = parser.parse_args()

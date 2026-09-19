@@ -81,6 +81,7 @@ class CaptureConfig:
     fingerprint_capacity: int = 16384
     fingerprint_chunk_bytes: int = 262144
     fingerprint_sketches: bool = False
+    fingerprint_backend: str = "full"
 
 
 @dataclass
@@ -172,6 +173,14 @@ class Config:
             raise ValueError("fingerprint_chunk_bytes must be an integer of at least 8")
         if type(self.capture.fingerprint_sketches) is not bool:
             raise ValueError("fingerprint_sketches must be true or false")
+        if self.capture.fingerprint_backend not in {"full", "bookkeeping", "launch"}:
+            raise ValueError("Unknown fingerprint backend")
+        if (self.capture.fingerprint_backend != "full"
+                and self.capture.policy != "observe"):
+            raise ValueError("Diagnostic fingerprint backends require observe policy")
+        if (self.capture.fingerprint_backend != "full"
+                and self.capture.fingerprint_sketches):
+            raise ValueError("Diagnostic fingerprint backends cannot collect sketches")
         return self
 
     def digest(self):

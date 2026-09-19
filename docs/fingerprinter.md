@@ -72,6 +72,7 @@ audit_steps = "all"
 fingerprint_capacity = 16384
 fingerprint_chunk_bytes = 262144
 fingerprint_sketches = false
+fingerprint_backend = "full"
 ```
 
 `fingerprint_capacity` bounds original and comparison rows per device. Overflow
@@ -80,6 +81,10 @@ temporary work in the readable CPU reference; the fused CUDA kernel does not
 materialize per-chunk weights or products. Signatures are independent of chunk
 size.
 `fingerprint_sketches = true` enables calibration evidence at additional cost.
+`fingerprint_backend = "full"` is the only enforcement-capable backend. The
+`bookkeeping` and `launch` values exist only for the preregistered performance
+ablation: configuration validation requires observe policy and disables
+sketches so neither diagnostic path can authorize an optimizer update.
 
 ## Evidence and limits
 

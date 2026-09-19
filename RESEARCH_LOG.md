@@ -3012,3 +3012,31 @@ For an experiment entry, also include:
   dominates, reduce audited payload frequency or optimize memory traversal.
   Infrastructure failures and diagnostic-backend mismatches are inconclusive,
   not runtime evidence.
+- **Diagnostic implementation**: Added explicit `bookkeeping`, `launch`, and
+  production `full` fingerprint backends. Configuration validation prevents the
+  two diagnostic backends from enforcing or collecting numerical sketches.
+  `bookkeeping` pre-zeros bounded signature buffers once and performs no
+  per-observation device work; `launch` preserves the production memset,
+  native-kernel launch, and comparison path but gives the kernel a zero-byte
+  payload; `full` is unchanged. The diagnostic paths also avoid contiguous
+  payload copies, so the isolated increments match the preregistered cost
+  components. The ablation harness schedules three repetitions in alternating
+  off/bookkeeping/launch/full order from one warmed snapshot and records
+  medians, increments, outcomes, coverage, and peak allocation.
+- **Local verification**: The first combined focused-test command named a
+  nonexistent `tests/test_config.py` and exited before running tests; this was a
+  command-selection error, not a code failure. The corrected focused suite
+  completed **34 passed, 1 skipped in 13.35s**; the skip is the CUDA-only test.
+  Python compilation, runner shell syntax, and `git diff --check` pass.
+- **Local harness smoke**: The first bounded CPU smoke passed budget `0`, which
+  correctly failed configuration validation because `max_bytes` must be
+  positive. Repeating with budget `1` completed all 12 arms, preserved every
+  outcome, completed every pair, and kept the full backend exact. Its overall
+  `FAIL` was only the preregistered attribution gate on noisy tiny CPU timings;
+  those timings are not evidence about CUDA and are intentionally not used for
+  the F008 decision. This verifies orchestration and evidence structure before
+  the scheduled GPU ablation.
+- **Full local verification**: A stable-tree full suite completed **79 passed,
+  1 skipped in 158.17s**. The only skip is the CUDA equality test on the local
+  Mac. No tracked source changed after that run; subsequent edits only record
+  the result and document the diagnostic-only configuration boundary.

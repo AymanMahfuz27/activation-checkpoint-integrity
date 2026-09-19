@@ -132,10 +132,17 @@ def preload_cuda_fingerprint(device=None):
     }
 
 
-def fingerprint_cuda_into(tensor, output):
-    """Write one contiguous CUDA tensor's 128-bit signature into ``output``."""
-    if not tensor.is_cuda or not tensor.is_contiguous():
-        raise ValueError("CUDA fingerprint input must be contiguous and on CUDA")
+def fingerprint_cuda_into(tensor, output, scan_payload=True):
+    """Write one contiguous CUDA tensor's 128-bit signature into ``output``.
+
+    ``scan_payload=False`` is a diagnostic ablation. It preserves the production
+    memset and native launch path but gives the kernel a zero-byte payload, so
+    it cannot be used to authorize an optimizer update.
+    """
+    if not tensor.is_cuda or (scan_payload and not tensor.is_contiguous()):
+        raise ValueError(
+            "CUDA fingerprint input must be on CUDA and contiguous when scanned"
+        )
     if (not output.is_cuda or output.device != tensor.device
             or output.dtype != torch.int64 or output.shape != (2,)
             or not output.is_contiguous()):
@@ -154,7 +161,9 @@ def fingerprint_cuda_into(tensor, output):
             ),
             "cudaMemsetAsync",
         )
-        payload_bytes = tensor.numel() * tensor.element_size()
+        payload_bytes = (
+            tensor.numel() * tensor.element_size() if scan_payload else 0
+        )
         word_count = (payload_bytes + 3) // 4
         blocks = max(1, min(_MAXIMUM_BLOCKS, (word_count + _THREADS - 1) // _THREADS))
         parameters = (

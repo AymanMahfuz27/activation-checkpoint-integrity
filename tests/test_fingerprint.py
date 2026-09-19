@@ -76,6 +76,17 @@ def test_fingerprint_stage_excludes_expensive_full_capture(tmp_path):
     assert baseline["clean_capture_off_seconds"] == 5.10
 
 
+def test_fingerprint_ablation_stage_is_three_interleaved_clean_repeats():
+    specifications = arm_specifications("fingerprint_ablation")
+    assert [row[0] for row in specifications] == [
+        f"ablation_{backend}_{repeat}"
+        for repeat in range(1, 4)
+        for backend in ("off", "bookkeeping", "launch", "full")
+    ]
+    assert all(not trigger for _, _, trigger, _, _ in specifications)
+    assert all(mode != "full" for _, _, _, mode, _ in specifications)
+
+
 def test_signatures_are_exact_position_sensitive_and_chunk_independent():
     original = torch.tensor([1.0, -0.0, float("nan"), 4.0, 5.0])
     same = original.clone()
@@ -142,6 +153,30 @@ def test_fingerprint_can_write_directly_into_a_preallocated_row():
     )
     assert digest.signatures.data_ptr() == output.data_ptr()
     assert torch.equal(output, signatures(tensor, 64))
+
+
+@pytest.mark.parametrize("backend", ["bookkeeping", "launch"])
+def test_diagnostic_backends_return_constant_signatures_on_cpu(backend):
+    left = fingerprint_tensor(
+        torch.arange(17), include_sketch=False, backend=backend
+    ).signatures
+    right = fingerprint_tensor(
+        torch.arange(17) + 100, include_sketch=False, backend=backend
+    ).signatures
+    assert torch.equal(left, torch.zeros(2, dtype=torch.int64))
+    assert torch.equal(right, left)
+
+
+def test_diagnostic_backends_cannot_enforce_or_collect_sketches():
+    config = _fingerprint_config()
+    config.capture.fingerprint_backend = "bookkeeping"
+    with pytest.raises(ValueError, match="require observe policy"):
+        config.validate()
+    config.capture.policy = "observe"
+    with pytest.raises(ValueError, match="cannot collect sketches"):
+        config.validate()
+    config.capture.fingerprint_sketches = False
+    config.validate()
 
 
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA is unavailable")

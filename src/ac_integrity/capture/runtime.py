@@ -55,6 +55,7 @@ class CaptureRuntime:
                 chunk_bytes=c.fingerprint_chunk_bytes,
                 include_sketches=c.fingerprint_sketches,
                 require_pairs=config.checkpoint.enabled,
+                backend=c.fingerprint_backend,
             )
 
     @property
