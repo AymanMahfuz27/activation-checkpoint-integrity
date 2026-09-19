@@ -12,6 +12,7 @@ import weakref
 import torch
 from torch.utils._pytree import tree_flatten, keystr
 from ac_integrity.capture.dispatch import CaptureMode
+from ac_integrity.capture.fingerprint import FingerprintSession
 from ac_integrity.capture.writer import ShardWriter
 from ac_integrity.state import backend_state, write_json
 
@@ -35,10 +36,28 @@ class CaptureRuntime:
         self.stacks = {}
         self.handles = []
         self.writer = None
+        self.fingerprinter = None
         if config.capture.mode == "full":
             c = config.capture
             self.writer = ShardWriter(root, rank, c.queue_size, c.shard_bytes, c.max_bytes,
                                       encoding=c.encoding, deduplicate=c.deduplicate)
+        elif config.capture.mode == "fingerprint":
+            c = config.capture
+            self.fingerprinter = FingerprintSession(
+                root,
+                capacity=c.fingerprint_capacity,
+                chunk_bytes=c.fingerprint_chunk_bytes,
+                include_sketches=c.fingerprint_sketches,
+                require_pairs=config.checkpoint.enabled,
+            )
+
+    @property
+    def lightweight(self):
+        return self.fingerprinter is not None
+
+    def should_observe_current_operator(self):
+        """The fast path ignores work outside an active checkpoint region."""
+        return not self.lightweight or self.region.get() is not None
 
     @contextmanager
     def phase_context(self, name):
@@ -107,24 +126,73 @@ class CaptureRuntime:
         region = self.region.get()
         path, call, role = region if region else ("outside", 0, "unpaired")
         phase = role if region else self.phase
-        frames = traceback.extract_stack(limit=32)
         # PyTorch's recomputation pack hook inserts detach operations that have
         # no forward counterpart. Capture them, but give framework bookkeeping
         # its own sequence. User detach calls remain eligible for exact pairing.
+        frames = []
         import torch.utils.checkpoint as checkpoint_module
-        framework = str(func) == "aten.detach.default" and any(
-            frame.name == "pack_hook" and frame.filename == checkpoint_module.__file__
-            for frame in frames
+        if not self.lightweight or str(func) == "aten.detach.default":
+            frames = traceback.extract_stack(limit=32)
+        framework = (
+            str(func) == "aten.detach.default"
+            and any(frame.name == "pack_hook" and frame.filename == checkpoint_module.__file__
+                    for frame in frames)
         )
         if framework:
             phase = "checkpoint_bookkeeping"
         ordinal_key = (self.step, self.microbatch, path, call, phase)
         ordinal = self.ordinals[ordinal_key]
         self.ordinals[ordinal_key] += 1
+        module_parents = [p for names in self.module_stack.get() for p in names]
+
+        if self.lightweight:
+            for output_path, tensor in leaves:
+                if not isinstance(tensor, torch.Tensor):
+                    continue
+                if (type(tensor) not in (torch.Tensor, torch.nn.Parameter)
+                        or tensor.layout != torch.strided or tensor.is_quantized
+                        or tensor.device.type == "meta"):
+                    self.unsupported.append({"operator": str(func), "type": str(type(tensor)),
+                                             "layout": str(tensor.layout)})
+                    raise TypeError("Unsupported tensor output; fingerprint audit aborted")
+                position = keystr(output_path) or "output"
+                pair = f"{self.attempt}/{self.rank}/{self.step}/{self.microbatch}/{path}/{call}/{ordinal}/{position}"
+                event_id = f"{self.config.run_id}/{self.attempt}/{self.rank}/{self.step}/{self.microbatch}/{phase}/{path}/{call}/{ordinal}/{position}"
+                size = tensor.numel() * tensor.element_size()
+                event = {
+                    "event_id": event_id,
+                    "pair_id": pair if region and not framework else None,
+                    "sequence": self.events,
+                    "operator": str(func),
+                    "output_schema": schema,
+                    "output_path": position,
+                    "step": self.step,
+                    "microbatch": self.microbatch,
+                    "phase": phase,
+                    "checkpoint_role": role,
+                    "region": path,
+                    "call": call,
+                    "op_ordinal": ordinal,
+                    "rank": self.rank,
+                    "module": module_parents[-1] if module_parents else None,
+                    "shape": list(tensor.shape),
+                    "dtype": str(tensor.dtype),
+                    "device": str(tensor.device),
+                    "layout": str(tensor.layout),
+                    "stride": list(tensor.stride()),
+                    "storage_offset": tensor.storage_offset(),
+                    "numel": tensor.numel(),
+                    "nbytes": size,
+                }
+                self.events += 1
+                self.bytes += size
+                self.counts[phase] += 1
+                self.fingerprinter.observe(event, tensor)
+            return
+
         stack_text = "".join(traceback.format_list(frames))
         stack_id = hashlib.sha256(stack_text.encode()).hexdigest()
         self.stacks.setdefault(stack_id, stack_text)
-        module_parents = [p for names in self.module_stack.get() for p in names]
         def sanitize(value):
             if isinstance(value, torch.Tensor):
                 return {"tensor": True}
@@ -183,13 +251,22 @@ class CaptureRuntime:
         if self.writer:
             self.writer.flush()
 
+    def compare(self):
+        if self.fingerprinter:
+            return self.fingerprinter.finalize()
+        return None
+
     def summary(self):
-        return {"captured_tensors": self.events, "payload_bytes": self.bytes,
-                "stored_payload_bytes": self.writer.total_bytes if self.writer else None,
-                "reused_payloads": self.writer.reused_payloads if self.writer else 0,
-                "by_phase": dict(self.counts), "unsupported": self.unsupported,
-                "queue_high_water": self.writer.high_water if self.writer else 0,
-                "capture_blocked_seconds": self.writer.blocked_seconds if self.writer else 0.0}
+        result = {"mode": self.config.capture.mode,
+                  "captured_tensors": self.events, "payload_bytes": self.bytes,
+                  "stored_payload_bytes": self.writer.total_bytes if self.writer else None,
+                  "reused_payloads": self.writer.reused_payloads if self.writer else 0,
+                  "by_phase": dict(self.counts), "unsupported": self.unsupported,
+                  "queue_high_water": self.writer.high_water if self.writer else 0,
+                  "capture_blocked_seconds": self.writer.blocked_seconds if self.writer else 0.0}
+        if self.fingerprinter and self.fingerprinter.result is not None:
+            result["fingerprint"] = self.fingerprinter.result
+        return result
 
     def close(self):
         for handle in self.handles:
@@ -198,6 +275,9 @@ class CaptureRuntime:
         try:
             if self.writer:
                 self.writer.close()
+            if self.fingerprinter and self.fingerprinter.result is None:
+                self.fingerprinter.finalize()
         finally:
             self.provenance.clear()
-            write_json(self.root / "stacks.json", self.stacks)
+            if not self.lightweight:
+                write_json(self.root / "stacks.json", self.stacks)

@@ -99,6 +99,8 @@ def run_arm(config, snapshot_path, root):
                "peak_cuda_allocated": torch.cuda.max_memory_allocated() if torch.cuda.is_initialized() else None}
     if runtime and (runtime.root / "failure.json").exists():
         summary["failure"] = json.loads((runtime.root / "failure.json").read_text())
+    if runtime:
+        state.write_json(runtime.root / "summary.json", runtime.summary())
     if runtime and runtime.writer:
         # Capture completion and optimizer commitment are different facts.
         # An enforced abort has a complete trace but no optimizer STEP_COMMIT.
@@ -107,7 +109,6 @@ def run_arm(config, snapshot_path, root):
         state.write_json(runtime.root / "CAPTURE_COMMIT", commit)
         if updates and status != "FAILED":
             state.write_json(runtime.root / "steps" / str(runtime.step) / "STEP_COMMIT", commit)
-        state.write_json(runtime.root / "summary.json", runtime.summary())
         summary["artifact_validation"] = validate_artifacts(runtime.root, require_step_commit=bool(updates))
         if not summary["artifact_validation"]["valid"]:
             summary["status"] = "FAILED"
@@ -138,7 +139,63 @@ def outcomes_equal(left, right):
     return {key: compare_state(a[key], b[key], key) for key in a}
 
 
-def suite(config, root, budget_bytes, stages="all"):
+def arm_specifications(stages):
+    """Return the minimum independent arms needed by one suite profile.
+
+    ``fingerprint`` deliberately excludes every census and full-capture arm. It
+    rechecks the current-code causal control, then measures clean and failing
+    fingerprints from the same warmed snapshot.
+    """
+    causal = [
+        ("trigger_reference", False, True, "off", "observe"),
+        ("trigger_candidate", True, True, "off", "observe"),
+        ("trigger_off_candidate", True, False, "off", "observe"),
+    ]
+    repeated_controls = [
+        ("trigger_repeat", True, True, "off", "observe"),
+        ("trigger_off_reference", False, False, "off", "observe"),
+    ]
+    full_capture = [
+        ("recorded_reference", False, True, "full", "observe"),
+        ("recorded_candidate", True, True, "full", "observe"),
+        ("enforced_candidate", True, True, "full", "enforce"),
+        ("clean_enforced", True, False, "full", "enforce"),
+    ]
+    fingerprints = [
+        ("fingerprinted_candidate", True, True, "fingerprint", "enforce"),
+        ("clean_fingerprinted", True, False, "fingerprint", "enforce"),
+    ]
+    if stages == "fingerprint":
+        return causal + fingerprints
+    if stages == "off":
+        return causal + repeated_controls
+    if stages == "all":
+        return causal + repeated_controls + full_capture + fingerprints
+    raise ValueError(f"Unknown validation stage: {stages}")
+
+
+def load_historical_oracle(path):
+    """Load only the immutable facts needed to compare a compact replay."""
+    if path is None:
+        return None
+    path = Path(path).resolve()
+    summary = json.loads(path.read_text())
+    recorded = summary["arms"]["recorded_candidate"]
+    comparison = recorded["result"]["comparison"]
+    first = comparison["first_divergence"]
+    return {
+        "path": str(path),
+        "sha256": state.sha256(path),
+        "full_capture_seconds": recorded["seconds"],
+        "capture_off_seconds": summary["arms"]["trigger_candidate"]["seconds"],
+        "eligible_pairs": comparison["eligible_pairs"],
+        "mismatches": comparison["counts"].get("value_mismatch", 0),
+        "first_pair_id": first["pair_id"],
+        "first_operator": first["operator"],
+    }
+
+
+def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=False)
     c = copy.deepcopy(config)
@@ -164,26 +221,15 @@ def suite(config, root, budget_bytes, stages="all"):
     del model, optimizer, scheduler, corpus, batches
     if torch.cuda.is_initialized():
         torch.cuda.empty_cache()
+    historical_oracle = load_historical_oracle(oracle_summary)
     state.write_json(root / "experiment.json", {"seed": c.seed,
         "snapshot_sha256": state.sha256(snapshot), "warmup_updates": 1,
         "scope": "all microbatches of one real next-token step from warmed Adam state",
         "parameter_count": 39985664 if c.model.width == 512 and c.model.layers == 8 else None,
-        "evidence_class": c.evidence_class, "budget_bytes": budget_bytes})
+        "evidence_class": c.evidence_class, "budget_bytes": budget_bytes,
+        "stages": stages, "historical_oracle": historical_oracle})
     arms = {}
-    specifications = [
-        ("trigger_reference", False, True, "off", "observe"),
-        ("trigger_candidate", True, True, "off", "observe"),
-        ("trigger_repeat", True, True, "off", "observe"),
-        ("trigger_off_reference", False, False, "off", "observe"),
-        ("trigger_off_candidate", True, False, "off", "observe"),
-    ]
-    if stages == "all":
-        specifications += [
-            ("recorded_reference", False, True, "full", "observe"),
-            ("recorded_candidate", True, True, "full", "observe"),
-            ("enforced_candidate", True, True, "full", "enforce"),
-            ("clean_enforced", True, False, "full", "enforce"),
-        ]
+    specifications = arm_specifications(stages)
     for name, checkpointed, trigger, capture, policy in specifications:
         arm = copy.deepcopy(c)
         arm.run_id = name
@@ -222,6 +268,7 @@ def suite(config, root, budget_bytes, stages="all"):
         ("reference_recording_effect", "trigger_reference", "recorded_reference"),
         ("candidate_recording_effect", "trigger_candidate", "recorded_candidate"),
         ("clean_recording_effect", "trigger_off_candidate", "clean_enforced"),
+        ("clean_fingerprint_effect", "trigger_off_candidate", "clean_fingerprinted"),
     ]:
         if left in arms and right in arms:
             comparisons[label] = outcomes_equal(root / left, root / right)
@@ -230,21 +277,36 @@ def suite(config, root, budget_bytes, stages="all"):
         "silent_gpu_or_cpu_reproduction": bool(comparisons["trigger"]["gradients"]
                     and comparisons["trigger"]["model"] and not comparisons["trigger"]["losses"]
                     and all(arms[n]["status"] == "PASS" for n in ["trigger_reference", "trigger_candidate"])),
-        "repeatable": not any(comparisons["repeatability"].values()),
-        "trigger_off_restores_equality": not any(comparisons["trigger_off"].values()),
     }
+    if "repeatability" in comparisons:
+        gates["repeatable"] = not any(comparisons["repeatability"].values())
+    if "trigger_off" in comparisons:
+        gates["trigger_off_restores_equality"] = not any(comparisons["trigger_off"].values())
     if stages == "all":
         before = state.load_snapshot(snapshot)
         after = torch.load(root / "enforced_candidate/outcome.pt", weights_only=False)
         preserved = {key: not compare_state(before[key], after[key])
                      for key in ("model", "optimizer", "scheduler", "cursor")}
         state.write_json(root / "enforcement_preservation.json", preserved)
+        fingerprint_after = torch.load(
+            root / "fingerprinted_candidate/outcome.pt", weights_only=False
+        )
+        fingerprint_preserved = {
+            key: not compare_state(before[key], fingerprint_after[key])
+            for key in ("model", "optimizer", "scheduler", "cursor")
+        }
+        state.write_json(root / "fingerprint_enforcement_preservation.json",
+                         fingerprint_preserved)
         comparison = arms["recorded_candidate"]["result"]["comparison"]
         first = comparison["first_divergence"]
+        fingerprint_comparison = arms["fingerprinted_candidate"]["failure"]["comparison"]
+        fingerprint_first = fingerprint_comparison["first_divergence"]
+        clean_fingerprint_comparison = arms["clean_fingerprinted"]["result"]["comparison"]
         gates.update({
             "reference_recording_preserves_outcome": not any(comparisons["reference_recording_effect"].values()),
             "candidate_recording_preserves_outcome": not any(comparisons["candidate_recording_effect"].values()),
             "clean_recording_preserves_outcome": not any(comparisons["clean_recording_effect"].values()),
+            "clean_fingerprint_preserves_outcome": not any(comparisons["clean_fingerprint_effect"].values()),
             "complete_pairing": comparison["pair_coverage"] == 1.0,
             "first_same_metadata_mismatch": bool(first and first["status"] == "value_mismatch"
                                                   and first["metadata_equal"]),
@@ -254,11 +316,87 @@ def suite(config, root, budget_bytes, stages="all"):
                     and bool(arms["enforced_candidate"].get("failure", {}).get("comparison", {}).get("failed")),
             "clean_update_allowed": arms["clean_enforced"]["status"] == "PASS"
                     and arms["clean_enforced"]["optimizer_step_calls"] == 1,
+            "fingerprint_matches_exact_first_divergence": bool(
+                    fingerprint_first and first
+                    and fingerprint_first["pair_id"] == first["pair_id"]
+                    and fingerprint_first["status"] == "value_mismatch"
+                    and fingerprint_first["metadata_equal"]),
+            "fingerprint_bad_update_blocked":
+                    arms["fingerprinted_candidate"]["status"] == "ENFORCED_ABORT"
+                    and arms["fingerprinted_candidate"]["optimizer_step_calls"] == 0
+                    and all(fingerprint_preserved.values())
+                    and fingerprint_comparison["failed"],
+            "fingerprint_clean_update_allowed":
+                    arms["clean_fingerprinted"]["status"] == "PASS"
+                    and arms["clean_fingerprinted"]["optimizer_step_calls"] == 1
+                    and not clean_fingerprint_comparison["failed"]
+                    and clean_fingerprint_comparison["pair_coverage"] == 1.0
+                    and clean_fingerprint_comparison["decision_host_checks"] == 1,
         })
+    elif stages == "fingerprint":
+        before = state.load_snapshot(snapshot)
+        fingerprint_after = torch.load(
+            root / "fingerprinted_candidate/outcome.pt", weights_only=False
+        )
+        fingerprint_preserved = {
+            key: not compare_state(before[key], fingerprint_after[key])
+            for key in ("model", "optimizer", "scheduler", "cursor")
+        }
+        state.write_json(root / "fingerprint_enforcement_preservation.json",
+                         fingerprint_preserved)
+        fingerprint_comparison = arms["fingerprinted_candidate"]["failure"]["comparison"]
+        fingerprint_first = fingerprint_comparison["first_divergence"]
+        clean_comparison = arms["clean_fingerprinted"]["result"]["comparison"]
+        gates.update({
+            "clean_fingerprint_preserves_outcome":
+                not any(comparisons["clean_fingerprint_effect"].values()),
+            "fingerprint_bad_update_blocked":
+                arms["fingerprinted_candidate"]["status"] == "ENFORCED_ABORT"
+                and arms["fingerprinted_candidate"]["optimizer_step_calls"] == 0
+                and all(fingerprint_preserved.values())
+                and fingerprint_comparison["failed"],
+            "fingerprint_clean_update_allowed":
+                arms["clean_fingerprinted"]["status"] == "PASS"
+                and arms["clean_fingerprinted"]["optimizer_step_calls"] == 1
+                and not clean_comparison["failed"]
+                and clean_comparison["pair_coverage"] == 1.0
+                and clean_comparison["decision_host_checks"] == 1,
+        })
+        if historical_oracle:
+            gates.update({
+                "historical_pair_coverage_matches":
+                    fingerprint_comparison["eligible_pairs"]
+                    == historical_oracle["eligible_pairs"],
+                "historical_first_divergence_matches": bool(
+                    fingerprint_first
+                    and fingerprint_first["pair_id"]
+                    == historical_oracle["first_pair_id"]
+                    and fingerprint_first["operator"]
+                    == historical_oracle["first_operator"]
+                ),
+                "historical_full_capture_speedup_at_least_10x":
+                    historical_oracle["full_capture_seconds"]
+                    >= 10 * arms["fingerprinted_candidate"]["seconds"],
+            })
+    timing = None
+    if stages == "fingerprint" and historical_oracle:
+        fingerprint_seconds = arms["fingerprinted_candidate"]["seconds"]
+        capture_off_seconds = arms["trigger_candidate"]["seconds"]
+        timing = {
+            "historical_full_capture_seconds": historical_oracle["full_capture_seconds"],
+            "historical_capture_off_seconds": historical_oracle["capture_off_seconds"],
+            "current_capture_off_seconds": capture_off_seconds,
+            "fingerprint_seconds": fingerprint_seconds,
+            "full_capture_speedup": historical_oracle["full_capture_seconds"] / fingerprint_seconds,
+            "fingerprint_overhead_ratio": fingerprint_seconds / capture_off_seconds,
+            "fingerprint_overhead_percent":
+                100 * (fingerprint_seconds / capture_off_seconds - 1),
+        }
     result = {"status": "PASS" if all(gates.values()) else "FAIL", "gates": gates,
               "device": c.device, "seed": c.seed, "arms": arms,
               "differing_gradients": len(comparisons["trigger"]["gradients"]),
               "first_gradient": comparisons["trigger"]["gradients"][0] if comparisons["trigger"]["gradients"] else None,
+              "timing": timing, "historical_oracle": historical_oracle,
               "scope": "controlled known-bug transplant; not discovery in untouched training"}
     state.write_json(root / "summary.json", result)
     return result
@@ -273,7 +411,8 @@ def main():
     parser.add_argument("--device")
     parser.add_argument("--seed", type=int)
     parser.add_argument("--budget-bytes", type=int, default=0)
-    parser.add_argument("--stages", choices=["all", "off"], default="all")
+    parser.add_argument("--stages", choices=["all", "off", "fingerprint"], default="all")
+    parser.add_argument("--oracle-summary", type=Path)
     args = parser.parse_args()
     config = load_config(args.config)
     if args.device:
@@ -282,7 +421,8 @@ def main():
     if args.seed is not None:
         config.seed = args.seed
     result = (run_arm(config, args.snapshot, args.output) if args.action == "arm"
-              else suite(config, args.output, args.budget_bytes, args.stages))
+              else suite(config, args.output, args.budget_bytes, args.stages,
+                         args.oracle_summary))
     print(json.dumps({"output": str(args.output), "status": result["status"]}), flush=True)
     return 0 if result["status"] in {"PASS", "OBSERVED_MISMATCH", "ENFORCED_ABORT"} else 1
 

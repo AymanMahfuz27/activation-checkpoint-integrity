@@ -10,9 +10,12 @@ See [GPU results and limitations](docs/followthrough-results.md),
 [reproduction commands](docs/FOLLOWTHROUGH.md).
 
 The recorder retains full supported eager operator outputs and is expensive.
-The long training milestone, fused-internal coverage, TorchTitan integration and
-low-overhead production detector remain incomplete. Full GPU archive recovery
-is in progress; generated raw evidence stays outside Git.
+An exact-mode position-sensitive fingerprinter is now implemented and passes the
+local clean/fault/enforcement suite without retaining full tensor payloads. Its
+GPU overhead, modern-kernel coverage and tolerant numerical policy are not yet
+validated. The long training milestone, fused-internal coverage and TorchTitan
+integration remain incomplete. Full GPU archive recovery is in progress;
+generated raw evidence stays outside Git. See [fingerprinter design and use](docs/fingerprinter.md).
 
 The sections below describe the completed historical starter work.
 
@@ -71,3 +74,9 @@ the recorded experimental result.
 
 Runs save tensors and reports under `artifacts/starter/`. Exact configurations,
 run records, and detailed findings are in [RESEARCH_LOG.md](RESEARCH_LOG.md).
+
+The production trainer enables the compact exact detector with
+`capture.mode = "fingerprint"` and `capture.policy = "enforce"`. On a clean
+single-device step it keeps signatures on-device and performs one detector
+host check after backward, before clipping or optimizer mutation. A mismatch or
+incomplete observation aborts the update and writes a compact mismatch record.

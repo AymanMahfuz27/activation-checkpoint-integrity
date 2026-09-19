@@ -78,6 +78,9 @@ class CaptureConfig:
     census_path: str = ""
     encoding: str = "raw"
     deduplicate: bool = False
+    fingerprint_capacity: int = 16384
+    fingerprint_chunk_bytes: int = 262144
+    fingerprint_sketches: bool = False
 
 
 @dataclass
@@ -128,7 +131,7 @@ class Config:
             raise ValueError("RoPE/GQA require even head dimension and divisible head counts")
         if m.attention not in {"explicit", "sdpa"} or not 0 <= m.dropout < 1:
             raise ValueError("Invalid attention or dropout")
-        if self.capture.mode not in {"off", "census", "full"}:
+        if self.capture.mode not in {"off", "census", "full", "fingerprint"}:
             raise ValueError("Unknown capture mode")
         if self.capture.policy not in {"observe", "enforce"}:
             raise ValueError("Unknown mismatch policy")
@@ -163,6 +166,12 @@ class Config:
             raise ValueError("Negative schedule interval")
         if self.capture.max_bytes <= 0 or self.capture.reserve_bytes < 0 or self.capture.verified_quota_bytes < 0:
             raise ValueError("Invalid storage limits")
+        if type(self.capture.fingerprint_capacity) is not int or self.capture.fingerprint_capacity <= 0:
+            raise ValueError("fingerprint_capacity must be a positive integer")
+        if type(self.capture.fingerprint_chunk_bytes) is not int or self.capture.fingerprint_chunk_bytes < 8:
+            raise ValueError("fingerprint_chunk_bytes must be an integer of at least 8")
+        if type(self.capture.fingerprint_sketches) is not bool:
+            raise ValueError("fingerprint_sketches must be true or false")
         return self
 
     def digest(self):

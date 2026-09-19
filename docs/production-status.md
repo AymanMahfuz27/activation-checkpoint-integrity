@@ -1,8 +1,10 @@
 # Production implementation and evidence status
 
-The implementation is published and has completed the bounded GPU follow-through
-reported in [GPU results](followthrough-results.md). The last full test run passed
-44 tests; two archive tests also pass after adding verified-prefix recovery.
+The published implementation completed the bounded GPU follow-through reported
+in [GPU results](followthrough-results.md). The current local tree also contains
+the exact-mode [position-sensitive fingerprinter](fingerprinter.md). The latest
+full local run passes 60 tests, including archive recovery and fingerprint
+training enforcement.
 The full production-shaped
 milestone is **not complete**. The attached contract is preserved verbatim in
 [production-plan.md](production-plan.md); the chronological evidence is in
@@ -31,6 +33,13 @@ unpaired bookkeeping; user detaches remain eligible. Unsupported subclasses
 abort. Queue pressure blocks execution; no sampling/drop path exists. Checksums
 and committed index hashes detect corruption and truncation.
 
+Fingerprint mode observes only active checkpoint regions, reuses the same exact
+pair identities, and reduces every tensor to two position-sensitive 64-bit
+signatures on its device. Fixed-capacity buffers fail closed. The normal clean
+single-device path makes one post-backward host decision; failure diagnostics
+are transferred only after an update has been rejected. Optional numerical
+sketches are calibration evidence and never override an exact mismatch.
+
 ## Run locally
 
 ```bash
@@ -51,6 +60,10 @@ snapshot/configuration, and put its result path in `capture.census_path`.
 Set an actually verified quota/budget and free-space reserve. Changes to source,
 snapshot or capture-relevant configuration invalidate the census. `aci pair`
 performs each arm's census before its fresh-process full run.
+
+For compact exact enforcement, set `capture.mode = "fingerprint"` and
+`capture.policy = "enforce"`. No census or payload-storage budget is required.
+The configured pair capacity remains a hard bound, and exceeding it aborts.
 
 The smoke configuration intentionally uses fixture text and small dimensions.
 It cannot pass real-corpus gates. `configs/lm40m.toml` and `lm125m.toml` contain
@@ -78,7 +91,12 @@ Its versioned manifest is `reports/corpus-manifest.json`.
 - Complete mismatch capsules with standalone gradient/update delta exports,
   comprehensive grouped tallies and proven-cause gate evaluation.
 - Add long-control validation-loss logging and three-repeat pristine overhead
-  measurement. No runtime/memory overhead claim is established.
+  measurement. The local CPU smoke shows correct compact behavior and is much
+  faster than full capture, but no CUDA or production overhead claim is established.
+- Validate the fingerprinter on Condor FP32/FP16 against full capture, run the
+  perturbation ladder and repeated clean cells, and measure peak GPU memory and
+  post-warmup step time. Add a fused native hashing kernel if the current
+  composed PyTorch reductions miss the performance target.
 - Implement and validate the pinned TorchTitan extension. Candidate source was
   inspected at `d263ca0a1b569ed198b9943b6e8c2117a61d8843`; this is **not** a
   compatible-stack pin or an implemented production integration.

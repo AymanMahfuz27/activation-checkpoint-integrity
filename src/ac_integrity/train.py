@@ -133,6 +133,8 @@ def execute_step(model, optimizer, scheduler, batches, config, runtime=None, col
                     runtime.flush()
                     if runtime.writer:
                         comparison = compare_events(runtime.root, runtime.step, runtime.rank)
+                    elif runtime.fingerprinter:
+                        comparison = runtime.compare()
                 except Exception as exception:
                     error = error or exception
             failed = error is not None or bool(comparison and comparison["failed"])
@@ -238,6 +240,7 @@ def run(config, snapshot=None, one_step=False, destination=None):
                         runtime.close()
                     finally:
                         summary["capture"].append(runtime.summary())
+                        state.write_json(runtime.root / "summary.json", runtime.summary())
             cursor = next_cursor
             metric = {key: value for key, value in result.items() if key != "gradients"}
             metric.update({"step": step, "cursor": cursor, "seconds": time.monotonic() - start})

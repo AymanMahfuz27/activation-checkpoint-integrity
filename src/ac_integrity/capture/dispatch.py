@@ -17,6 +17,8 @@ class CaptureMode(TorchDispatchMode):
         kwargs = kwargs or {}
         if _in_operator.get():
             return func(*args, **kwargs)
+        if not self.runtime.should_observe_current_operator():
+            return func(*args, **kwargs)
         token = _in_operator.set(True)
         try:
             with _disable_current_modes():
@@ -25,7 +27,7 @@ class CaptureMode(TorchDispatchMode):
                     if isinstance(value, torch.Tensor) and type(value) not in (torch.Tensor, torch.nn.Parameter):
                         self.runtime.unsupported.append({"operator": str(func), "type": str(type(value)), "position": "input"})
                         raise TypeError("Unsupported tensor subclass input; exhaustive capture aborted")
-                inputs = self.runtime.describe_inputs((args, kwargs))
+                inputs = [] if self.runtime.lightweight else self.runtime.describe_inputs((args, kwargs))
             output = func(*args, **kwargs)
             with _disable_current_modes():
                 leaves, spec = tree_flatten_with_path(output)

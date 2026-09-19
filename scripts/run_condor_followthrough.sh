@@ -6,8 +6,8 @@ set -euo pipefail
 export PATH="/usr/local/bin:/usr/bin:/bin:${PATH:-}"
 
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-profile=${1:?Pass core or upstream}
-[[ "$profile" == core || "$profile" == upstream ]]
+profile=${1:?Pass core, upstream, or fingerprint}
+[[ "$profile" == core || "$profile" == upstream || "$profile" == fingerprint ]]
 [[ -n "${_CONDOR_SCRATCH_DIR:-}" ]]
 [[ -z "$(git -C "$repo_dir" status --porcelain)" ]]
 job_id="${CONDOR_CLUSTER_ID:?}.${CONDOR_PROCESS_ID:?}"
@@ -71,7 +71,11 @@ if sys.argv[1] == "upstream":
                         str(pathlib.Path(temporary) / "probe.so")], check=True)
     record["toolchain"]["shared_library_probe"] = "PASS"
 write_json(pathlib.Path(os.environ["ACI_JOB_RECORD"]) / "location.json", record)
-required = 100_000_000_000 if sys.argv[1] == "core" else 40_000_000_000
+required = {
+    "core": 100_000_000_000,
+    "upstream": 40_000_000_000,
+    "fingerprint": 15_000_000_000,
+}[sys.argv[1]]
 assert record["scratch_free_bytes"] >= required, record["scratch_free_bytes"]
 print(json.dumps(record), flush=True)
 PY
@@ -81,6 +85,14 @@ exit_code=0
 if [[ "$profile" == core ]]; then
     "$python_bin" -m ac_integrity.validation suite --config artifacts/job-config.toml \
         --output "$run_root" --budget-bytes 80000000000 || exit_code=$?
+elif [[ "$profile" == fingerprint ]]; then
+    oracle="$repo_dir/artifacts/followthrough/1553917.0/summary.json"
+    [[ -f "$oracle" ]]
+    [[ "$(sha256sum "$oracle" | awk '{print $1}')" == \
+       "a50ff017b30eaf0c999a056d1b9764b6870f6954c66ad3d93480e9ec6a58e660" ]]
+    "$python_bin" -m ac_integrity.validation suite --config artifacts/job-config.toml \
+        --output "$run_root" --budget-bytes 2000000000 --stages fingerprint \
+        --oracle-summary "$oracle" || exit_code=$?
 else
     "$python_bin" -m ac_integrity.upstream matrix --config artifacts/job-config.toml \
         --output "$run_root" --steps 1 --record \
@@ -91,11 +103,41 @@ printf '%s\n' "$exit_code" > "$record_dir/experiment-exit-code"
 if [[ -f "$run_root/summary.json" ]]; then
     cp "$run_root/summary.json" "$record_dir/summary.json"
 fi
-if [[ -d "$run_root" ]]; then
+if [[ -d "$run_root" && "$profile" == fingerprint ]]; then
+    # The timing suite compares full state in scratch, then retains the compact
+    # decisions and provenance. Multi-gigabyte snapshots/outcomes are excluded.
+    "$python_bin" - "$run_root" "$record_dir/evidence" <<'PY'
+import pathlib, shutil, sys
+
+source = pathlib.Path(sys.argv[1])
+destination = pathlib.Path(sys.argv[2])
+top_level_patterns = (
+    "*.json", "*.toml", "*.stdout", "*.stderr", "*.sha256", "source.zip",
+)
+selected = set()
+for pattern in top_level_patterns:
+    selected.update(path for path in source.glob(pattern) if path.is_file())
+for path in source.glob("*/**/*"):
+    if not path.is_file():
+        continue
+    relative = path.relative_to(source)
+    if path.name in {"summary.json", "environment.json", "config.toml", "failure.json"}:
+        selected.add(path)
+    elif "mismatches" in relative.parts and path.suffix == ".json":
+        selected.add(path)
+for path in sorted(selected):
+    target = destination / path.relative_to(source)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(path, target)
+PY
+    cp "$record_dir/location.json" "$record_dir/evidence/scheduler.json"
+    cp "$record_dir/nvidia-smi.txt" "$record_dir/evidence/nvidia-smi.txt"
+    printf 'Compact fingerprint evidence retained in %s\n' "$record_dir/evidence"
+elif [[ -d "$run_root" ]]; then
     cp "$record_dir/location.json" "$run_root/scheduler.json"
     cp "$record_dir/nvidia-smi.txt" "$run_root/nvidia-smi.txt"
     printf 'Awaiting verified artifact collection in %s/transfer\n' "$record_dir"
     "$python_bin" -m ac_integrity.archive_transfer send --root "$run_root" --inbox "$record_dir/transfer"
 fi
-printf 'Completed and archived job %s; scientific exit %s\n' "$job_id" "$exit_code"
+printf 'Completed job %s; scientific exit %s\n' "$job_id" "$exit_code"
 exit "$exit_code"

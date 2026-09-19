@@ -14,10 +14,18 @@ LIMITATIONS = [
     "A first divergence alone does not prove its cause; trigger-off replay and gradient/update evidence are required.",
 ]
 
+FINGERPRINT_LIMITATIONS = [
+    "Fingerprints are probabilistic equality checks, not mathematical proofs or cryptographic integrity primitives.",
+    "Exact mode classifies any bit difference as unsafe; numerical sketches are diagnostic and do not authorize tolerance.",
+    "CUDA overhead, peak-memory cost, compiled/fused coverage and tolerant-mode calibration are not yet established.",
+]
+
 
 def report(root):
     root = Path(root)
     summary = json.loads((root / "summary.json").read_text())
+    fingerprint = summary.get("mode") == "fingerprint" or "fingerprint" in summary
+    limitations = (FINGERPRINT_LIMITATIONS + LIMITATIONS) if fingerprint else LIMITATIONS
     body = ["<!doctype html><meta charset='utf-8'><title>Activation checkpoint evidence</title>",
             "<style>body{font:16px system-ui;max-width:1100px;margin:40px auto;padding:0 24px;color:#18222d}pre{white-space:pre-wrap;background:#f1f4f7;padding:16px}a{color:#1658a0}</style>",
             "<h1>Activation checkpoint evidence</h1>", "<h2>Run result</h2>",
@@ -26,13 +34,13 @@ def report(root):
     for name in ("manifest.json", "environment.json", "data_manifest.json", "config.resolved.toml", "replay.toml", "outcome.pt"):
         if (root / name).exists():
             body.append(f"<li><a href='{name}'>{name}</a></li>")
-    body.append("</ul><h2>First divergent tensors</h2>")
+    body.append("</ul><h2>First divergence</h2>")
     for path in sorted((root / "mismatches").glob("*/first_divergence.json")):
         row = json.loads(path.read_text())
         body.append("<pre>" + html.escape(json.dumps(row, indent=2)) + "</pre>")
         for location in row.get("payloads", []):
             body.append(f"<p><a href='{html.escape(location['path'], quote=True)}'>Complete tensor shard</a>; byte offset {location['offset']}, length {location['length']}.</p>")
-    body.append("<h2>Limitations</h2><ul>" + "".join(f"<li>{html.escape(s)}</li>" for s in LIMITATIONS) + "</ul>")
+    body.append("<h2>Limitations</h2><ul>" + "".join(f"<li>{html.escape(s)}</li>" for s in limitations) + "</ul>")
     (root / "report.html").write_text("\n".join(body))
     return str((root / "report.html").resolve())
 
