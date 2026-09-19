@@ -2610,3 +2610,9 @@ For an experiment entry, also include:
   two fingerprint arms only, with all four applicable causal/enforcement gates
   true. The full automated suite then passed `61/61` in `56.80s`. This validates
   orchestration on CPU; CUDA timing and correctness remain unmeasured.
+- **Local commit**: Fingerprinter implementation, tests, documentation, and the
+  no-full-capture Condor timing profile were committed as `d831d09` (`Add exact
+  fingerprint validation and Condor timing profile`). The pre-existing
+  `docs/followthrough-results.md` modification and untracked professor document
+  were deliberately excluded. Nothing was pushed, pulled remotely, or
+  submitted; those steps require explicit publication authorization.
