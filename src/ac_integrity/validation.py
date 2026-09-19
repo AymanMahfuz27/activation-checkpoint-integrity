@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import shutil
+import statistics
 import subprocess
 import sys
 import time
@@ -166,7 +167,16 @@ def arm_specifications(stages):
         ("clean_fingerprinted", True, False, "fingerprint", "enforce"),
     ]
     if stages == "fingerprint":
-        return causal + fingerprints
+        repeated_clean = [
+            ("trigger_off_candidate_repeat_2", True, False, "off", "observe"),
+            ("clean_fingerprinted_repeat_2", True, False, "fingerprint", "enforce"),
+            ("trigger_off_candidate_repeat_3", True, False, "off", "observe"),
+            ("clean_fingerprinted_repeat_3", True, False, "fingerprint", "enforce"),
+        ]
+        # Alternate clean capture-off/fingerprint arms to reduce order bias;
+        # leave the injected failure last because it is a correctness gate, not
+        # the production-overhead baseline.
+        return causal + [fingerprints[1]] + repeated_clean + [fingerprints[0]]
     if stages == "off":
         return causal + repeated_controls
     if stages == "all":
@@ -195,7 +205,24 @@ def load_historical_oracle(path):
     }
 
 
-def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
+def load_fingerprint_baseline(path):
+    """Load the prior same-job clean timing used by the optimization gate."""
+    if path is None:
+        return None
+    path = Path(path).resolve()
+    summary = json.loads(path.read_text())
+    return {
+        "path": str(path),
+        "sha256": state.sha256(path),
+        "clean_fingerprint_seconds": summary["arms"]["clean_fingerprinted"]["seconds"],
+        "clean_capture_off_seconds": summary["arms"]["trigger_off_candidate"]["seconds"],
+        "clean_overhead_ratio": summary["arms"]["clean_fingerprinted"]["seconds"]
+            / summary["arms"]["trigger_off_candidate"]["seconds"],
+    }
+
+
+def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
+          fingerprint_baseline_summary=None):
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=False)
     c = copy.deepcopy(config)
@@ -222,12 +249,14 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
     if torch.cuda.is_initialized():
         torch.cuda.empty_cache()
     historical_oracle = load_historical_oracle(oracle_summary)
+    fingerprint_baseline = load_fingerprint_baseline(fingerprint_baseline_summary)
     state.write_json(root / "experiment.json", {"seed": c.seed,
         "snapshot_sha256": state.sha256(snapshot), "warmup_updates": 1,
         "scope": "all microbatches of one real next-token step from warmed Adam state",
         "parameter_count": 39985664 if c.model.width == 512 and c.model.layers == 8 else None,
         "evidence_class": c.evidence_class, "budget_bytes": budget_bytes,
-        "stages": stages, "historical_oracle": historical_oracle})
+        "stages": stages, "historical_oracle": historical_oracle,
+        "fingerprint_baseline": fingerprint_baseline})
     arms = {}
     specifications = arm_specifications(stages)
     for name, checkpointed, trigger, capture, policy in specifications:
@@ -269,6 +298,10 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
         ("candidate_recording_effect", "trigger_candidate", "recorded_candidate"),
         ("clean_recording_effect", "trigger_off_candidate", "clean_enforced"),
         ("clean_fingerprint_effect", "trigger_off_candidate", "clean_fingerprinted"),
+        ("clean_fingerprint_effect_repeat_2", "trigger_off_candidate_repeat_2",
+         "clean_fingerprinted_repeat_2"),
+        ("clean_fingerprint_effect_repeat_3", "trigger_off_candidate_repeat_3",
+         "clean_fingerprinted_repeat_3"),
     ]:
         if left in arms and right in arms:
             comparisons[label] = outcomes_equal(root / left, root / right)
@@ -334,6 +367,21 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
                     and clean_fingerprint_comparison["decision_host_checks"] == 1,
         })
     elif stages == "fingerprint":
+        clean_off_names = [
+            "trigger_off_candidate",
+            "trigger_off_candidate_repeat_2",
+            "trigger_off_candidate_repeat_3",
+        ]
+        clean_fingerprint_names = [
+            "clean_fingerprinted",
+            "clean_fingerprinted_repeat_2",
+            "clean_fingerprinted_repeat_3",
+        ]
+        clean_effect_names = [
+            "clean_fingerprint_effect",
+            "clean_fingerprint_effect_repeat_2",
+            "clean_fingerprint_effect_repeat_3",
+        ]
         before = state.load_snapshot(snapshot)
         fingerprint_after = torch.load(
             root / "fingerprinted_candidate/outcome.pt", weights_only=False
@@ -346,27 +394,57 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
                          fingerprint_preserved)
         fingerprint_comparison = arms["fingerprinted_candidate"]["failure"]["comparison"]
         fingerprint_first = fingerprint_comparison["first_divergence"]
-        clean_comparison = arms["clean_fingerprinted"]["result"]["comparison"]
+        clean_comparisons = [
+            arms[name]["result"]["comparison"] for name in clean_fingerprint_names
+        ]
+        clean_off_times = [arms[name]["seconds"] for name in clean_off_names]
+        clean_fingerprint_times = [arms[name]["seconds"] for name in clean_fingerprint_names]
+        clean_off_median = statistics.median(clean_off_times)
+        clean_fingerprint_median = statistics.median(clean_fingerprint_times)
+        clean_overhead_ratio = clean_fingerprint_median / clean_off_median
+        peak_memory_ratios = [
+            (arms[fingerprint_name]["peak_cuda_allocated"]
+             - arms[off_name]["peak_cuda_allocated"])
+            / arms[off_name]["peak_cuda_allocated"]
+            for off_name, fingerprint_name in zip(
+                clean_off_names, clean_fingerprint_names, strict=True
+            )
+        ]
         gates.update({
             "clean_fingerprint_preserves_outcome":
-                not any(comparisons["clean_fingerprint_effect"].values()),
+                all(not any(comparisons[name].values()) for name in clean_effect_names),
             "fingerprint_bad_update_blocked":
                 arms["fingerprinted_candidate"]["status"] == "ENFORCED_ABORT"
                 and arms["fingerprinted_candidate"]["optimizer_step_calls"] == 0
                 and all(fingerprint_preserved.values())
                 and fingerprint_comparison["failed"],
             "fingerprint_clean_update_allowed":
-                arms["clean_fingerprinted"]["status"] == "PASS"
-                and arms["clean_fingerprinted"]["optimizer_step_calls"] == 1
-                and not clean_comparison["failed"]
-                and clean_comparison["pair_coverage"] == 1.0
-                and clean_comparison["decision_host_checks"] == 1,
+                all(arms[name]["status"] == "PASS"
+                        and arms[name]["optimizer_step_calls"] == 1
+                        and not comparison["failed"]
+                        and comparison["pair_coverage"] == 1.0
+                        and comparison["decision_host_checks"] == 1
+                        for name, comparison in zip(
+                            clean_fingerprint_names, clean_comparisons, strict=True
+                        )),
+            "clean_fingerprint_median_ratio_at_most_1_25x":
+                clean_overhead_ratio <= 1.25,
+            "fingerprint_peak_memory_increase_at_most_0_5_percent":
+                max(peak_memory_ratios) <= 0.005,
         })
+        if fingerprint_baseline:
+            gates["clean_fingerprint_at_least_2x_faster_than_prior"] = (
+                clean_fingerprint_median
+                <= fingerprint_baseline["clean_fingerprint_seconds"] / 2
+            )
         if historical_oracle:
             gates.update({
                 "historical_pair_coverage_matches":
                     fingerprint_comparison["eligible_pairs"]
                     == historical_oracle["eligible_pairs"],
+                "historical_mismatch_count_matches":
+                    fingerprint_comparison["counts"].get("value_mismatch", 0)
+                    == historical_oracle["mismatches"],
                 "historical_first_divergence_matches": bool(
                     fingerprint_first
                     and fingerprint_first["pair_id"]
@@ -391,12 +469,21 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None):
             "fingerprint_overhead_ratio": fingerprint_seconds / capture_off_seconds,
             "fingerprint_overhead_percent":
                 100 * (fingerprint_seconds / capture_off_seconds - 1),
+            "clean_capture_off_seconds": clean_off_times,
+            "clean_fingerprint_seconds": clean_fingerprint_times,
+            "clean_capture_off_median_seconds": clean_off_median,
+            "clean_fingerprint_median_seconds": clean_fingerprint_median,
+            "clean_fingerprint_median_overhead_ratio": clean_overhead_ratio,
+            "clean_fingerprint_median_overhead_percent":
+                100 * (clean_overhead_ratio - 1),
+            "clean_peak_memory_increase_ratios": peak_memory_ratios,
         }
     result = {"status": "PASS" if all(gates.values()) else "FAIL", "gates": gates,
               "device": c.device, "seed": c.seed, "arms": arms,
               "differing_gradients": len(comparisons["trigger"]["gradients"]),
               "first_gradient": comparisons["trigger"]["gradients"][0] if comparisons["trigger"]["gradients"] else None,
               "timing": timing, "historical_oracle": historical_oracle,
+              "fingerprint_baseline": fingerprint_baseline,
               "scope": "controlled known-bug transplant; not discovery in untouched training"}
     state.write_json(root / "summary.json", result)
     return result
@@ -413,6 +500,7 @@ def main():
     parser.add_argument("--budget-bytes", type=int, default=0)
     parser.add_argument("--stages", choices=["all", "off", "fingerprint"], default="all")
     parser.add_argument("--oracle-summary", type=Path)
+    parser.add_argument("--fingerprint-baseline-summary", type=Path)
     args = parser.parse_args()
     config = load_config(args.config)
     if args.device:
@@ -422,7 +510,7 @@ def main():
         config.seed = args.seed
     result = (run_arm(config, args.snapshot, args.output) if args.action == "arm"
               else suite(config, args.output, args.budget_bytes, args.stages,
-                         args.oracle_summary))
+                         args.oracle_summary, args.fingerprint_baseline_summary))
     print(json.dumps({"output": str(args.output), "status": result["status"]}), flush=True)
     return 0 if result["status"] in {"PASS", "OBSERVED_MISMATCH", "ENFORCED_ABORT"} else 1
 

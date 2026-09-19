@@ -15,7 +15,11 @@ from ac_integrity.capture.runtime import CaptureRuntime
 from ac_integrity.config import load_config
 from ac_integrity.data import prepare
 from ac_integrity.train import compare_state, run
-from ac_integrity.validation import arm_specifications, load_historical_oracle
+from ac_integrity.validation import (
+    arm_specifications,
+    load_fingerprint_baseline,
+    load_historical_oracle,
+)
 
 
 def signatures(tensor, chunk_bytes=2 * 1024 * 1024):
@@ -33,8 +37,12 @@ def test_fingerprint_stage_excludes_expensive_full_capture(tmp_path):
         "trigger_reference",
         "trigger_candidate",
         "trigger_off_candidate",
-        "fingerprinted_candidate",
         "clean_fingerprinted",
+        "trigger_off_candidate_repeat_2",
+        "clean_fingerprinted_repeat_2",
+        "trigger_off_candidate_repeat_3",
+        "clean_fingerprinted_repeat_3",
+        "fingerprinted_candidate",
     ]
     assert "full" not in modes
     assert "census" not in modes
@@ -43,6 +51,8 @@ def test_fingerprint_stage_excludes_expensive_full_capture(tmp_path):
     oracle_path.write_text(json.dumps({
         "arms": {
             "trigger_candidate": {"seconds": 5.25},
+            "trigger_off_candidate": {"seconds": 5.10},
+            "clean_fingerprinted": {"seconds": 15.15},
             "recorded_candidate": {
                 "seconds": 1081.77,
                 "result": {"comparison": {
@@ -60,6 +70,10 @@ def test_fingerprint_stage_excludes_expensive_full_capture(tmp_path):
     assert oracle["eligible_pairs"] == 3232
     assert oracle["first_pair_id"] == "pair-98"
     assert oracle["full_capture_seconds"] == 1081.77
+
+    baseline = load_fingerprint_baseline(oracle_path)
+    assert baseline["clean_fingerprint_seconds"] == 15.15
+    assert baseline["clean_capture_off_seconds"] == 5.10
 
 
 def test_signatures_are_exact_position_sensitive_and_chunk_independent():
@@ -83,6 +97,18 @@ def test_signatures_are_exact_position_sensitive_and_chunk_independent():
     assert torch.equal(empty, signatures(torch.empty(0)))
 
 
+def test_position_mix_separates_equal_sum_and_equal_first_moment_permutations():
+    # A purely linear weight a*i+b gives both rows the same signature because
+    # they have equal sums and equal sum(i * value_i). The nonlinear position
+    # mix must still distinguish them.
+    left = torch.tensor([0, 1, 3, 2], dtype=torch.int32)
+    right = torch.tensor([0, 2, 1, 3], dtype=torch.int32)
+    assert left.sum() == right.sum()
+    positions = torch.arange(4)
+    assert (positions * left).sum() == (positions * right).sum()
+    assert not torch.equal(signatures(left), signatures(right))
+
+
 @pytest.mark.parametrize("dtype", [torch.float16, torch.bfloat16, torch.float32,
                                     torch.float64, torch.int32, torch.int64])
 def test_one_element_changes_are_detected_across_supported_dtypes(dtype):
@@ -96,6 +122,45 @@ def test_one_ulp_float_change_is_detected():
     original = torch.tensor([1.0], dtype=torch.float32)
     changed = torch.nextafter(original, torch.tensor([float("inf")]))
     assert not torch.equal(signatures(original), signatures(changed))
+
+
+@pytest.mark.parametrize("byte_count", range(12))
+def test_every_short_tail_length_is_stable_and_length_sensitive(byte_count):
+    payload = torch.arange(byte_count, dtype=torch.uint8)
+    assert torch.equal(signatures(payload, 8), signatures(payload, 64))
+    assert not torch.equal(signatures(payload), signatures(torch.cat((payload, torch.zeros(1)))))
+
+
+def test_fingerprint_can_write_directly_into_a_preallocated_row():
+    tensor = torch.arange(17, dtype=torch.float32)
+    output = torch.empty(2, dtype=torch.int64)
+    digest = fingerprint_tensor(
+        tensor,
+        chunk_bytes=16,
+        include_sketch=False,
+        signature_output=output,
+    )
+    assert digest.signatures.data_ptr() == output.data_ptr()
+    assert torch.equal(output, signatures(tensor, 64))
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA is unavailable")
+def test_fused_cuda_kernel_matches_the_cpu_reference():
+    samples = [
+        torch.arange(byte_count, dtype=torch.uint8)
+        for byte_count in range(20)
+    ]
+    samples.extend([
+        torch.tensor([1.0, -0.0, float("nan"), 4.0], dtype=torch.float32),
+        torch.arange(33, dtype=torch.float16),
+        torch.arange(33, dtype=torch.bfloat16),
+        torch.arange(33, dtype=torch.float64),
+        torch.arange(35, dtype=torch.int32).reshape(5, 7).T,
+    ])
+    for sample in samples:
+        expected = signatures(sample, 16)
+        actual = signatures(sample.cuda(), 64)
+        assert torch.equal(actual, expected), (sample.shape, sample.dtype)
 
 
 def _fingerprint_config():

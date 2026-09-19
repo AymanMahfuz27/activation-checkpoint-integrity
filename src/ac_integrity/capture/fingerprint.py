@@ -1,8 +1,9 @@
 """Compact, position-sensitive fingerprints for checkpoint recomputation.
 
 The exact recorder writes complete tensors to disk.  This module implements the
-normal-path alternative: reduce each tensor to two independent 64-bit signatures
-and, when requested, a small numerical sketch on the tensor's own device.
+normal-path alternative: reduce each tensor to four position-weighted 32-bit
+lanes packed into two 64-bit storage slots and, when requested, a small
+numerical sketch on the tensor's own device.
 Original-forward and recomputation records are joined with the runtime's existing
 exact ``pair_id``.
 
@@ -23,9 +24,14 @@ import torch
 from ac_integrity.state import write_json
 
 
-ALGORITHM = "polynomial128-positioned-words-v1"
+ALGORITHM = "mixsum128-positioned-u32-v2"
 SIGNATURE_LANES = 2
 SIGNATURE_BYTES = SIGNATURE_LANES * 8
+
+_U32_MASK = (1 << 32) - 1
+_U32_POSITION_SEEDS = (0x243F6A89, 0xA4093823, 0x13198A2F, 0x082EFA99)
+_U32_LENGTH_SEEDS_LOW = (0x452821E7, 0x38D01377, 0xBE5466CF, 0x34E90C6D)
+_U32_LENGTH_SEEDS_HIGH = (0xC0AC29B7, 0xC97C50DD, 0x3F84D5B5, 0xB5470917)
 
 # Signed representations of fixed 64-bit constants.  Torch performs int64
 # arithmetic modulo 2**64, which gives the wraparound required by SplitMix64.
@@ -63,12 +69,6 @@ def _hex64(value):
     return f"0x{(int(value) & ((1 << 64) - 1)):016x}"
 
 
-def _signed64(value):
-    """Convert an unsigned 64-bit Python integer to an int64 scalar value."""
-    value &= (1 << 64) - 1
-    return value if value < (1 << 63) else value - (1 << 64)
-
-
 def _finite_json(value):
     value = float(value)
     return value if math.isfinite(value) else str(value)
@@ -86,27 +86,81 @@ class TensorDigest:
     sketch_values: int
 
 
-def _make_word_weights(device, words_per_chunk):
-    """Create powers of two odd bases for a 128-bit polynomial signature."""
-    lanes = []
-    for seed in _POSITION_SEEDS:
-        base = seed | 1
-        weights = torch.empty(words_per_chunk, dtype=torch.int64, device=device)
-        weights[0] = 1
-        if words_per_chunk > 1:
-            repeated = torch.full(
-                (words_per_chunk - 1,), base, dtype=torch.int64, device=device
-            )
-            weights[1:] = torch.cumprod(repeated, dim=0)
-        lanes.append(weights)
-    return torch.stack(lanes)
+def _fingerprint_reference_into(raw, chunk_bytes, output):
+    """Readable Torch reference for the four packed uint32 signature lanes.
+
+    Each 32-bit payload word is multiplied by four odd weights derived from two
+    independently mixed versions of its absolute position.  The sums wrap
+    modulo 2**32.  Length is included in a separate domain so a zero tail cannot
+    alias a shorter payload.
+    """
+    def mix32(values):
+        values = values & _U32_MASK
+        values = values ^ (values >> 16)
+        values = (values * 0x7FEB352D) & _U32_MASK
+        values = values ^ (values >> 15)
+        values = (values * 0x846CA68B) & _U32_MASK
+        return values ^ (values >> 16)
+
+    def rotate_left32(values, bits):
+        return ((values << bits) | (values >> (32 - bits))) & _U32_MASK
+
+    def word_weights(positions):
+        first = mix32(positions ^ _U32_POSITION_SEEDS[0])
+        second = mix32(positions ^ _U32_POSITION_SEEDS[1])
+        return (
+            first | 1,
+            (rotate_left32(first, 11) ^ _U32_POSITION_SEEDS[2]) | 1,
+            second | 1,
+            (rotate_left32(second, 17) ^ _U32_POSITION_SEEDS[3]) | 1,
+        )
+
+    payload_bytes = raw.numel()
+    full_word_count = payload_bytes // 4
+    tail_size = payload_bytes - full_word_count * 4
+    words_per_chunk = max(1, chunk_bytes // 4)
+    lane_sums = torch.zeros(4, dtype=torch.int64, device=raw.device)
+
+    for begin in range(0, full_word_count, words_per_chunk):
+        end = min(full_word_count, begin + words_per_chunk)
+        words = raw[begin * 4:end * 4].view(torch.int32).to(torch.int64)
+        words = words & _U32_MASK
+        positions = torch.arange(begin, end, dtype=torch.int64, device=raw.device)
+        for lane, weights in enumerate(word_weights(positions)):
+            lane_sums[lane] += (words * weights).sum()
+
+    if tail_size:
+        tail = raw[full_word_count * 4:].to(torch.int64)
+        shifts = torch.arange(tail_size, dtype=torch.int64, device=raw.device) * 8
+        tail_word = (tail << shifts).sum()
+        position = torch.tensor(
+            [full_word_count], dtype=torch.int64, device=raw.device
+        )
+        for lane, weight in enumerate(word_weights(position)):
+            lane_sums[lane] += tail_word * weight[0]
+
+    length_low = payload_bytes & _U32_MASK
+    length_high = payload_bytes >> 32
+    for lane in range(4):
+        lane_sums[lane] += (
+            (length_low + 1) * _U32_LENGTH_SEEDS_LOW[lane]
+            + (length_high + 1) * _U32_LENGTH_SEEDS_HIGH[lane]
+        )
+    lane_sums &= _U32_MASK
+
+    packed = torch.stack((
+        lane_sums[0] | (lane_sums[1] << 32),
+        lane_sums[2] | (lane_sums[3] << 32),
+    ))
+    output.copy_(packed)
+    return output
 
 
 def fingerprint_tensor(
     tensor,
     chunk_bytes=2 * 1024 * 1024,
     include_sketch=True,
-    word_weights=None,
+    signature_output=None,
 ):
     """Fingerprint one tensor without transferring its payload to the host.
 
@@ -115,11 +169,11 @@ def fingerprint_tensor(
     the input device.  Non-contiguous tensors are fingerprinted in logical
     contiguous order, matching the exact recorder's comparison semantics.
 
-    The tensor bytes are viewed as 64-bit words.  Each word is multiplied by an
-    independent power of an odd base before a modular reduction, so moving equal
-    values to different positions changes the signature.  Chunk offsets are
-    incorporated algebraically, which makes the result independent of chunk
-    size.  The final word packs a 1--7 byte tail.
+    The readable reference views bytes as 32-bit words and computes four
+    independent position-weighted modular sums, packed into two int64 values.
+    CUDA uses the same arithmetic in one native kernel, writing directly into a
+    caller-provided buffer row when available.  The final word packs a 1--3 byte
+    tail and length is mixed separately.
     """
     if chunk_bytes < 8:
         raise ValueError("fingerprint chunk_bytes must be at least 8")
@@ -132,51 +186,26 @@ def fingerprint_tensor(
     value = tensor.detach().contiguous()
     raw = value.view(torch.uint8).reshape(-1)
     payload_bytes = raw.numel()
-    full_word_count = payload_bytes // 8
-    words_per_chunk = max(1, chunk_bytes // 8)
     device = tensor.device
-    if word_weights is None:
-        word_weights = _make_word_weights(device, words_per_chunk)
-    if (word_weights.shape != (2, words_per_chunk)
-            or word_weights.dtype != torch.int64
-            or word_weights.device != device):
-        raise ValueError("word_weights do not match this fingerprint configuration")
+    if signature_output is None:
+        signatures = torch.empty(2, dtype=torch.int64, device=device)
+    else:
+        signatures = signature_output
+        if (signatures.shape != (2,) or signatures.dtype != torch.int64
+                or signatures.device != device or not signatures.is_contiguous()):
+            raise ValueError("signature_output must be a contiguous int64[2] row")
 
-    signatures = None
-
-    for begin in range(0, full_word_count, words_per_chunk):
-        end = min(full_word_count, begin + words_per_chunk)
-        words = raw[begin * 8:end * 8].view(torch.int64)
-        count = end - begin
-        weighted = (word_weights[:, :count] * words.unsqueeze(0)).sum(dim=1)
-        if begin:
-            scales = torch.tensor([
-                _signed64(pow(_POSITION_SEEDS[0] | 1, begin, 1 << 64)),
-                _signed64(pow(_POSITION_SEEDS[1] | 1, begin, 1 << 64)),
-            ], dtype=torch.int64, device=device)
-            weighted = weighted * scales
-        signatures = weighted if signatures is None else signatures + weighted
-
-    tail_size = payload_bytes - full_word_count * 8
-    if tail_size:
-        tail = raw[full_word_count * 8:].to(torch.int64)
-        shifts = torch.arange(tail_size, dtype=torch.int64, device=device) * 8
-        tail_word = (tail << shifts).sum()
-        tail_weights = torch.tensor([
-            _signed64(pow(_POSITION_SEEDS[0] | 1, full_word_count, 1 << 64)),
-            _signed64(pow(_POSITION_SEEDS[1] | 1, full_word_count, 1 << 64)),
-        ], dtype=torch.int64, device=device)
-        weighted_tail = tail_word * tail_weights
-        signatures = weighted_tail if signatures is None else signatures + weighted_tail
-
-    if signatures is None:
-        signatures = torch.zeros(2, dtype=torch.int64, device=device)
+    if device.type == "cuda":
+        from ac_integrity.capture.cuda_fingerprint import fingerprint_cuda_into
+        fingerprint_cuda_into(value, signatures)
+    else:
+        _fingerprint_reference_into(raw, chunk_bytes, signatures)
 
     stats, counts, sketch_values = (None, None, 0)
     if include_sketch:
         stats, counts, sketch_values = numerical_sketch(value, chunk_bytes)
     return TensorDigest(signatures, stats, counts, payload_bytes,
-                        full_word_count + int(bool(tail_size)), sketch_values)
+                        math.ceil(payload_bytes / 4), sketch_values)
 
 
 def numerical_sketch(tensor, chunk_bytes=2 * 1024 * 1024):
@@ -253,7 +282,6 @@ class _DeviceBuffers:
         self.include_sketches = include_sketches
         self.original_count = 0
         self.comparison_count = 0
-        self.word_weights = _make_word_weights(self.device, max(1, chunk_bytes // 8))
         self.original_signatures = torch.empty((capacity, 2), dtype=torch.int64, device=device)
         self.recompute_signatures = torch.empty((capacity, 2), dtype=torch.int64, device=device)
         self.flags = torch.zeros(capacity, dtype=torch.int64, device=device)
@@ -292,13 +320,17 @@ class _DeviceBuffers:
         return index
 
     def store_original(self, index, digest):
-        self.original_signatures[index].copy_(digest.signatures)
+        target = self.original_signatures[index]
+        if digest.signatures.data_ptr() != target.data_ptr():
+            target.copy_(digest.signatures)
         if self.include_sketches:
             self.original_stats[index].copy_(digest.stats)
             self.original_counts[index].copy_(digest.counts)
 
     def store_comparison(self, result_index, original_index, digest, structural_failure):
-        self.recompute_signatures[result_index].copy_(digest.signatures)
+        target = self.recompute_signatures[result_index]
+        if digest.signatures.data_ptr() != target.data_ptr():
+            target.copy_(digest.signatures)
         mismatch = (self.original_signatures[original_index] != digest.signatures).any()
         if structural_failure:
             mismatch = torch.ones((), dtype=torch.bool, device=self.device)
@@ -308,8 +340,7 @@ class _DeviceBuffers:
             self.recompute_counts[result_index].copy_(digest.counts)
 
     def allocated_bytes(self):
-        tensors = [self.word_weights, self.original_signatures,
-                   self.recompute_signatures, self.flags,
+        tensors = [self.original_signatures, self.recompute_signatures, self.flags,
                    self.original_stats, self.recompute_stats,
                    self.original_counts, self.recompute_counts]
         return sum(t.numel() * t.element_size() for t in tensors if t is not None)
@@ -382,7 +413,7 @@ class FingerprintSession:
                 index = buffers.reserve_original()
                 digest = fingerprint_tensor(
                     tensor, self.chunk_bytes, self.include_sketches,
-                    word_weights=buffers.word_weights,
+                    signature_output=buffers.original_signatures[index],
                 )
                 buffers.store_original(index, digest)
             except FingerprintCapacityError:
@@ -427,7 +458,7 @@ class FingerprintSession:
             result_index = buffers.reserve_comparison()
             digest = fingerprint_tensor(
                 tensor, self.chunk_bytes, self.include_sketches,
-                word_weights=buffers.word_weights,
+                signature_output=buffers.recompute_signatures[result_index],
             )
             buffers.store_comparison(result_index, original.buffer_index, digest,
                                      structural_status is not None)

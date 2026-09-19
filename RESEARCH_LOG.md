@@ -27,8 +27,8 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-19 CDT, exact-mode fingerprinter validated on the
-  controlled 40M FP32 Condor cell; correctness passes but runtime needs work.
+- **Last updated**: 2026-09-19 CDT, fused CUDA fingerprint optimization
+  preregistered against the controlled 40M FP32 Condor timing baseline.
 - **Active contract**: Replace the composed per-tensor hashing path with a
   fused/batched implementation, then repeat paired clean timing while keeping
   exact capture as the diagnostic oracle.
@@ -105,7 +105,7 @@ other secrets.
 | F004 | 1 | Analyze measured GPU results and teach mechanisms with code | User requested explanation and conclusions | F002 and F003 | Report written; final retention and delivery pending |
 | F005 | 1 | Implement and validate the exact position-sensitive fingerprinter | Replace full payload retention on normal audited steps while preserving pre-optimizer enforcement | Existing exact identity and oracle | Implemented; controlled 40M FP32 GPU correctness passes, runtime needs optimization |
 | F006 | 1 | Measure the exact fingerprinter on the prior 40M Condor workload without repeating full capture | Quantify the reduction from the 1081.77-second full-recorder arm and the overhead over capture-off | F005, verified historical oracle, publication authorization | Completed in 1553948.0; Analyst `MODIFY` |
-| F007 | 1 | Fuse or batch fingerprint computation and repeat paired clean timing | Reduce the measured 195.3% clean overhead toward the at-most-2% target | F006 profile and retained evidence | Pending |
+| F007 | 1 | Fuse or batch fingerprint computation and repeat paired clean timing | Reduce the measured 195.3% clean overhead toward the at-most-2% target | F006 profile and retained evidence | In progress; L0047 preregistered |
 
 
 ## Experiment index
@@ -116,6 +116,7 @@ other secrets.
 | Upstream CPU smoke | 2026-09-11 | Unmodified upstream Llama checkpoint arms agree within each execution setting | Fresh repeated reference and checkpoint arms | Five cells EXACT_MATCH, two steps each | Bounded clean result | L0041 |
 | Fingerprint implementation | 2026-09-18 | Two independent position-sensitive device signatures detect every injected exact mismatch, preserve clean execution, and block before optimizer mutation | Existing full-capture oracle and capture-off outcomes | Local CPU and controlled 40M FP32 GPU gates pass | Functional path validated; performance requires modification | L0045-L0046 |
 | Fingerprint 40M Condor timing | 2026-09-18/19 | On the prior seed-17 40M GTX 1080 Ti workload, fingerprint mode detects the known first mismatch and blocks the update with materially less step time than full capture | Fresh same-workload capture-off arms plus verified job 1553917.0 full-capture oracle | 1553948.0 completed; all seven gates pass; 74.06x historical speedup, 195.3% clean overhead | `MODIFY` | L0046 |
+| Fused CUDA fingerprint timing | 2026-09-19 | A native fused CUDA signature kernel removes the composed per-tensor reduction overhead while preserving exact classification, localization, enforcement, and bounded memory | Job 1553948.0 same-job clean fingerprint/capture-off timings and retained correctness evidence | Preregistered; implementation in progress | Pending | L0047 |
 
 | E0 | 2026-09-03/04 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64`/CUDA FP32 no-checkpoint runs and independent formulas | Three CPU and three GPU repetitions pass; bounded oracle; identity formula reconfirmed after diagnostic fix | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E1 | 2026-09-03/04 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | CPU and GPU suites each pass all 54 fresh arms; future Python/NumPy formula diagnostic corrected | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
@@ -2690,3 +2691,236 @@ For an experiment entry, also include:
   paired clean capture-off/fingerprint timing from the same warmed snapshot and
   GPU allocation. The failing arm remains the detection/enforcement check, not
   the primary production-overhead baseline.
+
+### L0047 — 2026-09-19 17:11 CDT — Fused CUDA fingerprint optimization preregistered
+
+- **Status**: In progress; experiment preregistered before implementation or a
+  scheduled toolchain probe.
+- **Objective**: Replace the measured composed CUDA fingerprint hot path with a
+  fused native CUDA signature kernel, preserve the CPU implementation as the
+  readable reference/oracle, and repeat the 40M paired timing on the same GTX
+  1080 Ti execution contract.
+- **Context and access**: Re-read `AGENTS.md`, README, the current state and
+  L0046 outcome, implementation/tests, dependency locks, Condor runners, and
+  local Git state. The exact `MOOTAZ PROJECT` Notion URL was opened again but
+  still shows `Sign in to see this page in Ayman Mahfuz's Notion`; no
+  credentials were entered and no current Notion content was accessible. The
+  experiment is bounded by repository and retained job evidence.
+- **Repository state**: Local `main` starts at `2e32793` and is one commit ahead
+  of published `origin/main`. The user-owned modification to
+  `docs/followthrough-results.md` and untracked
+  `docs/professor-meeting-talking-points.md` are unrelated and will be
+  preserved. No new source has been published or run remotely.
+- **Measured baseline**: Job `1553948.0` on a GTX 1080 Ti measured clean
+  fingerprint `15.161478877067566s` versus same-job clean capture-off
+  `5.133974192664027s`, or `2.9532x` total time and `195.32%` overhead. The
+  detector processed `7.69 GB` across 6,464 tensor observations and added
+  `1,179,648` bytes, about `0.119%`, to peak CUDA allocation.
+- **Hypothesis**: A single native CUDA kernel per observed tensor can compute
+  two independent position-sensitive signatures without materializing the
+  current weight, product, and reduction temporaries. It will preserve all
+  exact clean/failing decisions and reduce the repeated clean fingerprint
+  median to no more than `1.25x` the repeated clean capture-off median, while
+  retaining no more than `0.5%` extra peak CUDA allocation. The project target
+  remains no more than `1.02x`; passing the first increment does not by itself
+  establish production readiness.
+- **Baseline and isolated change**: The baseline is the retained L0046 same-job
+  clean timing and correctness evidence. Model, frozen corpus, seed 17, warmed
+  snapshot, optimizer, checkpoint policy, pair identity, pre-update gate,
+  dependency lock, and Condor hardware request remain unchanged. The isolated
+  change is the device signature implementation plus build/runtime support
+  required to load it; CPU/reference semantics and enforcement policy remain
+  explicit and tested.
+- **Planned evidence**: First verify the scheduled CUDA compiler/build toolchain.
+  Then compare the native CUDA result bit-for-bit against a direct CPU reference
+  over varied sizes, dtypes, non-contiguous layouts, signed zero, one-ULP
+  changes, permutations, empty tensors, and tail lengths. Run the full local
+  suite. On Condor, use one common warmed snapshot for at least three clean
+  capture-off/fingerprint pairs and one failing fingerprint arm; record median
+  and individual times, coverage, first mismatch, optimizer/state preservation,
+  compilation cache state, device/kernel errors, and peak CUDA allocation.
+- **Falsification**: Reject this implementation if the reference and CUDA
+  signatures disagree; any clean pair mismatches; coverage is incomplete; the
+  known first failing pair or 96-mismatch count changes; the failed optimizer
+  runs or protected state changes; added peak memory exceeds `0.5%`; the clean
+  median is not at least `2x` faster than L0046's `15.1615s`; or the clean
+  fingerprint/capture-off median ratio exceeds `1.25x`. A toolchain failure is
+  an infrastructure result, not evidence for or against the runtime hypothesis.
+- **Probe staging**: Created an ignored, bounded scheduled toolchain probe and
+  copied it to the remote checkout without changing tracked remote source. The
+  local and remote script SHA-256 is
+  `ebeb77e89c4c504f1afa0c1da883cec04c52214bc9b8a287aebe48521dc3b762`;
+  the submit description SHA-256 is
+  `316eae52a6e913f1f6ed6b515581eefc9260096322f1cfab6ad951a9848c2494`.
+  The probe bootstraps the existing exact dependency lock inside Condor scratch,
+  records compiler/Ninja/CUDA discovery, builds one trivial PyTorch CUDA
+  extension, executes its kernel, and retains JSON plus scheduler output.
+- **Probe submission**: Named remote-run `f007-cuda-toolchain-submit` completed
+  scheduler dry-run and submission successfully. Condor job `1553949.0` was
+  submitted and began running on `slot1@eldar-44.cs.utexas.edu`; the only
+  scheduled computation is the preregistered compiler/Ninja/kernel probe.
+  Outputs are under `artifacts/condor/f007-toolchain/` in the remote checkout.
+- **Probe outcome**: Job `1553949.0` exited `1` after building the exact
+  production environment. PyTorch `2.13.0+cu126`, its CUDA 12.6 toolkit package,
+  and the GTX 1080 Ti were available, but `torch.utils.cpp_extension` stopped
+  before compilation with `RuntimeError: Ninja is required to load C++
+  extensions`. No fingerprint kernel or runtime hypothesis executed. The next
+  isolated infrastructure repair is to add one exact Ninja pin to
+  `production-cu126.in`, regenerate its hash lock, and repeat the same probe.
+- **Lock repair**: Added only `ninja==1.13.0` to
+  `condor/production-cu126.in` and regenerated the manylinux Python 3.13 lock
+  against the CUDA 12.6 PyTorch plus PyPI indexes. The first local resolver
+  invocation omitted those indexes and correctly reported no distribution for
+  `torch==2.13.0+cu126`; the corrected invocation resolved 36 packages. The new
+  input SHA-256 is
+  `105d7d2e4e75b258bffa6a2692f407c376403644fa57594d9eda7154ca977cde`
+  and lock SHA-256 is
+  `6f5062ba9cac936ac8bbae6572bb880d9eb299c6a3357c32d911b763c2089ebf`.
+- **Probe retry**: Staged the repaired lock under ignored remote artifacts so
+  the published checkout remained unchanged and clean. Local/remote lock hashes
+  match. Named remote-run `f007-cuda-toolchain-submit-v2` completed the dry-run
+  and submitted Condor job `1553950.0`, which began running on
+  `slot2@eldar-28.cs.utexas.edu`. The remote-run status wrapper reported an
+  empty exit-status field after its pane ended, but its retained log confirms
+  the scheduler submission; job history and artifacts remain authoritative.
+- **Implementation increment**: Added a lazy PyTorch native extension loader,
+  a small C++ binding, and one fused CUDA kernel implementing
+  `linear128-positioned-u32-v2`. The readable Torch reference defines the same
+  four modular uint32 position-weighted lanes packed into two int64 values,
+  includes payload length in a separate domain, and retains exact byte-order,
+  permutation, signed-zero, one-ULP, dtype, non-contiguous, empty, and tail
+  sensitivity. CUDA writes directly into the preallocated original/recompute
+  signature row, eliminating the former persistent word-weight table and
+  per-tensor weight/product/reduction temporaries. The native module is lazy on
+  CPU and content-addressed by sources plus Torch version.
+- **Focused verification**: `PYTHONPATH=src .venv/bin/python -m pytest -q
+  tests/test_fingerprint.py` completed **16 passed in 9.12s** on CPU. Python
+  compilation and `git diff --check` also pass. This verifies reference and
+  integration behavior only; CUDA compilation/equality/performance remain
+  pending job `1553950.0` and the final scheduled benchmark.
+- **Probe retry outcome**: Job `1553950.0` installed all 36 hash-locked
+  packages, including `ninja==1.13.0`, but again exited `1` before compilation.
+  Root cause is now localized: the runner invokes the environment's Python by
+  absolute path without prepending its sibling `bin` directory, so PyTorch's
+  executable lookup could not see the installed Ninja command. This is a runner
+  PATH defect; the dependency itself is present and no runtime hypothesis ran.
+- **Runner repair**: Prepended the exact scratch environment `bin` directory to
+  PATH after bootstrap in the probe and tracked follow-through runner. The
+  tracked runner now also places extension builds in per-job scratch and pins
+  `TORCH_CUDA_ARCH_LIST=6.1` for the requested Pascal GPU. The next probe retry
+  isolates this PATH repair with the unchanged lock and trivial kernel.
+- **Third probe submission**: Local and remote repaired probe SHA-256 match at
+  `f8dc9073fa3e97781eb9e1c0fd771a3a2a193c8b964d7f88f7c60e1edcf63885`.
+  Named remote-run `f007-cuda-toolchain-submit-v3` dry-ran and submitted Condor
+  job `1553951.0`, which began on `slot1@eldar-44.cs.utexas.edu`. Exact controls
+  are `remote-run --check|--log|--attach ayman27@darmok.cs.utexas.edu
+  f007-cuda-toolchain-submit-v3`.
+- **Third probe outcome and design correction**: Job `1553951.0` found Ninja
+  after the PATH repair and advanced to CUDA discovery, then exited `1` because
+  no system `CUDA_HOME`/`nvcc` compiler root exists. Inspection of the exact
+  `cuda-toolkit==12.6.3` metadata confirmed that Torch installs the runtime
+  subset; the optional `nvidia-cuda-nvcc-cu12` wheel is separate and itself
+  contains `ptxas`/device components rather than a conventional unified
+  `CUDA_HOME`. No scientific runtime hypothesis ran in jobs 1553949-1553951.
+- **Backend decision**: Replaced the C++/nvcc extension with direct NVRTC plus
+  CUDA Driver launch. Those components (`cuda-bindings`, NVRTC, runtime) are
+  already present in the original Torch 2.13 CUDA lock, require no C++ ABI or
+  system compiler, and launch on PyTorch's current CUDA stream. The kernel
+  remains a single header-free source and the CPU oracle is unchanged. Removed
+  the now-unneeded Ninja dependency and extension-cache/architecture runner
+  settings; the kernel derives the visible device compute capability and
+  compiles to matching PTX before a measured step.
+- **NVRTC implementation verification**: The expanded focused CPU suite now
+  covers all 0-3 byte tail cases, length-domain separation, direct writes into
+  preallocated rows, prior exact-change cases, and a CUDA/reference matrix that
+  skips only when CUDA is unavailable. It completed **29 passed, 1 skipped in
+  5.62s**; Python compilation and `git diff --check` pass. The production lock
+  is restored exactly to its prior 35-package SHA-256
+  `721de36e1b2feed221995e661abb83d2dd5588a2476d6b64e3dd453077a34df3`.
+- **NVRTC probe submission**: An ignored probe using the original lock and the
+  same NVRTC/Driver launch mechanism was staged with matching local/remote
+  script SHA-256
+  `ea1b0d1b783413dd10a27c2739f54b0b14452445d0f3225c93a8e0496a10341f`.
+  Named remote-run `f007-cuda-toolchain-submit-v4` dry-ran and submitted Condor
+  job `1553952.0` on `slot1@eldar-44.cs.utexas.edu`.
+- **Full local verification**: `PYTHONPATH=src .venv/bin/python -m pytest -q`
+  completed **74 passed, 1 skipped in 86.70s**. The only skip is the explicit
+  fused-CUDA/reference test because the local Mac has no CUDA device. The
+  benchmark harness now schedules three clean capture-off/fingerprint pairs,
+  one failing fingerprint enforcement arm, prior-timing and historical-oracle
+  checks, median overhead/speedup gates, exact 96-mismatch/first-pair gates, and
+  a `0.5%` peak-memory gate from one common warmed snapshot.
+- **NVRTC probe outcome**: Job `1553952.0` installed the original lock and
+  compiled the trivial CUDA source to PTX successfully, proving NVRTC works on
+  the scheduled cell. `cuModuleLoadData` then returned
+  `CUDA_ERROR_INVALID_CONTEXT` because the one-off probe had not allocated a
+  PyTorch CUDA tensor before entering the Driver API. No fingerprint runtime
+  hypothesis ran. The production loader already called `torch.cuda.init`; it
+  now additionally performs an explicit one-byte device allocation, and the
+  next probe asserts a non-null current context before loading PTX.
+- **Context probe submission**: Repaired probe SHA-256 matches locally/remotely
+  at `c505f2a769e0471567e9a82b67dcbe7a1e6f0fce305bbc25187387592069b844`.
+  Named remote-run `f007-cuda-toolchain-submit-v5` dry-ran and submitted Condor
+  job `1553953.0`; its initial status was idle. Exact controls are
+  `remote-run --check|--log|--attach ayman27@darmok.cs.utexas.edu
+  f007-cuda-toolchain-submit-v5`.
+- **Context probe outcome and compatibility correction**: Job `1553953.0`
+  established a non-null PyTorch CUDA context and compiled the trivial source,
+  then `cuModuleLoadData` failed with `CUDA_ERROR_UNSUPPORTED_PTX_VERSION`.
+  The Condor node's CUDA 12.6 driver cannot JIT the PTX version emitted through
+  the installed NVRTC binding. This is a code-loading compatibility failure;
+  no fingerprint runtime hypothesis ran. The loader and probe now request a
+  device-native `sm_61` CUBIN with `nvrtcGetCUBIN` and load that machine code
+  directly, removing the driver PTX-JIT dependency while retaining the same
+  header-free kernel and hash-locked environment.
+- **Local-suite concurrency note**: A full local suite run completed 74 tests
+  and skipped the expected CUDA-only test, but one snapshot-provenance test
+  failed because the CUDA loader source changed while the suite was executing,
+  changing `code_sha256` between snapshot creation and replay. This is an
+  invalid concurrent-edit run rather than a product failure. The affected test
+  and final full suite must be rerun against a stable tree before promotion.
+- **Native-CUBIN probe submission**: The revised ignored probe has matching
+  local/remote SHA-256
+  `a3fcb7cd8bb6cb582cbd80791eca40080cf53c15e6d836f7ca9444d06291c6af`.
+  Named remote-run `f007-cuda-toolchain-submit-v6` completed its dry-run and
+  submitted Condor job `1553954.0`. This probe changes only the load artifact
+  from PTX to device-native `sm_61` CUBIN; it retains the original production
+  package lock and scheduled GTX 1080 Ti constraint.
+- **Native-CUBIN probe outcome**: Job `1553954.0` completed with exit `0` on
+  `slot1@eldar-44.cs.utexas.edu`. It compiled and loaded native `sm_61` code in
+  `0.3813s`, changed `[1.0, 2.0, 3.0]` to `[2.0, 3.0, 4.0]`, and recorded
+  `PASS` under PyTorch `2.13.0+cu126`/CUDA `12.6` on the GTX 1080 Ti. This
+  resolves the scheduled compiler/context/code-loading gate without `nvcc`,
+  Ninja, or a package-lock change; it does not yet test fingerprint arithmetic.
+- **Exact-kernel probe submission**: Staged the exact production loader and
+  kernel plus an independent scalar CPU reference under ignored remote
+  artifacts. Local/remote SHA-256 values match: loader
+  `f26fc23555b2fba907975fbb63d045622785b81d2f270dedde8584f5cb8340e5`,
+  kernel `c71899e1e126452c5f31caf682d5986f37bea953e144c4e0a565c42fc76b00c4`,
+  and probe
+  `b1415d571a4611d6c4a2aa02bd3df6cd5be0686128973b960940179dc18ea9cf`.
+  Named remote-run `f007-exact-kernel-submit` completed its dry-run and
+  submitted Condor job `1553955.0`. The 29 preregistered comparisons cover
+  byte-tail lengths 0-19, signed zero/NaN, FP16/BF16/FP32/FP64, integer and
+  non-contiguous inputs, equal-sum/equal-first-moment permutations, and larger
+  deterministic payloads. This is a bounded correctness probe, not timing
+  evidence for the 40M workload.
+- **Exact-kernel probe outcome**: Job `1553955.0` completed with exit `0` and
+  `PASS` on the target GTX 1080 Ti. All 29 exact production-kernel signatures
+  matched the independent scalar CPU reference. The compiled `sm_61` CUBIN was
+  `6,880` bytes; NVRTC compilation took `0.1334s`, and compile plus initial
+  context/load setup took `0.4500s`, all outside the measured training step by
+  design. The retained result reports the staged loader and kernel hashes above,
+  so the checked code is identical to the proposed tracked implementation.
+- **Stable-tree local verification**: After the native-CUBIN correction, the
+  previously affected snapshot-provenance test passed alone in `29.34s`. A
+  fresh stable-tree full run then completed **75 passed, 1 skipped in 112.18s**;
+  the only skip is the explicit CUDA equality test on the non-CUDA local Mac.
+  The local suite, scheduled exact-kernel result, and prior 40M evidence now
+  satisfy the correctness prerequisites for the preregistered paired timing
+  run. No fused 40M performance claim exists until that run completes.
+- **Final local verification**: After the final readability-only source
+  wording change, `git diff --check`, Python compilation, runner shell syntax,
+  and the focused fingerprint suite all passed; the focused result was **30
+  passed, 1 skipped in 3.87s**. A final full stable-tree run completed **75
+  passed, 1 skipped in 199.34s**, again with only the CUDA test skipped locally.

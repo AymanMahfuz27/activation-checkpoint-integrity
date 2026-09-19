@@ -39,6 +39,8 @@ nvidia-smi > "$record_dir/nvidia-smi.txt"
 "$python_bin" - "$profile" <<'PY'
 import json, os, pathlib, shutil, subprocess, sys, tempfile
 import torch
+from ac_integrity.capture.cuda_fingerprint import preload_cuda_fingerprint
+from ac_integrity.capture.fingerprint import fingerprint_tensor
 from ac_integrity.config import load_config, write_config
 from ac_integrity.state import environment, write_json
 
@@ -70,6 +72,16 @@ if sys.argv[1] == "upstream":
         subprocess.run(["gcc", "-shared", "-fPIC", str(source), "-o",
                         str(pathlib.Path(temporary) / "probe.so")], check=True)
     record["toolchain"]["shared_library_probe"] = "PASS"
+elif sys.argv[1] == "fingerprint":
+    record["fingerprint_extension"] = preload_cuda_fingerprint()
+    for byte_count in range(20):
+        cpu = torch.arange(byte_count, dtype=torch.uint8)
+        expected = fingerprint_tensor(cpu, include_sketch=False).signatures
+        actual = fingerprint_tensor(
+            cpu.cuda(), include_sketch=False
+        ).signatures.cpu()
+        assert torch.equal(actual, expected), (byte_count, expected, actual)
+    record["fingerprint_extension"]["cpu_cuda_reference_checks"] = 20
 write_json(pathlib.Path(os.environ["ACI_JOB_RECORD"]) / "location.json", record)
 required = {
     "core": 100_000_000_000,
@@ -87,12 +99,17 @@ if [[ "$profile" == core ]]; then
         --output "$run_root" --budget-bytes 80000000000 || exit_code=$?
 elif [[ "$profile" == fingerprint ]]; then
     oracle="$repo_dir/artifacts/followthrough/1553917.0/summary.json"
+    fingerprint_baseline="$repo_dir/artifacts/followthrough/1553948.0/summary.json"
     [[ -f "$oracle" ]]
+    [[ -f "$fingerprint_baseline" ]]
     [[ "$(sha256sum "$oracle" | awk '{print $1}')" == \
        "a50ff017b30eaf0c999a056d1b9764b6870f6954c66ad3d93480e9ec6a58e660" ]]
+    [[ "$(sha256sum "$fingerprint_baseline" | awk '{print $1}')" == \
+       "641f4d980165603a932df4d18e12df273b8f5020a5dbed91a6aee2405749bce0" ]]
     "$python_bin" -m ac_integrity.validation suite --config artifacts/job-config.toml \
         --output "$run_root" --budget-bytes 2000000000 --stages fingerprint \
-        --oracle-summary "$oracle" || exit_code=$?
+        --oracle-summary "$oracle" \
+        --fingerprint-baseline-summary "$fingerprint_baseline" || exit_code=$?
 else
     "$python_bin" -m ac_integrity.upstream matrix --config artifacts/job-config.toml \
         --output "$run_root" --steps 1 --record \

@@ -14,10 +14,14 @@ An exact-mode position-sensitive fingerprinter is now implemented and passes the
 local suite plus one controlled 40M FP32 CUDA cell without retaining full tensor
 payloads. On a GTX 1080 Ti it reduced the historical failing-arm time from
 1081.77 seconds to 14.61 seconds, but clean same-job overhead remained 195.3%,
-so this composed PyTorch implementation is not an always-on production detector.
-Modern-kernel coverage and tolerant numerical policy are not yet validated. The
-long training milestone, fused-internal coverage and TorchTitan integration
-remain incomplete. See [fingerprinter design and use](docs/fingerprinter.md).
+so that composed PyTorch implementation was not an always-on production
+detector. A fused CUDA implementation now replaces its per-tensor weight,
+product and reduction operations. Its production loader and exact arithmetic
+match an independent reference on the same GTX 1080 Ti; repeated paired 40M
+timing remains pending, so no lower overhead claim is made yet. Modern-kernel
+coverage and tolerant numerical policy are not yet validated. The long training
+milestone, fused-internal coverage and TorchTitan integration remain incomplete.
+See [fingerprinter design and use](docs/fingerprinter.md).
 
 The sections below describe the completed historical starter work.
 

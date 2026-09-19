@@ -37,12 +37,18 @@ class CaptureRuntime:
         self.handles = []
         self.writer = None
         self.fingerprinter = None
+        self.fingerprint_setup = None
         if config.capture.mode == "full":
             c = config.capture
             self.writer = ShardWriter(root, rank, c.queue_size, c.shard_bytes, c.max_bytes,
                                       encoding=c.encoding, deduplicate=c.deduplicate)
         elif config.capture.mode == "fingerprint":
             c = config.capture
+            if torch.device(config.device).type == "cuda":
+                from ac_integrity.capture.cuda_fingerprint import (
+                    preload_cuda_fingerprint,
+                )
+                self.fingerprint_setup = preload_cuda_fingerprint(config.device)
             self.fingerprinter = FingerprintSession(
                 root,
                 capacity=c.fingerprint_capacity,
@@ -266,6 +272,7 @@ class CaptureRuntime:
                   "capture_blocked_seconds": self.writer.blocked_seconds if self.writer else 0.0}
         if self.fingerprinter and self.fingerprinter.result is not None:
             result["fingerprint"] = self.fingerprinter.result
+            result["fingerprint_setup"] = self.fingerprint_setup
         return result
 
     def close(self):

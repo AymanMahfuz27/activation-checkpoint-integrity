@@ -8,13 +8,28 @@ checkpoint regions, assigns them the same stable `pair_id` used by full capture,
 and compares original-forward and recomputation signatures before gradient
 clipping or optimizer mutation.
 
-Each tensor becomes two 64-bit polynomial signatures. The input is the tensor's
-exact contiguous byte representation, grouped into 64-bit words. Each word is
-multiplied by a position-specific power of a different odd base, and the words
-are reduced modulo 2^64. Position therefore participates in the signature: a
-permutation is not treated like the original ordering. Two lanes reduce the
-chance of an accidental collision, but this remains a probabilistic equality
-check rather than a mathematical proof or a cryptographic integrity primitive.
+Each tensor becomes one 128-bit signature stored as two `int64` values. The
+readable reference implementation groups the tensor's exact contiguous byte
+representation into 32-bit words. For each word, it nonlinearly mixes the
+word's absolute position twice, derives four odd weights, multiplies the word by
+those weights, and adds the products modulo 2^32. The four lanes are packed into
+the two stored values. Payload length is mixed in separately, so appending zero
+bytes changes the result. Position therefore participates in the signature: a
+permutation is not treated like the original ordering. This remains a
+probabilistic equality check rather than a mathematical proof or a
+cryptographic integrity primitive.
+
+On CPU, [`fingerprint.py`](../src/ac_integrity/capture/fingerprint.py) executes
+that definition directly in Torch so the algorithm is easy to inspect and test.
+On CUDA, [`fingerprint_cuda.cu`](../src/ac_integrity/capture/csrc/fingerprint_cuda.cu)
+computes the same four lanes in one fused kernel. The small loader in
+[`cuda_fingerprint.py`](../src/ac_integrity/capture/cuda_fingerprint.py) compiles
+the header-free kernel with CUDA's runtime compiler, loads device-native CUBIN
+through the CUDA Driver API, and launches it on PyTorch's current stream. Using
+native machine code avoids depending on the installed driver to JIT a newer PTX
+version. It needs neither a system `nvcc` installation nor a C++ extension
+build. Kernel compilation occurs when the fingerprint runtime is created,
+before the measured validation step.
 
 The normal path keeps signatures, comparison flags and optional numerical
 sketches in fixed-capacity device buffers. Original and recomputed outputs are
@@ -61,16 +76,21 @@ fingerprint_sketches = false
 
 `fingerprint_capacity` bounds original and comparison rows per device. Overflow
 fails closed instead of reallocating silently. `fingerprint_chunk_bytes` bounds
-temporary hashing work; signatures are independent of chunk size.
+temporary work in the readable CPU reference; the fused CUDA kernel does not
+materialize per-chunk weights or products. Signatures are independent of chunk
+size.
 `fingerprint_sketches = true` enables calibration evidence at additional cost.
 
 ## Evidence and limits
 
-The local validation covers exact repetition, permutations, one-element and
-one-ULP changes, FP16/BF16/FP32/FP64 and integer tensors, signed zero, NaN,
-non-contiguous inputs, metadata changes, missing recomputation, buffer overflow,
-nested checkpoints, clean training noninterference and controlled-failure
-optimizer blocking. The full repository suite passes 61 tests.
+The local validation covers exact repetition, permutations, every short tail
+length, explicit length separation, direct writes into bounded buffer rows,
+one-element and one-ULP changes, FP16/BF16/FP32/FP64 and integer tensors, signed
+zero, NaN, non-contiguous inputs, metadata changes, missing recomputation,
+buffer overflow, nested checkpoints, clean training noninterference and
+controlled-failure optimizer blocking. CUDA environments additionally compare
+the fused kernel bit-for-bit against the CPU reference over varied lengths,
+dtypes and layouts.
 
 The bounded CPU smoke suite compares 404 exact pairs. The clean fingerprint arm
 preserves the capture-off outcome, the failing arm identifies the same first
@@ -89,12 +109,16 @@ full recorder's 1081.77 seconds, a 74.06x speedup and 98.65% reduction. That
 historical comparison crosses revisions and regenerated snapshots, so it is an
 order-of-magnitude comparison rather than a precise paired timing benchmark.
 
-The same-job production comparison is the clean arm: 15.16 seconds with
+The pre-optimization same-job production comparison is the clean arm: 15.16 seconds with
 fingerprints versus 5.13 seconds with capture off. That is 2.95x total time, or
 195.3% overhead, far above the at-most-2% target. Device buffers added 1.125 MiB
 and peak CUDA allocation increased about 0.119%, so the memory objective passed
-for this cell while the runtime objective failed. The required next step is a
-fused or batched hashing path that removes thousands of composed PyTorch
-reductions and dispatch/kernel launches, followed by repeated paired clean
-timings. Modern-hardware, mixed-precision, perturbation-ladder and tolerant-mode
-validation remain required.
+for this cell while the runtime objective failed. The fused kernel removes the
+composed per-tensor weight, product and reduction operations that caused that
+measurement. Condor job `1553955.0` compiled and loaded the exact production
+kernel as native `sm_61` code and matched an independent scalar CPU reference in
+all 29 checks across tail lengths, dtypes, layouts and adversarial permutations.
+Its performance claim remains pending the preregistered repeated paired Condor
+run; the old number must not be treated as the fused result.
+Modern-hardware, mixed-precision, perturbation-ladder and tolerant-mode
+validation remain required after the GTX 1080 Ti gate.
