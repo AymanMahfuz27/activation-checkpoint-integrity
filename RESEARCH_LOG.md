@@ -27,12 +27,12 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-19 CDT, fused CUDA job `1553956.0` preserved all
-  correctness gates and cut clean time 38.5%, but retained 91.4% overhead;
-  Analyst verdict `MODIFY`.
-- **Active contract**: Isolate the remaining per-output observer, launch, and
-  payload-scan costs before selecting the next runtime design. Keep the fused
-  kernel as the exact all-operator diagnostic baseline.
+- **Last updated**: 2026-09-19 CDT, F008 job `1553957.0` attributes essentially
+  all remaining overhead to Python all-operator bookkeeping plus per-output
+  launch/comparison; Analyst promotes the attribution, not the detector.
+- **Active contract**: Implement a low-frequency checkpoint-boundary sentinel
+  for the normal path and retain the F007 all-operator fused fingerprinter for
+  on-demand diagnostic replay/localization.
 - **Repository**: Published `d2e6403`; original core scientific run `9b922d7`;
   result documentation and research record updated locally after job 1553948.0.
 - **Core GPU result**: Condor1553917.0, GTX1080Ti,40M,seed17,one warmed-state
@@ -107,7 +107,8 @@ other secrets.
 | F005 | 1 | Implement and validate the exact position-sensitive fingerprinter | Replace full payload retention on normal audited steps while preserving pre-optimizer enforcement | Existing exact identity and oracle | Implemented; controlled 40M FP32 GPU correctness passes, runtime needs optimization |
 | F006 | 1 | Measure the exact fingerprinter on the prior 40M Condor workload without repeating full capture | Quantify the reduction from the 1081.77-second full-recorder arm and the overhead over capture-off | F005, verified historical oracle, publication authorization | Completed in 1553948.0; Analyst `MODIFY` |
 | F007 | 1 | Fuse or batch fingerprint computation and repeat paired clean timing | Reduce the measured 195.3% clean overhead toward the at-most-2% target | F006 profile and retained evidence | Completed in 1553956.0; Analyst `MODIFY` |
-| F008 | 1 | Decompose all-operator observer overhead into bookkeeping, launch, and payload-scan costs | Choose the next optimization from measured causes rather than inference | F007 repeated paired result | Preregistered; pending implementation |
+| F008 | 1 | Decompose all-operator observer overhead into bookkeeping, launch, and payload-scan costs | Choose the next optimization from measured causes rather than inference | F007 repeated paired result | Completed in 1553957.0; attribution promoted |
+| F009 | 1 | Add an always-on checkpoint-boundary sentinel and repeat fault/clean timing | Collapse observer and launch counts while preserving pre-update detection of the controlled fault | F007 exact diagnostic plus F008 attribution | Preregistered; pending implementation |
 
 
 ## Experiment index
@@ -119,7 +120,8 @@ other secrets.
 | Fingerprint implementation | 2026-09-18 | Two independent position-sensitive device signatures detect every injected exact mismatch, preserve clean execution, and block before optimizer mutation | Existing full-capture oracle and capture-off outcomes | Local CPU and controlled 40M FP32 GPU gates pass | Functional path validated; performance requires modification | L0045-L0046 |
 | Fingerprint 40M Condor timing | 2026-09-18/19 | On the prior seed-17 40M GTX 1080 Ti workload, fingerprint mode detects the known first mismatch and blocks the update with materially less step time than full capture | Fresh same-workload capture-off arms plus verified job 1553917.0 full-capture oracle | 1553948.0 completed; all seven gates pass; 74.06x historical speedup, 195.3% clean overhead | `MODIFY` | L0046 |
 | Fused CUDA fingerprint timing | 2026-09-19 | A native fused CUDA signature kernel removes the composed per-tensor reduction overhead while preserving exact classification, localization, enforcement, and bounded memory | Job 1553948.0 same-job clean fingerprint/capture-off timings and retained correctness evidence | 1553956.0: 9.3301s fingerprint median vs 4.8737s off; correctness passes, timing gates fail | `MODIFY` | L0047 |
-| Fingerprint overhead ablation | 2026-09-19 | Separate observer bookkeeping, per-tensor launch, and payload scanning to identify the dominant remaining cost | F007 job 1553956.0 and exact fused kernel | Preregistered | Pending | L0048 |
+| Fingerprint overhead ablation | 2026-09-19 | Separate observer bookkeeping, per-tensor launch, and payload scanning to identify the dominant remaining cost | F007 job 1553956.0 and exact fused kernel | 1553957.0: bookkeeping 68.3%, launch 32.3%, scan indistinguishable from zero | Attribution `PROMOTE`; detector remains `MODIFY` | L0048 |
+| Checkpoint-boundary sentinel | 2026-09-19 | Fingerprint checkpoint-region return tensors on the always-on path and replay the all-operator detector after an abort | F008 attribution and F007 exact all-operator oracle | Preregistered | Pending | L0049 |
 
 | E0 | 2026-09-03/04 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64`/CUDA FP32 no-checkpoint runs and independent formulas | Three CPU and three GPU repetitions pass; bounded oracle; identity formula reconfirmed after diagnostic fix | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E1 | 2026-09-03/04 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | CPU and GPU suites each pass all 54 fresh arms; future Python/NumPy formula diagnostic corrected | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
@@ -3040,3 +3042,112 @@ For an experiment entry, also include:
   1 skipped in 158.17s**. The only skip is the CUDA equality test on the local
   Mac. No tracked source changed after that run; subsequent edits only record
   the result and document the diagnostic-only configuration boundary.
+- **Ablation staging and submission**: Committed the diagnostic harness locally
+  as `31977448e159a1920545ee04792378e270be946d` (`Add fingerprint overhead
+  ablation`). GitHub remains unchanged. A complete private Git bundle with
+  SHA-256 `ae2fdcd654ad5170e4c42470ad0b8a4d9784b57dca504b0bb3c1a7613373888d`
+  was verified, copied, and checked out cleanly under ignored Condor artifacts;
+  the corpus is supplied by the existing ignored symlink. Named remote-runs
+  `f008-ablation-stage` and `f008-ablation-submit` completed with exit `0`.
+  The latter performed a scheduler dry-run and submitted Condor job `1553957.0`
+  for the preregistered 12-arm GTX 1080 Ti ablation. Exact controls are
+  `remote-run --check|--log|--attach ayman27@darmok.cs.utexas.edu
+  f008-ablation-submit`; scheduler output and retained evidence are under the
+  private checkout's ignored `artifacts/` tree.
+- **Ablation outcome**: Job `1553957.0` completed all 12 arms with scientific
+  exit `0` and all five preregistered gates passing. The retained summary
+  SHA-256 is
+  `c4147ca566712fe310be77249713e86303e53db4b53e01f27d1ff48519c96b26`
+  at `artifacts/condor/f008-ablation/results/1553957.0/summary.json`. All arms
+  preserved the capture-off outcome; every fingerprint arm covered
+  `3,232/3,232` pairs; and all production-full arms were clean exact matches.
+- **Measured decomposition**: Median capture-off was `9.5947s`; bookkeeping
+  only was `12.1519s`, adding `2.5573s`; launch only was `13.3625s`, adding
+  another `1.2106s`; and full scanning was `13.3368s`, `0.0257s` below launch
+  within noise. Relative to the `3.7421s` full surcharge, difference-of-medians
+  attribution is 68.34% observer/event bookkeeping, 32.35% memset/launch and
+  comparison, and -0.69% payload scanning. All three paired bookkeeping and
+  launch increments were positive, while full-minus-launch changed sign, so
+  the qualitative result is robust even though the exact split has only medium
+  precision.
+- **Cross-job boundary**: F008 ran on a different physical GTX 1080 Ti/node
+  from F007, and its capture-off median was 1.97x slower. Raw F007/F008 wall
+  times therefore cannot establish a production regression or improvement;
+  only F008's within-job decomposition is valid. The exact lock, GPU model,
+  code provenance, seed, model and workload contract otherwise match.
+- **Reporting correction**: F008's immutable compact summaries correctly mark
+  diagnostic arms as `diagnostic_timing_only`, and their retained TOML files
+  identify `fingerprint_backend = "bookkeeping"` or `"launch"`, but the
+  top-level algorithm field incorrectly kept the production algorithm name.
+  The raw attribution remains recoverable and valid. Corrected generated
+  summaries to report `diagnostic-bookkeeping-only` and
+  `diagnostic-launch-only`; the historical artifact is not rewritten.
+- **Analyst verdict**: `PROMOTE` the F008 attribution with high confidence in
+  the qualitative observer-plus-launch conclusion and medium confidence in the
+  exact 68/32 split. Do not promote the all-operator detector. Optimizing hash
+  arithmetic again is unsupported because scanning 7.69 GB added no resolvable
+  time over the launch-only arm.
+- **Decision and lesson**: Replace Python all-operator observation on the
+  always-on path with a checkpoint-boundary sentinel, collapsing both measured
+  dominant costs. Retain the exact all-operator fused path for fresh-process
+  replay and localization after the sentinel aborts. The sentinel has a narrower
+  claim: it detects divergence visible at a checkpoint region return and cannot
+  rule out an internal error that exactly cancels before that boundary.
+
+### L0049 — 2026-09-19 CDT — Checkpoint-boundary sentinel preregistered
+
+- **Status**: Planned; preregistered after F008 analysis and archival, before
+  implementation or remote execution.
+- **Objective**: Add an enforcement-capable `checkpoint_boundaries` fingerprint
+  scope that observes only each checkpointed block's returned tensor during the
+  original forward and recomputation. Keep `all_operators` as the diagnostic
+  scope. Apply the sentinel to the same 40M controlled fault and clean workload.
+- **Hypothesis**: Reducing one step from 6,464 tensor observations to 64
+  boundary observations, representing 32 original/recompute pairs, will detect
+  the controlled PyTorch-84864 divergence before optimizer mutation, preserve
+  clean outcomes, keep peak-memory increase at or below 0.5%, and reduce the
+  repeated clean fingerprint/capture-off median ratio to at most `1.05x`.
+  The project production target remains `1.02x`; a result between 1.02x and
+  1.05x is promising but not production promotion.
+- **Baseline and isolated change**: Use F007's production fused signature,
+  buffers, one host decision, failure policy, immutable warmed snapshot
+  contract, and repeated alternating harness. The isolated change is observation
+  scope: no Python dispatch mode on the normal boundary path, and one signature
+  for each checkpoint region return. The all-operator path remains unchanged.
+- **Evidence and gates**: Run at least three alternating clean capture-off and
+  boundary-sentinel pairs plus one injected boundary-sentinel arm. Require all
+  32 clean pairs to match in every repeat, identical clean outcomes and one
+  optimizer call, injected detection at or before the block-0 returned tensor,
+  zero failing optimizer calls, model/Adam/scheduler/cursor preservation, one
+  host decision, bounded memory, individual/median timings, and exact source,
+  environment, scheduler and hardware provenance.
+- **Falsification and claim boundary**: Reject the sentinel if it misses the
+  controlled fault, changes a clean outcome, has incomplete boundary coverage,
+  fails pre-update enforcement/state preservation, exceeds 0.5% peak-memory
+  increase, or exceeds `1.05x` median clean time. Even a passing result proves
+  only boundary-visible detection for this controlled FP32 cell. It does not
+  replace the all-operator replay, prove detection of internally cancelling
+  faults, or establish modern-GPU/mixed-precision/distributed behavior.
+- **Implementation**: Added a validated `fingerprint_scope` with
+  `checkpoint_boundaries` as the production default and `all_operators` as the
+  diagnostic scope. The model fingerprints each checkpointed block return from
+  inside the exact original/recompute region context. Boundary mode omits both
+  outer and per-region Python dispatch observers, reuses the fused CUDA
+  signature and bounded device comparison buffers, and still makes one host
+  decision after backward before the optimizer gate. The validation profile
+  alternates three capture-off/boundary clean pairs and runs the injected arm
+  last.
+- **Local verification**: The focused fingerprint suite completed **37 passed,
+  1 skipped in 14.11s**; the skip is the CUDA-only kernel test. A complete CPU
+  boundary-profile smoke then passed all eight gates. It covered all four
+  expected smoke pairs per arm, preserved all three clean outcomes, detected
+  four boundary-visible mismatches first at `blocks.0`, made zero optimizer
+  calls on failure, and preserved model/Adam/scheduler/cursor. Tiny CPU timing
+  was `0.905x`, which validates orchestration but is not GPU performance
+  evidence. The first smoke attempt exposed and fixed CPU-only handling of an
+  unavailable CUDA peak-memory metric; it did not expose a detector failure.
+- **Full local verification**: Python compilation, runner shell syntax, and
+  whitespace checks pass. The complete regression suite finished **82 passed,
+  1 skipped in 129.58s**. The only skip is the CUDA-only equality test on the
+  local Mac; both detector scopes, enforcement, clean noninterference, and the
+  validation/runner contracts pass.

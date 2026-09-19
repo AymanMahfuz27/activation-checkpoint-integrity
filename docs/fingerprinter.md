@@ -3,10 +3,12 @@
 ## What is implemented
 
 The fingerprinter is the compact exact-mode path between capture-off training
-and the full forensic recorder. It observes dense ordinary tensor outputs inside
-checkpoint regions, assigns them the same stable `pair_id` used by full capture,
-and compares original-forward and recomputation signatures before gradient
-clipping or optimizer mutation.
+and the full forensic recorder. Its normal `checkpoint_boundaries` scope
+fingerprints each checkpointed block's returned tensor in the original forward
+and backward recomputation. The `all_operators` diagnostic scope instead
+observes every dense tensor output inside checkpoint regions, assigns it the
+same stable `pair_id` used by full capture, and localizes the first changed
+operator. Both scopes compare before gradient clipping or optimizer mutation.
 
 Each tensor becomes one 128-bit signature stored as two `int64` values. The
 readable reference implementation groups the tensor's exact contiguous byte
@@ -73,6 +75,7 @@ fingerprint_capacity = 16384
 fingerprint_chunk_bytes = 262144
 fingerprint_sketches = false
 fingerprint_backend = "full"
+fingerprint_scope = "checkpoint_boundaries"
 ```
 
 `fingerprint_capacity` bounds original and comparison rows per device. Overflow
@@ -85,6 +88,11 @@ size.
 `bookkeeping` and `launch` values exist only for the preregistered performance
 ablation: configuration validation requires observe policy and disables
 sketches so neither diagnostic path can authorize an optimizer update.
+`fingerprint_scope = "checkpoint_boundaries"` is the low-frequency production
+default. It detects divergence that is visible when a checkpointed block
+returns. Set `fingerprint_scope = "all_operators"` for expensive diagnostic
+localization after an aborted step. The boundary scope cannot detect an
+internal error that exactly cancels before the block returns.
 
 ## Evidence and limits
 

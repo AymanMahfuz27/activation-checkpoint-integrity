@@ -106,7 +106,11 @@ def execute_step(model, optimizer, scheduler, batches, config, runtime=None, col
     comparison = None
     named_gradients = None
     phase = runtime.phase_context if runtime else lambda name: nullcontext()
-    mode = CaptureMode(runtime) if runtime else nullcontext()
+    mode = (
+        CaptureMode(runtime)
+        if runtime is not None and runtime.captures_operators
+        else nullcontext()
+    )
     with mode:
         try:
             with phase("zero_grad"):

@@ -113,10 +113,20 @@ class Decoder(nn.Module):
         for index, block in enumerate(self.blocks):
             if c.enabled and (not c.blocks or index in c.blocks):
                 options = {}
+                region_name = f"blocks.{index}"
                 if self.runtime is not None:
-                    options["context_fn"] = self.runtime.checkpoint_contexts(f"blocks.{index}")
+                    options["context_fn"] = self.runtime.checkpoint_contexts(region_name)
+
+                # Bind the loop values as defaults because checkpoint invokes
+                # this callable again later during backward recomputation.
+                def checkpointed_block(x, cos, sin, _block=block, _name=region_name):
+                    output = _block(x, cos, sin)
+                    if self.runtime is not None:
+                        self.runtime.observe_checkpoint_boundary(_name, output)
+                    return output
+
                 with set_checkpoint_early_stop(False):
-                    x = checkpoint(block, x, cos, sin, use_reentrant=False,
+                    x = checkpoint(checkpointed_block, x, cos, sin, use_reentrant=False,
                                    preserve_rng_state=c.preserve_rng_state,
                                    determinism_check=c.determinism_check, **options)
             else:

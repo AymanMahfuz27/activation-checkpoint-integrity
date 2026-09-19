@@ -1,7 +1,7 @@
 """Stable event identities, module attribution and checkpoint region contexts."""
 
 from collections import Counter
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from contextvars import ContextVar
 import hashlib
 import json
@@ -56,15 +56,30 @@ class CaptureRuntime:
                 include_sketches=c.fingerprint_sketches,
                 require_pairs=config.checkpoint.enabled,
                 backend=c.fingerprint_backend,
+                scope=c.fingerprint_scope,
             )
 
     @property
     def lightweight(self):
         return self.fingerprinter is not None
 
+    @property
+    def captures_operators(self):
+        """Whether this runtime needs Python dispatch around every tensor op."""
+        return not self.lightweight or self.config.capture.fingerprint_scope == "all_operators"
+
+    @property
+    def fingerprints_checkpoint_boundaries(self):
+        return (
+            self.lightweight
+            and self.config.capture.fingerprint_scope == "checkpoint_boundaries"
+        )
+
     def should_observe_current_operator(self):
         """The fast path ignores work outside an active checkpoint region."""
-        return not self.lightweight or self.region.get() is not None
+        return self.captures_operators and (
+            not self.lightweight or self.region.get() is not None
+        )
 
     @contextmanager
     def phase_context(self, name):
@@ -96,11 +111,74 @@ class CaptureRuntime:
             role = "recompute_parent"
         token = self.region.set((path, call, role))
         # Place the observer above user dispatch modes in both executions.
+        observer = CaptureMode(self) if self.captures_operators else nullcontext()
         try:
-            with CaptureMode(self):
+            with observer:
                 yield
         finally:
             self.region.reset(token)
+
+    def observe_checkpoint_boundary(self, name, tensor):
+        """Fingerprint one checkpoint region's returned tensor.
+
+        This is the low-frequency normal path. It observes the block return in
+        original forward and recomputation without installing Python dispatch
+        around the thousands of operators inside the block.
+        """
+        if not self.fingerprints_checkpoint_boundaries:
+            return
+        if self.region.get() is None:
+            raise RuntimeError("Checkpoint boundary observed outside its region")
+        if (type(tensor) not in (torch.Tensor, torch.nn.Parameter)
+                or tensor.layout != torch.strided or tensor.is_quantized
+                or tensor.device.type == "meta"):
+            self.unsupported.append({
+                "operator": "checkpoint_region_output",
+                "type": str(type(tensor)),
+                "layout": str(tensor.layout),
+            })
+            raise TypeError("Unsupported checkpoint boundary tensor")
+
+        path, call, role = self.region.get()
+        position = "output"
+        pair_id = (
+            f"{self.attempt}/{self.rank}/{self.step}/{self.microbatch}/"
+            f"{path}/{call}/boundary/{position}"
+        )
+        event_id = (
+            f"{self.config.run_id}/{self.attempt}/{self.rank}/{self.step}/"
+            f"{self.microbatch}/{role}/{path}/{call}/boundary/{position}"
+        )
+        size = tensor.numel() * tensor.element_size()
+        event = {
+            "event_id": event_id,
+            "pair_id": pair_id,
+            "sequence": self.events,
+            "operator": "checkpoint_region_output",
+            "output_schema": "Tensor",
+            "output_path": position,
+            "step": self.step,
+            "microbatch": self.microbatch,
+            "phase": role,
+            "checkpoint_role": role,
+            "region": path,
+            "call": call,
+            "op_ordinal": 0,
+            "rank": self.rank,
+            "module": name,
+            "shape": list(tensor.shape),
+            "dtype": str(tensor.dtype),
+            "device": str(tensor.device),
+            "layout": str(tensor.layout),
+            "stride": list(tensor.stride()),
+            "storage_offset": tensor.storage_offset(),
+            "numel": tensor.numel(),
+            "nbytes": size,
+        }
+        self.events += 1
+        self.bytes += size
+        self.counts[role] += 1
+        self.fingerprinter.observe(event, tensor)
 
     def attach(self, model):
         aliases = {}

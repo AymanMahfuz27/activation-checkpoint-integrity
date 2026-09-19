@@ -87,6 +87,22 @@ def test_fingerprint_ablation_stage_is_three_interleaved_clean_repeats():
     assert all(mode != "full" for _, _, _, mode, _ in specifications)
 
 
+def test_boundary_stage_is_three_interleaved_clean_repeats_then_failure():
+    specifications = arm_specifications("fingerprint_boundary")
+    assert [row[0] for row in specifications] == [
+        "trigger_reference",
+        "trigger_candidate",
+        "trigger_off_candidate",
+        "boundary_clean_1",
+        "trigger_off_candidate_repeat_2",
+        "boundary_clean_2",
+        "trigger_off_candidate_repeat_3",
+        "boundary_clean_3",
+        "boundary_candidate",
+    ]
+    assert all(mode != "full" for _, _, _, mode, _ in specifications)
+
+
 def test_signatures_are_exact_position_sensitive_and_chunk_independent():
     original = torch.tensor([1.0, -0.0, float("nan"), 4.0, 5.0])
     same = original.clone()
@@ -179,6 +195,13 @@ def test_diagnostic_backends_cannot_enforce_or_collect_sketches():
     config.validate()
 
 
+def test_unknown_fingerprint_scope_is_rejected():
+    config = _fingerprint_config()
+    config.capture.fingerprint_scope = "some_outputs"
+    with pytest.raises(ValueError, match="Unknown fingerprint scope"):
+        config.validate()
+
+
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA is unavailable")
 def test_fused_cuda_kernel_matches_the_cpu_reference():
     samples = [
@@ -204,6 +227,7 @@ def _fingerprint_config():
     config.capture.fingerprint_capacity = 32
     config.capture.fingerprint_chunk_bytes = 64
     config.capture.fingerprint_sketches = True
+    config.capture.fingerprint_scope = "all_operators"
     return config
 
 
@@ -323,7 +347,10 @@ def test_nested_checkpoint_pairs_cleanly(tmp_path):
     assert not comparison["failed"], comparison
 
 
-def test_training_fingerprint_blocks_bad_update_and_preserves_clean_outcome(tmp_path):
+@pytest.mark.parametrize("scope", ["all_operators", "checkpoint_boundaries"])
+def test_training_fingerprint_blocks_bad_update_and_preserves_clean_outcome(
+    tmp_path, scope
+):
     config = load_config(Path(__file__).parents[1] / "configs/smoke.toml")
     config.data.path = str(tmp_path / "data")
     config.artifact_root = str(tmp_path / "runs")
@@ -341,6 +368,7 @@ def test_training_fingerprint_blocks_bad_update_and_preserves_clean_outcome(tmp_
     guarded.capture.policy = "enforce"
     guarded.capture.audit_steps = [1]
     guarded.capture.fingerprint_capacity = 4096
+    guarded.capture.fingerprint_scope = scope
     failed_root, failed_summary = run(guarded, snapshot_path, one_step=True)
     assert failed_summary["status"] == "ENFORCED_ABORT", failed_summary
     after = torch.load(failed_root / "outcome.pt", weights_only=False)
@@ -352,6 +380,13 @@ def test_training_fingerprint_blocks_bad_update_and_preserves_clean_outcome(tmp_
     assert failure["optimizer_updates"] == 0
     assert failure["comparison"]["failed"]
     assert failure["comparison"]["first_divergence"]["status"] == "value_mismatch"
+    assert failure["comparison"]["observation_scope"] == scope
+    if scope == "checkpoint_boundaries":
+        expected_pairs = config.model.layers * config.training.accumulation
+        assert failure["comparison"]["eligible_pairs"] == expected_pairs
+        assert failure["comparison"]["first_divergence"]["operator"] == (
+            "checkpoint_region_output"
+        )
 
     clean = copy.deepcopy(guarded)
     clean.adapter.trigger = False
@@ -361,6 +396,7 @@ def test_training_fingerprint_blocks_bad_update_and_preserves_clean_outcome(tmp_
     assert not comparison["failed"]
     assert comparison["pair_coverage"] == 1.0
     assert comparison["decision_host_checks"] == 1
+    assert comparison["observation_scope"] == scope
 
     unobserved = copy.deepcopy(clean)
     unobserved.capture.mode = "off"

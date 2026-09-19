@@ -191,6 +191,17 @@ def arm_specifications(stages):
         # leave the injected failure last because it is a correctness gate, not
         # the production-overhead baseline.
         return causal + [fingerprints[1]] + repeated_clean + [fingerprints[0]]
+    if stages == "fingerprint_boundary":
+        # Alternate capture-off and checkpoint-boundary arms so thermal or
+        # scheduler drift cannot systematically favor either measurement.
+        return causal + [
+            ("boundary_clean_1", True, False, "fingerprint", "enforce"),
+            ("trigger_off_candidate_repeat_2", True, False, "off", "observe"),
+            ("boundary_clean_2", True, False, "fingerprint", "enforce"),
+            ("trigger_off_candidate_repeat_3", True, False, "off", "observe"),
+            ("boundary_clean_3", True, False, "fingerprint", "enforce"),
+            ("boundary_candidate", True, True, "fingerprint", "enforce"),
+        ]
     if stages == "off":
         return causal + repeated_controls
     if stages == "all":
@@ -284,6 +295,11 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
             arm.capture.fingerprint_backend = "launch"
         else:
             arm.capture.fingerprint_backend = "full"
+        arm.capture.fingerprint_scope = (
+            "checkpoint_boundaries"
+            if name.startswith("boundary_")
+            else "all_operators"
+        )
         arm.capture.encoding, arm.capture.deduplicate = "zlib", True
         arm.capture.max_bytes = budget_bytes
         if capture == "full":
@@ -322,6 +338,9 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
          "clean_fingerprinted_repeat_2"),
         ("clean_fingerprint_effect_repeat_3", "trigger_off_candidate_repeat_3",
          "clean_fingerprinted_repeat_3"),
+        ("boundary_effect_1", "trigger_off_candidate", "boundary_clean_1"),
+        ("boundary_effect_2", "trigger_off_candidate_repeat_2", "boundary_clean_2"),
+        ("boundary_effect_3", "trigger_off_candidate_repeat_3", "boundary_clean_3"),
     ]:
         if left in arms and right in arms:
             comparisons[label] = outcomes_equal(root / left, root / right)
@@ -412,6 +431,7 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
         gates["repeatable"] = not any(comparisons["repeatability"].values())
     if "trigger_off" in comparisons:
         gates["trigger_off_restores_equality"] = not any(comparisons["trigger_off"].values())
+    timing = None
     if stages == "all":
         before = state.load_snapshot(snapshot)
         after = torch.load(root / "enforced_candidate/outcome.pt", weights_only=False)
@@ -553,19 +573,7 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
                     historical_oracle["full_capture_seconds"]
                     >= 10 * arms["fingerprinted_candidate"]["seconds"],
             })
-    timing = None
-    if stages == "fingerprint" and historical_oracle:
-        fingerprint_seconds = arms["fingerprinted_candidate"]["seconds"]
-        capture_off_seconds = arms["trigger_candidate"]["seconds"]
         timing = {
-            "historical_full_capture_seconds": historical_oracle["full_capture_seconds"],
-            "historical_capture_off_seconds": historical_oracle["capture_off_seconds"],
-            "current_capture_off_seconds": capture_off_seconds,
-            "fingerprint_seconds": fingerprint_seconds,
-            "full_capture_speedup": historical_oracle["full_capture_seconds"] / fingerprint_seconds,
-            "fingerprint_overhead_ratio": fingerprint_seconds / capture_off_seconds,
-            "fingerprint_overhead_percent":
-                100 * (fingerprint_seconds / capture_off_seconds - 1),
             "clean_capture_off_seconds": clean_off_times,
             "clean_fingerprint_seconds": clean_fingerprint_times,
             "clean_capture_off_median_seconds": clean_off_median,
@@ -575,6 +583,128 @@ def suite(config, root, budget_bytes, stages="all", oracle_summary=None,
                 100 * (clean_overhead_ratio - 1),
             "clean_peak_memory_increase_ratios": peak_memory_ratios,
         }
+        if historical_oracle:
+            fingerprint_seconds = arms["fingerprinted_candidate"]["seconds"]
+            capture_off_seconds = arms["trigger_candidate"]["seconds"]
+            timing.update({
+                "historical_full_capture_seconds": historical_oracle["full_capture_seconds"],
+                "historical_capture_off_seconds": historical_oracle["capture_off_seconds"],
+                "current_capture_off_seconds": capture_off_seconds,
+                "fingerprint_seconds": fingerprint_seconds,
+                "full_capture_speedup":
+                    historical_oracle["full_capture_seconds"] / fingerprint_seconds,
+                "fingerprint_overhead_ratio": fingerprint_seconds / capture_off_seconds,
+                "fingerprint_overhead_percent":
+                    100 * (fingerprint_seconds / capture_off_seconds - 1),
+            })
+    elif stages == "fingerprint_boundary":
+        clean_off_names = [
+            "trigger_off_candidate",
+            "trigger_off_candidate_repeat_2",
+            "trigger_off_candidate_repeat_3",
+        ]
+        clean_boundary_names = [
+            "boundary_clean_1",
+            "boundary_clean_2",
+            "boundary_clean_3",
+        ]
+        clean_effect_names = [
+            "boundary_effect_1",
+            "boundary_effect_2",
+            "boundary_effect_3",
+        ]
+        expected_pairs = (
+            len(c.checkpoint.blocks) if c.checkpoint.blocks else c.model.layers
+        ) * c.training.accumulation
+
+        before = state.load_snapshot(snapshot)
+        boundary_after = torch.load(
+            root / "boundary_candidate/outcome.pt", weights_only=False
+        )
+        preserved = {
+            key: not compare_state(before[key], boundary_after[key])
+            for key in ("model", "optimizer", "scheduler", "cursor")
+        }
+        state.write_json(root / "boundary_enforcement_preservation.json", preserved)
+
+        failing = arms["boundary_candidate"]["failure"]["comparison"]
+        first = failing["first_divergence"]
+        clean_comparisons = [
+            arms[name]["result"]["comparison"] for name in clean_boundary_names
+        ]
+        clean_off_times = [arms[name]["seconds"] for name in clean_off_names]
+        clean_boundary_times = [arms[name]["seconds"] for name in clean_boundary_names]
+        clean_off_median = statistics.median(clean_off_times)
+        clean_boundary_median = statistics.median(clean_boundary_times)
+        clean_overhead_ratio = clean_boundary_median / clean_off_median
+        peak_memory_ratios = [
+            (arms[boundary_name]["peak_cuda_allocated"]
+             - arms[off_name]["peak_cuda_allocated"])
+            / arms[off_name]["peak_cuda_allocated"]
+            for off_name, boundary_name in zip(
+                clean_off_names, clean_boundary_names, strict=True
+            )
+            if arms[off_name]["peak_cuda_allocated"] not in (None, 0)
+            and arms[boundary_name]["peak_cuda_allocated"] is not None
+        ]
+
+        gates.update({
+            "clean_boundary_preserves_outcome":
+                all(not any(comparisons[name].values()) for name in clean_effect_names),
+            "boundary_bad_update_blocked":
+                arms["boundary_candidate"]["status"] == "ENFORCED_ABORT"
+                and arms["boundary_candidate"]["optimizer_step_calls"] == 0
+                and all(preserved.values())
+                and failing["failed"],
+            "boundary_clean_update_allowed": all(
+                arms[name]["status"] == "PASS"
+                and arms[name]["optimizer_step_calls"] == 1
+                and not comparison["failed"]
+                and comparison["pair_coverage"] == 1.0
+                and comparison["decision_host_checks"] == 1
+                and comparison["eligible_pairs"] == expected_pairs
+                and comparison["exact_pairs"] == expected_pairs
+                for name, comparison in zip(
+                    clean_boundary_names, clean_comparisons, strict=True
+                )
+            ),
+            "boundary_failure_pairing_complete":
+                failing["pair_coverage"] == 1.0
+                and failing["decision_host_checks"] == 1
+                and failing["eligible_pairs"] == expected_pairs,
+            "boundary_first_divergence_is_first_block_output": bool(
+                first
+                and first["status"] == "value_mismatch"
+                and first["metadata_equal"]
+                and first["operator"] == "checkpoint_region_output"
+                and first["region"] == "root/blocks.0:0"
+            ),
+            "clean_boundary_median_ratio_at_most_1_05x":
+                clean_overhead_ratio <= 1.05,
+            "boundary_peak_memory_increase_at_most_0_5_percent":
+                not peak_memory_ratios or max(peak_memory_ratios) <= 0.005,
+        })
+        timing = {
+            "clean_capture_off_seconds": clean_off_times,
+            "clean_boundary_seconds": clean_boundary_times,
+            "clean_capture_off_median_seconds": clean_off_median,
+            "clean_boundary_median_seconds": clean_boundary_median,
+            "clean_boundary_median_overhead_ratio": clean_overhead_ratio,
+            "clean_boundary_median_overhead_percent":
+                100 * (clean_overhead_ratio - 1),
+            "production_target_at_most_1_02x": clean_overhead_ratio <= 1.02,
+            "clean_peak_memory_increase_ratios": peak_memory_ratios,
+            "expected_pairs": expected_pairs,
+            "observations_per_audited_step": 2 * expected_pairs,
+        }
+        if historical_oracle:
+            failing_seconds = arms["boundary_candidate"]["seconds"]
+            timing.update({
+                "historical_full_capture_seconds": historical_oracle["full_capture_seconds"],
+                "boundary_failure_seconds": failing_seconds,
+                "historical_full_capture_speedup":
+                    historical_oracle["full_capture_seconds"] / failing_seconds,
+            })
     result = {"status": "PASS" if all(gates.values()) else "FAIL", "gates": gates,
               "device": c.device, "seed": c.seed, "arms": arms,
               "differing_gradients": len(comparisons["trigger"]["gradients"]),
@@ -597,7 +727,10 @@ def main():
     parser.add_argument("--budget-bytes", type=int, default=0)
     parser.add_argument(
         "--stages",
-        choices=["all", "off", "fingerprint", "fingerprint_ablation"],
+        choices=[
+            "all", "off", "fingerprint", "fingerprint_ablation",
+            "fingerprint_boundary",
+        ],
         default="all",
     )
     parser.add_argument("--oracle-summary", type=Path)

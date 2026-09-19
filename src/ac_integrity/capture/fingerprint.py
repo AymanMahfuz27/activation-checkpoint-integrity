@@ -395,7 +395,8 @@ class FingerprintSession:
     """Pair, compare and summarize fingerprints without retaining tensor payloads."""
 
     def __init__(self, root, capacity=16384, chunk_bytes=2 * 1024 * 1024,
-                 include_sketches=True, require_pairs=True, backend="full"):
+                 include_sketches=True, require_pairs=True, backend="full",
+                 scope="all_operators"):
         if capacity <= 0:
             raise ValueError("fingerprint capacity must be positive")
         if chunk_bytes < 8:
@@ -404,12 +405,15 @@ class FingerprintSession:
             raise ValueError("Unknown fingerprint backend")
         if backend != "full" and include_sketches:
             raise ValueError("Diagnostic fingerprint backends cannot collect sketches")
+        if scope not in {"all_operators", "checkpoint_boundaries"}:
+            raise ValueError("Unknown fingerprint scope")
         self.root = Path(root)
         self.capacity = capacity
         self.chunk_bytes = chunk_bytes
         self.include_sketches = include_sketches
         self.require_pairs = require_pairs
         self.backend = backend
+        self.scope = scope
         self.devices = {}
         self.originals = {}
         self.comparisons = []
@@ -696,7 +700,11 @@ class FingerprintSession:
 
         self.result = {
             "mode": "fingerprint",
-            "algorithm": ALGORITHM,
+            "observation_scope": self.scope,
+            "algorithm": (
+                ALGORITHM if self.backend == "full"
+                else f"diagnostic-{self.backend}-only"
+            ),
             "byte_order": sys.byteorder,
             "policy": (
                 "bit_exact_fail_closed" if self.backend == "full"

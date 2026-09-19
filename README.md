@@ -85,6 +85,8 @@ run records, and detailed findings are in [RESEARCH_LOG.md](RESEARCH_LOG.md).
 
 The production trainer enables the compact exact detector with
 `capture.mode = "fingerprint"` and `capture.policy = "enforce"`. On a clean
-single-device step it keeps signatures on-device and performs one detector
-host check after backward, before clipping or optimizer mutation. A mismatch or
-incomplete observation aborts the update and writes a compact mismatch record.
+single-device step its default checkpoint-boundary scope keeps signatures
+on-device and performs one detector host check after backward, before clipping
+or optimizer mutation. A mismatch or incomplete observation aborts the update
+and writes a compact mismatch record. The more expensive `all_operators` scope
+is retained for operator-level diagnostic replay.

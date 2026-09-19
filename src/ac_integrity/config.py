@@ -82,6 +82,7 @@ class CaptureConfig:
     fingerprint_chunk_bytes: int = 262144
     fingerprint_sketches: bool = False
     fingerprint_backend: str = "full"
+    fingerprint_scope: str = "checkpoint_boundaries"
 
 
 @dataclass
@@ -175,6 +176,10 @@ class Config:
             raise ValueError("fingerprint_sketches must be true or false")
         if self.capture.fingerprint_backend not in {"full", "bookkeeping", "launch"}:
             raise ValueError("Unknown fingerprint backend")
+        if self.capture.fingerprint_scope not in {
+            "all_operators", "checkpoint_boundaries"
+        }:
+            raise ValueError("Unknown fingerprint scope")
         if (self.capture.fingerprint_backend != "full"
                 and self.capture.policy != "observe"):
             raise ValueError("Diagnostic fingerprint backends require observe policy")

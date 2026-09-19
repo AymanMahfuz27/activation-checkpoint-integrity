@@ -64,8 +64,11 @@ snapshot or capture-relevant configuration invalidate the census. `aci pair`
 performs each arm's census before its fresh-process full run.
 
 For compact exact enforcement, set `capture.mode = "fingerprint"` and
-`capture.policy = "enforce"`. No census or payload-storage budget is required.
-The configured pair capacity remains a hard bound, and exceeding it aborts.
+`capture.policy = "enforce"`. The default `fingerprint_scope =
+"checkpoint_boundaries"` is the low-frequency normal path; use
+`fingerprint_scope = "all_operators"` for diagnostic replay and operator-level
+localization. No census or payload-storage budget is required. The configured
+pair capacity remains a hard bound, and exceeding it aborts.
 
 The smoke configuration intentionally uses fixture text and small dimensions.
 It cannot pass real-corpus gates. `configs/lm40m.toml` and `lm125m.toml` contain
@@ -95,11 +98,10 @@ Its versioned manifest is `reports/corpus-manifest.json`.
 - Add long-control validation-loss logging and three-repeat pristine overhead
   measurement. The controlled 40M CUDA run establishes exact-mode correctness
   for one eager FP32 cell, not representative production overhead.
-- Replace the composed per-tensor PyTorch reductions with a fused or batched
-  hashing path, then repeat paired clean capture-off/fingerprint timing on
-  Condor FP32/FP16. The current 40M result uses only 1.125 MiB of detector
-  buffers but adds 195.3% clean-step time. Run the perturbation ladder and
-  modern-hardware cells after the fast path is materially improved.
+- Benchmark the checkpoint-boundary sentinel with paired clean timing on Condor
+  FP32, then repeat on modern hardware and mixed precision. Retain the fused
+  all-operator path for diagnostic replay and run the perturbation ladder after
+  the normal-path overhead gate passes.
 - Implement and validate the pinned TorchTitan extension. Candidate source was
   inspected at `d263ca0a1b569ed198b9943b6e8c2117a61d8843`; this is **not** a
   compatible-stack pin or an implemented production integration.
