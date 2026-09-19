@@ -118,7 +118,16 @@ composed per-tensor weight, product and reduction operations that caused that
 measurement. Condor job `1553955.0` compiled and loaded the exact production
 kernel as native `sm_61` code and matched an independent scalar CPU reference in
 all 29 checks across tail lengths, dtypes, layouts and adversarial permutations.
-Its performance claim remains pending the preregistered repeated paired Condor
-run; the old number must not be treated as the fused result.
+Condor job `1553956.0` then measured three alternating clean pairs. The fused
+fingerprint times were 9.17, 9.50 and 9.33 seconds; capture-off times were 4.86,
+4.87 and 4.96 seconds. The 9.33-second fingerprint median is 38.5% lower than
+the old 15.16-second result, but it still has 91.4% overhead over the paired
+4.87-second baseline. It therefore fails both the preregistered 1.25x
+intermediate gate and the project's 1.02x production target. The failing arm
+still found all 96 mismatches at the historical first operator, blocked the
+optimizer, and ran 115.4x faster than the historical full recorder. Peak-memory
+overhead fell to 0.066%. The evidence localizes the next performance problem to
+per-output Python interception and CUDA launch amplification rather than the
+signature arithmetic alone.
 Modern-hardware, mixed-precision, perturbation-ladder and tolerant-mode
 validation remain required after the GTX 1080 Ti gate.
