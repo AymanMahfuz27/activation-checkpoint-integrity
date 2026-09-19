@@ -27,13 +27,13 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-09-18 CDT, exact-mode fingerprinter locally implemented
-  and smoke-validated; GPU validation and prior archive reconciliation remain.
-- **Active contract**: Implement the first practical position-sensitive
-  fingerprinter, validate it against clean and controlled-failure paths, and
-  keep exact capture as the diagnostic oracle.
-- **Repository**: Published2233d31; original core scientific run9b922d7. Local
-  verified-prefix resume and documentation updates pending final commit.
+- **Last updated**: 2026-09-19 CDT, exact-mode fingerprinter validated on the
+  controlled 40M FP32 Condor cell; correctness passes but runtime needs work.
+- **Active contract**: Replace the composed per-tensor hashing path with a
+  fused/batched implementation, then repeat paired clean timing while keeping
+  exact capture as the diagnostic oracle.
+- **Repository**: Published `d2e6403`; original core scientific run `9b922d7`;
+  result documentation and research record updated locally after job 1553948.0.
 - **Core GPU result**: Condor1553917.0, GTX1080Ti,40M,seed17,one warmed-state
   audited update. All10 causal gates PASS:73 gradient tensors differ, same
   losses, full recording preserves outcomes, first intermediate located,
@@ -50,14 +50,17 @@ other secrets.
   stay intact until whole-archive checksum ACK. UT Box personal folder
   https://utexas.app.box.com/folder/417516268415 created;50GB file limit verified.
   First failed-attempt archive upload started. No sharing or credentials changed.
-- **Pending**: Finish/check both archives, upload and verify Box files plus
+- **Pending**: Optimize the fingerprint kernel/dispatch path and run repeated
+  paired clean timings. Finish/check both prior archives and verify retained
+  Box files plus
   checksums/report, update final state/docs, run relevant final checks and publish
   source/docs. Larger contract remains incomplete: long training, TorchTitan,
   multi-GPU, nativeBF16/FP8, fused-internal coverage and low-overhead detector.
-- **Fingerprinter**: Local implementation from `cd3f7a0` passes 61 tests and the
-  bounded CPU causal smoke. The first policy is bit-exact and fail-closed. The
-  measured smoke is not a GPU/production overhead result; tolerant decisions
-  remain gated on a measured per-execution-cell envelope.
+- **Fingerprinter**: Job `1553948.0` passes all seven gates on the controlled
+  40M FP32 GTX 1080 Ti cell: 3,232/3,232 clean pairs exact, the same 96 failing
+  pairs and first divergence as the full oracle, and correct pre-update abort.
+  Failing time fell from historical 1081.77s to 14.61s, but clean same-job
+  overhead is 195.3%; Analyst verdict `MODIFY`, not production promotion.
 
 ## Planned actions
 
@@ -100,8 +103,9 @@ other secrets.
 | F002 | 1 | Execute and archive full-size GPU causal suite | Establish CUDA localization/noninterference/enforcement | Scheduled scratch and verified retention | GPU10gates PASS; archive recovery in progress |
 | F003 | 1 | Adapter-free upstream Llama screen | Begin production-feature compatibility | Pinned upstream environment | Four GPU eager cells exact; compiled discrepancy analyzed; archive in progress |
 | F004 | 1 | Analyze measured GPU results and teach mechanisms with code | User requested explanation and conclusions | F002 and F003 | Report written; final retention and delivery pending |
-| F005 | 1 | Implement and validate the exact position-sensitive fingerprinter | Replace full payload retention on normal audited steps while preserving pre-optimizer enforcement | Existing exact identity and oracle | Local implementation/smoke complete in L0045; GPU validation pending |
-| F006 | 1 | Measure the exact fingerprinter on the prior 40M Condor workload without repeating full capture | Quantify the reduction from the 1081.77-second full-recorder arm and the overhead over capture-off | F005, verified historical oracle, publication authorization | In progress; preregistered in L0046 |
+| F005 | 1 | Implement and validate the exact position-sensitive fingerprinter | Replace full payload retention on normal audited steps while preserving pre-optimizer enforcement | Existing exact identity and oracle | Implemented; controlled 40M FP32 GPU correctness passes, runtime needs optimization |
+| F006 | 1 | Measure the exact fingerprinter on the prior 40M Condor workload without repeating full capture | Quantify the reduction from the 1081.77-second full-recorder arm and the overhead over capture-off | F005, verified historical oracle, publication authorization | Completed in 1553948.0; Analyst `MODIFY` |
+| F007 | 1 | Fuse or batch fingerprint computation and repeat paired clean timing | Reduce the measured 195.3% clean overhead toward the at-most-2% target | F006 profile and retained evidence | Pending |
 
 
 ## Experiment index
@@ -110,8 +114,8 @@ other secrets.
 |---|---|---|---|---|---|---|
 | Follow-through smoke | 2026-09-11 | Recording preserves a warmed-state controlled failure and blocks only unsafe updates | Fresh no-capture/reference/repeat/trigger-off arms | Two runs PASS, final 10 gates | PROMOTE infrastructure only | L0039-L0041 |
 | Upstream CPU smoke | 2026-09-11 | Unmodified upstream Llama checkpoint arms agree within each execution setting | Fresh repeated reference and checkpoint arms | Five cells EXACT_MATCH, two steps each | Bounded clean result | L0041 |
-| Fingerprint implementation | 2026-09-18 | Two independent position-sensitive device signatures detect every injected exact mismatch, preserve clean execution, and block before optimizer mutation | Existing full-capture oracle and capture-off outcomes | Local CPU suite PASS; GPU pending | Engineering checks pass; no scientific promotion without Analyst/GPU review | L0045 |
-| Fingerprint 40M Condor timing | 2026-09-18 | On the prior seed-17 40M GTX 1080 Ti workload, fingerprint mode detects the known first mismatch and blocks the update with materially less step time than full capture | Fresh same-workload capture-off arms plus verified job 1553917.0 full-capture oracle | Preregistered; implementation and execution pending | Pending | L0046 |
+| Fingerprint implementation | 2026-09-18 | Two independent position-sensitive device signatures detect every injected exact mismatch, preserve clean execution, and block before optimizer mutation | Existing full-capture oracle and capture-off outcomes | Local CPU and controlled 40M FP32 GPU gates pass | Functional path validated; performance requires modification | L0045-L0046 |
+| Fingerprint 40M Condor timing | 2026-09-18/19 | On the prior seed-17 40M GTX 1080 Ti workload, fingerprint mode detects the known first mismatch and blocks the update with materially less step time than full capture | Fresh same-workload capture-off arms plus verified job 1553917.0 full-capture oracle | 1553948.0 completed; all seven gates pass; 74.06x historical speedup, 195.3% clean overhead | `MODIFY` | L0046 |
 
 | E0 | 2026-09-03/04 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64`/CUDA FP32 no-checkpoint runs and independent formulas | Three CPU and three GPU repetitions pass; bounded oracle; identity formula reconfirmed after diagnostic fix | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E1 | 2026-09-03/04 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | CPU and GPU suites each pass all 54 fresh arms; future Python/NumPy formula diagnostic corrected | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
@@ -2616,3 +2620,73 @@ For an experiment entry, also include:
   `docs/followthrough-results.md` modification and untracked professor document
   were deliberately excluded. Nothing was pushed, pulled remotely, or
   submitted; those steps require explicit publication authorization.
+- **Publication and blocked first submission attempt**: The user explicitly
+  authorized publication and execution. Commits `d831d09` and `d2e6403` were
+  pushed to `origin/main`, and the clean Condor checkout fast-forwarded to the
+  verified full SHA `d2e6403acdc31496be273a42f58e8fa8913cb5b3`. The first
+  named remote submission action stopped at its SHA guard because the command
+  contained an incorrect guessed expansion of the abbreviated commit. The
+  dry-run and `condor_submit` commands did not execute; the account queue
+  remained empty. Retry is limited to the corrected verified SHA.
+- **Condor submission**: Corrected retry `fingerprint-condor-submit-v2` verified
+  the clean remote SHA, passed `condor_submit -dry-run`, and submitted exactly
+  one job: cluster/process `1553948.0`. Initial status was idle, with 56 slots
+  matching the GTX 1080 Ti, 24 GiB memory, four-CPU, 15 GiB-disk request. The
+  exact commands remain available through `remote-run --log
+  ayman27@darmok.cs.utexas.edu fingerprint-condor-submit-v2`; no full-capture
+  arm is part of this job.
+- **Scheduled completion**: Job `1553948.0` ran on
+  `slot1@eldar-44.cs.utexas.edu`, an NVIDIA GeForce GTX 1080 Ti, using clean
+  commit `d2e6403acdc31496be273a42f58e8fa8913cb5b3`, PyTorch
+  `2.13.0+cu126`, CUDA 12.6, and the pinned production dependency lock. It
+  completed all five arms with suite status `PASS` and scientific exit `0`.
+  Compact evidence was retained remotely at
+  `artifacts/followthrough/1553948.0/evidence`; quantitative analysis and local
+  checksum retention are the next action.
+- **Retrieved measured evidence**: The complete compact evidence set was copied
+  to `artifacts/followthrough/fingerprint-1553948.0` (`696 KiB`); local
+  `summary.json` SHA-256 is
+  `641f4d980165603a932df4d18e12df273b8f5020a5dbed91a6aee2405749bce0`.
+  All seven preregistered suite gates are true. The failing fingerprint arm took
+  `14.605759979225695s` versus current-job capture-off
+  `5.319783675484359s` and historical full capture
+  `1081.774230748415s`: observed full-capture speedup `74.06490537206294x`,
+  capture-off ratio `2.745555246265885x`, overhead `174.5555246265885%`.
+  The clean fingerprint arm took `15.161478877067566s`.
+- **Retrieved correctness and resource facts**: Both fingerprint arms covered
+  all `3,232` pairs. Clean was `3,232/3,232` exact with one host decision and
+  zero diagnostic transfers. Failing found the same `96` mismatches and same
+  historical first pair, block 0 ordinal 98 `aten.rand.default`, then made zero
+  optimizer calls and preserved model, warmed Adam, scheduler, and cursor.
+  Fingerprint buffers allocated `1,179,648` bytes; failing/clean peak CUDA
+  allocation was `989,675,008` bytes versus `988,495,360` for the matching
+  capture-off candidate, a measured increase of `1,179,648` bytes. Formal
+  interpretation remains pending the required independent Analyst verdict.
+- **Retention verification**: The local and remote compact evidence trees each
+  contain 45 files and have identical relative-path/content aggregate SHA-256
+  `c1e83339231ea7f68c24069165b82888a0a21c59c4f523213ed98150610eb7bb`.
+  The first aggregate check used different newline encodings in the two
+  one-off digest scripts and therefore produced incomparable digests; rerunning
+  both with the same canonical newline calculation yielded the exact match
+  above. No evidence file was changed.
+- **Independent Analyst verdict**: `MODIFY`, with medium overall validity and
+  high functional validity for this one deterministic eager FP32 cell. The
+  preregistered functional and at-least-10x speed hypotheses pass. The exact
+  74.06x historical speedup is directionally strong but crosses revisions and a
+  regenerated snapshot, so it is not a precise paired benchmark. The correct
+  production-overhead baseline is same-job clean fingerprint versus clean
+  capture-off because both complete clipping and optimizer work: `15.1615s`
+  versus `5.1340s`, or `2.9532x` total time and `195.32%` overhead.
+- **Decision and mechanism**: Do not promote the current implementation to
+  always-on production use. The detector solved the storage pathology and added
+  only `1.125 MiB` / about `0.119%` peak CUDA allocation, but it still examines
+  `7.69 GB` across 6,464 original/recompute tensors using composed per-tensor
+  PyTorch operations. The similar roughly 9-10 second surcharge on clean and
+  failing paths points to hashing plus dispatch/kernel-launch cost rather than
+  enforcement or diagnostic transfer.
+- **Claim boundary and next action**: This remains a controlled transplant of a
+  documented mechanism, not a failure discovered in untouched training. The
+  next experiment is a fused or batched signature path followed by repeated
+  paired clean capture-off/fingerprint timing from the same warmed snapshot and
+  GPU allocation. The failing arm remains the detection/enforcement check, not
+  the primary production-overhead baseline.

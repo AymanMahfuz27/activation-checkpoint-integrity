@@ -1,10 +1,12 @@
 # Production implementation and evidence status
 
 The published implementation completed the bounded GPU follow-through reported
-in [GPU results](followthrough-results.md). The current local tree also contains
-the exact-mode [position-sensitive fingerprinter](fingerprinter.md). The latest
-full local run passes 60 tests, including archive recovery and fingerprint
-training enforcement.
+in [GPU results](followthrough-results.md). The current tree also contains the
+exact-mode [position-sensitive fingerprinter](fingerprinter.md). The latest full
+local run passes 61 tests, including archive recovery and fingerprint training
+enforcement. One controlled 40M FP32 CUDA cell passes correctness and
+enforcement, but its clean same-job overhead is 195.3%, so the implementation
+requires runtime optimization before production promotion.
 The full production-shaped
 milestone is **not complete**. The attached contract is preserved verbatim in
 [production-plan.md](production-plan.md); the chronological evidence is in
@@ -91,12 +93,13 @@ Its versioned manifest is `reports/corpus-manifest.json`.
 - Complete mismatch capsules with standalone gradient/update delta exports,
   comprehensive grouped tallies and proven-cause gate evaluation.
 - Add long-control validation-loss logging and three-repeat pristine overhead
-  measurement. The local CPU smoke shows correct compact behavior and is much
-  faster than full capture, but no CUDA or production overhead claim is established.
-- Validate the fingerprinter on Condor FP32/FP16 against full capture, run the
-  perturbation ladder and repeated clean cells, and measure peak GPU memory and
-  post-warmup step time. Add a fused native hashing kernel if the current
-  composed PyTorch reductions miss the performance target.
+  measurement. The controlled 40M CUDA run establishes exact-mode correctness
+  for one eager FP32 cell, not representative production overhead.
+- Replace the composed per-tensor PyTorch reductions with a fused or batched
+  hashing path, then repeat paired clean capture-off/fingerprint timing on
+  Condor FP32/FP16. The current 40M result uses only 1.125 MiB of detector
+  buffers but adds 195.3% clean-step time. Run the perturbation ladder and
+  modern-hardware cells after the fast path is materially improved.
 - Implement and validate the pinned TorchTitan extension. Candidate source was
   inspected at `d263ca0a1b569ed198b9943b6e8c2117a61d8843`; this is **not** a
   compatible-stack pin or an implemented production integration.

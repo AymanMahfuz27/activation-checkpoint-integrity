@@ -11,11 +11,13 @@ See [GPU results and limitations](docs/followthrough-results.md),
 
 The recorder retains full supported eager operator outputs and is expensive.
 An exact-mode position-sensitive fingerprinter is now implemented and passes the
-local clean/fault/enforcement suite without retaining full tensor payloads. Its
-GPU overhead, modern-kernel coverage and tolerant numerical policy are not yet
-validated. The long training milestone, fused-internal coverage and TorchTitan
-integration remain incomplete. Full GPU archive recovery is in progress;
-generated raw evidence stays outside Git. See [fingerprinter design and use](docs/fingerprinter.md).
+local suite plus one controlled 40M FP32 CUDA cell without retaining full tensor
+payloads. On a GTX 1080 Ti it reduced the historical failing-arm time from
+1081.77 seconds to 14.61 seconds, but clean same-job overhead remained 195.3%,
+so this composed PyTorch implementation is not an always-on production detector.
+Modern-kernel coverage and tolerant numerical policy are not yet validated. The
+long training milestone, fused-internal coverage and TorchTitan integration
+remain incomplete. See [fingerprinter design and use](docs/fingerprinter.md).
 
 The sections below describe the completed historical starter work.
 

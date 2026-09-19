@@ -70,7 +70,7 @@ The local validation covers exact repetition, permutations, one-element and
 one-ULP changes, FP16/BF16/FP32/FP64 and integer tensors, signed zero, NaN,
 non-contiguous inputs, metadata changes, missing recomputation, buffer overflow,
 nested checkpoints, clean training noninterference and controlled-failure
-optimizer blocking. The full repository suite passes 60 tests.
+optimizer blocking. The full repository suite passes 61 tests.
 
 The bounded CPU smoke suite compares 404 exact pairs. The clean fingerprint arm
 preserves the capture-off outcome, the failing arm identifies the same first
@@ -78,5 +78,23 @@ pair as full capture (`aten.rand.default`), and the enforced failing arm makes
 zero optimizer calls. In the latest single-run smoke, the compact arm took about
 0.11 seconds versus about 1.21 seconds for full capture and about 0.03 seconds
 with capture off. These are tiny-model CPU measurements, not a production
-overhead result. CUDA correctness, peak GPU memory, repeated timing, the 40M
-perturbation ladder and modern-hardware validation remain required.
+overhead result.
+
+Condor job `1553948.0` applied the compact path to the seed-17 40M FP32
+controlled workload on a GTX 1080 Ti. It covered all 3,232 pairs, reproduced the
+historical 96 mismatches and first `aten.rand.default` divergence, blocked the
+failing update with no persistent-state mutation, and preserved the clean
+capture-off outcome. The failing arm took 14.61 seconds versus the historical
+full recorder's 1081.77 seconds, a 74.06x speedup and 98.65% reduction. That
+historical comparison crosses revisions and regenerated snapshots, so it is an
+order-of-magnitude comparison rather than a precise paired timing benchmark.
+
+The same-job production comparison is the clean arm: 15.16 seconds with
+fingerprints versus 5.13 seconds with capture off. That is 2.95x total time, or
+195.3% overhead, far above the at-most-2% target. Device buffers added 1.125 MiB
+and peak CUDA allocation increased about 0.119%, so the memory objective passed
+for this cell while the runtime objective failed. The required next step is a
+fused or batched hashing path that removes thousands of composed PyTorch
+reductions and dispatch/kernel launches, followed by repeated paired clean
+timings. Modern-hardware, mixed-precision, perturbation-ladder and tolerant-mode
+validation remain required.
