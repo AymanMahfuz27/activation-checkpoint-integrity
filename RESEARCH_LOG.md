@@ -3151,3 +3151,91 @@ For an experiment entry, also include:
   1 skipped in 129.58s**. The only skip is the CUDA-only equality test on the
   local Mac; both detector scopes, enforcement, clean noninterference, and the
   validation/runner contracts pass.
+- **Private staging and submission**: Frozen the implementation at local commit
+  `4908e7efb8cba4a67cc3a24f5193e715d8d8325d` without changing GitHub. A
+  complete private Git bundle with SHA-256
+  `5afb13c94a5b711676b7f31b60abda664348109d0e99bea0f83a8af95163d932`
+  was verified and cloned into an ignored clean remote checkout with the
+  existing corpus and hash-pinned historical oracle. Named remote runs
+  `f009-boundary-stage` and `f009-boundary-submit` completed successfully; the
+  latter dry-ran and submitted Condor job `1553958.0`.
+- **F009 outcome**: Job `1553958.0` completed with scientific exit `0` and all
+  eight preregistered gates passing. The retained summary SHA-256 is
+  `44b37a80263cae597a97278012da198757c6381d13a20bd00009a9fa2af7ebce`
+  at ignored local artifact
+  `artifacts/condor/f009-boundary/results/1553958.0/summary.json`. Every clean
+  arm matched all `32/32` block-boundary pairs, preserved the paired
+  capture-off outcome, and made one optimizer call. The injected arm found
+  `32` boundary-visible mismatches, first at the block-0 output, made zero
+  optimizer calls, and preserved model, populated Adam state, scheduler, and
+  cursor.
+- **F009 timing and decision**: The three capture-off times were `5.1583s`,
+  `5.0240s`, and `5.0505s`; boundary times were `5.0929s`, `5.1674s`, and
+  `5.1622s`. Their medians are `5.0505s` and `5.1622s`, a `1.02212x` ratio or
+  `2.2117%` overhead. This passes the preregistered `1.05x` acceptance gate but
+  misses the strict `1.02x` production target by 0.2117 percentage points, so
+  it is not yet promoted as production-ready. The failing arm took `5.2108s`,
+  `207.60x` faster than the historical full recorder. Observation count fell
+  from `6,464` to `64` per step, a `101x` reduction. Detector buffers remained
+  `655,360` bytes and peak allocation rose 0.0663%, passing the memory gate.
+- **F009 analyst verdict**: `MODIFY`. Correctness validity is high for the
+  stated boundary-visible controlled-fault claim, and the within-job clean
+  baseline is valid. Timing validity at the exact 2% boundary is medium because
+  three paired repetitions cannot resolve a 0.2117-point miss from noise.
+  Preserve the boundary architecture, do not round the failed production gate
+  into a pass, and test the isolated native-comparison optimization. The
+  all-operator detector remains required for replay/localization and the claim
+  does not extend to internally cancelling faults or untested execution cells.
+
+### L0050 — 2026-09-19 CDT — Native signature comparison preregistered
+
+- **Status**: Planned after F009 measurement and before implementation. F009
+  passed its 5% research gate but narrowly missed the 2% production target.
+- **Objective**: Remove the remaining avoidable per-recomputed-boundary PyTorch
+  device operations by comparing the two 128-bit signatures and writing the
+  mismatch flag in one native CUDA kernel on PyTorch's current stream.
+- **Baseline and isolated change**: Preserve F009's checkpoint-boundary scope,
+  32 pairs, position-sensitive signature kernel, device buffers, one final host
+  decision, failure semantics, model/workload, and alternating timing harness.
+  Replace only `(original != recompute).any()`, boolean-to-int conversion, and
+  flag copy after each recomputed boundary with one native single-thread CUDA
+  comparison launch. CPU behavior and the diagnostic bookkeeping backend stay
+  unchanged.
+- **Correctness gates**: Native comparison must write zero for equal signatures,
+  one for any changed 32-bit lane, and one for a forced structural failure.
+  CUDA signature/reference checks, both detector scopes, clean outcome
+  preservation, complete 32-pair coverage, injected block-0 detection, zero
+  failing optimizer calls, and persistent-state preservation must all pass.
+- **Performance gate**: On the same Condor 40M FP32 contract, run three
+  alternating clean capture-off/native-boundary pairs and require the median
+  ratio to be at most `1.02x`, with peak-memory increase at most 0.5%. Cross-job
+  raw time versus F009 is descriptive only because physical node load can
+  change; production promotion depends on the new within-job paired ratio.
+- **Falsification and boundary**: Reject production promotion if the 2% gate
+  fails or any safety/correctness gate regresses. A passing result remains
+  evidence only for boundary-visible divergence in this controlled Pascal FP32
+  cell; internally cancelling faults and untested execution cells still require
+  the all-operator replay and further validation.
+- **Implementation**: Added a one-thread native CUDA comparison kernel beside
+  the fused signature kernel. Recomputed signatures now launch that kernel on
+  PyTorch's current stream to compare all four 32-bit lanes and write the
+  existing `int64` mismatch flag directly. This removes the separate PyTorch
+  inequality, reduction, conversion, and copy operations without changing the
+  signature bytes, buffer format, final host decision, CPU path, or failure
+  policy. Condor preflight now checks equal, changed, and forced-structural
+  outcomes before the timed suite.
+- **Focused local verification**: Python compilation and whitespace checks
+  pass. The fingerprint suite completed **37 passed, 2 skipped in 16.45s**;
+  both skips are CUDA-only on the local Mac. All CPU signature, scope,
+  enforcement, noninterference, overflow, metadata, and training tests pass.
+- **Additional CUDA contracts**: Expanded the scheduled CUDA-only comparison
+  test to cover equality, each of the four independently changed 32-bit lanes,
+  signed `int64` extremes, forced structural failure, arbitrary bounded-buffer
+  rows, and fingerprint-then-compare stream ordering without an intervening
+  host synchronization. Generated summaries now identify
+  `native_cuda_single_launch` explicitly as the comparison backend, while the
+  native source hash remains recorded by the existing setup evidence.
+- **Full local verification**: Runner shell syntax, Python compilation, and
+  whitespace checks pass. The final complete regression suite finished **82
+  passed, 2 skipped in 165.65s**. The only skips are the two CUDA-only kernel
+  contracts on the local Mac; every CPU path and orchestration contract passes.

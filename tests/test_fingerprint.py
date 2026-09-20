@@ -221,6 +221,54 @@ def test_fused_cuda_kernel_matches_the_cpu_reference():
         assert torch.equal(actual, expected), (sample.shape, sample.dtype)
 
 
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA is unavailable")
+def test_native_cuda_signature_comparison_sets_the_expected_flag():
+    from ac_integrity.capture.cuda_fingerprint import (
+        compare_cuda_signatures_into,
+        fingerprint_cuda_into,
+    )
+
+    base = torch.tensor(
+        [0x1122334455667788, 0x0123456789ABCDEF], dtype=torch.int64
+    )
+    cases = [base.clone()]
+    for element, bit in ((0, 0), (0, 32), (1, 0), (1, 32)):
+        changed = base.clone()
+        changed[element] ^= 1 << bit
+        cases.append(changed)
+    cases.extend([
+        torch.tensor(
+            [torch.iinfo(torch.int64).min, torch.iinfo(torch.int64).max],
+            dtype=torch.int64,
+        ),
+        torch.tensor([-17, 29], dtype=torch.int64),
+    ])
+
+    original = base.cuda()
+    flags = torch.empty(len(cases) + 1, dtype=torch.int64, device="cuda")
+    for index, candidate in enumerate(cases):
+        compare_cuda_signatures_into(original, candidate.cuda(), flags[index])
+    compare_cuda_signatures_into(
+        original, original.clone(), flags[-1], structural_failure=True
+    )
+    assert flags.cpu().tolist() == [0, 1, 1, 1, 1, 1, 1, 1]
+
+    # Fingerprint and compare are intentionally queued without a host sync in
+    # between. Current-stream ordering must make both final flags correct.
+    payload = torch.arange(4097, dtype=torch.uint8, device="cuda")
+    changed_payload = payload.clone()
+    changed_payload[-1] += 1
+    signatures_a = torch.empty(2, dtype=torch.int64, device="cuda")
+    signatures_b = torch.empty_like(signatures_a)
+    async_flags = torch.empty(2, dtype=torch.int64, device="cuda")
+    fingerprint_cuda_into(payload, signatures_a)
+    fingerprint_cuda_into(payload.clone(), signatures_b)
+    compare_cuda_signatures_into(signatures_a, signatures_b, async_flags[0])
+    fingerprint_cuda_into(changed_payload, signatures_b)
+    compare_cuda_signatures_into(signatures_a, signatures_b, async_flags[1])
+    assert async_flags.cpu().tolist() == [0, 1]
+
+
 def _fingerprint_config():
     config = load_config(Path(__file__).parents[1] / "configs/smoke.toml")
     config.capture.mode = "fingerprint"

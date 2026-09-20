@@ -26,6 +26,7 @@ class _CompiledKernel:
 
     module: object
     function: object
+    compare_function: object
     architecture: str
     cubin_bytes: int
     compile_seconds: float
@@ -103,9 +104,14 @@ def _load_kernel(device_index):
             driver.cuModuleGetFunction(module, b"fingerprint_kernel"),
             "cuModuleGetFunction",
         )
+        (compare_function,) = _check(
+            driver.cuModuleGetFunction(module, b"compare_fingerprint_kernel"),
+            "cuModuleGetFunction(compare)",
+        )
         return _CompiledKernel(
             module=module,
             function=function,
+            compare_function=compare_function,
             architecture=architecture,
             cubin_bytes=len(cubin),
             compile_seconds=time.monotonic() - started,
@@ -183,3 +189,55 @@ def fingerprint_cuda_into(tensor, output, scan_payload=True):
             "cuLaunchKernel",
         )
     return output
+
+
+def compare_cuda_signatures_into(
+    original, recomputed, mismatch, structural_failure=False
+):
+    """Compare two CUDA signatures and write one int64 mismatch flag.
+
+    The comparison stays on PyTorch's current stream. This replaces several
+    small PyTorch operations with one native launch and never reads a value on
+    the host; the batched host decision still happens once after backward.
+    """
+    for name, signature in (("original", original), ("recomputed", recomputed)):
+        if (not signature.is_cuda or signature.dtype != torch.int64
+                or signature.shape != (2,) or not signature.is_contiguous()):
+            raise ValueError(
+                f"CUDA {name} signature must be a contiguous int64[2] row"
+            )
+    if original.device != recomputed.device:
+        raise ValueError("CUDA signatures must be on the same device")
+    if (not mismatch.is_cuda or mismatch.device != original.device
+            or mismatch.dtype != torch.int64 or mismatch.shape != ()
+            or not mismatch.is_contiguous()):
+        raise ValueError("CUDA mismatch output must be a contiguous int64 scalar")
+
+    from cuda.bindings import driver
+
+    device_index = original.device.index
+    with torch.cuda.device(device_index):
+        kernel = _load_kernel(device_index)
+        stream_pointer = torch.cuda.current_stream(device_index).cuda_stream
+        parameters = (
+            (
+                original.data_ptr(),
+                recomputed.data_ptr(),
+                mismatch.data_ptr(),
+                int(structural_failure),
+            ),
+            (ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_uint),
+        )
+        _check(
+            driver.cuLaunchKernel(
+                kernel.compare_function,
+                1, 1, 1,
+                1, 1, 1,
+                0,
+                stream_pointer,
+                parameters,
+                0,
+            ),
+            "cuLaunchKernel(compare)",
+        )
+    return mismatch

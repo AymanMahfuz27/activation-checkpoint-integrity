@@ -33,6 +33,12 @@ version. It needs neither a system `nvcc` installation nor a C++ extension
 build. Kernel compilation occurs when the fingerprint runtime is created,
 before the measured validation step.
 
+Recomputed CUDA signatures are compared by a second one-thread native kernel
+on PyTorch's current stream. It checks all four 32-bit lanes and writes the
+existing mismatch flag directly, replacing separate PyTorch inequality,
+reduction, conversion and copy operations. Stream ordering makes the signature
+write visible to comparison without a per-pair host synchronization.
+
 The normal path keeps signatures, comparison flags and optional numerical
 sketches in fixed-capacity device buffers. Original and recomputed outputs are
 joined by exact execution identity; traces are never heuristically realigned.

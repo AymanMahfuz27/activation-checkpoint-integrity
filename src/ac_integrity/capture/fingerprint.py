@@ -360,10 +360,23 @@ class _DeviceBuffers:
             # The buffer was pre-zeroed. Avoid every per-output device op so
             # this diagnostic arm measures observer bookkeeping by itself.
             return
-        mismatch = (self.original_signatures[original_index] != digest.signatures).any()
-        if structural_failure:
-            mismatch = torch.ones((), dtype=torch.bool, device=self.device)
-        self.flags[result_index].copy_(mismatch.to(torch.int64))
+        if self.device.type == "cuda":
+            from ac_integrity.capture.cuda_fingerprint import (
+                compare_cuda_signatures_into,
+            )
+            compare_cuda_signatures_into(
+                self.original_signatures[original_index],
+                digest.signatures,
+                self.flags[result_index],
+                structural_failure=structural_failure,
+            )
+        else:
+            mismatch = (
+                self.original_signatures[original_index] != digest.signatures
+            ).any()
+            if structural_failure:
+                mismatch = torch.ones((), dtype=torch.bool, device=self.device)
+            self.flags[result_index].copy_(mismatch.to(torch.int64))
         if self.include_sketches:
             self.recompute_stats[result_index].copy_(digest.stats)
             self.recompute_counts[result_index].copy_(digest.counts)
@@ -689,6 +702,12 @@ class FingerprintSession:
         )
         originals_with_recompute = len(compared_pair_ids)
         allocated_bytes = sum(buffers.allocated_bytes() for buffers in self.devices.values())
+        if self.backend == "bookkeeping":
+            comparison_backend = "diagnostic_prezeroed"
+        elif any(buffers.device.type == "cuda" for buffers in self.devices.values()):
+            comparison_backend = "native_cuda_single_launch"
+        else:
+            comparison_backend = "pytorch"
 
         if mismatches:
             folder = self.root / "mismatches" / "fingerprint"
@@ -705,6 +724,7 @@ class FingerprintSession:
                 ALGORITHM if self.backend == "full"
                 else f"diagnostic-{self.backend}-only"
             ),
+            "comparison_backend": comparison_backend,
             "byte_order": sys.byteorder,
             "policy": (
                 "bit_exact_fail_closed" if self.backend == "full"

@@ -39,7 +39,10 @@ nvidia-smi > "$record_dir/nvidia-smi.txt"
 "$python_bin" - "$profile" <<'PY'
 import json, os, pathlib, shutil, subprocess, sys, tempfile
 import torch
-from ac_integrity.capture.cuda_fingerprint import preload_cuda_fingerprint
+from ac_integrity.capture.cuda_fingerprint import (
+    compare_cuda_signatures_into,
+    preload_cuda_fingerprint,
+)
 from ac_integrity.capture.fingerprint import fingerprint_tensor
 from ac_integrity.config import load_config, write_config
 from ac_integrity.state import environment, write_json
@@ -82,6 +85,19 @@ elif sys.argv[1] in {"fingerprint", "ablation", "boundary"}:
         ).signatures.cpu()
         assert torch.equal(actual, expected), (byte_count, expected, actual)
     record["fingerprint_extension"]["cpu_cuda_reference_checks"] = 20
+    original = torch.tensor([11, 29], dtype=torch.int64, device="cuda")
+    mismatch = torch.empty((), dtype=torch.int64, device="cuda")
+    compare_cuda_signatures_into(original, original.clone(), mismatch)
+    assert mismatch.item() == 0
+    compare_cuda_signatures_into(
+        original, torch.tensor([11, 30], dtype=torch.int64, device="cuda"), mismatch
+    )
+    assert mismatch.item() == 1
+    compare_cuda_signatures_into(
+        original, original.clone(), mismatch, structural_failure=True
+    )
+    assert mismatch.item() == 1
+    record["fingerprint_extension"]["native_compare_checks"] = 3
 write_json(pathlib.Path(os.environ["ACI_JOB_RECORD"]) / "location.json", record)
 required = {
     "core": 100_000_000_000,

@@ -96,3 +96,19 @@ extern "C" __global__ void fingerprint_kernel(
     }
   }
 }
+
+extern "C" __global__ void compare_fingerprint_kernel(
+    const unsigned int* original,
+    const unsigned int* recomputed,
+    unsigned long long* mismatch,
+    unsigned int structural_failure) {
+  if (blockIdx.x != 0 || threadIdx.x != 0) {
+    return;
+  }
+  bool different = structural_failure != 0;
+#pragma unroll
+  for (int lane = 0; lane < 4; ++lane) {
+    different = different || original[lane] != recomputed[lane];
+  }
+  mismatch[0] = different ? 1ULL : 0ULL;
+}
