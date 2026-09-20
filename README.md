@@ -10,19 +10,18 @@ See [GPU results and limitations](docs/followthrough-results.md),
 [reproduction commands](docs/FOLLOWTHROUGH.md).
 
 The recorder retains full supported eager operator outputs and is expensive.
-An exact-mode position-sensitive fingerprinter is now implemented and passes the
-local suite plus one controlled 40M FP32 CUDA cell without retaining full tensor
-payloads. On a GTX 1080 Ti it reduced the historical failing-arm time from
-1081.77 seconds to 14.61 seconds, but clean same-job overhead remained 195.3%,
-so that composed PyTorch implementation was not an always-on production
-detector. A fused CUDA implementation now replaces its per-tensor weight,
-product and reduction operations. Its production loader and exact arithmetic
-match an independent reference on the same GTX 1080 Ti. Repeated paired 40M
-timing reduced the clean median to 9.33 seconds, but that is still 91.4% slower
-than the 4.87-second capture-off median and therefore not an always-on
-production detector. Modern-kernel coverage and tolerant numerical policy are
-not yet validated. The long training milestone, fused-internal coverage and
-TorchTitan integration remain incomplete. See
+The production-default position-sensitive fingerprinter now observes only
+checkpointed block returns and keeps its signatures and comparison flags on the
+GPU. On the controlled 40M FP32 GTX 1080 Ti cell, three paired clean runs
+measured 5.2192 seconds with the detector versus 5.1736 seconds with capture
+off: 0.88% median overhead, below the 2% target. The injected fault was detected
+at the first block boundary, the optimizer was blocked, and persistent state
+was preserved. The failing arm took 4.968 seconds versus the historical full
+recorder's 1081.77 seconds, a 217.75x speedup. The exhaustive all-operator
+fingerprinter remains available for localization after a boundary abort.
+Modern-GPU, mixed-precision, distributed, internally cancelling-fault, and
+tolerant-policy coverage are not yet validated. The long training milestone
+and TorchTitan integration remain incomplete. See
 [fingerprinter design and use](docs/fingerprinter.md).
 
 The sections below describe the completed historical starter work.

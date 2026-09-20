@@ -148,5 +148,27 @@ optimizer, and ran 115.4x faster than the historical full recorder. Peak-memory
 overhead fell to 0.066%. The evidence localizes the next performance problem to
 per-output Python interception and CUDA launch amplification rather than the
 signature arithmetic alone.
+
+The F008 ablation then separated that remaining surcharge: about 68% came from
+Python observation and event bookkeeping, about 32% from per-output launches
+and comparisons, and no resolvable increment came from scanning payload bytes.
+This motivated the production-default checkpoint-boundary scope. Condor job
+`1553958.0` reduced observation count from 6,464 to 64 per step and preserved
+all safety gates. Its paired clean median was 5.1622 seconds versus 5.0505
+seconds off, or 2.21% overhead. That passed the preregistered 5% architecture
+gate but narrowly missed the strict 2% production target.
+
+The final native comparison change removed separate PyTorch inequality,
+reduction, conversion and flag-copy operations after each recomputed boundary.
+Condor job `1553959.0` passed all correctness gates and measured clean boundary
+times of 5.2851, 5.2192 and 5.1804 seconds against paired capture-off times of
+5.1996, 5.1736 and 5.1139 seconds. Every pair stayed below 2%; the median ratio
+of arm medians was 1.00881x, or 0.88% overhead, while the median of paired
+ratios was 1.01302x, or 1.30%. The injected arm detected all 32
+boundary-visible mismatches, first at block 0, made zero optimizer calls, and
+preserved model, Adam, scheduler and cursor state. It took 4.968 seconds, a
+217.75x speedup and 99.54% time reduction from the historical 1081.77-second
+full recorder. Peak CUDA allocation still rose only 0.0663%.
+
 Modern-hardware, mixed-precision, perturbation-ladder and tolerant-mode
 validation remain required after the GTX 1080 Ti gate.

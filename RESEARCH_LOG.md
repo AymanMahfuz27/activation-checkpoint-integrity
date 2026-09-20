@@ -3228,7 +3228,7 @@ For an experiment entry, also include:
   pass. The fingerprint suite completed **37 passed, 2 skipped in 16.45s**;
   both skips are CUDA-only on the local Mac. All CPU signature, scope,
   enforcement, noninterference, overflow, metadata, and training tests pass.
-- **Additional CUDA contracts**: Expanded the scheduled CUDA-only comparison
+- **Additional CUDA contracts**: Expanded the CUDA-only comparison
   test to cover equality, each of the four independently changed 32-bit lanes,
   signed `int64` extremes, forced structural failure, arbitrary bounded-buffer
   rows, and fingerprint-then-compare stream ordering without an intervening
@@ -3239,3 +3239,43 @@ For an experiment entry, also include:
   whitespace checks pass. The final complete regression suite finished **82
   passed, 2 skipped in 165.65s**. The only skips are the two CUDA-only kernel
   contracts on the local Mac; every CPU path and orchestration contract passes.
+- **Private staging and submission**: Frozen F010 at local commit
+  `3e2c7b0cec4028f3affc64f49db53c9412325997`; GitHub remains unchanged. A
+  complete private bundle with SHA-256
+  `e02b860522ca8eadac2cce2cd0f6067ed607b1930e71c12cdb2b734731130c3e`
+  was verified and cloned into an ignored clean remote checkout. Named remote
+  run `f010-native-submit` dry-ran and submitted Condor job `1553959.0`.
+- **F010 outcome**: Job `1553959.0` completed with scientific exit `0`, all
+  eight suite gates passing, and the separate strict production-target field
+  true. The retained summary SHA-256 is
+  `fa7e6ff3b4c1e00ec41fb1d8b768a91dde2a010b4151b65eb71d295bfa9622bf`
+  at ignored local artifact
+  `artifacts/condor/f010-native-compare/results/1553959.0/summary.json`. GPU
+  preflight passed 20 CPU/CUDA signature checks and all three native comparison
+  checks. Every clean arm recorded `native_cuda_single_launch`, matched all
+  `32/32` pairs, performed one optimizer update, preserved its paired
+  capture-off outcome, made one host decision, and transferred no diagnostics.
+  The injected arm found all 32 boundary-visible mismatches, first at block 0,
+  made zero optimizer calls, and preserved model/Adam/scheduler/cursor.
+- **F010 timing**: Capture-off times were `5.1996s`, `5.1736s`, and `5.1139s`;
+  native-boundary times were `5.2851s`, `5.2192s`, and `5.1804s`. Their medians
+  are `5.1736s` and `5.2192s`, a `1.008807x` ratio or **0.8807% overhead**,
+  passing the 2% production target. Individual paired overheads were 1.6440%,
+  0.8807%, and 1.3017%, so every repeat independently passed. The discrete
+  paired bootstrap's one-sided 95th percentile is the maximum observed ratio,
+  `1.01644x`; with only three pairs this is supportive, not a substitute for
+  broader replication. The failing arm took `4.9680s`, 217.75x faster and
+  99.54% shorter than the historical full recorder. Peak allocation increased
+  0.0663%, and detector buffers remained 655,360 bytes.
+- **F010 analyst verdict**: `PROMOTE — bounded`. Functional validity is high
+  and timing validity is medium-high for the preregistered three-pair gate. The
+  ratio of arm medians is 0.8807% overhead; the more natural median of paired
+  ratios is 1.3017%, and all three observed pairs pass 2%. A log-ratio
+  one-sided parametric 95% bound is 1.9216% overhead and the empirical bootstrap
+  is 1.6440%, but `n=3` cannot supply a distribution-free 95% claim; the sample
+  maximum bounds the population median at only 87.5% confidence. Promote the
+  native boundary detector only for this single-rank deterministic eager FP32,
+  GTX 1080 Ti, PyTorch 2.13.0+cu126 controlled execution cell. Retain the
+  all-operator path for localization. Do not generalize to internally
+  cancelling or natural faults, long training, mixed precision, modern GPUs,
+  fused/custom kernels, or distributed execution.
