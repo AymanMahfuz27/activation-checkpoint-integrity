@@ -482,6 +482,7 @@ class FingerprintSession:
 
         try:
             buffers = self.devices[original.device_key]
+            self._check_stream(buffers)
             result_index = buffers.reserve_comparison()
             digest = fingerprint_tensor(
                 tensor, self.chunk_bytes, self.include_sketches,

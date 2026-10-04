@@ -401,6 +401,8 @@ def test_training_fingerprint_blocks_bad_update_and_preserves_clean_outcome(
     tmp_path, scope
 ):
     config = load_config(Path(__file__).parents[1] / "configs/smoke.toml")
+    # This is a CPU orchestration test in either the Mac or pinned CUDA wheel.
+    config.expected_torch = torch.__version__
     config.data.path = str(tmp_path / "data")
     config.artifact_root = str(tmp_path / "runs")
     config.adapter.name = "pytorch_84864"

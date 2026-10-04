@@ -3499,3 +3499,43 @@ For an experiment entry, also include:
   final changes at `artifacts/fingerprint/f011-blake3/boundary-smoke-v2`;
   summary reports PASS with all eight gates passing. Existing orchestration,
   clean noninterference and pre-update enforcement remain intact locally.
+- **Synchronization**: Committed repair as
+  `a596b961c939388ba3db53a2f52d3319342ef856` (18 files). HTTPS push failed for
+  missing noninteractive credentials; existing GitHub SSH authentication
+  succeeded, and SSH push fast-forwarded main from `d2e6403` to `a596b96`.
+  Unrelated follow-through/professor edits remain uncommitted. No credentials
+  or account settings were changed. Remote `chkquota` reports 10.12/15 GiB
+  used (67.47%); compact results fit remaining quota. Scheduled scratch guard
+  requires at least 15 GB free before training. Pool probe: 57 Ti slots idle.
+  Named remote-run `f011-blake3-submit` requested clean fast-forward, dry-run
+  and scheduler submission of `condor/blake3-boundary.submit`.
+- **Submission outcome**: Remote fast-forward verified exact `a596b961`;
+  scheduler dry-run passed and submitted job `1553977.0`. Remote-run check
+  displayed an empty exit code/failed label, but its retained log shows successful
+  submission; scheduler is authoritative for execution. No scientific result
+  exists yet. Output/error/event logs: `artifacts/condor/blake3-1553977.*`;
+  scheduled compact records: `artifacts/followthrough/1553977.0`.
+- **First GPU attempt: REPEAT required**: `1553977.0` on eldar-44, GTX1080Ti,
+  clean `a596b96`, pinned lock SHA256
+  `9c49e0b4c1ee3be8e4ed07d066a7bba24b86575100253ebeeefb26c092b86a32`.
+  NVRTC compiled sm_61 CUBIN (32,800 bytes) in 1.0463s; 20 digest and three
+  compare preflight checks passed. Test suite: 79 passed, three failed, 15.06s.
+  All hash conformance/mutation/collision tests passed; wrong-stream observe
+  did not raise because recompute accessed buffers directly, bypassing stream
+  checking. Finalize-switch and same-stream tests passed. Two CPU training tests
+  failed smoke's expected version `2.13.0` against CUDA wheel `2.13.0+cu126`;
+  no scientific timing ran. Log retained at
+  `artifacts/fingerprint/f011-blake3/condor-1553977.0/fingerprint-tests.log`.
+- **Corrective plan**: Check session stream before reserving recompute rows or
+  launching any recompute hash/compare. Align only test configuration's expected
+  version to the executing runtime; keep runner's exact production build pin.
+  Revalidate focused local tests, commit/push and repeat scheduled preflight and
+  unchanged timing workload. Analyst notified for failed-attempt review.
+- **Packaging check**: Built wheel and verified both `blake3_core.h` and
+  `fingerprint_cuda.cu` are included. Build retained under local F011 artifacts.
+- **Correction implemented and verified locally**: Added missing recompute
+  stream check before reservation/launch; adjusted CPU test expected version
+  only. Focused suite reports 72 passed, 10 CUDA skips in 5.65s; no local
+  regressions. Complete first-attempt records and scheduler logs copied to
+  `artifacts/fingerprint/f011-blake3/condor-first-attempt`; source unaffected
+  by artifact collection. Scheduled retry uses the same hypothesis/config.
