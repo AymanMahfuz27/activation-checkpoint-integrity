@@ -83,6 +83,16 @@ returns. Set `fingerprint_scope = "all_operators"` for expensive diagnostic
 localization after an aborted step. The boundary scope cannot detect an
 internal error that exactly cancels before the block returns.
 
+## Replacement validation
+
+Corrected revision `8234462` passes 117 local tests (10 CUDA skips), 82 scheduled
+preflight tests without skips, and all eight 40M workload gates in Condor
+`1553978.0`. Clean training outcomes match; all 32 controlled-failure pairs are
+rejected before an optimizer call. The observed 1.6523% overhead belongs to the
+existing evidence-exporting harness interval, whose noisy pairs do not establish
+stable sub-2% training-step cost. See [reliability evidence](fingerprinter-reliability.md)
+for the failed first attempt, independent review, provenance and limitations.
+
 ## Historical weighted-sum evidence (not replacement validation)
 
 The local validation covers exact repetition, permutations, every short tail

@@ -14,10 +14,12 @@ The compact fingerprinter now uses standard BLAKE3-256, stored as four int64
 slots, replacing the earlier weighted-sum digest after a deterministic two-sign-
 flip collision was found. CPU uses the independently published BLAKE3 library;
 CUDA implements the standard chunk and tree construction on the current stream.
-Local conformance is checked against official vectors and the shared native
-compression code. GPU conformance and replacement performance require a new
-scheduled validation run; the historical 0.88% overhead belongs to the rejected
-weighted-sum algorithm and does not validate this replacement.
+Local 117 tests and scheduled Condor 82 preflight tests pass; all eight 40M
+workload gates pass, including clean noninterference and faulty-update blocking.
+The recorded 1.65% overhead includes forensic evidence export and has noisy
+pairs, so stable sub-2% training-step cost remains unestablished. See the
+[repair reliability evidence](docs/fingerprinter-reliability.md). The historical
+0.88% overhead belongs to the rejected weighted-sum algorithm.
 
 The default scope observes checkpointed block returns. It cannot detect an
 internal discrepancy that leaves those returns unchanged. The all-operator

@@ -1,0 +1,156 @@
+{
+  "experiment": "F011 BLAKE3 repair",
+  "date": "2026-10-03 CDT",
+  "algorithm": "blake3-256-v1",
+  "digest_bytes": 32,
+  "validated_code_revision": "82344622d899c348741d74f288125dfca55a9958",
+  "validated_worktree_clean": true,
+  "scheduler": {
+    "job_id": "1553978.0",
+    "host": "slot2@eldar-28.cs.utexas.edu",
+    "exit_code": 0,
+    "start_utc": "2026-10-04T00:52:58+00:00",
+    "finish_utc": "2026-10-04T01:04:23+00:00"
+  },
+  "environment": {
+    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:09:02) [GCC 11.2.0]",
+    "torch": "2.13.0+cu126",
+    "cuda_runtime": "12.6",
+    "platform": "Linux-5.15.0-152-generic-x86_64-with-glibc2.31",
+    "gpus": [
+      "_CudaDeviceProperties(name='NVIDIA GeForce GTX 1080 Ti', major=6, minor=1, total_memory=11172MB, multi_processor_count=28, uuid=d465d05e-7755-e85e-a4e0-9893b35a1ded, pci_bus_id=130, pci_device_id=0, pci_domain_id=0, L2_cache_size=2MB)"
+    ],
+    "backend": {
+      "cuda_tf32": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "cudnn_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest"
+    }
+  },
+  "driver": "535.247.01",
+  "dependency_lock_sha256": "9c49e0b4c1ee3be8e4ed07d066a7bba24b86575100253ebeeefb26c092b86a32",
+  "workload": {
+    "parameter_count": 39985664,
+    "seed": 17,
+    "dtype": "FP32",
+    "sequence_length": 256,
+    "microbatch_size": 2,
+    "accumulation": 4,
+    "observation_scope": "checkpoint_boundaries",
+    "checkpointed_blocks": 8,
+    "warmup_updates": 1
+  },
+  "implementation_tests": {
+    "local_full": {
+      "passed": 117,
+      "skipped_cuda": 10,
+      "seconds": 56.89
+    },
+    "scheduled_preflight": {
+      "passed": 82,
+      "skipped": 0,
+      "seconds": 178.06
+    },
+    "official_vectors": 35,
+    "native_tree_sizes": 28,
+    "cuda_tree_sizes": 13,
+    "largest_tree_payload_bytes": 67108865,
+    "two_sign_flip_pairs_per_device": 120,
+    "seeded_mutations_per_device": 896
+  },
+  "end_to_end": {
+    "status": "PASS",
+    "gates": {
+      "boundary_bad_update_blocked": true,
+      "boundary_clean_update_allowed": true,
+      "boundary_failure_pairing_complete": true,
+      "boundary_first_divergence_is_first_block_output": true,
+      "boundary_peak_memory_increase_at_most_0_5_percent": true,
+      "clean_boundary_median_ratio_at_most_1_05x": true,
+      "clean_boundary_preserves_outcome": true,
+      "silent_gpu_or_cpu_reproduction": true
+    },
+    "clean_pairs_per_arm": 32,
+    "clean_arms": 3,
+    "failure_value_mismatches": 32,
+    "failure_optimizer_calls": 0,
+    "preserved_after_abort": {
+      "cursor": true,
+      "model": true,
+      "optimizer": true,
+      "scheduler": true
+    },
+    "silent_failure_named_gradients_changed": 73,
+    "clean_outcome_components_exact": [
+      "model",
+      "optimizer",
+      "scheduler",
+      "gradients",
+      "rng",
+      "losses",
+      "cursor"
+    ],
+    "retained_device_buffer_bytes": 1179648
+  },
+  "timing": {
+    "interval": "execute_step through CPU evidence copying and outcome.pt serialization; not isolated training-step latency",
+    "capture_off_seconds": [
+      17.780737536028028,
+      20.012121124193072,
+      17.670915288850665
+    ],
+    "fingerprint_seconds": [
+      18.074537053704262,
+      17.490828447043896,
+      19.865156350657344
+    ],
+    "capture_off_median_seconds": 17.780737536028028,
+    "fingerprint_median_seconds": 18.074537053704262,
+    "ratio_of_medians_overhead_percent": 1.6523471935903977,
+    "paired_overhead_percent": [
+      1.6523471935903977,
+      -12.598827787930656,
+      12.417246226012523
+    ],
+    "median_paired_overhead_percent": 1.6523471935903977,
+    "harness_target_2_percent_passed": true,
+    "isolated_step_overhead_percent": null,
+    "max_peak_allocated_increase_percent": 0.11933773771077691
+  },
+  "retention": {
+    "remote_files_verified": 79,
+    "remote_bytes_verified": 761200,
+    "source_files_verified": 39,
+    "summary_sha256": "912a143726a85437edd003b327315278a1640f1d3f301b6f417d556e6a20eed9",
+    "raw_local": "artifacts/fingerprint/f011-blake3/condor-1553978.0",
+    "remote": "/u/ayman27/activation-checkpoint-integrity/artifacts/followthrough/1553978.0",
+    "full_tensor_snapshots_retained": false,
+    "note": "Exact state comparisons performed in scheduled scratch; compact decisions, quantitative differences, config, source archive and provenance retained."
+  },
+  "failed_attempt": {
+    "job_id": "1553977.0",
+    "revision": "a596b961c939388ba3db53a2f52d3319342ef856",
+    "passed": 79,
+    "failed": 3,
+    "seconds": 15.06,
+    "verdict": "MODIFY",
+    "cause": [
+      "recompute bypassed stream check",
+      "two CPU test configurations expected wheel version without CUDA suffix"
+    ],
+    "raw_local": "artifacts/fingerprint/f011-blake3/condor-first-attempt"
+  },
+  "analyst_verdict": "REPEAT for performance; correctness repair passes the bounded CPU/GPU cell",
+  "bounds": [
+    "Finite conformance is not proof of collision freedom or adversarial memory integrity.",
+    "Boundary observation cannot detect interior-only or derivative-only divergence with unchanged returns.",
+    "Sessions require one owning CUDA stream per device; raw helpers require producer ordering and storage lifetime.",
+    "Lazy conjugate and negative views must be resolved before capture.",
+    "One eager single-rank FP32 Pascal workload does not establish modern GPU, BF16/FP8, compiled/fused, distributed or long-training compatibility.",
+    "Three noisy pairs and evidence export in timer do not establish <=2% isolated training-step overhead."
+  ],
+  "correctness_repair_status": "complete within declared scope",
+  "performance_status": "stable <=2% isolated audited-step overhead remains unestablished"
+}

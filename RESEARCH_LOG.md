@@ -27,15 +27,18 @@ other secrets.
 
 ## Current state
 
-- **Last updated**: 2026-10-03 CDT. L0053 replaces the invalid weighted sums
-  with standard unkeyed BLAKE3-256 (`blake3-256-v1`). Final local regression
-  passes 117 tests; 10 GPU cases await scheduled validation. CPU boundary
-  smoke passes all eight gates. CUDA conformance and replacement timing pending.
-- **Active contract**: Withhold GPU/general integrity promotion until scheduled
-  conformance, fault enforcement and the same timed Condor cell are evaluated.
-  Retain the full recorder as the exact oracle; boundary scope is limited.
-- **Repository**: Repair prepared on local main after `9cefa1a`; user explicitly
-  authorized commit, push and Condor validation. Remote was clean at `d2e6403`.
+- **Last updated**: 2026-10-03 CDT. L0053 repairs the deterministic collision
+  with standard BLAKE3-256 (`blake3-256-v1`). Local117 tests pass; corrected
+  Condor1553978.0 preflight82 pass without skips and all eight workload gates
+  PASS. Correctness repair is complete within the tested scope.
+- **Active contract**: Retain the repaired digest for the declared CPU/one-stream
+  CUDA/eager FP32 boundary contract. Withhold stable<2% training-step performance
+  and general interior/mixed-precision/distributed claims. Full recorder remains
+  exact oracle. Analyst REPEAT applies to unresolved performance measurement.
+- **Repository**: Validated clean scientific revision `8234462` published to
+  GitHub and executed on Condor. Reliability report records exact source/config/
+  scheduler/environment and retained compact evidence. Unrelated local report
+  and professor-note edits remain preserved.
 - **Core GPU result**: Condor1553917.0, GTX1080Ti,40M,seed17,one warmed-state
   audited update. All10 causal gates PASS:73 gradient tensors differ, same
   losses, full recording preserves outcomes, first intermediate located,
@@ -44,25 +47,25 @@ other secrets.
  1553918.0. Four eager cells EXACT_MATCH including recorder controls. Inductor
   reference repeat exact but checkpoint differs slightly (maxgradabs1.38e-7);
   mechanism unresolved, not established corruption. BF16 unsupported.
-- **Verification**: Final local suite: 117 passed, 10 CUDA-only skipped.
-  Independent library and shared native compression agree on official vectors,
-  tree boundaries and mutation corpus. These passes cannot certify CUDA.
-  Full prior-archive recovery remains pending.
+- **Verification**: Final local117 passed,10 CUDA-only skipped; Condor
+  preflight82 passed,zero skips. Independent library, official vectors and
+  shared native compression agree with CUDA, including known collision,
+  mutations, >64MiB tree and stream-rejection cases. New compact archive79
+  files and source39 hashes verified. Full prior-archive recovery pending.
 - **Retention**: Core receiver resumes31 verified512MiB chunks at30GB total cap;
   upstream cap4GB. Live free-space guards remain active. Remote allocated sources
   stay intact until whole-archive checksum ACK. UT Box personal folder
   https://utexas.app.box.com/folder/417516268415 created;50GB file limit verified.
   First failed-attempt archive upload started. No sharing or credentials changed.
-- **Pending**: Complete scheduled CUDA conformance and remeasure the repaired
-  boundary path, then archive and analyze its evidence. Separately
-  test interior-only failures. Finish/check prior archives and retained Box
-  files; long training, TorchTitan, multi-GPU, native BF16/FP8, and
-  fused-internal coverage remain incomplete.
-- **Fingerprinter**: F010 Condor job `1553959.0` measured 0.8807% clean
-  ratio-of-medians overhead and caught its controlled boundary-visible fault,
-  but L0051 shows a same-metadata value change it reports as `exact_match`.
-  Treat F010 as a performance and limited sensitivity result, not a validated
-  general-purpose integrity guard.
+- **Pending**: F013 isolate audited-step cost from forensic export and repeat
+  controls to resolve timing noise; F012 test interior-only faults. Finish/check
+  prior archives and retained Box files. Long training, TorchTitan, multi-GPU,
+  native BF16/FP8 and fused-internal coverage remain incomplete.
+- **Fingerprinter**: Corrected F011 catches32/32 boundary-visible mismatches,
+  blocks the update, preserves all pre-update state and matches all clean
+  outcomes in Condor1553978.0. Observed1.6523% overhead is for the existing
+  evidence-exporting harness interval; stable<2% isolated step cost unmeasured.
+  Old F0100.8807% remains historical invalid-digest evidence.
 
 ## Planned actions
 
@@ -111,8 +114,9 @@ other secrets.
 | F008 | 1 | Decompose all-operator observer overhead into bookkeeping, launch, and payload-scan costs | Choose the next optimization from measured causes rather than inference | F007 repeated paired result | Completed in 1553957.0; attribution promoted |
 | F009 | 1 | Add an always-on checkpoint-boundary sentinel and repeat fault/clean timing | Collapse observer and launch counts while preserving pre-update detection of the controlled fault | F007 exact diagnostic plus F008 attribution | Completed in 1553958.0; 2.21% overhead, Analyst MODIFY; L0051 collision applies |
 | F010 | 1 | Fuse native signature comparison and repeat boundary timing | Remove per-boundary comparison operations | F009 | Completed in 1553959.0; 0.8807% overhead; general integrity promotion withheld after L0051 |
-| F011 | 1 | Add collision regression, replace the digest and validate exact-byte agreement and CPU/CUDA parity | Current digest accepts deterministic two-sign-flip changes | L0051; Mac reference work then scheduled Condor validation | Local repair: 117 tests pass; scheduled CUDA validation and timing pending (L0053) |
+| F011 | 1 | Add collision regression, replace the digest and validate exact-byte agreement and CPU/CUDA parity | Previous digest accepted deterministic two-sign-flip changes | L0051; Mac reference work then scheduled Condor validation | Complete bounded correctness: local117/GPU82 passes, eight workload gates; performance REPEAT (L0053) |
 | F012 | 2 | Test an interior-only recomputation failure with unchanged returned output and changed gradients | Boundary-only observation cannot satisfy the plan's internal-coverage gate | Exact miniature oracle and agreed supported observation scope | Pending; independent of TACC access |
+| F013 | 2 | Measure synchronized audited-step interval with forensic evidence collection disabled and repeated alternating controls | Existing timer includes export and noisy pairs cannot resolve the 2% threshold | F011 correctness passes; independent Analyst review L0053 | Pending; Condor-ready |
 
 
 ## Experiment index
@@ -129,7 +133,7 @@ other secrets.
 | Native boundary comparison | 2026-09-19 | Single-launch comparison preserves bounded detection and reduces median clean overhead to at most 2% | F009 boundary sentinel and alternating capture-off arms | 1553959.0: all eight gates pass; 0.8807% ratio-of-medians overhead | Historical bounded promotion superseded for general integrity by L0051 | L0050-L0051 |
 | Deterministic collision audit | 2026-09-21; reconfirmed 2026-10-02 | Assess whether different same-metadata payloads can alias under the current digest | Exact-byte inequality | Two FP32 sign flips collide; current CPU source reconfirms the alias | General update-authorization claim rejected; no replacement evaluated | L0051-L0052 |
 
-| BLAKE3 repair | 2026-10-03 | Standard BLAKE3 removes the deterministic collision and preserves pairing/enforcement | Independent library, official vectors, full recorder | Local 117 passed, 10 GPU skips; boundary smoke all eight gates pass | REPEAT pending GPU | L0053 |
+| BLAKE3 repair | 2026-10-03 | Standard BLAKE3 removes the deterministic collision and preserves pairing/enforcement | Independent library, official vectors, full recorder | Local117/GPU82 pass; 1553978.0 eight gates; noisy harness1.6523% | Correctness passes; REPEAT step-cost measurement | L0053 |
 | E0 | 2026-09-03/04 | The fixed clean fixture, exact comparator, and independent formulas agree across no-checkpoint, original, and recompute execution | Fixed literal CPU `float64`/CUDA FP32 no-checkpoint runs and independent formulas | Three CPU and three GPU repetitions pass; bounded oracle; identity formula reconfirmed after diagnostic fix | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E1 | 2026-09-03/04 | Each of five hidden-state fault families causes a same-metadata value mismatch first at `h` and a gradient difference, while its control and trigger-disabled arm remain exact | E0 plus a fresh-process correct arm with identical tensors, seeds, and state | CPU and GPU suites each pass all 54 fresh arms; future Python/NumPy formula diagnostic corrected | PROMOTE CPU and GPU | L0007, L0009, L0010, L0012, L0018, L0019, L0020 |
 | E2 | 2026-09-03/04 | Public `context_fn` and inner `saved_tensors_hooks` capture each explicitly backward-relevant `h`, `g`, and `y` once per phase without changing behavior | E0 no-hook result and checkpoint baseline without observational hooks | CPU and bundled CUDA runs both show baseline 1/1, candidate 1/0 | KILL exact candidate | L0007, L0009, L0010, L0012, L0018, L0019 |
@@ -3539,3 +3543,63 @@ For an experiment entry, also include:
   regressions. Complete first-attempt records and scheduler logs copied to
   `artifacts/fingerprint/f011-blake3/condor-first-attempt`; source unaffected
   by artifact collection. Scheduled retry uses the same hypothesis/config.
+- **Analyst failed-attempt verdict**: MODIFY for `1553977.0`; 79 passes are
+  bounded GPU digest-conformance evidence, while failed stream rejection is
+  valid negative evidence. Analyst inspected correction: every acceptance path
+  now checks owning stream before launch; recorded anomaly cannot be cleared
+  by catching the exception. Same-stream host read waits ordered comparisons.
+  Test-only version correction does not weaken runner build pin. Final verdict
+  awaits corrected GPU preflight/training. Correction committed/pushed as
+  `82344622d899c348741d74f288125dfca55a9958`; named retry submitted.
+- **Retry scheduler record**: Remote clean fast-forward verified `82344622`;
+  dry-run passed, submitted `1553978.0` via `f011-blake3-retry` (remote wrapper
+  exit 0). Record paths are `artifacts/followthrough/1553978.0` and
+  `artifacts/condor/blake3-1553978.*`. Scientific results pending; replacement
+  overhead cannot be inferred from old measurements.
+- **Final revision full local suite**: Repeated after correction; 117 passed,
+  10 CUDA-only skipped in 56.89s. XML/log:
+  `artifacts/fingerprint/f011-blake3/full-suite-v3.{xml,log}`. No regression.
+  Retry matched slot2@eldar-28; pinned environment installed successfully.
+- **Corrected GPU outcome**: `1553978.0` completed scheduler/scientific exit 0,
+  UTC 2026-10-04T00:52:58 to 01:04:23, slot2@eldar-28, GTX1080Ti (sm_61),
+  driver535.247.01, Python3.13.5, Torch2.13.0+cu126/CUDA12.6, clean8234462,
+  seed17, deterministic FP32. Exact runner/arm commands and configuration
+  retained in source archive, arm summaries/TOMLs and scheduler record.
+  GPU preflight82 passed,0 skipped,178.06s. All eight workload gates PASS.
+  Each of three clean arms matched32/32 pairs and full outcome components;
+  controlled error changed73 named gradients, detector caught32/32 mismatches
+  first at root/blocks.0:0, made zero optimizer calls, preserved model/Adam/
+  scheduler/cursor. Peak allocation increase0.1193377%; fixed buffers1,179,648B.
+- **Retention verification**: Retrieved compact records and scheduler logs at
+  `artifacts/fingerprint/f011-blake3/condor-1553978.0`. All79 remote files match
+  SHA256,761,200 bytes; all39 archived code hashes match environment. Summary
+  SHA256 `912a143726a85437edd003b327315278a1640f1d3f301b6f417d556e6a20eed9`.
+  Scheduler history and remote manifest retained separately. Large snapshot/
+  outcome tensors were compared in scratch but not retained by the compact
+  runner; reproducibility rests on frozen source/config/corpus and decisions.
+- **Timing facts and limit**: Off seconds[17.780737536,20.012121124,17.670915289];
+  BLAKE3[18.074537054,17.490828447,19.865156351]. Ratio-of-medians1.01652347
+  (1.652347%); paired overheads[1.652347,-12.598828,12.417246]%; peak-memory
+  increase0.1193377%. The separate harness2% target field passes. Inspection
+  establishes timer includes execute_step's gradient CPU copies, other outcome
+  export and outcome.pt serialization. This is not isolated training-step
+  latency; noisy three-pair result cannot establish stable<2% step overhead.
+  Historical full-capture speedup is contextual only; no acceleration claim.
+- **Final independent Analyst**: HIGH validity for executed correctness gates,
+  LOW for stable<2% step-cost claim. Independently checked source39 hashes,
+  clean same-snapshot configs/provenance, XML82 passes, all clean comparison
+  lists empty and preservation true. Formal combined verdict REPEAT for cost;
+  correctness repair passes and can be retained. No remaining actionable defect
+  found within single-stream dense-tensor contract. No further timing run is
+  required to close correctness repair when performance claim is withheld.
+- **Decision and follow-up**: F011 correctness repair complete within declared
+  CPU/one-stream CUDA/eager FP32 boundary scope. Retain standard BLAKE3 and
+  collision/stream regressions. Stable step cost remains open (F013): use
+  collect_evidence=False for optional timing-only arms, synchronized execute_step
+  interval excluding cleanup/export, repeated alternating controls sufficient
+  to resolve noise. F012 interior-only coverage remains separate and incomplete.
+  Modern precision/distributed/compiled/long-run claims stay unestablished.
+- **Documentation**: Prepared `reports/f011-blake3-reliability.json` and
+  `docs/fingerprinter-reliability.md` with evidence, failed attempt, raw timing
+  definition and claim limits; synchronize README/status/current-state/action/
+  experiment index and publish under existing explicit authorization.

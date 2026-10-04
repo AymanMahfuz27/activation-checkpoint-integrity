@@ -4,9 +4,10 @@ The published implementation completed the bounded GPU follow-through reported
 in [GPU results](followthrough-results.md). The current tree contains the repaired [BLAKE3-256 fingerprinter](fingerprinter.md).
 The previous weighted-sum algorithm is invalidated by a deterministic sign-flip
 collision. Its 0.88% timing result is historical evidence, not replacement
-performance. Current local conformance and GPU validation status are recorded
-in the research log and reliability report; no general detector promotion is
-implied. Boundary-only observation still cannot meet the interior-only
+performance. The corrected repair passes local 117 and scheduled GPU 82 tests and all eight
+40M workload gates; see the [reliability report](fingerprinter-reliability.md).
+Observed 1.65% harness overhead includes evidence export and does not establish
+stable sub-2% training-step cost. No general detector promotion is implied. Boundary-only observation still cannot meet the interior-only
 coverage requirement.
 The full production-shaped
 milestone is **not complete**. The attached contract is preserved verbatim in
@@ -66,7 +67,7 @@ Set an actually verified quota/budget and free-space reserve. Changes to source,
 snapshot or capture-relevant configuration invalidate the census. `aci pair`
 performs each arm's census before its fresh-process full run.
 
-For compact exact enforcement, set `capture.mode = "fingerprint"` and
+For compact fingerprint enforcement, set `capture.mode = "fingerprint"` and
 `capture.policy = "enforce"`. The default `fingerprint_scope =
 "checkpoint_boundaries"` is the low-frequency normal path; use
 `fingerprint_scope = "all_operators"` for diagnostic replay and operator-level
