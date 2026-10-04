@@ -9,6 +9,7 @@ description = "Exact calibration fixtures for activation-checkpoint recomputatio
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = [
+  "blake3==1.0.10",
   "numpy==2.5.2",
   "torch==2.13.0",
 ]

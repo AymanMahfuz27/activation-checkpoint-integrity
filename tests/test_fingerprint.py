@@ -10,6 +10,7 @@ import torch
 from ac_integrity.capture.fingerprint import (
     FingerprintCapacityError,
     fingerprint_tensor,
+    SIGNATURE_LANES,
 )
 from ac_integrity.capture.runtime import CaptureRuntime
 from ac_integrity.config import load_config
@@ -120,7 +121,7 @@ def test_signatures_are_exact_position_sensitive_and_chunk_independent():
     assert torch.equal(signatures(noncontiguous), signatures(noncontiguous.contiguous()))
 
     empty = signatures(torch.empty(0))
-    assert empty.shape == (2,)
+    assert empty.shape == (SIGNATURE_LANES,)
     assert torch.equal(empty, signatures(torch.empty(0)))
 
 
@@ -160,7 +161,7 @@ def test_every_short_tail_length_is_stable_and_length_sensitive(byte_count):
 
 def test_fingerprint_can_write_directly_into_a_preallocated_row():
     tensor = torch.arange(17, dtype=torch.float32)
-    output = torch.empty(2, dtype=torch.int64)
+    output = torch.empty(SIGNATURE_LANES, dtype=torch.int64)
     digest = fingerprint_tensor(
         tensor,
         chunk_bytes=16,
@@ -179,7 +180,7 @@ def test_diagnostic_backends_return_constant_signatures_on_cpu(backend):
     right = fingerprint_tensor(
         torch.arange(17) + 100, include_sketch=False, backend=backend
     ).signatures
-    assert torch.equal(left, torch.zeros(2, dtype=torch.int64))
+    assert torch.equal(left, torch.zeros(SIGNATURE_LANES, dtype=torch.int64))
     assert torch.equal(right, left)
 
 
@@ -229,19 +230,19 @@ def test_native_cuda_signature_comparison_sets_the_expected_flag():
     )
 
     base = torch.tensor(
-        [0x1122334455667788, 0x0123456789ABCDEF], dtype=torch.int64
+        [0x1122334455667788, 0x0123456789ABCDEF, -17, 29], dtype=torch.int64
     )
     cases = [base.clone()]
-    for element, bit in ((0, 0), (0, 32), (1, 0), (1, 32)):
+    for element, bit in ((i, bit) for i in range(4) for bit in (0, 32)):
         changed = base.clone()
         changed[element] ^= 1 << bit
         cases.append(changed)
     cases.extend([
         torch.tensor(
-            [torch.iinfo(torch.int64).min, torch.iinfo(torch.int64).max],
+            [torch.iinfo(torch.int64).min, torch.iinfo(torch.int64).max, 0, 0],
             dtype=torch.int64,
         ),
-        torch.tensor([-17, 29], dtype=torch.int64),
+        torch.tensor([-17, 29, 0, 0], dtype=torch.int64),
     ])
 
     original = base.cuda()
@@ -251,14 +252,14 @@ def test_native_cuda_signature_comparison_sets_the_expected_flag():
     compare_cuda_signatures_into(
         original, original.clone(), flags[-1], structural_failure=True
     )
-    assert flags.cpu().tolist() == [0, 1, 1, 1, 1, 1, 1, 1]
+    assert flags.cpu().tolist() == [0] + [1] * (len(cases))
 
     # Fingerprint and compare are intentionally queued without a host sync in
     # between. Current-stream ordering must make both final flags correct.
     payload = torch.arange(4097, dtype=torch.uint8, device="cuda")
     changed_payload = payload.clone()
     changed_payload[-1] += 1
-    signatures_a = torch.empty(2, dtype=torch.int64, device="cuda")
+    signatures_a = torch.empty(SIGNATURE_LANES, dtype=torch.int64, device="cuda")
     signatures_b = torch.empty_like(signatures_a)
     async_flags = torch.empty(2, dtype=torch.int64, device="cuda")
     fingerprint_cuda_into(payload, signatures_a)

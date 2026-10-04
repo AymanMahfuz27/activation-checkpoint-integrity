@@ -1,14 +1,13 @@
 # Production implementation and evidence status
 
 The published implementation completed the bounded GPU follow-through reported
-in [GPU results](followthrough-results.md). The current tree also contains the
-exact-mode [position-sensitive fingerprinter](fingerprinter.md). The latest full
-local run passes 82 tests; two CUDA-only tests are skipped on the local Mac and
-their production primitives pass scheduled GPU preflight and the end-to-end
-job. One controlled 40M FP32 CUDA cell passes
-correctness, pre-update enforcement, and the clean runtime target at 0.88%
-median overhead. This promotes the boundary sentinel for that execution cell,
-not as a universal production detector.
+in [GPU results](followthrough-results.md). The current tree contains the repaired [BLAKE3-256 fingerprinter](fingerprinter.md).
+The previous weighted-sum algorithm is invalidated by a deterministic sign-flip
+collision. Its 0.88% timing result is historical evidence, not replacement
+performance. Current local conformance and GPU validation status are recorded
+in the research log and reliability report; no general detector promotion is
+implied. Boundary-only observation still cannot meet the interior-only
+coverage requirement.
 The full production-shaped
 milestone is **not complete**. The attached contract is preserved verbatim in
 [production-plan.md](production-plan.md); the chronological evidence is in
@@ -38,7 +37,7 @@ abort. Queue pressure blocks execution; no sampling/drop path exists. Checksums
 and committed index hashes detect corruption and truncation.
 
 Fingerprint mode reuses exact pair identities and reduces each observed tensor
-to two position-sensitive 64-bit signatures on its device. The production
+to one standard 256-bit BLAKE3 digest in four 64-bit storage slots on its device. The production
 default observes checkpointed block returns; exhaustive operator observation is
 reserved for diagnostic replay. Fixed-capacity buffers fail closed. The normal
 clean single-device path makes one post-backward host decision; failure

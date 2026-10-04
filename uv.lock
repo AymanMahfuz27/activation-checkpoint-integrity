@@ -7,6 +7,7 @@ name = "activation-checkpoint-integrity"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "blake3" },
     { name = "numpy" },
     { name = "torch" },
 ]
@@ -26,6 +27,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "blake3", specifier = "==1.0.10" },
     { name = "huggingface-hub", marker = "extra == 'data'", specifier = ">=1.30.0" },
     { name = "numpy", specifier = "==2.5.2" },
     { name = "pyarrow", marker = "extra == 'data'", specifier = ">=25.0.1" },
@@ -58,6 +60,27 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a9/d2/f4d173e22df740bc37b1db102b386ba719b66e95b0f0d751f556b387e6d2/anyio-4.15.1.tar.gz", hash = "sha256:9f28306018cbd6d329e64a36d58256edff76dd996fe423bc957326e578b82a94", size = 276966, upload-time = "2026-09-05T10:42:39.44Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e/anyio-4.15.1-py3-none-any.whl", hash = "sha256:6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101", size = 132079, upload-time = "2026-09-05T10:42:37.923Z" },
+]
+
+[[package]]
+name = "blake3"
+version = "1.0.10"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/a8/7450e3cee34de76bdfd78507e07c0329fce52da235bcde461250e23066f8/blake3-1.0.10.tar.gz", hash = "sha256:e6f2cdb7ac9499adda6aec064a561b9dd808d243d4f639a4761cd19dea53e015", size = 117129, upload-time = "2026-09-29T12:42:43.495Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bb/58/38ec7faa1c32d7291c6b1a1f452121fc2f8f295736f6e58dc6363ba35d29/blake3-1.0.10-cp313-cp313-macosx_10_12_x86_64.whl", hash = "sha256:cc9b665afff941a6c32b05a39147bb2935589137032bf57ea4c661a50874f3fe", size = 338593, upload-time = "2026-09-29T12:41:11.037Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/cf/31470c32b154502f77c2cca444b739a9f71e8c327fb75a8fdf0f85b9040d/blake3-1.0.10-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:9220dbb22bf64f4944ca5016896c8ac15227b74b465cfd17e23b476b16b55c49", size = 324147, upload-time = "2026-09-29T12:41:12.681Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/af/e19927175a3f5dd3d174f7b927f3e4095dd83bd11f758af156f566230f5e/blake3-1.0.10-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:52873bb8cd3035f6bf866067f8883fc5845632466ab3b788822f0f5498676061", size = 371402, upload-time = "2026-09-29T12:41:14.101Z" },
+    { url = "https://files.pythonhosted.org/packages/a8/8d/990fa216395de5ba5f746c2ffdd8a729211c2ddb69fd8c9862a95bcf0d88/blake3-1.0.10-cp313-cp313-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:036e08a6ae385a6cb53ad9e16e02e48ce78f2062d7c3716c3a188aad19ac8808", size = 370734, upload-time = "2026-09-29T12:41:15.493Z" },
+    { url = "https://files.pythonhosted.org/packages/02/37/eef66562c69eb930615f0fbf404fd636d01fe4a886ba336b4dc898ca9258/blake3-1.0.10-cp313-cp313-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f7a22bbb2f20643219ca032e4d0405f0696a6f1b737273e25f47f975305b64b2", size = 441682, upload-time = "2026-09-29T12:41:16.948Z" },
+    { url = "https://files.pythonhosted.org/packages/6b/e8/f33ae671f65eb3d43cc560e25211b1e51b422b3b37ba37b957fd5ded9bba/blake3-1.0.10-cp313-cp313-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:73172ab8479149697b8002be611dcb5e9ab3cf311a4e0794b5a78db21cd53780", size = 483971, upload-time = "2026-09-29T12:41:18.352Z" },
+    { url = "https://files.pythonhosted.org/packages/c0/52/5f2e72804710a18055e5fe24d8e70849ca8ecaf5674052229875ebbf8a11/blake3-1.0.10-cp313-cp313-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:d5f7e073b23f00b8c9649414071d75b096b04b44ec8ac2fc49d35b900c06df84", size = 381393, upload-time = "2026-09-29T12:41:19.814Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/07/07a3d9d438d59168ff3933f00cb07a407c82dc5d62d9ea681f1298196395/blake3-1.0.10-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:701a94238191c104c765a4a46fe7975ba3af8bd8442e59cdfc3b4811c5f677aa", size = 382499, upload-time = "2026-09-29T12:41:21.197Z" },
+    { url = "https://files.pythonhosted.org/packages/d9/e6/01d3367b79da600ed9236a78bfaea2f99e4939cbb35addffd11e79405a3a/blake3-1.0.10-cp313-cp313-manylinux_2_31_riscv64.whl", hash = "sha256:402906651ae79a506d110dd47cb18fbc9bf0cfea764b0b22fa679b550ff3299d", size = 377816, upload-time = "2026-09-29T12:41:22.418Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/9c/b20a357711429ef5c12d7a1c2209088f856f89577cca18b1d1646eb7a346/blake3-1.0.10-cp313-cp313-musllinux_1_1_aarch64.whl", hash = "sha256:4b990e64f3e288dad81a9412e49644147264c1dd5dbc2a07302a7bf8efbce791", size = 547656, upload-time = "2026-09-29T12:41:23.783Z" },
+    { url = "https://files.pythonhosted.org/packages/73/8c/cc18ed693a6791a2c9519731af480d92587aec41078e9eb603e4de953c8f/blake3-1.0.10-cp313-cp313-musllinux_1_1_x86_64.whl", hash = "sha256:58921e56a58b4421739d5bea4375a50478edaf891af2ec1a896ab72b5d23bd39", size = 590040, upload-time = "2026-09-29T12:41:25.223Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/e9/57557c1ff3d87883ac98eadeb30821d10da19ca0037c71df3a0768e5ba27/blake3-1.0.10-cp313-cp313-win32.whl", hash = "sha256:119bb8ca3bee86abbe117bb4aa3eaf230eed748e75f297839c99cb15ae5b19ba", size = 229571, upload-time = "2026-09-29T12:41:26.692Z" },
+    { url = "https://files.pythonhosted.org/packages/51/2f/1c7761f66fc8f60ea6c5771af3c19d6155d7497dfd4ecccfa00b37717b47/blake3-1.0.10-cp313-cp313-win_amd64.whl", hash = "sha256:78992fc8191e34e1116ec6d2a1ac105379866b988c624fafeaf8897a0046aa47", size = 217823, upload-time = "2026-09-29T12:41:28.091Z" },
 ]
 
 [[package]]

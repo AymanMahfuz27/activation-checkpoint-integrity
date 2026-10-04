@@ -1,74 +1,57 @@
-# Position-sensitive fingerprinter
+# BLAKE3 checkpoint fingerprinting
 
-## What is implemented
+The current algorithm is `blake3-256-v1`: standard unkeyed BLAKE3 over exact
+logical contiguous tensor bytes, retaining its full 32-byte digest in four
+little-endian int64 slots. It replaces `mixsum128-positioned-u32-v2`, which
+accepted pairs of FP32 sign flips. Historical measurements below belong to the
+rejected algorithm and do not validate replacement performance.
 
-The fingerprinter is the compact exact-mode path between capture-off training
-and the full forensic recorder. Its normal `checkpoint_boundaries` scope
-fingerprints each checkpointed block's returned tensor in the original forward
-and backward recomputation. The `all_operators` diagnostic scope instead
-observes every dense tensor output inside checkpoint regions, assigns it the
-same stable `pair_id` used by full capture, and localizes the first changed
-operator. Both scopes compare before gradient clipping or optimizer mutation.
+## Algorithm and implementation
 
-Each tensor becomes one 128-bit signature stored as two `int64` values. The
-readable reference implementation groups the tensor's exact contiguous byte
-representation into 32-bit words. For each word, it nonlinearly mixes the
-word's absolute position twice, derives four odd weights, multiplies the word by
-those weights, and adds the products modulo 2^32. The four lanes are packed into
-the two stored values. Payload length is mixed in separately, so appending zero
-bytes changes the result. Position therefore participates in the signature: a
-permutation is not treated like the original ordering. This remains a
-probabilistic equality check rather than a mathematical proof or a
-cryptographic integrity primitive.
+CPU hashes bounded byte chunks with pinned `blake3==1.0.10`, an independently
+published implementation. CUDA hashes standard 1024-byte chunks and combines
+chaining values in the specified ordered binary tree. ROOT is applied only to
+the final compression. Shared compression primitives are independently tested
+on CPU; GPU synchronization and execution require separate scheduled tests.
 
-On CPU, [`fingerprint.py`](../src/ac_integrity/capture/fingerprint.py) executes
-that definition directly in Torch so the algorithm is easy to inspect and test.
-On CUDA, [`fingerprint_cuda.cu`](../src/ac_integrity/capture/csrc/fingerprint_cuda.cu)
-computes the same four lanes in one fused kernel. The small loader in
-[`cuda_fingerprint.py`](../src/ac_integrity/capture/cuda_fingerprint.py) compiles
-the header-free kernel with CUDA's runtime compiler, loads device-native CUBIN
-through the CUDA Driver API, and launches it on PyTorch's current stream. Using
-native machine code avoids depending on the installed driver to JIT a newer PTX
-version. It needs neither a system `nvcc` installation nor a C++ extension
-build. Kernel compilation occurs when the fingerprint runtime is created,
-before the measured validation step.
+CUDA blocks handle up to 256 chunks each. Larger payloads use extra subtree
+reduction launches, retaining one 32-byte chaining value per 256 KiB subtree
+at the first level. Each block uses 8 KiB shared memory. Temporary device storage
+shrinks by a factor of 256 per level and stays on the current CUDA stream.
+CPU and CUDA are the supported digest devices; other devices fail explicitly.
+Each session owns one current CUDA stream per device; observing or finalizing
+on another stream raises `FingerprintStreamError` and permanently rejects the
+session. This prevents finalization from reading an unfinished comparison flag.
+Callers must resolve lazy conjugate/negative views before capture. Raw CUDA
+helpers require producer ordering and storage lifetime on their current stream.
+Metadata and exact pair identity are checked separately. Signed zero and NaN
+payload bits remain distinct; there is no rounding or numerical tolerance.
 
-Recomputed CUDA signatures are compared by a second one-thread native kernel
-on PyTorch's current stream. It checks all four 32-bit lanes and writes the
-existing mismatch flag directly, replacing separate PyTorch inequality,
-reduction, conversion and copy operations. Stream ordering makes the signature
-write visible to comparison without a per-pair host synchronization.
+BLAKE3 has a published cryptographic design, rather than custom weighted sums.
+Its design assurance does not automatically validate our CUDA implementation.
+Official known-answer vectors, the independent library, targeted cancellation
+families and chunk/tree boundary tests establish implementation conformance.
+Finite testing cannot prove collision freedom or estimate extremely small
+collision probabilities. A 256-bit digest has a generic 128-bit collision
+security target; output width, collision search complexity and fixed-pair
+probability are different quantities. See the
+[specification](https://github.com/BLAKE3-team/BLAKE3-specs) and
+[reference implementation](https://github.com/BLAKE3-team/BLAKE3/tree/master/reference_impl).
 
-The normal path keeps signatures, comparison flags and optional numerical
-sketches in fixed-capacity device buffers. Original and recomputed outputs are
-joined by exact execution identity; traces are never heuristically realigned.
-One scalar mismatch decision is transferred to the host after backward on the
-current single-device trainer. Full mismatch rows move to the host only after a
-failure, when the update has already been marked unsafe.
+## Policy and coverage
 
-## Decision policy
+A mismatch rejects the update. A matching digest is probabilistic equality
+evidence, not proof. The legacy `exact_pairs` field counts matching digests and
+metadata; it does not certify collision-free equality. Numerical sketches are
+diagnostic only and never override a mismatch. Missing pairs, structural
+errors and buffer overflow fail closed.
 
-The implemented enforcement policy is deliberately narrow:
-
-1. Matching metadata and both signatures means exact-mode agreement, so the
-   optimizer may proceed.
-2. A signature mismatch, metadata or structure mismatch, missing/duplicate
-   pair, unsupported tensor, or exhausted buffer aborts before clipping and
-   optimizer/scheduler mutation.
-3. The failed attempt is not repaired in place. The safe recovery unit remains
-   a fresh-process replay from the immutable pre-step snapshot.
-
-There is no global floating-point threshold. Hash distance does not measure
-numeric distance, so a one-bit change and a large corruption are both simply
-`different`. Optional numerical sketches record scale, norms, special-value
-counts and deterministic projections for calibration. They are disabled on the
-fast exact path by default and cannot authorize an update.
-
-A future tolerant policy requires a measured healthy envelope for each hardware,
-dtype, compiler/backend and operator family. Calibration must compare clean and
-injected distributions using exact capture, gradients, parameter updates and
-multi-step impact. If healthy and harmful distributions overlap, that execution
-cell remains unsupported or escalates to exact diagnostic replay.
+The default boundary scope watches returned block tensors. Even an ideal hash
+cannot detect an internal or derivative-only change that leaves those returns
+unchanged. The all-operator replay observes supported eager outputs, with
+fused/compiled interiors unverified. The plan's interior-only criterion remains
+a separate gate. The host decision occurs after backward and before clipping,
+optimizer or scheduler mutation. It does not repair gradients or hidden state.
 
 ## Configuration
 
@@ -86,8 +69,8 @@ fingerprint_scope = "checkpoint_boundaries"
 
 `fingerprint_capacity` bounds original and comparison rows per device. Overflow
 fails closed instead of reallocating silently. `fingerprint_chunk_bytes` bounds
-temporary work in the readable CPU reference; the fused CUDA kernel does not
-materialize per-chunk weights or products. Signatures are independent of chunk
+temporary work in the readable CPU reference; the CUDA tree does not
+materialize per-element weights or products. Signatures are independent of chunk
 size.
 `fingerprint_sketches = true` enables calibration evidence at additional cost.
 `fingerprint_backend = "full"` is the only enforcement-capable backend. The
@@ -100,7 +83,7 @@ returns. Set `fingerprint_scope = "all_operators"` for expensive diagnostic
 localization after an aborted step. The boundary scope cannot detect an
 internal error that exactly cancels before the block returns.
 
-## Evidence and limits
+## Historical weighted-sum evidence (not replacement validation)
 
 The local validation covers exact repetition, permutations, every short tail
 length, explicit length separation, direct writes into bounded buffer rows,

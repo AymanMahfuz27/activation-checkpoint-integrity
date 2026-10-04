@@ -10,19 +10,22 @@ See [GPU results and limitations](docs/followthrough-results.md),
 [reproduction commands](docs/FOLLOWTHROUGH.md).
 
 The recorder retains full supported eager operator outputs and is expensive.
-The production-default position-sensitive fingerprinter now observes only
-checkpointed block returns and keeps its signatures and comparison flags on the
-GPU. On the controlled 40M FP32 GTX 1080 Ti cell, three paired clean runs
-measured 5.2192 seconds with the detector versus 5.1736 seconds with capture
-off: 0.88% median overhead, below the 2% target. The injected fault was detected
-at the first block boundary, the optimizer was blocked, and persistent state
-was preserved. The failing arm took 4.968 seconds versus the historical full
-recorder's 1081.77 seconds, a 217.75x speedup. The exhaustive all-operator
-fingerprinter remains available for localization after a boundary abort.
-Modern-GPU, mixed-precision, distributed, internally cancelling-fault, and
-tolerant-policy coverage are not yet validated. The long training milestone
-and TorchTitan integration remain incomplete. See
-[fingerprinter design and use](docs/fingerprinter.md).
+The compact fingerprinter now uses standard BLAKE3-256, stored as four int64
+slots, replacing the earlier weighted-sum digest after a deterministic two-sign-
+flip collision was found. CPU uses the independently published BLAKE3 library;
+CUDA implements the standard chunk and tree construction on the current stream.
+Local conformance is checked against official vectors and the shared native
+compression code. GPU conformance and replacement performance require a new
+scheduled validation run; the historical 0.88% overhead belongs to the rejected
+weighted-sum algorithm and does not validate this replacement.
+
+The default scope observes checkpointed block returns. It cannot detect an
+internal discrepancy that leaves those returns unchanged. The all-operator
+scope supports diagnostic replay within the declared eager coverage; it does
+not establish complete saved-tensor, fused-kernel or compiled coverage.
+Modern-GPU, mixed-precision, distributed and tolerant-policy validation, the
+long training milestone and TorchTitan integration remain incomplete. See
+[fingerprinter design and reliability](docs/fingerprinter.md).
 
 The sections below describe the completed historical starter work.
 
@@ -82,7 +85,7 @@ the recorded experimental result.
 Runs save tensors and reports under `artifacts/starter/`. Exact configurations,
 run records, and detailed findings are in [RESEARCH_LOG.md](RESEARCH_LOG.md).
 
-The production trainer enables the compact exact detector with
+The production trainer enables the compact bitwise fingerprint detector with
 `capture.mode = "fingerprint"` and `capture.policy = "enforce"`. On a clean
 single-device step its default checkpoint-boundary scope keeps signatures
 on-device and performs one detector host check after backward, before clipping

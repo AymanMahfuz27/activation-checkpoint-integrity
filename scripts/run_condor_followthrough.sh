@@ -85,12 +85,12 @@ elif sys.argv[1] in {"fingerprint", "ablation", "boundary"}:
         ).signatures.cpu()
         assert torch.equal(actual, expected), (byte_count, expected, actual)
     record["fingerprint_extension"]["cpu_cuda_reference_checks"] = 20
-    original = torch.tensor([11, 29], dtype=torch.int64, device="cuda")
+    original = torch.tensor([11, 29, 31, 37], dtype=torch.int64, device="cuda")
     mismatch = torch.empty((), dtype=torch.int64, device="cuda")
     compare_cuda_signatures_into(original, original.clone(), mismatch)
     assert mismatch.item() == 0
     compare_cuda_signatures_into(
-        original, torch.tensor([11, 30], dtype=torch.int64, device="cuda"), mismatch
+        original, torch.tensor([11, 29, 31, 38], dtype=torch.int64, device="cuda"), mismatch
     )
     assert mismatch.item() == 1
     compare_cuda_signatures_into(
@@ -109,6 +109,15 @@ required = {
 assert record["scratch_free_bytes"] >= required, record["scratch_free_bytes"]
 print(json.dumps(record), flush=True)
 PY
+
+# Validate standard digest conformance and GPU execution before training timing.
+# Retain the test record even when preflight rejects the implementation.
+if [[ "$profile" == fingerprint || "$profile" == ablation || "$profile" == boundary ]]; then
+    "$python_bin" -m pytest -q tests/test_blake3_fingerprint.py tests/test_fingerprint.py \
+        --junitxml="$record_dir/fingerprint-tests.xml" \
+        > "$record_dir/fingerprint-tests.log" 2>&1
+    cat "$record_dir/fingerprint-tests.log"
+fi
 
 run_root="$_CONDOR_SCRATCH_DIR/evidence"
 exit_code=0

@@ -1,13 +1,13 @@
 """Compact, position-sensitive fingerprints for checkpoint recomputation.
 
 The exact recorder writes complete tensors to disk.  This module implements the
-normal-path alternative: reduce each tensor to four position-weighted 32-bit
-lanes packed into two 64-bit storage slots and, when requested, a small
+normal-path alternative: hash each tensor with standard BLAKE3-256
+packed into four 64-bit storage slots and, when requested, a small
 numerical sketch on the tensor's own device.
 Original-forward and recomputation records are joined with the runtime's existing
 exact ``pair_id``.
 
-Only the equality of the two signatures is used for enforcement.  The numerical
+Only equality of the full digest is used for enforcement.  The numerical
 sketch is diagnostic evidence for future calibration; it never turns a signature
 mismatch into permission to update the model.
 """
@@ -18,20 +18,18 @@ import json
 import math
 from pathlib import Path
 import sys
+import struct
+
+from blake3 import blake3
 
 import torch
 
 from ac_integrity.state import write_json
 
 
-ALGORITHM = "mixsum128-positioned-u32-v2"
-SIGNATURE_LANES = 2
+ALGORITHM = "blake3-256-v1"
+SIGNATURE_LANES = 4
 SIGNATURE_BYTES = SIGNATURE_LANES * 8
-
-_U32_MASK = (1 << 32) - 1
-_U32_POSITION_SEEDS = (0x243F6A89, 0xA4093823, 0x13198A2F, 0x082EFA99)
-_U32_LENGTH_SEEDS_LOW = (0x452821E7, 0x38D01377, 0xBE5466CF, 0x34E90C6D)
-_U32_LENGTH_SEEDS_HIGH = (0xC0AC29B7, 0xC97C50DD, 0x3F84D5B5, 0xB5470917)
 
 # Signed representations of fixed 64-bit constants.  Torch performs int64
 # arithmetic modulo 2**64, which gives the wraparound required by SplitMix64.
@@ -48,6 +46,10 @@ _COUNT_NAMES = ("finite", "nan", "positive_infinity", "negative_infinity")
 
 class FingerprintCapacityError(RuntimeError):
     """The configured bounded device buffers cannot represent this audit."""
+
+
+class FingerprintStreamError(RuntimeError):
+    """A session changed its CUDA stream without a supported dependency path."""
 
 
 def _logical_right_shift(values, bits):
@@ -87,72 +89,20 @@ class TensorDigest:
 
 
 def _fingerprint_reference_into(raw, chunk_bytes, output):
-    """Readable Torch reference for the four packed uint32 signature lanes.
+    """Hash logical tensor bytes with the independent published CPU library.
 
-    Each 32-bit payload word is multiplied by four odd weights derived from two
-    independently mixed versions of its absolute position.  The sums wrap
-    modulo 2**32.  Length is included in a separate domain so a zero tail cannot
-    alias a shorter payload.
+    Input is a CPU uint8 view; output is four int64 storage slots containing the
+    standard 32 digest bytes in little-endian order. Stream bounded byte chunks
+    through the hasher, so the digest never depends on the caller's chunk size.
     """
-    def mix32(values):
-        values = values & _U32_MASK
-        values = values ^ (values >> 16)
-        values = (values * 0x7FEB352D) & _U32_MASK
-        values = values ^ (values >> 15)
-        values = (values * 0x846CA68B) & _U32_MASK
-        return values ^ (values >> 16)
-
-    def rotate_left32(values, bits):
-        return ((values << bits) | (values >> (32 - bits))) & _U32_MASK
-
-    def word_weights(positions):
-        first = mix32(positions ^ _U32_POSITION_SEEDS[0])
-        second = mix32(positions ^ _U32_POSITION_SEEDS[1])
-        return (
-            first | 1,
-            (rotate_left32(first, 11) ^ _U32_POSITION_SEEDS[2]) | 1,
-            second | 1,
-            (rotate_left32(second, 17) ^ _U32_POSITION_SEEDS[3]) | 1,
-        )
-
-    payload_bytes = raw.numel()
-    full_word_count = payload_bytes // 4
-    tail_size = payload_bytes - full_word_count * 4
-    words_per_chunk = max(1, chunk_bytes // 4)
-    lane_sums = torch.zeros(4, dtype=torch.int64, device=raw.device)
-
-    for begin in range(0, full_word_count, words_per_chunk):
-        end = min(full_word_count, begin + words_per_chunk)
-        words = raw[begin * 4:end * 4].view(torch.int32).to(torch.int64)
-        words = words & _U32_MASK
-        positions = torch.arange(begin, end, dtype=torch.int64, device=raw.device)
-        for lane, weights in enumerate(word_weights(positions)):
-            lane_sums[lane] += (words * weights).sum()
-
-    if tail_size:
-        tail = raw[full_word_count * 4:].to(torch.int64)
-        shifts = torch.arange(tail_size, dtype=torch.int64, device=raw.device) * 8
-        tail_word = (tail << shifts).sum()
-        position = torch.tensor(
-            [full_word_count], dtype=torch.int64, device=raw.device
-        )
-        for lane, weight in enumerate(word_weights(position)):
-            lane_sums[lane] += tail_word * weight[0]
-
-    length_low = payload_bytes & _U32_MASK
-    length_high = payload_bytes >> 32
-    for lane in range(4):
-        lane_sums[lane] += (
-            (length_low + 1) * _U32_LENGTH_SEEDS_LOW[lane]
-            + (length_high + 1) * _U32_LENGTH_SEEDS_HIGH[lane]
-        )
-    lane_sums &= _U32_MASK
-
-    packed = torch.stack((
-        lane_sums[0] | (lane_sums[1] << 32),
-        lane_sums[2] | (lane_sums[3] << 32),
-    ))
-    output.copy_(packed)
+    if raw.device.type != "cpu":
+        raise ValueError("Fingerprinting supports CPU and CUDA devices only")
+    hasher = blake3()
+    for begin in range(0, raw.numel(), chunk_bytes):
+        end = min(raw.numel(), begin + chunk_bytes)
+        hasher.update(raw[begin:end].numpy().tobytes())
+    words = struct.unpack("<4q", hasher.digest())
+    output.copy_(torch.tensor(words, dtype=torch.int64))
     return output
 
 
@@ -166,15 +116,13 @@ def fingerprint_tensor(
     """Fingerprint one tensor without transferring its payload to the host.
 
     Input: any dense ordinary tensor accepted by the capture runtime.
-    Output: two int64 signatures plus an optional numerical sketch, all left on
+    Output: four int64 digest slots plus an optional numerical sketch, all left on
     the input device.  Non-contiguous tensors are fingerprinted in logical
     contiguous order, matching the exact recorder's comparison semantics.
 
-    The readable reference views bytes as 32-bit words and computes four
-    independent position-weighted modular sums, packed into two int64 values.
-    CUDA uses the same arithmetic in one native kernel, writing directly into a
-    caller-provided buffer row when available.  The final word packs a 1--3 byte
-    tail and length is mixed separately.
+    CPU uses the published BLAKE3 implementation. CUDA computes the same
+    standard 256-bit digest through parallel chunks and an ordered binary tree.
+    Tensor identity and metadata are enforced separately by the session.
     """
     if chunk_bytes < 8:
         raise ValueError("fingerprint chunk_bytes must be at least 8")
@@ -187,12 +135,14 @@ def fingerprint_tensor(
         raise TypeError(
             "Fingerprinting requires a dense, non-quantized, materialized tensor"
         )
+    if tensor.is_conj() or tensor.is_neg():
+        raise TypeError("Fingerprinting requires resolved conjugate/negative views")
 
     source = tensor.detach()
     payload_bytes = source.numel() * source.element_size()
     if backend == "full":
         value = source.contiguous()
-        raw = value.view(torch.uint8).reshape(-1)
+        raw = value.reshape(-1).view(torch.uint8)
     else:
         # Diagnostic backends must not copy or scan payload data. Keeping the
         # original layout cleanly separates those costs from observer work.
@@ -201,12 +151,12 @@ def fingerprint_tensor(
     device = tensor.device
     if signature_output is None:
         factory = torch.zeros if backend == "bookkeeping" else torch.empty
-        signatures = factory(2, dtype=torch.int64, device=device)
+        signatures = factory(SIGNATURE_LANES, dtype=torch.int64, device=device)
     else:
         signatures = signature_output
-        if (signatures.shape != (2,) or signatures.dtype != torch.int64
+        if (signatures.shape != (SIGNATURE_LANES,) or signatures.dtype != torch.int64
                 or signatures.device != device or not signatures.is_contiguous()):
-            raise ValueError("signature_output must be a contiguous int64[2] row")
+            raise ValueError("signature_output must be a contiguous int64[4] row")
 
     if backend == "bookkeeping":
         # FingerprintSession pre-zeros its bounded signature buffers once. This
@@ -296,6 +246,10 @@ class _DeviceBuffers:
 
     def __init__(self, device, capacity, chunk_bytes, include_sketches, backend):
         self.device = torch.device(device)
+        self.stream_pointer = (
+            torch.cuda.current_stream(self.device).cuda_stream
+            if self.device.type == "cuda" else None
+        )
         self.capacity = capacity
         self.chunk_bytes = chunk_bytes
         self.include_sketches = include_sketches
@@ -304,10 +258,10 @@ class _DeviceBuffers:
         self.comparison_count = 0
         signature_factory = torch.zeros if backend == "bookkeeping" else torch.empty
         self.original_signatures = signature_factory(
-            (capacity, 2), dtype=torch.int64, device=device
+            (capacity, SIGNATURE_LANES), dtype=torch.int64, device=device
         )
         self.recompute_signatures = signature_factory(
-            (capacity, 2), dtype=torch.int64, device=device
+            (capacity, SIGNATURE_LANES), dtype=torch.int64, device=device
         )
         self.flags = torch.zeros(capacity, dtype=torch.int64, device=device)
 
@@ -325,6 +279,18 @@ class _DeviceBuffers:
                 (capacity, len(_COUNT_NAMES)), dtype=torch.int64, device=device
             )
             self.recompute_counts = torch.empty_like(self.original_counts)
+
+    def check_stream(self):
+        # Device flags may still be pending on the owning stream. Reject a
+        # stream switch before any read can mistake a zero-initialized flag
+        # for a completed clean comparison.
+        if self.stream_pointer is not None:
+            current = torch.cuda.current_stream(self.device).cuda_stream
+            if current != self.stream_pointer:
+                raise FingerprintStreamError(
+                    "Fingerprint sessions require one CUDA stream per device; "
+                    "observe and finalize on the owning stream"
+                )
 
     def reserve_original(self):
         if self.original_count >= self.capacity:
@@ -443,7 +409,15 @@ class FingerprintSession:
                 device, self.capacity, self.chunk_bytes, self.include_sketches,
                 self.backend,
             )
+        self._check_stream(self.devices[key])
         return key, self.devices[key]
+
+    def _check_stream(self, buffers):
+        try:
+            buffers.check_stream()
+        except FingerprintStreamError:
+            self.anomalies.append({"status": "unsupported_cuda_stream_change", "event": {}})
+            raise
 
     def observe(self, event, tensor):
         """Consume one original or recomputed output while it is still available."""
@@ -611,6 +585,7 @@ class FingerprintSession:
         device_has_mismatch = {}
         decision_host_checks = 0
         for key, buffers in self.devices.items():
+            self._check_stream(buffers)
             if buffers.comparison_count:
                 # This is the only device-to-host scalar read on a clean,
                 # single-device audited step.

@@ -17,7 +17,6 @@ import torch
 
 _SOURCE_PATH = Path(__file__).with_name("csrc") / "fingerprint_cuda.cu"
 _THREADS = 256
-_MAXIMUM_BLOCKS = 256
 
 
 @dataclass
@@ -26,6 +25,7 @@ class _CompiledKernel:
 
     module: object
     function: object
+    parent_function: object
     compare_function: object
     architecture: str
     cubin_bytes: int
@@ -96,7 +96,10 @@ def _load_kernel(device_index):
         torch.empty(1, dtype=torch.uint8, device=f"cuda:{device_index}")
         major, minor = torch.cuda.get_device_capability(device_index)
         architecture = f"sm_{major}{minor}"
-        source = _SOURCE_PATH.read_bytes()
+        source = _SOURCE_PATH.read_bytes().replace(
+            b'#include "blake3_core.h"',
+            _SOURCE_PATH.with_name("blake3_core.h").read_bytes(),
+        )
         started = time.monotonic()
         cubin = _compile_cubin(source, architecture)
         (module,) = _check(driver.cuModuleLoadData(cubin), "cuModuleLoadData")
@@ -108,9 +111,14 @@ def _load_kernel(device_index):
             driver.cuModuleGetFunction(module, b"compare_fingerprint_kernel"),
             "cuModuleGetFunction(compare)",
         )
+        (parent_function,) = _check(
+            driver.cuModuleGetFunction(module, b"parent_fingerprint_kernel"),
+            "cuModuleGetFunction(parent)",
+        )
         return _CompiledKernel(
             module=module,
             function=function,
+            parent_function=parent_function,
             compare_function=compare_function,
             architecture=architecture,
             cubin_bytes=len(cubin),
@@ -139,41 +147,44 @@ def preload_cuda_fingerprint(device=None):
 
 
 def fingerprint_cuda_into(tensor, output, scan_payload=True):
-    """Write one contiguous CUDA tensor's 128-bit signature into ``output``.
+    """Write one contiguous CUDA tensor's standard BLAKE3-256 digest.
 
     ``scan_payload=False`` is a diagnostic ablation. It preserves the production
-    memset and native launch path but gives the kernel a zero-byte payload, so
+    native launch path but gives the kernel a zero-byte payload, so
     it cannot be used to authorize an optimizer update.
+
+    Callers using raw helpers must order producers before the current stream
+    and retain/record input and output storage until queued work completes.
+    FingerprintSession additionally enforces one owning stream per device.
     """
-    if not tensor.is_cuda or (scan_payload and not tensor.is_contiguous()):
+    if (not tensor.is_cuda or tensor.is_conj() or tensor.is_neg()
+            or (scan_payload and not tensor.is_contiguous())):
         raise ValueError(
             "CUDA fingerprint input must be on CUDA and contiguous when scanned"
         )
     if (not output.is_cuda or output.device != tensor.device
-            or output.dtype != torch.int64 or output.shape != (2,)
+            or output.dtype != torch.int64 or output.shape != (4,)
             or not output.is_contiguous()):
-        raise ValueError("CUDA fingerprint output must be a contiguous int64[2] row")
+        raise ValueError("CUDA fingerprint output must be a contiguous int64[4] row")
 
-    from cuda.bindings import driver, runtime
+    from cuda.bindings import driver
 
     device_index = tensor.device.index
     with torch.cuda.device(device_index):
         kernel = _load_kernel(device_index)
         stream_pointer = torch.cuda.current_stream(device_index).cuda_stream
-        _check(
-            runtime.cudaMemsetAsync(
-                output.data_ptr(), 0, output.numel() * output.element_size(),
-                stream_pointer,
-            ),
-            "cudaMemsetAsync",
-        )
         payload_bytes = (
             tensor.numel() * tensor.element_size() if scan_payload else 0
         )
-        word_count = (payload_bytes + 3) // 4
-        blocks = max(1, min(_MAXIMUM_BLOCKS, (word_count + _THREADS - 1) // _THREADS))
+        chunks = max(1, (payload_bytes + 1023) // 1024)
+        blocks = (chunks + _THREADS - 1) // _THREADS
+        # Large tensors retain only one 32-byte CV per 256 KiB subtree.
+        # Each level shrinks by 256; no original payload goes to the CPU.
+        target = output if blocks == 1 else torch.empty(
+            (blocks, 4), dtype=torch.int64, device=tensor.device
+        )
         parameters = (
-            (tensor.data_ptr(), payload_bytes, output.data_ptr()),
+            (tensor.data_ptr(), payload_bytes, target.data_ptr()),
             (ctypes.c_void_p, ctypes.c_ulonglong, ctypes.c_void_p),
         )
         _check(
@@ -188,6 +199,21 @@ def fingerprint_cuda_into(tensor, output, scan_payload=True):
             ),
             "cuLaunchKernel",
         )
+        while blocks > 1:
+            source = target
+            node_count = blocks
+            blocks = (node_count + _THREADS - 1) // _THREADS
+            target = output if blocks == 1 else torch.empty(
+                (blocks, 4), dtype=torch.int64, device=tensor.device
+            )
+            parameters = (
+                (source.data_ptr(), node_count, target.data_ptr()),
+                (ctypes.c_void_p, ctypes.c_ulonglong, ctypes.c_void_p),
+            )
+            _check(driver.cuLaunchKernel(
+                kernel.parent_function, blocks, 1, 1, _THREADS, 1, 1,
+                0, stream_pointer, parameters, 0,
+            ), "cuLaunchKernel(parent)")
     return output
 
 
@@ -202,9 +228,9 @@ def compare_cuda_signatures_into(
     """
     for name, signature in (("original", original), ("recomputed", recomputed)):
         if (not signature.is_cuda or signature.dtype != torch.int64
-                or signature.shape != (2,) or not signature.is_contiguous()):
+                or signature.shape != (4,) or not signature.is_contiguous()):
             raise ValueError(
-                f"CUDA {name} signature must be a contiguous int64[2] row"
+                f"CUDA {name} signature must be a contiguous int64[4] row"
             )
     if original.device != recomputed.device:
         raise ValueError("CUDA signatures must be on the same device")
