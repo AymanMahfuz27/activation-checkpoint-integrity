@@ -3603,3 +3603,10 @@ For an experiment entry, also include:
   `docs/fingerprinter-reliability.md` with evidence, failed attempt, raw timing
   definition and claim limits; synchronize README/status/current-state/action/
   experiment index and publish under existing explicit authorization.
+- **Publication outcome**: Reliability report, machine-readable summary and
+  synchronized state/action/index/docs committed as `a0efecc0a055dabd81f889147c558a71a11645cb`
+  and pushed. GitHub main verified at that exact revision with `git ls-remote`.
+  Report values, raw comparison component sets and relative documentation links
+  verified; staged whitespace check passes. Only unrelated pre-existing
+  follow-through/professor-note edits were excluded. Scientific code remains
+  the validated `8234462`; subsequent commits contain documentation only.
