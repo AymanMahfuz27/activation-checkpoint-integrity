@@ -1,0 +1,95 @@
+{
+  "arm_ids": [
+    "clean-early-all",
+    "late-unobserved",
+    "early-unobserved",
+    "late-all-observe",
+    "early-all-observe",
+    "late-boundary-observe",
+    "early-boundary-observe",
+    "early-all-enforce"
+  ],
+  "baseline": "Same pinned repaired historical source and corrected210-history1234 prestate, fixedpacked train stream, eagerFP32, RNG preservation, seed1729, diagnostic4x512x4.",
+  "clean_gate": "EARLYmode remains installed with disabledfault and actualall-outputobservation; zeroevents, completepairing and ACCEPT.",
+  "conditional_on": "Initial exact-event provenance DEV has passed allocated fixtures, model noninterference/event-consumer checks and independent actual-result review.",
+  "coverage_gate": "NativeBLAKE3 strict policy withpaircoverage1, equaloriginal/recomputed populations, complete pair counts, no unsupported or structural/nonvalue anomalies. Matchedscopepaircensus equal betweenplacements and enforce/observe.",
+  "delivery_gate": "Exact producer operand schema, output layout, coordinate, old/new bytes and one original-helper event. No site/bit/op search or adaptive fallback. Missing/ambiguous producer census is unsupported.",
+  "enforcement_gate": "If EARLYenforce rejects, require BACKWARD_COMPLETE, same completepreclipgradients asunobservedfault, no postclip state reached, and protectedpersistentstate exactprestate excludingRNG. RNG restoration and rollback notclaimed. If checkerdoesnotdetect andarmaccepts, preservevalidnegative result rather than inventingrejection.",
+  "equivalence_gate": "Fullpreclip+postclipgradient comparison and complete accepted model/namedbuffer/optimizer/scheduler/cursor/update/RNG byte/value/finite parity across EARLY/LATE and observationon/off, from identical restoredprestate.",
+  "execution_phase": "DEV_PLACEMENT_CONTROL",
+  "experiment_id": "BA-PLACEMENT-20261107-v1",
+  "falsification": "If EARLY/LATE gradients or acceptedstate differ, placementalone is notisolated and checkerinterpretationstops. If earlysite/pairing/fixtureprovenance unsupported, no detector missclaim. Any otherqualified checkerdecision pattern is retained as theactual negative/mixed result and does notsatisfy thepredictedsignature.",
+  "fixture_ids": [
+    "placement.test_allocated.PlacementFixtures.test_lower_mutation_precedes_real_upper_record_without_helper_events",
+    "placement.test_allocated.PlacementFixtures.test_disabled_and_original_phase_leave_same_values_and_pair_ordinals",
+    "placement.test_allocated.PlacementFixtures.test_only_first_recompute_is_changed_and_duplicate_candidates_are_not_hidden",
+    "placement.test_allocated.PlacementFixtures.test_wrong_old_word_or_output_shape_fails_without_site_adaptation",
+    "placement.test_allocated.PlacementFixtures.test_missing_or_different_operand_schema_cannot_claim_supported_delivery",
+    "placement.test_allocated.PlacementFixtures.test_cloned_native_result_preserves_matched_late_autograd_gradients",
+    "placement.test_allocated.PlacementFixtures.test_logical_byte_manifest_handles_singleton_expanded_zero_stride"
+  ],
+  "hypothesis": "For the same replay bit fault and exact matched gradient/update consequences, native all-output ValueGuard detects a mutation delivered before its producer record but may miss the historical module-hook mutation after that record.",
+  "isolated_change": "Fault arrival relative to the native producer output record. LATE is unchanged historical module forward hook. EARLY disables that hook and lower TorchDispatchMode returns cloned+mutated nativeaddmm result before upper CaptureMode.record.",
+  "parameter_count_delta": 0,
+  "predicted_signature": [
+    "LATEalloutputMATCH",
+    "EARLYalloutputMISMATCH",
+    "BothboundaryMATCH",
+    "EARLYalloutputenforceREJECT_PREOPTIMIZER",
+    "AllfaultdeliveryandobservationalendpointparitiesPASS"
+  ],
+  "resource_only_amendment": {
+    "automatic_retry": false,
+    "baseline_preregistration": "experiments/ba_20261107/placement/preregistration.json",
+    "baseline_preregistration_sha256": "c7b4d8f26dfcb90ff45871d87f8de3eaf38d0ace510ea25e3ddf073658a2255a",
+    "dev_minutes": 40,
+    "environment_installation": "Fresh exclusive private node-local venv, same exact hashlocked requirements with --link-mode copy",
+    "max_su": 2,
+    "previous_dev_minutes": 30,
+    "previous_max_su": 1.5,
+    "production_release": false,
+    "reason": "Retained GPU3561830 exhausted the unchanged post-setup admission window; actual CPU3562135 hardlink attempt was unqualified. Preserve exact copy-installed packages and scientific methods with a larger DEV time envelope.",
+    "required_actual_review_scope": "Reviewed negative setup results enable resource-only amendment; their expected MODIFY verdicts do not establish CUDA/model qualification.",
+    "unchanged": "Hypothesis, model, data, state, seeds, device visibility, scientific source, fixture methods and census, input/historical pins, execution phase and case/arm selection, post-setup >=1200s admission and600s retention reserve."
+  },
+  "runtime_budget": "Parent-owned gpu-a100-dev40minutes<=2SU,600secondretentionreserve; DEVfirstonly; no automaticretry/productionrelease.",
+  "scope_limits": [
+    "One fixedsoftwarebit atonehistory/state; no population faultcoverage or physicalincidence.",
+    "EARLY2Dnative and LATE3Dmodule-return shapes are intentionally different; sameflatlogicalword is fixed.",
+    "No newGELUtrace is installed; deliveryequivalence is scoped to fullgradient/acceptedstate endpoints and registered eventbytes.",
+    "No performance/overhead estimate from forensic arms.",
+    "No fullsystemcompetitorcomparison or newdetectornovelty implied."
+  ],
+  "target": {
+    "bias_shape": [
+      3072
+    ],
+    "dtype": "torch.float32",
+    "element": 6154933,
+    "first_occurrence_only": true,
+    "identity": "gpt_neox.layers.6.mlp.dense_h_to_4h.output",
+    "input_shape": [
+      2048,
+      768
+    ],
+    "layout": "contiguous_strided",
+    "native_candidate_census": {
+      "original": 4,
+      "recompute": 4
+    },
+    "new_bits_u32": 3198802411,
+    "numel": 6291456,
+    "old_bits_u32": 3198802410,
+    "operator": "aten.addmm.default",
+    "output_shape": [
+      2048,
+      3072
+    ],
+    "region": "gpt_neox.layers.6",
+    "role": "recompute",
+    "weight_shape": [
+      768,
+      3072
+    ]
+  }
+}

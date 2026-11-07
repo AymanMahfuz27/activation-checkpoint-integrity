@@ -1,0 +1,71 @@
+{
+  "arms": 28,
+  "baseline": "Pinned corrected210-history1234, original native completion execution, FP32 eager, preserved RNG, diagnostic batch4x512x4, seed1729, observer disabled",
+  "cases": [
+    [
+      6,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      11,
+      0
+    ],
+    [
+      6,
+      22
+    ],
+    [
+      0,
+      22
+    ],
+    [
+      11,
+      22
+    ]
+  ],
+  "execution": "Allocated A100 DEV40minutes<=2SU; parent admission and source/config/input hashes required; no automatic retry",
+  "experiment_id": "BA-PROVENANCE-20261107-v1",
+  "falsification": "If backward consumes the unchanged input or input change does not reproduce, the proposed mechanism is unsupported; if outputs differ, this is not an output-equal gap; if observer changes state/gradients/counts or join is ambiguous, stop with retained failure",
+  "hypothesis": "The retained layer6 bit0 replay miss changes the actual saved input consumed by native GELU backward while the GELU outputs agree; explicit input observation exposes it without changing training.",
+  "isolated_change": "New GELU input/output and actual backward-argument observation; faults are separately matched within treatment",
+  "no_claims": [
+    "Full OpGuard comparison",
+    "New observation algorithm or novelty",
+    "Learning impact",
+    "Overhead",
+    "Population coverage",
+    "Hardware fault incidence"
+  ],
+  "noninterference": "Exact full model/buffer/optimizer/scheduler/cursor/update/RNG state and pre-clipping gradient byte parity for trace on/off in each treatment; all four original/replay checkpoint contexts must remain",
+  "parameter_count_delta": 0,
+  "primary_admission": "Exactly reproduce the historical injection element and old/new bits before interpreting the mechanism",
+  "primary_case": [
+    6,
+    0
+  ],
+  "primary_event": {
+    "element": 6154933,
+    "new_bits_u32": 3198802411,
+    "old_bits_u32": 3198802410,
+    "role": "recompute"
+  },
+  "resource_only_amendment": {
+    "automatic_retry": false,
+    "baseline_preregistration": "experiments/ba_20261107/provenance/preregistration.json",
+    "baseline_preregistration_sha256": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
+    "dev_minutes": 40,
+    "environment_installation": "Fresh exclusive private node-local venv, same exact hashlocked requirements with --link-mode copy",
+    "max_su": 2,
+    "previous_dev_minutes": 30,
+    "previous_max_su": 1.5,
+    "production_release": false,
+    "reason": "Retained GPU3561830 exhausted the unchanged post-setup admission window; actual CPU3562135 hardlink attempt was unqualified. Preserve exact copy-installed packages and scientific methods with a larger DEV time envelope.",
+    "required_actual_review_scope": "Reviewed negative setup results enable resource-only amendment; their expected MODIFY verdicts do not establish CUDA/model qualification.",
+    "unchanged": "Hypothesis, model, data, state, seeds, device visibility, scientific source, fixture methods and census, input/historical pins, execution phase and case/arm selection, post-setup >=1200s admission and600s retention reserve."
+  },
+  "same_cotangent_vjp": "Use the actual native backward cotangent on both original and replay inputs, after natural execution, as a local derivative sensitivity diagnostic"
+}

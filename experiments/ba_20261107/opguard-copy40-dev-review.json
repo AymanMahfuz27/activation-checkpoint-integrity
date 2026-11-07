@@ -1,0 +1,105 @@
+{
+  "at_utc": "2026-11-07T20:50:19.580848+00:00",
+  "reviewer": "/root/closeout_audit; independent of copy40 implementation",
+  "study": "opguard",
+  "scope": "CONDITIONAL_PRECHECK_ONLY_GPU_DEV_COPY40_RESOURCE_AMENDMENT",
+  "verdict": "PROMOTE",
+  "scientific_acceptance": false,
+  "actual_setup_or_CUDA_acceptance": false,
+  "contract_sha256": "68b0f0c44e579ae01a9fd1849ba343a2b6216d3dc9cffee2073d87c6e31361ee",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/copy_runtime.py": "be2f53f62e15b79391d9e1bfaa00d9022bb5e52fee1096b7508b9567b5352ffd",
+    "experiments/ba_20261107/opguard-copy40-dev.sbatch": "dc94108d6b7096528b30210d8cd8b9bae5ded4aa6e0aa17dd38ca02fb4ef45a5",
+    "experiments/ba_20261107/opguard-environment.in": "1aa79aa5b33651232b8e91fb0064d6c05427272a490ea5ecfbfc0cdf46b54c9c",
+    "experiments/ba_20261107/opguard-environment.lock": "e9e57154007bb9c4b3ea48226dee62e3eddec9404e5ebee52fbb5e2a79dcd34d",
+    "experiments/ba_20261107/opguard_baseline/aggregate.py": "00a1423e0d82dd608a169ae2b381b013db2fe2510ab4562d6cae7637eb505c62",
+    "experiments/ba_20261107/opguard_baseline/preregistration-copy40.json": "4cd21f208a244e4e3c777fd158eb6ffa202837e3450ea9b9b17b834bdbd917e3",
+    "experiments/ba_20261107/opguard_baseline/preregistration.json": "7941106860534b39cf016aab5031286b9725910b77a1eb967251ff31ccb4b2de",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/opguard_baseline/test_allocated.py": "348572a87a237d09ee0b1750718c3710b882b32cda1019cdf9ab0883a4f64dfe",
+    "experiments/ba_20261107/opguard_fixtures.py": "b9aaba2760859aec431c0485428ec4ead9367b6ca2d7d5d7574089d94342e79f",
+    "experiments/ba_20261107/opguard_job.py": "fb484ab08d5a0ad9c0607dfc42f16490a0215f69b19f9d8df4332449db77bf7f",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b"
+  },
+  "fixture_definition_count": 8,
+  "fixture_ids": [
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_registered_single_bit_input_delta_with_equal_outputs_qualifies",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_uncommitted_raw_trace_and_abnormal_child_exit_are_rejected",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_placeholder_and_wrong_regional_layout_are_not_value_coverage",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_gradient_state_or_reference_change_disqualifies_observer",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_native_smoke_and_signature_control_cannot_be_invented",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_installed_native_regional_xor_exposes_the_selected_single_bit",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_manifest_canonicalizes_singleton_and_expanded_zero_stride"
+  ],
+  "required_review_verdicts": {
+    "CPU_HARDLINK_FAILURE_REVIEWED": "MODIFY",
+    "GPU_SETUP_FAILURE_REVIEWED": "MODIFY",
+    "PRIMARY_PROVENANCE_ACCEPTED": "PROMOTE"
+  },
+  "required_review_job_ids": {
+    "CPU_HARDLINK_FAILURE_REVIEWED": "3562135",
+    "GPU_SETUP_FAILURE_REVIEWED": "3561830"
+  },
+  "prior_scientific_source_review": {
+    "path": "artifacts/revision3/ba-20261107/review-opguard/single-device-precheck.json",
+    "sha256": "1b3c7fca2600e7d807e6982eaac7c6209b041d427918ba71d0879f090bd1e1cc"
+  },
+  "hypothesis": "Existing registered scientific hypothesis and primary-only DEV phase remain unchanged. Resource amendment uses private node-local exact copy installation and40minuteDEV to address retained setup failures; it does not claim a measured setup improvement.",
+  "baseline_integrity": "CONFIRMED_FOR_SOURCE: all prior scientific core/fixture/preregistration/lock hashes, fixture IDs, exact input/historical descriptors, numerical settings and case/arm phase match original reviewed candidates. New preregistration-copy40 differs only in resource text plus explicit amendment.",
+  "reviewed_changes": [
+    "New exclusive mode0700 /tmp/aci-ba-copy-JOB parent; exact same58/58/65hashlocked packages installed with explicit uv copy, same Python3.13.7/uv0.12.3 and cu126 index/strategy. No hardlink/filesystem success claim or gate remains in this path; no symlink package installation/reference change.",
+    "40minute gpu-a100-dev1node8CPU exclusive envelope<=2SU checked by both exact batch/contract admission and copy helper. Parent reserve amendment7.5GPU+1.5CPU=9combined is explicit and not a settled debit.",
+    "Unchanged common.admit runs before installation for source/release/owned allocation/storage/runtime and exact-only-self queue. Setup cutoff retains1260seconds including60second control margin; setup evidence custody completes before a fresh common.admit with unchanged>=1200seconds and600second retention reserve.",
+    "Copy qualifier runs before Torch, verifies exact executing isolated Python/prefix and full normalized58/65distribution versions, then copies compact setup evidence with per-file SHA. No model release, native/CUDA fixture or scientific check is waived.",
+    "All three wrappers equal exact prior pinnedf5caacc AST after removing only the conditionalCOPY callback. Original scientific cores and fixtures are unchanged. Source-only amendment of resource text preserves all other preregistration fields.",
+    "Both stages require named reviewed failures with exact negativeMODIFY verdict/job3561830 and3562135; dependents additionally require primaryPROMOTE. Parent seals content-verified actual-review hashes before release; no automatic retry.",
+    "Owned child process groups are bounded and terminated on timeout/signal, raw streams and exact command/duration retained on failure. Bootstrap separately retains<=100MB compact source/release/setup/failure evidence, never full environment/cache. Existing collector handles bootstrap failure folders and three outer controls."
+  ],
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "0",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_COMPILE_BYTECODE": "0"
+  },
+  "budget_reallocation": {
+    "basis": "Conservative published rate caps, not settled account debit; sequential DEV only.",
+    "combined_max_su": 9,
+    "cpu_max_su": 1.5,
+    "gpu_max_su": 7.5,
+    "this_job_max_su": 2
+  },
+  "collector": {
+    "sha256": "18b8150bf9c30636ec17e41b84808ceb9f8b0dd504d9ddb22c62b46f97f98024",
+    "existing_review": "Prior hardlink precheck reviewed18b8150b bootstrap choices/three-control whitelist; no new collector delta."
+  },
+  "blocking_findings": [],
+  "required_before_dispatch": [
+    "Complete and independently review actualCPU3562135 terminal/custody; use its expectedMODIFY only after reviewing the actual outcome. Current interim diagnostic or source precheck cannot satisfy it.",
+    "Bind actualGPU3561830 failure review4aa0dcbf and actualCPU3562135 reviewed failure with exact correct job/contract/evidence in newly sealed release. Parent must inspect actual review contents; runtime validates sealed attestations, not referenced files.",
+    "For placement/OpGuard also independently accept actual repaired primary provenance before source-bound release. No dependent dispatch from negative setup reviews alone.",
+    "Fresh new source revision/review/release/queue/quota admission; sequentialDEV, no automatic retry or production sweep. Earlier submitted source/artifacts remain preserved.",
+    "Actual bootstrap, fresh>=1200second postsetup admission, fullmetadata/prefix and all original CUDA/native/scientific/injection/noninterference/output custody gates remain mandatory. Independent actual review required."
+  ],
+  "limits": [
+    "Source acceptance does not prove copy setup finishes in the available window;60second control margin can be insufficient and must fail the original second admission.",
+    "Private /tmp environment is not durable custody. partial_environment_preserved=True means the program does not delete it, not guaranteed node-local availability after the allocation; compact evidence and explicitly retained native binaries are the durable artifacts.",
+    "Prerequisite parser binds expected verdict/job andSHA syntax but does not load actual review files or verify their stage-specific content. Correct parent attestation remains part of the release trust boundary.",
+    "Representative hardlink qualification is deliberately not claimed. Exact metadata and uv require-hashes establish registered package identity, not a byte-for-byte whole-environment comparison with history.",
+    "Umbrella provenance preregistration retains sixcases28arms; current contract still selects primary-onlyDEV eightarms. This review grants no full sweep, statistical/performance inference or scientific novelty claim.",
+    "Primary CUDAvisibility unchanged with no override; dependents retainCUDA0/one-device gate. No crossphase fullRNGidentity claim.",
+    "Early admission failures before returned contract can still need separately identified append-only custody recovery; setupterminal0 alone is not scientific acceptance."
+  ],
+  "validation": [
+    "All actual10/11/13 source pins match respective exact contracts; original scientific input/history/phase/fixtureIDs and all old cores/fixture/lock/prereg pins unchanged.",
+    "Complete copyhelper and threebatches inspected; AST parses all sealed Python; bash-n passes all batches. Wrapper AST equals prior source after removing onlyCOPYqualifier; new prereg changes exactly one resource field plus amendment.",
+    "Six independent stdlib-only prerequisite negatives reject missing/extra labels, incorrectly promoted failure, wrong failurejob, unaccepted primary and malformedSHA. Valid attestation shape accepts; wrong30minute resource envelope rejects before lockload. No allocation/UV/qualify/numerical path called.",
+    "Engineer raw failed-command retention checks acknowledged. No remote query, install, Torch/NumPy/model import or numerical execution."
+  ],
+  "verdict_reasoning": "This targeted resource/environment amendment avoids the observed unqualified hardlink dependency while preserving original scientific gates and failure evidence. Conditional source promotion is supported; actualCPUnegative review and repairedprimary science remain open."
+}
