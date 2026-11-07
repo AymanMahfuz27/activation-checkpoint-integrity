@@ -1,0 +1,52 @@
+{
+  "at_utc": "2026-11-07T18:42:06.224661+00:00",
+  "campaign_id": "ba-provenance-20261107-v1",
+  "contract_sha256": "28ebde5f28153dbf2c90623717d17c69731c95f0332773057b098e7a142653db",
+  "execution_or_actual_fixture_acceptance": false,
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "d366f3fd634f9e01165bbb57c2d176c4e67b3fc806790161bdca543aa3baa73c",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/provenance.sbatch": "68a2fb8c6d547e136f3a2438678e643ca56e235c26b409eccd2c7b1b4bb8078f",
+    "experiments/ba_20261107/provenance/preregistration.json": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
+    "experiments/ba_20261107/provenance/provenance.py": "023762de82ccceaf9abbb3a82554d4d3bcd04d6406b696b4d62d559c78f002bb",
+    "experiments/ba_20261107/provenance/test_provenance_allocated.py": "61c88ceb35e580274a204be817368d4d1325b8324f5f5be6e2de70b4685d962b",
+    "experiments/ba_20261107/provenance_job.py": "e806dfbb04122505566508944f5e209ad2d20795f4f64a5970aa7306bcc7f984"
+  },
+  "limits": [
+    "No numerical/model/CUDA test executed locally.",
+    "Performance/learning/population/fullOpGuard comparison claims excluded.",
+    "backward_uses_replay_input means native consumer input bytes match replay; clean identical original/replay cannot identify storage provenance.",
+    "Approximation guard is duplicated in core but semantically consistent.",
+    "If admission fails before admit() returns, Scratch failure records require orchestrator retrieval; automatic WORK retention starts after admitted contract.",
+    "Service limits and actual runtime are native execution facts, not guaranteed by review."
+  ],
+  "required_before_and_during_execution": [
+    "Orchestrator binds execution_revision to a committed pushed isolated source checkout without rewriting history.",
+    "Fresh permitted CCR26063 allocation balance/quota/ownedqueue reconciliation before once-only dispatch.",
+    "Runtime verifies original source hashes, exact input bytes/hash, live assigned A100, native batch and owned resource descriptor.",
+    "Actual5CUDAfixtures must pass without skip before experimental model work.",
+    "Every source/contract change invalidates this exact-source review.",
+    "No automatic retry and no scientific acceptance inferred from this static review."
+  ],
+  "resolved_findings": {
+    "GPU-R1": "Wrapper and tests use provenance.provenance; PYTHONPATH resolves namespace package consistently.",
+    "GPU-R2": "Core receives new study child; wrapper summary and core results use distinct paths.",
+    "GPU-R3": "Wrapper accepts only exact completed-pending-review execution status; scientific result remains separately interpreted.",
+    "GPU-R4": "Exact five allocated CUDA fixture IDs checked/run before model study, with failure/skips rejected.",
+    "GPU-R5": "Shell traps precede module/venv setup; child shutdown bounded; real remaining time reserves600seconds.",
+    "GPU-R6": "Native GELU approximation must be none before same-cotangent reference.",
+    "GPU-R7": "Portable source+config archive and release retained before model work; final quota refreshed.",
+    "GPU-R8": "Owned squeue remaining time parser accepts actualMM:SS andHH:MM:SS with optionaldays, still bounded1200..3600."
+  },
+  "reviewer": "Codex independent closeout_engineering agent; did not implement provenance source",
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "static_validation": [
+    "Exact7source/config hashes match contract.",
+    "Python AST parsing passed without importing numerical modules.",
+    "bash-n passed provenance.sbatch.",
+    "Static fixture-definition census exactly matches all5contract IDs.",
+    "Historical source guard contract checked for compatibility with new job/source/contract receipt."
+  ],
+  "verdict": "PROMOTE"
+}
