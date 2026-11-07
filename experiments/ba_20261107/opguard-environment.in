@@ -1,0 +1,6 @@
+-r provenance-environment.lock
+wheel
+astor>=0.8
+libcst>=1
+plotly>=5
+orjson>=3
