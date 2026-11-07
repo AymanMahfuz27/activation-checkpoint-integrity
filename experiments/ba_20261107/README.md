@@ -27,10 +27,12 @@ once. It retains the raw response. If the response is lost or cannot be parsed,
 reconcile the saved response, queue and accounting before taking any action.
 Do not rerun the dispatcher against another directory to bypass that intent.
 
-The batch file establishes the pinned environment and delegates to its
+Each GPU batch establishes the pinned environment and delegates to its
 `*_job.py` wrapper. `allocated_common.py` verifies the actual owned Slurm grant,
 executed batch bytes, clean tracked revision, environment, time and live quota
-before model execution. Fixtures run before the study. The 30-minute DEV
+before model execution. CPU closeout instead runs
+`closeout/source/run_closeout.py`, using its inherited `run_subset.py` helpers
+for admission and retention. Fixtures run before the study. The 30-minute DEV
 allocations reserve the final 600 seconds for retention. Failures remain
 evidence; a numerical hypothesis does not become true because a job exits zero.
 
