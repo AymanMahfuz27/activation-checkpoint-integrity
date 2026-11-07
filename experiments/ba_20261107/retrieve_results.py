@@ -5,6 +5,7 @@ An incomplete job or missing durable receipt stops collection without retry.
 """
 
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -81,10 +82,47 @@ def main():
         path = folder / name
         if path.is_symlink() or path.stat().st_size != pin['bytes'] or digest(path) != pin['sha256']:
             raise RuntimeError('Copied output differs: ' + name)
+    # Preserve only declared, nonsecret shell controls. They live outside the
+    # scientific folder because the final exit record is written by the shell.
+    prefix = 'analysis' if args.study == 'ba-closeout' else args.study
+    names = ([prefix + suffix for suffix in ('-runner.log', '-installed.txt', '-modules.txt',
+             '-started-at.txt', '-ended-at.txt', '-node.txt', '-slurm-job.txt')]
+             + ['final-analysis-exit-code.txt']) if args.study == 'ba-closeout' else [
+                 prefix + suffix for suffix in ('-runner.log', '-installed.txt', '-modules.txt', '-exit-code.txt')]
+    control_script = '''import base64,hashlib,json
+from pathlib import Path
+root=Path(ROOT)
+records={}
+for name in NAMES:
+    path=root/name
+    if path.is_symlink() or not path.is_file() or path.stat().st_size>2000000:
+        raise RuntimeError('Missing or oversized shell control: '+name)
+    data=path.read_bytes()
+    records[name]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),
+                   'base64':base64.b64encode(data).decode('ascii')}
+print(json.dumps(records))
+'''.replace('ROOT', repr(f'{ROOT}/artifacts/{args.job}')).replace('NAMES', repr(names))
+    controls = subprocess.run(ssh + ['python3 -'], input=control_script,
+                              capture_output=True, text=True, timeout=40, check=True)
+    records = json.loads(controls.stdout)
+    if sorted(records) != sorted(names):
+        raise RuntimeError('Shell control census differs')
+    control_folder = args.destination / 'control-metadata'
+    control_folder.mkdir()
+    control_manifest = {}
+    for name, record in records.items():
+        data = base64.b64decode(record['base64'], validate=True)
+        if len(data) != record['bytes'] or hashlib.sha256(data).hexdigest() != record['sha256']:
+            raise RuntimeError('Shell control transfer differs: ' + name)
+        (control_folder / name).write_bytes(data)
+        control_manifest[name] = {'bytes': len(data), 'sha256': record['sha256']}
+    (control_folder / 'manifest.json').write_text(json.dumps(control_manifest, indent=2) + '\n')
     verified = {'job_id': args.job, 'native_accounting': rows[0],
                 'status': 'ALL_RECEIPTED_MEMBERS_BYTE_VERIFIED_LOCALLY',
                 'members': len(custody['files']), 'archive_sha256': digest(archive_path),
-                'source': source, 'durable': durable, 'scientific_acceptance': False}
+                'source': source, 'durable': durable,
+                'shell_controls_locally_verified': len(control_manifest),
+                'scientific_acceptance': False}
     (args.destination / 'retrieval-verification.json').write_text(json.dumps(verified, indent=2) + '\n')
     print(json.dumps(verified))
 
