@@ -50,7 +50,9 @@ def tensor_record(value, element):
     """Snapshot logical FP32 bytes; transfers are diagnostic, outside timing claims."""
     with _disable_current_modes():
         require(value.dtype == torch.float32, "GELU trace requires FP32")
-        plain = value.detach().contiguous()
+        # A size-one expanded tensor can report contiguous while retaining a
+        # zero last stride. Allocate canonical strides before reinterpreting bytes.
+        plain = value.detach().clone(memory_format=torch.contiguous_format)
         raw = plain.view(torch.uint8).cpu().numpy().tobytes()
         return {
             "sha256": hashlib.sha256(raw).hexdigest(),

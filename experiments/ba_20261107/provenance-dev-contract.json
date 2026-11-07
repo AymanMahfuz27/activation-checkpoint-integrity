@@ -18,15 +18,16 @@
   "falsification": "If backward consumes the unchanged input or input change does not reproduce, the proposed mechanism is unsupported; if outputs differ, this is not an output-equal gap; if observer changes state/gradients/counts or join is ambiguous, stop with retained failure",
   "files": {
     "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
-    "experiments/ba_20261107/provenance-dev.sbatch": "4b7bf78f455b98528559ccbaa6b6af41f97b3cc825bd6692a13f37be77390453",
+    "experiments/ba_20261107/provenance-dev.sbatch": "bfe45bf4c6e238fe11e9a28bb9e9a78eea5f058c03ad09b3ba95bc29e07ee9a0",
     "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
     "experiments/ba_20261107/provenance/preregistration.json": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
-    "experiments/ba_20261107/provenance/provenance.py": "88aaa0fba14bb9d2a99debda7670309ebdddb01afba78e60b3a00fc933fe8c74",
-    "experiments/ba_20261107/provenance/test_provenance_allocated.py": "61c88ceb35e580274a204be817368d4d1325b8324f5f5be6e2de70b4685d962b",
+    "experiments/ba_20261107/provenance/provenance.py": "78024080402aeb35836f3ade06102272ff3eb781633cc281c0054e7f5e94af0e",
+    "experiments/ba_20261107/provenance/test_provenance_allocated.py": "0c429b5fec2489a5ad36b5079ff5895412763f9c5c244c84328cdcd67464e3ab",
     "experiments/ba_20261107/provenance_job.py": "e806dfbb04122505566508944f5e209ad2d20795f4f64a5970aa7306bcc7f984"
   },
   "fixture_ids": [
     "provenance.test_provenance_allocated.ProvenanceFixtures.test_logical_byte_snapshot_and_exact_selected_bits",
+    "provenance.test_provenance_allocated.ProvenanceFixtures.test_zero_stride_cotangent_uses_canonical_bytes_without_mutating_source",
     "provenance.test_provenance_allocated.ProvenanceFixtures.test_shared_capture_exclusion_does_not_suppress_natural_gelu",
     "provenance.test_provenance_allocated.ProvenanceFixtures.test_native_checkpoint_replays_and_actual_backward_arguments_visible",
     "provenance.test_provenance_allocated.ProvenanceFixtures.test_wrong_target_shape_fails_instead_of_claiming_empty_coverage",
@@ -748,6 +749,7 @@
     "role": "recompute"
   },
   "production_expansion": "Requires independent actual DEV result review and verified source/config/runtime correspondence",
+  "qualification_amendment": "Explicit canonical-stride snapshot; preserves prior failedDEV3561684; requires original failing checkpoint fixture and added zero-stride bytes/immutability regression.",
   "runtime_environment": {
     "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
     "MAX_JOBS": "4",

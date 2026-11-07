@@ -2,6 +2,8 @@
 
 from contextlib import contextmanager
 import os
+import hashlib
+import struct
 import unittest
 
 import torch
@@ -32,6 +34,19 @@ class ProvenanceFixtures(unittest.TestCase):
         self.assertEqual(before["selected_bits_u32"], PRIMARY_EVENT["old_bits_u32"])
         self.assertEqual(after["selected_bits_u32"], PRIMARY_EVENT["new_bits_u32"])
         self.assertNotEqual(before["sha256"], after["sha256"])
+
+    def test_zero_stride_cotangent_uses_canonical_bytes_without_mutating_source(self):
+        for size in (1, 4):
+            with self.subTest(size=size):
+                scalar = torch.tensor(0.5, device='cuda')
+                value = scalar.expand(size)
+                self.assertEqual(value.stride(), (0,))
+                observed = tensor_record(value, 0)
+                expected = struct.pack('<f', 0.5) * size
+                self.assertEqual(observed['sha256'], hashlib.sha256(expected).hexdigest())
+                self.assertEqual(observed['selected_bits_u32'], 0x3F000000)
+                self.assertEqual(value.stride(), (0,))
+                self.assertEqual(scalar.item(), 0.5)
 
     def test_shared_capture_exclusion_does_not_suppress_natural_gelu(self):
         value = torch.ones(1, device="cuda", requires_grad=True)

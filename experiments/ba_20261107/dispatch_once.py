@@ -35,10 +35,10 @@ root.mkdir(exist_ok=True)
 checkout=root/p['checkout_name']
 if checkout.exists():
     raise RuntimeError('Exclusive new checkout already exists; reconcile, do not retry')
-subprocess.run(['git','clone','--branch','experiment/ba-20261107',
+subprocess.run(['git','clone','--quiet','--branch','experiment/ba-20261107',
   'https://github.com/AymanMahfuz27/activation-checkpoint-integrity.git',str(checkout)],check=True)
-subprocess.run(['git','-C',str(checkout),'pull','--ff-only'],check=True)
-subprocess.run(['git','-C',str(checkout),'checkout','--detach',p['revision']],check=True)
+subprocess.run(['git','-C',str(checkout),'pull','--ff-only','--quiet'],check=True)
+subprocess.run(['git','-C',str(checkout),'checkout','--quiet','--detach',p['revision']],check=True)
 if subprocess.check_output(['git','-C',str(checkout),'rev-parse','HEAD'],text=True).strip()!=p['revision']:
     raise RuntimeError('Revision differs')
 for name,pin in p['files'].items():

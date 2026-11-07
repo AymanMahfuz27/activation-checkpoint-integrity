@@ -13,7 +13,7 @@
 #SBATCH --error=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/ba-20261107/provenance-dev-%j.err
 set -euo pipefail
 project=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity
-checkout="$project/slurm/ba-20261107/provenance-dev-env-source"
+checkout="$project/slurm/ba-20261107/provenance-dev-stride-source"
 python="$project/tools/python/cpython-3.13.7-linux-x86_64-gnu/bin/python3.13"
 uv="$project/tools/uv-0.12.3/uv"
 record="$project/artifacts/$SLURM_JOB_ID"

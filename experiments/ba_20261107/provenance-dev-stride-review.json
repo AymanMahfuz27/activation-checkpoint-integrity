@@ -1,0 +1,52 @@
+{
+  "actual_failure_review_sha256": "8be88d29ed22fe95d73f477cee06368eb8d43f6d05e3f34dbfac986ca2242c2f",
+  "at_utc": "2026-11-07T19:33:22.220640+00:00",
+  "blocking_findings": [],
+  "campaign_id": "ba-provenance-dev-20261107-v1",
+  "contract_sha256": "8770905b0f6905200400684f53735ff7cea1f8a5e8dc6212b652d2feca2d1713",
+  "execution_or_actual_fixture_acceptance": false,
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-dev.sbatch": "bfe45bf4c6e238fe11e9a28bb9e9a78eea5f058c03ad09b3ba95bc29e07ee9a0",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/provenance/preregistration.json": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
+    "experiments/ba_20261107/provenance/provenance.py": "78024080402aeb35836f3ade06102272ff3eb781633cc281c0054e7f5e94af0e",
+    "experiments/ba_20261107/provenance/test_provenance_allocated.py": "0c429b5fec2489a5ad36b5079ff5895412763f9c5c244c84328cdcd67464e3ab",
+    "experiments/ba_20261107/provenance_job.py": "e806dfbb04122505566508944f5e209ad2d20795f4f64a5970aa7306bcc7f984"
+  },
+  "fixture_definition_count": 6,
+  "limits": [
+    "Static repair acceptance only; no claim that clone fixed the runtime until actual DEV executes",
+    "Failure yielded no model or scientific mechanism result; all prior failure evidence remains",
+    "Extra diagnostic copy disallows performance inference and must satisfy actual fullstate/gradient noninterference",
+    "No automatic retry, dependent OpGuard dispatch or production expansion from this review alone"
+  ],
+  "required_before_and_during_execution": [
+    "New exact commit/release and fresh native allocation/quota/queue admission",
+    "All six real CUDA fixtures pass without errors/failures/skips before model study",
+    "Exact initial state/input/runtime/CUBLAS/injection bytes and all eight arms/replay/consumer joins plus noninterference remain required",
+    "Retain all outputs and independent actual-result review before dependent work"
+  ],
+  "reviewed_delta": {
+    "batch": "New provenance-dev-stride-source namespace; same exclusive gpu-a100-dev30min<=1.5SU, eight primary arms, fixed CUBLAS/thread/build environment and600second retention reserve.",
+    "core": "Only tensor_record changed: detach().clone(memory_format=torch.contiguous_format) creates a separate canonical snapshot before byte reinterpretation; keeps recorded source shape/stride, SHA and bit extraction semantics. No state mutation or training/injection/consumer join change.",
+    "tests": "All five original test method ASTs unchanged, including failed checkpoint/backward fixture. Sixth test constructs CUDA scalar0.5 expanded to stride0 shapes1 and4, checks independent struct-packed little-endian byte SHA, selected bits0x3F000000 and unchanged source scalar/stride."
+  },
+  "reviewer": "/root/closeout_audit; reviewer did not implement repair",
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4"
+  },
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "validation": [
+    "All seven actual file hashes match new contract",
+    "AST confirms only tensor_record changed and original five fixture methods identical",
+    "Exactly six fixture definitions match contract",
+    "bash-n succeeds; no numerical imports/execution locally"
+  ],
+  "verdict": "PROMOTE"
+}
