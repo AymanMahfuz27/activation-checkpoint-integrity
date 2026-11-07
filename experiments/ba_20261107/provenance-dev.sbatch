@@ -13,13 +13,14 @@
 #SBATCH --error=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/ba-20261107/provenance-dev-%j.err
 set -euo pipefail
 project=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity
-checkout="$project/slurm/ba-20261107/provenance-dev-source"
+checkout="$project/slurm/ba-20261107/provenance-dev-env-source"
 python="$project/tools/python/cpython-3.13.7-linux-x86_64-gnu/bin/python3.13"
 uv="$project/tools/uv-0.12.3/uv"
 record="$project/artifacts/$SLURM_JOB_ID"
 mkdir -p "$record"
 exec > >(tee -a "$record/ba-provenance-runner.log") 2>&1
 export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
+export CUBLAS_WORKSPACE_CONFIG=:4096:8 MAX_JOBS=4
 export PYTHONUNBUFFERED=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 export UV_CACHE_DIR="$project/cache/uv" UV_PYTHON_INSTALL_DIR="$project/tools/python"
 export PYTHONPATH="$checkout/experiments/ba_20261107"

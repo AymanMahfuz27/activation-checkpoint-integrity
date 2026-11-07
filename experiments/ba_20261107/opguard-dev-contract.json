@@ -12,8 +12,8 @@
   "experiment_id": "BA-OPGUARD-L6-20261107-v1",
   "falsification": "Any changed native fullstate/gradient/injection/replaycount disqualifies observation. Missing, fallback, metadata-only, ambiguous, partial or undrained official summaries are unsupported rather than detector misses. Changed output signatures falsify the claimed output-equal case. A failed single-bit signature control is unqualified and cannot support a miss claim.",
   "files": {
-    "experiments/ba_20261107/allocated_common.py": "d366f3fd634f9e01165bbb57c2d176c4e67b3fc806790161bdca543aa3baa73c",
-    "experiments/ba_20261107/opguard-dev.sbatch": "9fd11c59c3cea047b4f0981d40dabc09c9309ef88951d58b1822d7f289529aaa",
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/opguard-dev.sbatch": "7456ab1eebc95481934c9876b0814fc07f9ab79e74359dc7a5c6d4aace682570",
     "experiments/ba_20261107/opguard-environment.in": "1aa79aa5b33651232b8e91fb0064d6c05427272a490ea5ecfbfc0cdf46b54c9c",
     "experiments/ba_20261107/opguard-environment.lock": "e9e57154007bb9c4b3ea48226dee62e3eddec9404e5ebee52fbb5e2a79dcd34d",
     "experiments/ba_20261107/opguard_baseline/aggregate.py": "00a1423e0d82dd608a169ae2b381b013db2fe2510ab4562d6cae7637eb505c62",
@@ -764,6 +764,13 @@
     "Exact native extension identity/hash and source/build/environment receipts",
     "Structured aggregate with supported/unsupported status and explicit limits"
   ],
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4"
+  },
   "scientific_acceptance": false,
   "source_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/m4-repair-20261025-v1/source",
   "time_limit": "00:30:00",

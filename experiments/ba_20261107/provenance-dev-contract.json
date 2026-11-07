@@ -17,8 +17,8 @@
   "experiment_id": "BA-PROVENANCE-20261107-v1",
   "falsification": "If backward consumes the unchanged input or input change does not reproduce, the proposed mechanism is unsupported; if outputs differ, this is not an output-equal gap; if observer changes state/gradients/counts or join is ambiguous, stop with retained failure",
   "files": {
-    "experiments/ba_20261107/allocated_common.py": "d366f3fd634f9e01165bbb57c2d176c4e67b3fc806790161bdca543aa3baa73c",
-    "experiments/ba_20261107/provenance-dev.sbatch": "d3e708e6b78ddffe94db8f1e27cd98a833b96b462db005800c8634cb28e0eeff",
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-dev.sbatch": "4b7bf78f455b98528559ccbaa6b6af41f97b3cc825bd6692a13f37be77390453",
     "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
     "experiments/ba_20261107/provenance/preregistration.json": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
     "experiments/ba_20261107/provenance/provenance.py": "88aaa0fba14bb9d2a99debda7670309ebdddb01afba78e60b3a00fc933fe8c74",
@@ -748,6 +748,13 @@
     "role": "recompute"
   },
   "production_expansion": "Requires independent actual DEV result review and verified source/config/runtime correspondence",
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4"
+  },
   "same_cotangent_vjp": "Use the actual native backward cotangent on both original and replay inputs, after natural execution, as a local derivative sensitivity diagnostic",
   "scientific_acceptance": false,
   "source_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/m4-repair-20261025-v1/source",

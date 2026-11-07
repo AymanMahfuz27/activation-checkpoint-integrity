@@ -1,0 +1,98 @@
+{
+  "additional_execution_conditions": [
+    "Fresh release must bind these changed source/contract/batch bytes; prior release is obsolete for this candidate",
+    "Retain actual runtime-environment.json and verify exact dictionary on DEV before interpreting scientific reproduction",
+    "No production expansion from static review; actual DEV results/custody and required independent review remain mandatory",
+    "Preserve canceled pending job accounting and do not repeat consumed historical dispatch operators"
+  ],
+  "at_utc": "2026-11-07T19:12:04.134878+00:00",
+  "blocking_findings": [],
+  "campaign_id": "ba-opguard-dev-20261107-v1",
+  "contract_sha256": "e86231818c66422ed7860f5ba4e46afd32ac42d45a491d934e0234ec6ce74889",
+  "delta_blocking_findings": [],
+  "delta_limits": [
+    "This accepts source definitions for native binary retention; no binary has yet been built, copied or scientifically validated by this reviewer",
+    "Actual result review must match native-binary-custody.json and installed-native-artifacts members against doctor paths, actual arm backend hashes and output custody manifest",
+    "Native source/build/doctor/full smoke, seven fixture results, four arm parity/trace qualification and prior initial DEV acceptance remain required"
+  ],
+  "environment_delta_review": {
+    "batch_order": "Explicit CUBLAS and thread/build environment exports precede module/venv build and every Python/Torch execution",
+    "blocking_findings": [],
+    "guard_order": "allocated_common.admit verifies exact contract env strings using stdlib before numerical imports, requires historical CUBLAS setting and retains only the fixed nonsecret whitelist",
+    "historical_reference": "artifacts/revision2/session-20261025-completion/source/tacc/run_completion.sh:45 exports CUBLAS_WORKSPACE_CONFIG=:4096:8 and OMP_NUM_THREADS=4/MAX_JOBS=4",
+    "no_executed_GPU_data_or_outcomes_reviewed": true,
+    "science_core_unchanged": true,
+    "source_changes": [
+      "experiments/ba_20261107/allocated_common.py",
+      "experiments/ba_20261107/opguard-dev.sbatch"
+    ]
+  },
+  "execution_or_actual_fixture_acceptance": false,
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/opguard-dev.sbatch": "7456ab1eebc95481934c9876b0814fc07f9ab79e74359dc7a5c6d4aace682570",
+    "experiments/ba_20261107/opguard-environment.in": "1aa79aa5b33651232b8e91fb0064d6c05427272a490ea5ecfbfc0cdf46b54c9c",
+    "experiments/ba_20261107/opguard-environment.lock": "e9e57154007bb9c4b3ea48226dee62e3eddec9404e5ebee52fbb5e2a79dcd34d",
+    "experiments/ba_20261107/opguard_baseline/aggregate.py": "00a1423e0d82dd608a169ae2b381b013db2fe2510ab4562d6cae7637eb505c62",
+    "experiments/ba_20261107/opguard_baseline/preregistration.json": "edf54f69c4703cfa5828dd75ca9461e7c6fff6614f0f200002030a57615aaeab",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "a498f51c7b95dab213316a9f63491002c13ca7147e28b41daa4783e50fbdfe0b",
+    "experiments/ba_20261107/opguard_baseline/test_allocated.py": "dfa0c7988ca2489bd8e6dc31742212adcdead6c66ca77e818a72582a1718755b",
+    "experiments/ba_20261107/opguard_fixtures.py": "b9aaba2760859aec431c0485428ec4ead9367b6ca2d7d5d7574089d94342e79f",
+    "experiments/ba_20261107/opguard_job.py": "87494f4ac6efa14ced30df3f6b38a35a8262f9629ea6395235cd14cbb9add024"
+  },
+  "fixture_definition_count": 7,
+  "limitations": [
+    "No local numerical/model/CUDA/native build or remote action by reviewer",
+    "Official source build/native smoke can fail or exceed DEV time; retain failures without automatic retry",
+    "bounded_command combines stderr/stdout; unexpected doctor diagnostics could prevent JSON parsing and must remain an execution failure, not be ignored as successful qualification",
+    "Final output envelope is checked at retention, not a live log-size cap; oversized output retains Scratch evidence and blocks custody success",
+    "Configured activation I/O signatures only; official full-system alignment/backward coverage are not evaluated",
+    "Aggregate execution_complete is separate from qualified and output-equal conclusion; execution status alone does not promote science"
+  ],
+  "official_runtime_files": {
+    "opguard/runtime_tracer.py": "4f45e7b361b57a067d5ff155290e366e852b06bf0b5386efff04f6b6560a556a",
+    "opguard/tracer/meta_vars.py": "78e649e4fa652ba196a4d3e75cdaab6101b2712146a8cad4cacb9412584097ea",
+    "opguard/tracer/tensor_dump.py": "4dc6c43309ae798ddc9bba85e826b1499d6b819e5d5d84a8002c1f29826ed51b",
+    "opguard/tracer/trace_buffer.py": "12512f9d569ba371f7f34758bbfd683fb2502b03ac5d0d2c6054c4f752d96014",
+    "opguard/tracer/xor_signature.py": "95e6776985dbafee299a3a1e22e09bd328f80ab80ff746a63ea97fee14f149d6",
+    "opguard/wrapped_ops.py": "eb21818f978a94ad4cba6e78d1444c79ee9396d07e28c0272c4cceac8ffcbec3"
+  },
+  "opguard_revision": "146d6bb523cf8364bbf2788cb319aef1a46f966b",
+  "prior_review_sha256": "c3054b9e238afc694e9b2e931bcafd29599938a4822d96986a1826dae07990d5",
+  "required_before_execution": [
+    "Initial provenance DEV result must first pass independent actual-event/replay/noninterference/consumer review, as required by contract; no dispatch from this static precheck alone",
+    "Bind exact new source commit and real review/contract/batch in separate release",
+    "Fresh CCR26063 grant/quota/ownedqueue reconciliation and assigned A100 verified",
+    "Official native build/doctor/full smoke and all seven allocated fixtures must actually pass without skips before four model arms",
+    "Verify full source/input/runtime/parent-child correspondence and complete raw trace drain before interpreting configured observer result",
+    "Independent actual-result and custody review after terminal execution; no production expansion or retry by this precheck"
+  ],
+  "reviewed_delta": "Only allocated_common runtime environment guard and the corresponding DEV batch changed from the linked prior review; exact frozen runtime_environment added to contract. Scientific cores, inputs, official runtime files and fixture definitions unchanged.",
+  "reviewed_integration": [
+    "Parent uses run_arm --contract/--out/--fault/--official matching actual parser; installed runtime pin paths include opguard/ and match source and installed package parent resolution",
+    "Parent source clone pinned to exact revision; official source archive retained before build; --no-deps/--no-build-isolation in locked environment; doctor JSON and require-native plus full official smoke before fixtures/model",
+    "Fresh fixture child has own absolute trace output, seven exact definitions and nonzero/skip rejection; normal process exit precedes arm execution",
+    "Four distinct arm processes normally exit before parent records outcome; child sets exact singular official-trace path before official import; aggregate requires eight newline-committed unique-counter target records and finalized four uint32 signatures",
+    "Official make_wrapper API inspected directly: wrapper callable firstargument means tensor inputs.args[1]; raw field names, summary dtype/device/shape/numel and flat-u32-le-v1 region byte ranges checked against official source",
+    "Actual intervention contexts label original/recompute ordinal; original forward exactly once/result object unchanged and unique activation object; matched full typed-state/RNG/gradient manifests plus context/injection/call parity required",
+    "Installed six numerical runtime Python hashes and actual native extension location/hash retained; fallback flag must remain false",
+    "Exact primary one-bit event plus independent regional XOR positive control; equal output signature does not establish arbitrary tensor equality; full OpGuard/learning/overhead/population/novelty claims excluded",
+    "One exclusive 30minute DEV job with600second reserve; child process groups have timeouts and TERM/KILL cleanup, perjob output envelope2GB/3000files; failures remain in Scratch and normal terminal path copies verified durable outputs"
+  ],
+  "reviewer": "/root/closeout_audit",
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4"
+  },
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "static_checks": [
+    "Actual ten file hashes verified; Python AST without numerical imports; bash-n DEV batch",
+    "Exact seven AST fixture methods match contract",
+    "Six official runtime hashes checked against pinned unmodified local official checkout"
+  ],
+  "verdict": "PROMOTE"
+}

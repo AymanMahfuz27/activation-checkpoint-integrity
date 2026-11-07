@@ -114,6 +114,12 @@ def admit(checkout, contract_path, out):
     actual = command(out, 'actual-batch', ['scontrol', 'write', 'batch_script', job, '-'])
     if hashlib.sha256(actual.encode()).hexdigest() != contract['files'][contract['batch']]:
         raise RuntimeError('Actual scheduler batch differs from sealed batch')
+    environment = contract.get('runtime_environment', {})
+    if environment.get('CUBLAS_WORKSPACE_CONFIG') != ':4096:8':
+        raise RuntimeError('Frozen deterministic cuBLAS configuration required')
+    if any(os.environ.get(name) != value for name, value in environment.items()):
+        raise RuntimeError('Registered runtime environment differs')
+    write(out / 'runtime-environment.json', environment)
     remaining = command(out, 'time-left', ['squeue', '-h', '-j', job, '-o', '%L']).strip()
     days, separator, clock_text = remaining.partition('-')
     if not separator:
