@@ -1,0 +1,29 @@
+{
+  "archive_bytes": 7930716160,
+  "archive_path": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-full-20261019-v2-inputs/full-evidence.tar",
+  "archive_sha256": "8df76985b9b326c685bceccab8abff8f473bda65e0f16b7032bfd94dae3f5240",
+  "at_utc": "2026-10-19T15:51:40.634128+00:00",
+  "files_verified": 6,
+  "member_bytes": {
+    "corrected210-history1.pt": 1948071195,
+    "corrected210-history1234.pt": 1948071195,
+    "corrected210-history2.pt": 1948071323,
+    "early-history1234.pt": 1948069851,
+    "final-holdout.npy": 4194436,
+    "train.npy": 134217856
+  },
+  "plan_sha256": "26b531f41b26a798a79d32818f4047e05486d3bac3f04f0c70d501fa2e60bed6",
+  "ranch_single_copy": true,
+  "scratch_purge_days": 10,
+  "sha256": {
+    "corrected210-history1.pt": "f9a7026e81f3de64d4abeda41efb9c74743e06e79395a7a07e2a796f6fe356ff",
+    "corrected210-history1234.pt": "63a258ddef05c2c59e146db8282d58736f4f2fda7373dc7e2bef9c05b7baddb7",
+    "corrected210-history2.pt": "e39a45cdb981b1c45b9215eef29457a887bc08849c0bd5a6c1a295f6a61ab5d4",
+    "early-history1234.pt": "e6dbfcb2a9126f1b2f74883e0876d2c0ac1a11ed2be9eb3d2c480decd5760fc1",
+    "final-holdout.npy": "842f55762a8bd8d7d25d9d54962b800f677808a86f47e57c82058228f577174e",
+    "train.npy": "5d75752ac19314882b7c6f162cb5f2d8754f01452f29334224ee86947cc50c07"
+  },
+  "source_removal_released": false,
+  "status": "VERIFIED_PERSISTENT_FINAL_EVIDENCE_ARCHIVE",
+  "transfer_seconds": 75.43196787592024
+}

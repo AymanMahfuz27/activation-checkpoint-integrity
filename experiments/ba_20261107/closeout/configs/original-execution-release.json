@@ -1,0 +1,145 @@
+{
+  "analysis_su_held": 3,
+  "at_utc": "2026-10-19T16:01:13.067144+00:00",
+  "automatic_retries": 0,
+  "campaign_id": "e1e4-full-20261019-v2",
+  "campaign_max_su": 105,
+  "contract_sha256": "8880e76d174dd22fea27852f648dd846034c41f3a937811e4cefd043e1d11406",
+  "cross_model_review": false,
+  "findings": {
+    "F1": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "F2": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "F3": {
+      "disposition": "ACTUAL_RESULT_VALIDATOR_MUST_USE_ROW_STATUS_AND_PHASE_ERROR_NEVER_PRESERVED_REJECTION",
+      "priority": "P2"
+    },
+    "I1": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "I2": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "I3": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "I4": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "I5": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R1": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R2": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R3": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R4": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R5": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R6": {
+      "disposition": "FIXED_FOR_PRECHECK_ONLY_NATIVE_CONTROLS_STILL_REQUIRED",
+      "priority": "P1"
+    },
+    "R7": {
+      "disposition": "ACCEPTED_LOW_N_NESTED_AND_PAIRED_UNCERTAINTY_LIMITATION",
+      "priority": "P2"
+    },
+    "R8": {
+      "disposition": "PROSPECTIVE_638_E1_276_ABFT_AND_SOURCE_FORECAST_CORRECTION",
+      "priority": "P2"
+    }
+  },
+  "independent_agent_review": true,
+  "independent_review_sha256": "3145e8241e9800688866a829f14723ce92b6f0fd089d952b00d5003e741ab9a9",
+  "independently_verified": {
+    "checkout_clean": true,
+    "committed_and_working_source_hashes": 222,
+    "focused_engineering_fixture_seconds": 4.16,
+    "focused_engineering_fixtures_passed": 31,
+    "input_role_size_hash_membership_matches": true,
+    "original_reference_copies_match": true,
+    "packet_members": 21
+  },
+  "invalid_releases": [
+    "automatic retry or replacement job",
+    "extra pilot",
+    "expanded scope or budget",
+    "source deletion",
+    "favorable-result or milestone-completion assertion"
+  ],
+  "m6_readiness_established": false,
+  "model_work_release": "CONDITIONAL_ON_SAVED_NATIVE_PASS_IN_EACH_SAME_ALLOCATION",
+  "packet_files": {
+    "E4-1.sbatch": "a40770420b3fd24c4d90bd75da581b59a9ded1010b786f16f8585532685002b1",
+    "E4-2.sbatch": "04818521261bfe4461c521cbcbc522c120c70014e9f90669d8a1f48c65637392",
+    "E4-3.sbatch": "58377df100ac0fb6f45e5f24a8232f57bf607a1f31781dca55b9652b2bda0795",
+    "Expected-outputs.md": "9c3ba15165e48578deccabbd1c3e8cf63c1299fc4e1bd1872ab034ab35993ff9",
+    "M4.sbatch": "53080be4364cb86c46e5952030e7c5c804c1ca7cdb1d9bdd8d128eb08b40f2d7",
+    "M5.sbatch": "9fcb27c809ad6adbd71cd705c43a1a21e44b62de508cf47c317c78a215331110",
+    "Review-dispositions-v2.md": "c5dcd1f5bc43047da5c4b1546dd183ce3633e417a85643fcf70765881019f195",
+    "contract.json": "8880e76d174dd22fea27852f648dd846034c41f3a937811e4cefd043e1d11406",
+    "e1-attempts-v2.json": "7602fba9fd87823d7800a5995ffd09c732598a8aa95e538773d0ec24607d4d56",
+    "e3-abft-products.json": "885314cf0a83183b170858d0d035c37d3b193af60534aafc0060ee5cf80db5b3",
+    "e3-schedules.json": "2a3771d22a35e229fb3272265f6d39982ffc0421387f750718d1145827902732",
+    "e4-blocks.json": "7f56adac9570914b11aeb455e568aa80cd5ab0f7836af9e2391b793135f36c94",
+    "full-source-tests.log": "2fdd4b277486a2bef975ed5f9db72e23f91f981e0fd92e79b2dc59ffa3cfbb20",
+    "independent-copy-review-round2.json": "614d10c251b05087b47e74156fd65b14f61626f12a57cebfe4857e84167b1513",
+    "independent-review-round1.md": "5716352d1108b3fe289923b3bccb00cf0fcfd4dcf2bf5e4a813bcf741ff3af27",
+    "input-custody.json": "68e57c3f7bec71081178cb241a61bb091358d2501c3769ac91acdb47684abac6",
+    "input-restore.json": "98109bac6d1209c78171b29551c3359144226cbf5fe8c0229a5dc13b7773a252",
+    "inputs.json": "c7de4f49d4f2d11b0389da6fcb78ba42c87f7d186c5b3e70017b4bab541a9c2b",
+    "phase-budget-ledger.json": "93d4139d612813528c599658d87457b74961c76b1da1d01ebf402c07118ae5bf",
+    "pilot-case-references.json": "85b6d0df0d3397aea88ad2e9c189903f5f07aae9308ef02a90d339aef98dbf51",
+    "source.bundle": "c5a5cfcc2c475e8c62efba48a56f929571a530d4f5ab94abcb7ed7689eec1e04"
+  },
+  "packet_manifest_sha256": "de6dddf40a9cdd75ecaf460e9c960c3ce4a5109758d8cc82adc80e6684ccf2fe",
+  "registered_job_keys": [
+    "M4",
+    "M5",
+    "E4-1",
+    "E4-2",
+    "E4-3"
+  ],
+  "remaining_gates": [
+    "Exact release projection and hash propagated through once-only dispatch",
+    "Live budget queue quota source and packet admission",
+    "Per-allocation native CUDA fixtures and pinned-runtime checks",
+    "Allocated opaque input and restore hashes plus semantic state checks",
+    "Saved job/account/source/contract-bound native PASS before model updates",
+    "Complete registered outcome/control/censoring census",
+    "All-member persistent output custody without deleting sources",
+    "Allocated endpoint/statistical analysis within held budget",
+    "Independent actual-result review before milestone closeout"
+  ],
+  "review_memo": "independent-review-round2.md",
+  "review_memo_sha256": "35ae79eae4703836369ed1ee99d8f9c4c615606603952cbb62ec5fbd1dcaddc3",
+  "scientific_completion_established": false,
+  "scope": "PRECHECK_ONLY",
+  "source_removal_released": false,
+  "source_revision": "b23f86b2d9337fe5f28f035b07707ce0f56bda81",
+  "study_job_max_su": 102,
+  "verdict": "PROMOTE"
+}

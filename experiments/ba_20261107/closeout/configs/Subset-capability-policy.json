@@ -1,0 +1,78 @@
+{
+  "status": "DRAFT_SUBSET_POLICY_NOT_EXECUTION_RELEASE",
+  "scope": "E3_E4_EXISTING_DATA_ONLY",
+  "scientific_job_ids": [
+    "3520048",
+    "3520049",
+    "3520050",
+    "3520051"
+  ],
+  "account": "CCR26063",
+  "partition": "normal",
+  "one_node": true,
+  "wall_minutes": 60,
+  "max_su": 1,
+  "shared_analysis_ceiling_su": 3,
+  "later_analysis_max_su_after_this_reservation": 2,
+  "new_model_training_or_scoring": false,
+  "required_capabilities": [
+    "exact_source_review_environment_ownership_and_deadline",
+    "fresh_opaque_initial_checkpoint_and_input_hashes",
+    "four_role_serialized_counter_schema_and_original_native_lineage",
+    "all_raw_payload_archive_and_persistent_proof_membership",
+    "all_e3_journals_schedule_reference_rejection_and_counter_validation",
+    "all_e4_pair_arm_journal_parity_record_timing_setup_and_isolation_validation",
+    "calibration_test_ABFT_registration_and_actual_decision_validation",
+    "independent_allocated_synthetic_statistical_and_ingestion_fixtures",
+    "output_csv_json_figures_manifest_custody_and_actual_result_review",
+    "live_storage_quota_floor_and_reserved_output_capacity",
+    "exact_scheduler_resources_and_cumulative_campaign_analysis_budget"
+  ],
+  "unsupported_and_not_claimed": [
+    "new_live_model_restore",
+    "unrecorded_nonpersistent_initial_buffer_values",
+    "process_rng_restore_or_physical_gpu_mapping",
+    "reproduction_of_unretained_full_gradient_tensors",
+    "universal_ABFT_or_fault_protection"
+  ],
+  "scientific_counts": {
+    "e3_cells": 39,
+    "e3_attempts": 2973,
+    "clean_updates": 120,
+    "abft_registered_objects": 276,
+    "abft_recorded_decisions": 186,
+    "abft_calibration_objects": 90,
+    "e4_pairs": 50,
+    "e4_arms": 100,
+    "e4_journaled_updates": 4400,
+    "e4_source_supported_warmups": 2000,
+    "e4_independent_jobs": 3,
+    "primary_t_df": 2
+  },
+  "frozen_E1_E5_protocols_unchanged": true,
+  "whole_program_64_module_admission_unchanged_and_unissued": true,
+  "four_role_semantics": {
+    "schema": 1,
+    "expected_fields": [
+      "schema",
+      "identity",
+      "updates",
+      "cursor",
+      "model",
+      "optimizer",
+      "scheduler",
+      "rng",
+      "model_config",
+      "recipe"
+    ],
+    "expected_role_identity_source": "Frozen original allocated native model-work-release states plus registered role/hash; never derive expected identity from inspected object",
+    "expected_updates": {
+      "early-history1234": 10,
+      "corrected210-history1234": 210,
+      "corrected210-history1": 210,
+      "corrected210-history2": 210
+    },
+    "expected_cursor_rule": "original native role cursor must agree across four scientific jobs, then equal actual inspected cursor; registered updates*65536 independently required",
+    "live_restore_or_rng_restoration_claim": false
+  }
+}

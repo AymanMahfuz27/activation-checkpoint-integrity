@@ -1,0 +1,163 @@
+{
+  "allocation_precheck_accepted": true,
+  "assessments": [
+    {
+      "detail": "Original pin matches retained stage/Ranch metadata; strict comparator unchanged; live historical pair unavailable and reconstruction distinguished.",
+      "id": "M4R2-A1",
+      "status": "STATICALLY_CONFIRMED",
+      "subject": "Strict loader and failed-reference provenance"
+    },
+    {
+      "detail": "Both fixture gates before engine restoration; exact runtime/input/source/storage/three-A100/semantic/reconstruction/full-state/RNG/pre-and-post-gradient controls precede model-work release.",
+      "id": "M4R2-A2",
+      "status": "STATICALLY_ACCEPTED_NATIVE_NOT_RUN",
+      "subject": "Same-allocation native expected/observed parity and ordering"
+    },
+    {
+      "detail": "E1/E2 dictionaries and attempt/reference/input/custody/restore/phase manifests unchanged; failed210 rows never replace new observations; E1 success required before E2.",
+      "id": "M4R2-A3",
+      "status": "STATICALLY_CONFIRMED_PROTOCOL_PRESERVED",
+      "subject": "Entire638-call15-arm scientific rerun"
+    },
+    {
+      "detail": "One exclusive three-A100 node/12CPUs/6hours/18SU includes native preflight and1hour retention; forecast16200s fits18000s;36+45+3+18=102SU. Actual debit/forecast adequacy unverified.",
+      "id": "M4R2-A4",
+      "status": "PROSPECTIVE_BOUND_CONFIRMED",
+      "subject": "Exact batch and105SU ceiling"
+    },
+    {
+      "detail": "Exact opaque stage and detached bundle source; exclusive Scratch campaign parent; raw-verdict-derived release; new verified WORK control copy; fresh admission/exclusive intent/single sbatch; failed or ambiguous operations stop without retry; originals/E5 untouched.",
+      "id": "M4R2-A5",
+      "status": "PRECHECK_ONLY_ACCEPTED",
+      "subject": "Once-only stage/control custody/dispatch sequence"
+    },
+    {
+      "detail": "Only originalfive/existingE5three/one accepted repair ID; release source/contract binding, unique decimal IDs,90min cadence/shared50line cap; no submit/retry/unhold/controller path; no scientific result inferred.",
+      "id": "M4R2-A6",
+      "status": "STATICALLY_ACCEPTED",
+      "subject": "Exact registered nine-job sparse monitoring"
+    }
+  ],
+  "at_utc": "2026-10-25T21:34:22.044385+00:00",
+  "automatic_retries": 0,
+  "baseline_integrity": "E1_E2_FROZEN_PROTOCOL_AND_INPUT_LINEAGE_CONFIRMED_EMPIRICAL_PARITY_NOT_RUN",
+  "blocking_findings_remaining": 0,
+  "campaign_id": "m4-repair-20261025-v1",
+  "campaign_max_su": 105,
+  "combined_conservative_bound_su": 102,
+  "context_files": {
+    "Execution-sequence.md": "288c6a2ec45497b733e8ad5e382c19df3a75d9326cc2e45135fe47b0182dc6b2",
+    "budget-reconciliation.json": "183679f1fcd6bd7add8ee1d82a7f6acee94e7f5a351e462fbc5a22c0baf34e24",
+    "check_all_nine_jobs.py": "ba4ef648f2cf3d65fad3d3556a55cfb7e07ad2a20da0ddc2bdddc69d89e232d3",
+    "local-engineering-fixtures-r2.log": "ed9db56330950eb6b8e731b5116689c5bed56ffd97fbebfb73d150817c6467b2",
+    "original-suite-collection.log": "7c249ff9971fc1a8c3be22d1d26dd94c045906471e77229d399e3a025fee4336",
+    "review-round1-dispositions.json": "0bb8147a3cbc89edbc99b4aa3f17ed4d82204fa8e2c4b75f14ffe0eb9cb5d225",
+    "review-round1.json": "6223a9f48400eccfd39ccb33dee675bff4a036139dd363b9d2bc8a3f3a1c0e0f",
+    "review-round1.md": "8968e272730679a73dd56da43a01fad79bacd0f0cbc76fc4f4035e1c4a46a298",
+    "stage_exact_packet.py": "746e769dcabeed116034210893434ecc9ba1216c5d5ca637851bc26e5b96a1c9"
+  },
+  "contract_sha256": "72d452dc3e5473ecb641b0524d022055b7df6c67e0f7f0e0d21e73a14bb12910",
+  "execution_release_materialized": false,
+  "final_dispositions_sha256": "fd19cfb1a364a5dd3f0b8a71186c91d08ff69a644c0befc1e07857d695dbcd0b",
+  "findings": [
+    {
+      "blocking_remaining": false,
+      "execution_sequence_sha256": "288c6a2ec45497b733e8ad5e382c19df3a75d9326cc2e45135fe47b0182dc6b2",
+      "fix": "Exact staging now exclusively creates root.parents[1]/completion/campaign_id before dispatch; this is the parent required by allocated inode probe. Original request/helper preserved.",
+      "id": "M4R2-F1",
+      "original_request_sha256": "a2476c0fb1db68e8ef742a095517fb1724c6e2bacb69681c2377867d6d6f3ccf",
+      "severity": "MEDIUM",
+      "stage_helper_sha256": "746e769dcabeed116034210893434ecc9ba1216c5d5ca637851bc26e5b96a1c9",
+      "status": "RESOLVED_IN_FINAL_REVIEWED_STAGING_BYTES",
+      "title": "Fresh Scratch campaign parent omitted from initial R2 staging"
+    }
+  ],
+  "independent_review_markdown_sha256": "90b010940854006f74563c9f861e420ceff8fb723335410a99175f897ca016a9",
+  "independent_review_sha256": "ed43672c8df360b35464a99013dbcb5cd0b27045201ff3a435d1ec34471967a2",
+  "lesson_for_archivist": "Both explicit no-skip native fixture evidence and fresh-campaign directory prerequisites must be bound before the one allowed allocation; PRECHECK_ONLY is distinct from native and scientific acceptance.",
+  "limitations": [
+    {
+      "detail": "Only PRECHECK_ONLY M4 with exact9packet/9context pins accepted; changed source/contract/batch/sequence/staging requires fresh exact review.",
+      "id": "M4R2-L1"
+    },
+    {
+      "detail": "Release/staging/new Scratch parent/WORK custody/fresh account-quota-queue-input admission/accepted ID still require actual actions and retained receipts; no submission or remote state claimed here.",
+      "id": "M4R2-L2"
+    },
+    {
+      "detail": "All native fixtures/placement/reconstruction/full-state-RNG-gradients/runtime/storage/deadline outcomes NOT_RUN; local collection/skips are not substitutes.",
+      "id": "M4R2-L3"
+    },
+    {
+      "detail": "Failure/ambiguity/cutoff retains evidence and stops; no automatic retry, endpoint reduction or protocol change; reserve is not retry authority.",
+      "id": "M4R2-L4"
+    },
+    {
+      "detail": "Complete scientific census/all-member persistent custody/allocated analysis/independent actual-result review still required; no M4/M5/M6 scientific promotion or E3/E4/E5 conclusion.",
+      "id": "M4R2-L5"
+    },
+    {
+      "detail": "Historical live metadata mismatch pair absent; distinguish exact-file reconstruction and do not infer historical numerical corruption or efficacy.",
+      "id": "M4R2-L6"
+    },
+    {
+      "detail": "102SU is reservation bound using retained rate/accounting metadata, not debit; fresh resources/forecast runtime remain open; no separate preflight/pilot/history/E5 replacement or repeated controller/extra budget.",
+      "id": "M4R2-L7"
+    }
+  ],
+  "model_work_release_issued": false,
+  "native_status": "NOT_RUN",
+  "packet_files": {
+    "M4.sbatch": "b2de3356383ca82aba8d240f60e1ac368907935eac1119106f34ea185f9f26b2",
+    "contract.json": "72d452dc3e5473ecb641b0524d022055b7df6c67e0f7f0e0d21e73a14bb12910",
+    "e1-attempts-v2.json": "7602fba9fd87823d7800a5995ffd09c732598a8aa95e538773d0ec24607d4d56",
+    "input-custody.json": "68e57c3f7bec71081178cb241a61bb091358d2501c3769ac91acdb47684abac6",
+    "input-restore.json": "98109bac6d1209c78171b29551c3359144226cbf5fe8c0229a5dc13b7773a252",
+    "inputs.json": "c7de4f49d4f2d11b0389da6fcb78ba42c87f7d186c5b3e70017b4bab541a9c2b",
+    "phase-budget-ledger.json": "93d4139d612813528c599658d87457b74961c76b1da1d01ebf402c07118ae5bf",
+    "pilot-case-references.json": "85b6d0df0d3397aea88ad2e9c189903f5f07aae9308ef02a90d339aef98dbf51",
+    "source.bundle": "364857c9e9823ff4a41706e4fa8f5e1f59660cce4efa55000416c6e4647def31"
+  },
+  "prior_finding_assessments": [
+    {
+      "detail": "Original102 unique-case JUnit gate and reference10-case gate run before first engine restoration and again in repair preflight; both text/XML hashes bound; seven metadata test cases added.",
+      "id": "M4R1-F1",
+      "status": "RESOLVED_STATICALLY_NATIVE_VALIDATION_REQUIRED"
+    }
+  ],
+  "r1_dispositions": {
+    "all_13_ids_classified_exactly_once": true,
+    "raw_review_sha256": "6223a9f48400eccfd39ccb33dee675bff4a036139dd363b9d2bc8a3f3a1c0e0f"
+  },
+  "registered_job_keys": [
+    "M4"
+  ],
+  "review_id": "M4R2",
+  "review_request_sha256": "952b5726d640195551ce5324813ebb22c12e1260d1e1ac9d7c5d873060e23e01",
+  "reviewer_actions": {
+    "files_written": [
+      "review-round2.md",
+      "review-round2.json"
+    ],
+    "native_queries": 0,
+    "provider_calls": 0,
+    "scientific_or_statistical_computations": 0,
+    "scientific_or_tensor_reads": 0,
+    "subagents_spawned": 0,
+    "test_execution": 0
+  },
+  "reviewer_method": "SEPARATE_CODEX_ANALYST_UNDER_PARENT_VERIFIED_DIRECT_HUMAN_EXCEPTION_NOT_CROSS_MODEL",
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "source_clean": true,
+  "source_revision": "c9d32e64e9fce22f0b0105d951552ba462618809",
+  "suggested_next_action": "Classify resolved findings and all assessments/limits; derive exact hash-bound execution release from this raw verdict; execute reviewed once-only sequence with fresh admission and mandatory same-allocation native gates.",
+  "validity": {
+    "native_execution_and_scientific_effect": "NOT_ESTABLISHED",
+    "static_source_and_metadata": "HIGH"
+  },
+  "verdict": "PROMOTE",
+  "verified_context_files": 9,
+  "verified_packet_files": 9,
+  "verified_tracked_source_files": 226
+}

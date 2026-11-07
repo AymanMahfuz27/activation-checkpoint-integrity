@@ -1,0 +1,134 @@
+{
+  "afterany_original_ids": [
+    "3520038",
+    "3520048",
+    "3520049",
+    "3520050",
+    "3520051"
+  ],
+  "analysis_su_held": 3,
+  "at_utc": "2026-10-19T18:30:28.182049+00:00",
+  "automatic_retries": 0,
+  "automatic_retry": false,
+  "campaign_id": "e5-time-quality-20261019-v1",
+  "combined_original_and_e5_max_su": 105,
+  "contract_sha256": "fd9fa291d28ae8b57819180c6586164ea2acb0b3c340b55c9ec9a042785fded8",
+  "copy_only_terminal_authorization": {
+    "automatic_retry": false,
+    "campaign_id": "e5-time-quality-20261019-v1",
+    "input_copy_released": false,
+    "job_membership": "Only exact three registered E5 accepted IDs after terminal closure",
+    "operator_sha256": "32079d0e1da129fdf55f678d87257534508f655f530327e40f560faeb4fe232a",
+    "receiver_sha256": "59b28ba50b38ac1987bc58287a7b2beb375619865aa7d4f6cb01bafa2aaef3d1",
+    "required_proof": "Exact staged source path/member hashes/whole archive SHA plus independent receiver verification and live quota, exclusive transfer intent",
+    "scope": "COPY_ONLY_REGISTERED_TERMINAL_E5_EVIDENCE",
+    "source_removal_released": false,
+    "verdict": "PROMOTE"
+  },
+  "cross_model_review": false,
+  "e5_max_su": 45,
+  "findings": {
+    "E5-I1": {
+      "disposition": "FIXED_IN_EXACT_FINAL_SOURCE",
+      "priority": "P1"
+    },
+    "E5-I2": {
+      "disposition": "FIXED_IN_EXACT_FINAL_SOURCE",
+      "priority": "P1"
+    },
+    "E5-I3": {
+      "disposition": "FIXED_IN_EXACT_FINAL_SOURCE",
+      "priority": "P1"
+    },
+    "E5-I4": {
+      "disposition": "FIXED_IN_EXACT_FINAL_SOURCE",
+      "priority": "P1"
+    },
+    "E5-I5": {
+      "disposition": "FIXED_IN_EXACT_FINAL_SOURCE",
+      "priority": "P1"
+    },
+    "E5-I6": {
+      "disposition": "REQUIRED_ACTUAL_RESULT_CONTROL_AND_MATCHED_ENDPOINT_PARITY_VALIDATION",
+      "priority": "P2"
+    },
+    "FORECAST": {
+      "disposition": "PLANNING_ASSUMPTION_NOT_MEASURED_NATIVE_RUNTIME",
+      "priority": "P2"
+    },
+    "H1": {
+      "disposition": "FIXED_IN_EXACT_FINAL_SOURCE",
+      "priority": "P1"
+    },
+    "LOW_N": {
+      "disposition": "ACCEPTED_THREE_HISTORY_PAIRED_INFERENCE_AND_PARTIAL_COUNTERBALANCE_LIMITATION",
+      "priority": "P2"
+    }
+  },
+  "independent_agent_review": true,
+  "independent_review_sha256": "e09b668277034175c8a7a3530bce4ec66950cd61821c1d04c1b1fba7a51db46a",
+  "independently_verified": {
+    "clean_checkout": true,
+    "committed_and_current_source_hashes": 227,
+    "focused_engineering_passed": 13,
+    "focused_engineering_skipped_cuda": 1,
+    "focused_seconds": 3.68,
+    "frozen_original_e1e4_packet_unchanged": true,
+    "historical_target_source_hashes": 6,
+    "packet_members": 12,
+    "target_midpoints_and_exp_transform": true
+  },
+  "invalid_releases": [
+    "Immediate unheld allocation without budget proof",
+    "Original102SU ceiling plus45SU additional spending",
+    "Automatic retry/replacement/extra pilot",
+    "Original source or contract mutation",
+    "Source deletion",
+    "Invented target time or speedup for failed/censored arms",
+    "Scientific completion or favorable-result assertion"
+  ],
+  "m6_readiness_established": false,
+  "model_work_release": "CONDITIONAL_ON_SAVED_NATIVE_PASS_IN_EACH_ALLOCATION",
+  "operator_sha256": "32079d0e1da129fdf55f678d87257534508f655f530327e40f560faeb4fe232a",
+  "packet_files": {
+    "Actual-results-validation-notes.md": "a138c87a2dc151154a892e1c4c83a1efe87747550f7b646da8f8428fad9a2aec",
+    "E5-1.sbatch": "f92be0a3fa67845d2d0e3ffe52a8597f676cee507404c372e7e25c3db64a0e84",
+    "E5-2.sbatch": "76b87a612c02cf0b9b02bfd31708951b0156210ef38891b00d811c1d6280d370",
+    "E5-3.sbatch": "ff547fec127f3c10c59d083623fcd24d275bdb64ad3f1ed87d5f1c699db676bf",
+    "Protocol-and-outputs.md": "7a6a928f0f9a1afa28cc7d2a01693a5254bc141161d3047b5bd4200a6f00dfa5",
+    "Review-dispositions.md": "9700ad0fefcb876de3f27519d1829cc4073302ba7a83e196e516213e92f9f795",
+    "contract.json": "fd9fa291d28ae8b57819180c6586164ea2acb0b3c340b55c9ec9a042785fded8",
+    "input-custody.json": "68e57c3f7bec71081178cb241a61bb091358d2501c3769ac91acdb47684abac6",
+    "input-restore.json": "98109bac6d1209c78171b29551c3359144226cbf5fe8c0229a5dc13b7773a252",
+    "inputs.json": "c7de4f49d4f2d11b0389da6fcb78ba42c87f7d186c5b3e70017b4bab541a9c2b",
+    "phase-budget-ledger.json": "93d4139d612813528c599658d87457b74961c76b1da1d01ebf402c07118ae5bf",
+    "source.bundle": "ced72b9e2ff420a5a6e6c425b359d161cb0589481e51764442a817b5cfb224a2"
+  },
+  "packet_manifest_sha256": "fe9adadc4bb9298bfe1c6939c1373dbe423ab595ef9d6a0272c6a8ef416bc9e2",
+  "receiver_sha256": "59b28ba50b38ac1987bc58287a7b2beb375619865aa7d4f6cb01bafa2aaef3d1",
+  "registered_job_keys": [
+    "E5-1",
+    "E5-2",
+    "E5-3"
+  ],
+  "release_conditions": [
+    "Submit each registered held intent exactly once with afterany original five IDs",
+    "Before one unhold require all exact original parent accounting rows terminal and conservative rounded full-node charges+45E5+3analysis<=105",
+    "Fresh unique held identity/resource/actual batch hashes and full admission",
+    "Persist exclusive budget-release and release-intent digests before the one scheduler release",
+    "Per-allocation native admission recomputes raw budget and binds source/contract/execution release/intent",
+    "All native CUDA, pinned-runtime, input opaque/semantic restore, quota and state gates pass before model updates"
+  ],
+  "required_actual_validation": "Sealed Actual-results-validation-notes.md and independent complete outcome/custody/statistical review",
+  "review_memo": "independent-e5-review-round2.md",
+  "review_memo_sha256": "5db46f49e9e2efb9ed2fcddf250f7e4f6328f9f64e8a7c7024b3d82b852502d6",
+  "round1_review_sha256": "1b6157f835f0441653f54a1d64b638868e79026a4da8778f75ac7697b034efb9",
+  "scientific_completion_established": false,
+  "scientific_results_promoted": false,
+  "scope": "PRECHECK_ONLY",
+  "source_removal_released": false,
+  "source_revision": "d1daebd4022e860bf2175ef3d4495b2ea5319c74",
+  "submit_held_only": true,
+  "unhold_controller_authorized_once_conditionally": true,
+  "verdict": "PROMOTE"
+}

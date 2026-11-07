@@ -1,0 +1,3866 @@
+[
+  {
+    "id": "E3-ABFT-forward-clean-01",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 1,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-02",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 2,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-03",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 3,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-04",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 4,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-05",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 5,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-06",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 6,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-07",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 7,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-08",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 8,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-09",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 9,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-10",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 10,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-11",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 11,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-12",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 12,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-13",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 13,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-14",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 14,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-15",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 15,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-16",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 16,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-17",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 17,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-18",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 18,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-19",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 19,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-20",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 20,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-21",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 21,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-22",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 22,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-23",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 23,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-24",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 24,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-25",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 25,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-26",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 26,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-27",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 27,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-28",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 28,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-29",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 29,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-30",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 30,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-31",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-32",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 32,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-33",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 33,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-34",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 34,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-35",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 35,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-36",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 36,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-37",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 37,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-38",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 38,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-39",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 39,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-40",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 40,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-41",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 41,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-42",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 42,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-43",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 43,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-44",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 44,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-45",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 45,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-46",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 46,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-47",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 47,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-48",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 48,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-49",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 49,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-50",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 50,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-51",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 51,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-52",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 52,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-53",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 53,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-54",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 54,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-55",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 55,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-56",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 56,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-57",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 57,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-58",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 58,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-59",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 59,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-clean-60",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 60,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-00",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 171890,
+    "bit": 18
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-01",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 32,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1020879,
+    "bit": 13
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-02",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 33,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 3289052,
+    "bit": 1
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-03",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 34,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 5633579,
+    "bit": 11
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-04",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 35,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 5609416,
+    "bit": 22
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-05",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 36,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 4946236,
+    "bit": 12
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-06",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 37,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 137879,
+    "bit": 19
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-07",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 38,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 4461851,
+    "bit": 22
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-08",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 39,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 4816393,
+    "bit": 4
+  },
+  {
+    "id": "E3-ABFT-forward-fraction-09",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 40,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 2162184,
+    "bit": 5
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-00",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 41,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 814868,
+    "bit": 30
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-01",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 42,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1065907,
+    "bit": 25
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-02",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 43,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 917182,
+    "bit": 27
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-03",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 44,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 3829776,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-04",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 45,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1077060,
+    "bit": 25
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-05",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 46,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1094633,
+    "bit": 28
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-06",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 47,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 264469,
+    "bit": 27
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-07",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 48,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 5402372,
+    "bit": 26
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-08",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 49,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 5212500,
+    "bit": 29
+  },
+  {
+    "id": "E3-ABFT-forward-exponent-09",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 50,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 363075,
+    "bit": 23
+  },
+  {
+    "id": "E3-ABFT-forward-sign-00",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 51,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1936454,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-01",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 52,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 3798017,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-02",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 53,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1161009,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-03",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 54,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1455430,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-04",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 55,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 955876,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-05",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 56,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 4503742,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-06",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 57,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1393392,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-07",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 58,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1293968,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-08",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 59,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1508322,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-sign-09",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 60,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 475396,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-forward-balanced-cancellation",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "balanced-cancellation",
+    "mutation": "top-left 2x2 += [[1,-1],[-1,1]]"
+  },
+  {
+    "id": "E3-ABFT-forward-common-mode-operand",
+    "role": "forward",
+    "shape_mkn": [
+      2048,
+      768,
+      3072
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "common-mode-operand",
+    "mutation": "left operand element 0 sign bit31 before both paired products"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-01",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 1,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-02",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 2,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-03",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 3,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-04",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 4,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-05",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 5,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-06",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 6,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-07",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 7,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-08",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 8,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-09",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 9,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-10",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 10,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-11",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 11,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-12",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 12,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-13",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 13,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-14",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 14,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-15",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 15,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-16",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 16,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-17",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 17,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-18",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 18,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-19",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 19,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-20",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 20,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-21",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 21,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-22",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 22,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-23",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 23,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-24",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 24,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-25",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 25,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-26",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 26,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-27",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 27,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-28",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 28,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-29",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 29,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-30",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 30,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-31",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-32",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 32,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-33",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 33,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-34",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 34,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-35",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 35,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-36",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 36,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-37",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 37,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-38",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 38,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-39",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 39,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-40",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 40,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-41",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 41,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-42",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 42,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-43",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 43,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-44",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 44,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-45",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 45,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-46",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 46,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-47",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 47,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-48",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 48,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-49",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 49,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-50",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 50,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-51",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 51,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-52",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 52,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-53",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 53,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-54",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 54,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-55",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 55,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-56",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 56,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-57",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 57,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-58",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 58,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-59",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 59,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-clean-60",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 60,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-00",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1138956,
+    "bit": 19
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-01",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 32,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 600253,
+    "bit": 8
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-02",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 33,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 659888,
+    "bit": 0
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-03",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 34,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1234642,
+    "bit": 15
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-04",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 35,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 430743,
+    "bit": 4
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-05",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 36,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1533345,
+    "bit": 19
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-06",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 37,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 301218,
+    "bit": 5
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-07",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 38,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 513556,
+    "bit": 20
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-08",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 39,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 634549,
+    "bit": 17
+  },
+  {
+    "id": "E3-ABFT-input_gradient-fraction-09",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 40,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 478377,
+    "bit": 2
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-00",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 41,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 84738,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-01",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 42,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 40333,
+    "bit": 27
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-02",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 43,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 100217,
+    "bit": 26
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-03",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 44,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1410874,
+    "bit": 29
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-04",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 45,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 77493,
+    "bit": 30
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-05",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 46,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1180097,
+    "bit": 25
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-06",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 47,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1309964,
+    "bit": 29
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-07",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 48,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 839707,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-08",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 49,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 586809,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-input_gradient-exponent-09",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 50,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 204820,
+    "bit": 25
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-00",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 51,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1359679,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-01",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 52,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 376201,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-02",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 53,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 733846,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-03",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 54,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 445876,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-04",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 55,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1191564,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-05",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 56,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 794062,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-06",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 57,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 216171,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-07",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 58,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 213144,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-08",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 59,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 932707,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-sign-09",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 60,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1187423,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-input_gradient-balanced-cancellation",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "balanced-cancellation",
+    "mutation": "top-left 2x2 += [[1,-1],[-1,1]]"
+  },
+  {
+    "id": "E3-ABFT-input_gradient-common-mode-operand",
+    "role": "input_gradient",
+    "shape_mkn": [
+      2048,
+      3072,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "common-mode-operand",
+    "mutation": "left operand element 0 sign bit31 before both paired products"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-01",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 1,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-02",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 2,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-03",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 3,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-04",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 4,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-05",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 5,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-06",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 6,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-07",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 7,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-08",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 8,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-09",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 9,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-10",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 10,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-11",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 11,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-12",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 12,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-13",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 13,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-14",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 14,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-15",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 15,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-16",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 16,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-17",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 17,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-18",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 18,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-19",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 19,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-20",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 20,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-21",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 21,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-22",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 22,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-23",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 23,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-24",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 24,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-25",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 25,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-26",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 26,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-27",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 27,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-28",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 28,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-29",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 29,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-30",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 30,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "calibration"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-31",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-32",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 32,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-33",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 33,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-34",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 34,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-35",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 35,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-36",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 36,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-37",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 37,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-38",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 38,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-39",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 39,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-40",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 40,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-41",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 41,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-42",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 42,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-43",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 43,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-44",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 44,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-45",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 45,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-46",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 46,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-47",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 47,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-48",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 48,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-49",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 49,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-50",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 50,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-51",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 51,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-52",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 52,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-53",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 53,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-54",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 54,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-55",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 55,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-56",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 56,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-57",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 57,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-58",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 58,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-59",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 59,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-clean-60",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 60,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "clean-test"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-00",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 158298,
+    "bit": 10
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-01",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 32,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1198385,
+    "bit": 11
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-02",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 33,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1370436,
+    "bit": 5
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-03",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 34,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1917685,
+    "bit": 4
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-04",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 35,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1572633,
+    "bit": 4
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-05",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 36,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 2323705,
+    "bit": 8
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-06",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 37,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 1273189,
+    "bit": 19
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-07",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 38,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 30541,
+    "bit": 9
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-08",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 39,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 2344639,
+    "bit": 22
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-fraction-09",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 40,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "fraction",
+    "element": 919535,
+    "bit": 18
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-00",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 41,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 595383,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-01",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 42,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 248840,
+    "bit": 23
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-02",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 43,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 852764,
+    "bit": 28
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-03",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 44,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 314192,
+    "bit": 28
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-04",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 45,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 697782,
+    "bit": 27
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-05",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 46,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 312299,
+    "bit": 30
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-06",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 47,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1522878,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-07",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 48,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1903408,
+    "bit": 28
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-08",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 49,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 745939,
+    "bit": 26
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-exponent-09",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 50,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "exponent",
+    "element": 1980390,
+    "bit": 24
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-00",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 51,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 605543,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-01",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 52,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1024266,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-02",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 53,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 855688,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-03",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 54,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 959569,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-04",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 55,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1789555,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-05",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 56,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1405140,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-06",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 57,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 2048302,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-07",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 58,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 219198,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-08",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 59,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1952137,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-sign-09",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 60,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "post-product-bit",
+    "stratum": "sign",
+    "element": 1390773,
+    "bit": 31
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-balanced-cancellation",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "balanced-cancellation",
+    "mutation": "top-left 2x2 += [[1,-1],[-1,1]]"
+  },
+  {
+    "id": "E3-ABFT-weight_gradient-common-mode-operand",
+    "role": "weight_gradient",
+    "shape_mkn": [
+      3072,
+      2048,
+      768
+    ],
+    "production_clean_update": 31,
+    "layer": 0,
+    "microbatch": 0,
+    "kind": "common-mode-operand",
+    "mutation": "left operand element 0 sign bit31 before both paired products"
+  }
+]

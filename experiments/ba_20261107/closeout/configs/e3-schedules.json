@@ -1,0 +1,392 @@
+[
+  {
+    "policy": "disabled",
+    "seed": 1729,
+    "onset": "immediate",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 300,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "disabled",
+    "seed": 1729,
+    "onset": "delayed",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 290,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "disabled",
+    "seed": 1729,
+    "onset": "intermittent",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 73,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "startup",
+    "seed": 1729,
+    "onset": "immediate",
+    "first_possible_alert": 1,
+    "expected_primary_attempts_if_preflight_holds": 1,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "startup",
+    "seed": 1729,
+    "onset": "delayed",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 290,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "startup",
+    "seed": 1729,
+    "onset": "intermittent",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 73,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "period10",
+    "seed": 1729,
+    "onset": "immediate",
+    "first_possible_alert": 10,
+    "expected_primary_attempts_if_preflight_holds": 10,
+    "expected_counterfactual_active_attempts": 10,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "period10",
+    "seed": 1729,
+    "onset": "delayed",
+    "first_possible_alert": 20,
+    "expected_primary_attempts_if_preflight_holds": 20,
+    "expected_counterfactual_active_attempts": 10,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "period10",
+    "seed": 1729,
+    "onset": "intermittent",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 73,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "period100",
+    "seed": 1729,
+    "onset": "immediate",
+    "first_possible_alert": 100,
+    "expected_primary_attempts_if_preflight_holds": 100,
+    "expected_counterfactual_active_attempts": 100,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "period100",
+    "seed": 1729,
+    "onset": "delayed",
+    "first_possible_alert": 100,
+    "expected_primary_attempts_if_preflight_holds": 100,
+    "expected_counterfactual_active_attempts": 90,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "period100",
+    "seed": 1729,
+    "onset": "intermittent",
+    "first_possible_alert": null,
+    "expected_primary_attempts_if_preflight_holds": 300,
+    "expected_counterfactual_active_attempts": 73,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1729,
+    "onset": "immediate",
+    "first_possible_alert": 1,
+    "expected_primary_attempts_if_preflight_holds": 1,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1729,
+    "onset": "delayed",
+    "first_possible_alert": 14,
+    "expected_primary_attempts_if_preflight_holds": 14,
+    "expected_counterfactual_active_attempts": 4,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1729,
+    "onset": "intermittent",
+    "first_possible_alert": 79,
+    "expected_primary_attempts_if_preflight_holds": 79,
+    "expected_counterfactual_active_attempts": 18,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1730,
+    "onset": "immediate",
+    "first_possible_alert": 1,
+    "expected_primary_attempts_if_preflight_holds": 1,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1730,
+    "onset": "delayed",
+    "first_possible_alert": 11,
+    "expected_primary_attempts_if_preflight_holds": 11,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1730,
+    "onset": "intermittent",
+    "first_possible_alert": 11,
+    "expected_primary_attempts_if_preflight_holds": 11,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1731,
+    "onset": "immediate",
+    "first_possible_alert": 17,
+    "expected_primary_attempts_if_preflight_holds": 17,
+    "expected_counterfactual_active_attempts": 17,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1731,
+    "onset": "delayed",
+    "first_possible_alert": 17,
+    "expected_primary_attempts_if_preflight_holds": 17,
+    "expected_counterfactual_active_attempts": 7,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1731,
+    "onset": "intermittent",
+    "first_possible_alert": 31,
+    "expected_primary_attempts_if_preflight_holds": 31,
+    "expected_counterfactual_active_attempts": 6,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1732,
+    "onset": "immediate",
+    "first_possible_alert": 4,
+    "expected_primary_attempts_if_preflight_holds": 4,
+    "expected_counterfactual_active_attempts": 4,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1732,
+    "onset": "delayed",
+    "first_possible_alert": 20,
+    "expected_primary_attempts_if_preflight_holds": 20,
+    "expected_counterfactual_active_attempts": 10,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1732,
+    "onset": "intermittent",
+    "first_possible_alert": 39,
+    "expected_primary_attempts_if_preflight_holds": 39,
+    "expected_counterfactual_active_attempts": 8,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1733,
+    "onset": "immediate",
+    "first_possible_alert": 38,
+    "expected_primary_attempts_if_preflight_holds": 38,
+    "expected_counterfactual_active_attempts": 38,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1733,
+    "onset": "delayed",
+    "first_possible_alert": 38,
+    "expected_primary_attempts_if_preflight_holds": 38,
+    "expected_counterfactual_active_attempts": 28,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1733,
+    "onset": "intermittent",
+    "first_possible_alert": 43,
+    "expected_primary_attempts_if_preflight_holds": 43,
+    "expected_counterfactual_active_attempts": 9,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1734,
+    "onset": "immediate",
+    "first_possible_alert": 18,
+    "expected_primary_attempts_if_preflight_holds": 18,
+    "expected_counterfactual_active_attempts": 18,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1734,
+    "onset": "delayed",
+    "first_possible_alert": 18,
+    "expected_primary_attempts_if_preflight_holds": 18,
+    "expected_counterfactual_active_attempts": 8,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1734,
+    "onset": "intermittent",
+    "first_possible_alert": 31,
+    "expected_primary_attempts_if_preflight_holds": 31,
+    "expected_counterfactual_active_attempts": 6,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1735,
+    "onset": "immediate",
+    "first_possible_alert": 22,
+    "expected_primary_attempts_if_preflight_holds": 22,
+    "expected_counterfactual_active_attempts": 22,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1735,
+    "onset": "delayed",
+    "first_possible_alert": 22,
+    "expected_primary_attempts_if_preflight_holds": 22,
+    "expected_counterfactual_active_attempts": 12,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1735,
+    "onset": "intermittent",
+    "first_possible_alert": 63,
+    "expected_primary_attempts_if_preflight_holds": 63,
+    "expected_counterfactual_active_attempts": 14,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "randomized",
+    "seed": 1736,
+    "onset": "immediate",
+    "first_possible_alert": 9,
+    "expected_primary_attempts_if_preflight_holds": 9,
+    "expected_counterfactual_active_attempts": 9,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "randomized",
+    "seed": 1736,
+    "onset": "delayed",
+    "first_possible_alert": 21,
+    "expected_primary_attempts_if_preflight_holds": 21,
+    "expected_counterfactual_active_attempts": 11,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "randomized",
+    "seed": 1736,
+    "onset": "intermittent",
+    "first_possible_alert": 51,
+    "expected_primary_attempts_if_preflight_holds": 51,
+    "expected_counterfactual_active_attempts": 11,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  },
+  {
+    "policy": "every",
+    "seed": 1729,
+    "onset": "immediate",
+    "first_possible_alert": 1,
+    "expected_primary_attempts_if_preflight_holds": 1,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 300
+  },
+  {
+    "policy": "every",
+    "seed": 1729,
+    "onset": "delayed",
+    "first_possible_alert": 11,
+    "expected_primary_attempts_if_preflight_holds": 11,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 290
+  },
+  {
+    "policy": "every",
+    "seed": 1729,
+    "onset": "intermittent",
+    "first_possible_alert": 11,
+    "expected_primary_attempts_if_preflight_holds": 11,
+    "expected_counterfactual_active_attempts": 1,
+    "max_primary_attempts": 300,
+    "max_active_counterfactual_attempts": 73
+  }
+]

@@ -1,0 +1,87 @@
+{
+  "accounting_raw": "3520038|ccr26063|gpu-a100|FAILED|1075|1|1:0\n3520048|ccr26063|gpu-a100|COMPLETED|2536|1|0:0\n3520049|ccr26063|gpu-a100|COMPLETED|14913|1|0:0\n3520050|ccr26063|gpu-a100|COMPLETED|11120|1|0:0\n3520051|ccr26063|gpu-a100|COMPLETED|10915|1|0:0\n",
+  "analysis_reserved_su": 3,
+  "approved_ceiling_su": 105,
+  "at_utc": "2026-10-23T20:25:53.638489+00:00",
+  "combined_su": 84.0,
+  "contract_sha256": "fd9fa291d28ae8b57819180c6586164ea2acb0b3c340b55c9ec9a042785fded8",
+  "e5_job_ids": [
+    "3520353",
+    "3520355",
+    "3520356"
+  ],
+  "e5_reserved_su": 45,
+  "execution_release_sha256": "5f257de33e676401655152a698e548a78150a69be7e1968b4657c93ab62e61d2",
+  "fits": true,
+  "held_descriptors": {
+    "3520353": {
+      "actual_batch_sha256": "f92be0a3fa67845d2d0e3ffe52a8597f676cee507404c372e7e25c3db64a0e84",
+      "descriptor": "JobId=3520353 JobName=vgfull-E5-1 UserId=aymanmahfuz(893489) GroupId=G-828245(828245) MCS_label=N/A Priority=0 Nice=0 Account=CCR26063 QOS=qdefault JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=05:00:00 TimeMin=N/A SubmitTime=2026-10-19T13:30:33 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-19T13:30:33 Scheduler=Main Partition=gpu-a100 AllocNode:Sid=login2:3187815 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=12 NumTasks=1 CPUs/Task=12 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=12,mem=1M,node=1,billing=12 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=12 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null) Command=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-1.sbatch WorkDir=/home1/09999/aymanmahfuz StdErr=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-1-3520353.err StdIn=/dev/null StdOut=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-1-3520353.out Power= TresPerTask=cpu:12 \n"
+    },
+    "3520355": {
+      "actual_batch_sha256": "76b87a612c02cf0b9b02bfd31708951b0156210ef38891b00d811c1d6280d370",
+      "descriptor": "JobId=3520355 JobName=vgfull-E5-2 UserId=aymanmahfuz(893489) GroupId=G-828245(828245) MCS_label=N/A Priority=0 Nice=0 Account=CCR26063 QOS=qdefault JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=05:00:00 TimeMin=N/A SubmitTime=2026-10-19T13:30:35 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-19T13:30:35 Scheduler=Main Partition=gpu-a100 AllocNode:Sid=login2:3188988 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=12 NumTasks=1 CPUs/Task=12 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=12,mem=1M,node=1,billing=12 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=12 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null) Command=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-2.sbatch WorkDir=/home1/09999/aymanmahfuz StdErr=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-2-3520355.err StdIn=/dev/null StdOut=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-2-3520355.out Power= TresPerTask=cpu:12 \n"
+    },
+    "3520356": {
+      "actual_batch_sha256": "ff547fec127f3c10c59d083623fcd24d275bdb64ad3f1ed87d5f1c699db676bf",
+      "descriptor": "JobId=3520356 JobName=vgfull-E5-3 UserId=aymanmahfuz(893489) GroupId=G-828245(828245) MCS_label=N/A Priority=0 Nice=0 Account=CCR26063 QOS=qdefault JobState=PENDING Reason=JobHeldUser Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=05:00:00 TimeMin=N/A SubmitTime=2026-10-19T13:30:37 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-19T13:30:37 Scheduler=Main Partition=gpu-a100 AllocNode:Sid=login2:3189565 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=12 NumTasks=1 CPUs/Task=12 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=12,mem=1M,node=1,billing=12 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=12 MinMemoryNode=0 MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null) Command=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-3.sbatch WorkDir=/home1/09999/aymanmahfuz StdErr=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-3-3520356.err StdIn=/dev/null StdOut=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/e5-time-quality-20261019-v1/E5-3-3520356.out Power= TresPerTask=cpu:12 \n"
+    }
+  },
+  "original_conservative_su": 36.0,
+  "original_jobs": {
+    "3520038": {
+      "conservative_su": 1.5,
+      "elapsed_seconds": 1075,
+      "exit_code": "1:0",
+      "nodes": 1,
+      "state": "FAILED"
+    },
+    "3520048": {
+      "conservative_su": 2.25,
+      "elapsed_seconds": 2536,
+      "exit_code": "0:0",
+      "nodes": 1,
+      "state": "COMPLETED"
+    },
+    "3520049": {
+      "conservative_su": 12.75,
+      "elapsed_seconds": 14913,
+      "exit_code": "0:0",
+      "nodes": 1,
+      "state": "COMPLETED"
+    },
+    "3520050": {
+      "conservative_su": 9.75,
+      "elapsed_seconds": 11120,
+      "exit_code": "0:0",
+      "nodes": 1,
+      "state": "COMPLETED"
+    },
+    "3520051": {
+      "conservative_su": 9.75,
+      "elapsed_seconds": 10915,
+      "exit_code": "0:0",
+      "nodes": 1,
+      "state": "COMPLETED"
+    }
+  },
+  "source_revision": "d1daebd4022e860bf2175ef3d4495b2ea5319c74",
+  "storage": {
+    "command": [
+      "/usr/bin/lfs",
+      "quota",
+      "-u",
+      "893489",
+      "/work"
+    ],
+    "effective_file_limit": 3000000,
+    "effective_limit_bytes": 1099511627776,
+    "file_headroom": 2436112,
+    "file_usage": 563888,
+    "headroom_bytes": 115591929856,
+    "queried_at_utc": "2026-10-23T20:25:53.573043+00:00",
+    "raw_output": "Disk quotas for usr 893489 (uid 893489):\n     Filesystem  kbytes   quota   limit   grace   files   quota   limit   grace\n          /work 960859080       0 1073741824       -  563888       0 3000000       -\n",
+    "units": "Default lfs quota KiB counts converted to exact bytes",
+    "usage_bytes": 983919697920
+  }
+}

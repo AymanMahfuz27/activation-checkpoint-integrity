@@ -1,0 +1,74 @@
+{
+  "at_utc": "2026-11-07T18:38:19.928032+00:00",
+  "batch_sha256": "1366f929920fbc083e3c775d04a5b8e5d3114e1cbc9720e6f8262ca84e0538dc",
+  "changed_or_added_source": {
+    "source/batch_analysis.py": "72a1770e93dcc493e6650fa06c8ecfad40378ce4147c8652597fcfc09f40f85a",
+    "source/e1_disposition.py": "90e3dd51f0a0b8080d2f9ca014d59ef0038c26fb9415f0808cfccf6f7c76c84c",
+    "source/e4_provenance.py": "3eab28ce795a27c10a2914ef323640248498ef78c86ba56737979394975f0afe",
+    "source/run_closeout.py": "11cc5e52165625e4a65f239b024c154c8e428caa3c1d5f26b1b6c0ee476becb0",
+    "source/subset_analysis.py": "072b83d17efe6c89d34da624bf20f9c2c190657a5a56e0143235492acbada379",
+    "source/test_e1_disposition_allocated.py": "e0ddf7783122ab4f5cd716403b55c43ef546da41321ae5c4d8f87e127feab27c",
+    "source/test_e4_provenance_allocated.py": "04b272d69b383772c8ea516de419e47d740fd7de040add19e0ae13b8438dff25",
+    "source/test_subset_integration_allocated.py": "013a1f8dbc53d9ce3d4b56c211c9eff5df6d8bcf65d58f74e1d37b948de9cde8",
+    "source/test_subset_metadata_allocated.py": "454a94a531e5345f17258916a275578478c0ffb2bc0e00ad05e717355f65740c"
+  },
+  "contract_sha256": "4648342c7c3a73e619cd0514375e16f46a29df6d4edb32d3c33a736c8bc301ed",
+  "execution_conditions": [
+    "Fresh native account/grant/quota/queue admission by orchestrator",
+    "Exact final contract and source packet match reviewed bytes; no substantive edits",
+    "Exact batch hash and separately saved new execution release with real reviewer provenance",
+    "All90fixtures execute successfully without skips inside owned Slurm allocation before scientific reducers",
+    "All historical payload bytes/source revisions reverified by inherited guards",
+    "StrictE1errors retained; no aggregate scientific promotion from expected exceptional dispositions",
+    "Terminal outputs retained and independently reviewed; no automatic retry"
+  ],
+  "findings": [
+    {
+      "description": "Unrelated strict issues must not receive known exceptional label",
+      "disposition": "FIXED_STATIC: exact sole issue checked; extra-issue negative defined",
+      "id": "RV-E1-01"
+    },
+    {
+      "description": "Nonfinite rejection label must require paired original-reference error",
+      "disposition": "FIXED_STATIC: reference_error required; paired-reference negative defined",
+      "id": "RV-E1-02"
+    },
+    {
+      "description": "New wrapper omitted portable exact source/config archive and lineage",
+      "disposition": "FIXED_STATIC: source archive and new lineage before analysis",
+      "id": "RV-CUSTODY-01"
+    },
+    {
+      "description": "Old E4 metadata fixture supplied raw-only source contract",
+      "disposition": "FIXED_STATIC: three verified synthetic source files and independent expanded hash; existing isolation/scope/memory negatives unchanged",
+      "id": "RV-FIXTURE-01"
+    }
+  ],
+  "fixture_count": 90,
+  "fixture_execution": "NOT_RUN_BY_REVIEWER; actual allocated90fixtures required",
+  "reviewer": "/root/closeout_audit",
+  "schema": 1,
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "source_and_config_files": 53,
+  "source_packet_sha256": "6f705a59be0d986174a062518b0feef35623794f26e6460d4dec54ccc1d4d0fb",
+  "unchanged_historical_source": [
+    "test_baselines_allocated.py",
+    "test_batched_allocated.py",
+    "test_original_allocated.py",
+    "input_binding.py",
+    "export_reports.py",
+    "analysis_core.py",
+    "test_evidence_loading_allocated.py",
+    "test_analysis_core_allocated.py",
+    "run_subset.py",
+    "baseline_census.py",
+    "state_parity.py",
+    "frozen_schedules.py",
+    "analysis_e2.py",
+    "test_state_parity_allocated.py",
+    "analysis_original.py",
+    "evidence_loading.py"
+  ],
+  "verdict": "PROMOTE"
+}

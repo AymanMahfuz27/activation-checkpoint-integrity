@@ -1,0 +1,12 @@
+{
+  "automatic_retry": false,
+  "batch_sha256": "1366f929920fbc083e3c775d04a5b8e5d3114e1cbc9720e6f8262ca84e0538dc",
+  "campaign_id": "ba-closeout-20261107-v1",
+  "contract_sha256": "4648342c7c3a73e619cd0514375e16f46a29df6d4edb32d3c33a736c8bc301ed",
+  "review_sha256": "6ea43765be271cfea7ef30f04b5b31dbcd2acba4013db72684ed19ee074384c0",
+  "reviewer": "/root/closeout_audit",
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "source_packet_sha256": "6f705a59be0d986174a062518b0feef35623794f26e6460d4dec54ccc1d4d0fb",
+  "verdict": "PROMOTE"
+}

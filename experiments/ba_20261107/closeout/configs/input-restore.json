@@ -1,0 +1,8 @@
+{
+  "bytes": 1948071195,
+  "member": "corrected210-history1.pt",
+  "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/completion/e1e4-full-20261019-v2/input-transfer/restored-history1.pt",
+  "sha256": "f9a7026e81f3de64d4abeda41efb9c74743e06e79395a7a07e2a796f6fe356ff",
+  "source_archive": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-full-20261019-v2-inputs/full-evidence.tar",
+  "status": "OPAQUE_RESTORED_BYTE_EXACT_PENDING_ALLOCATED_VERIFICATION"
+}

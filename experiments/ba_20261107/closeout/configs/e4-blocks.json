@@ -1,0 +1,702 @@
+[
+  {
+    "id": "E4-startup-B01",
+    "policy": "startup",
+    "block": 1,
+    "job": 1,
+    "order": [
+      "disabled",
+      "startup"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B02",
+    "policy": "startup",
+    "block": 2,
+    "job": 1,
+    "order": [
+      "startup",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B03",
+    "policy": "startup",
+    "block": 3,
+    "job": 1,
+    "order": [
+      "disabled",
+      "startup"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B04",
+    "policy": "startup",
+    "block": 4,
+    "job": 1,
+    "order": [
+      "startup",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B05",
+    "policy": "startup",
+    "block": 5,
+    "job": 2,
+    "order": [
+      "disabled",
+      "startup"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B06",
+    "policy": "startup",
+    "block": 6,
+    "job": 2,
+    "order": [
+      "startup",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B07",
+    "policy": "startup",
+    "block": 7,
+    "job": 2,
+    "order": [
+      "disabled",
+      "startup"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B08",
+    "policy": "startup",
+    "block": 8,
+    "job": 3,
+    "order": [
+      "startup",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B09",
+    "policy": "startup",
+    "block": 9,
+    "job": 3,
+    "order": [
+      "disabled",
+      "startup"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-startup-B10",
+    "policy": "startup",
+    "block": 10,
+    "job": 3,
+    "order": [
+      "startup",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B01",
+    "policy": "period10",
+    "block": 1,
+    "job": 1,
+    "order": [
+      "period10",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B02",
+    "policy": "period10",
+    "block": 2,
+    "job": 1,
+    "order": [
+      "disabled",
+      "period10"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B03",
+    "policy": "period10",
+    "block": 3,
+    "job": 1,
+    "order": [
+      "period10",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B04",
+    "policy": "period10",
+    "block": 4,
+    "job": 1,
+    "order": [
+      "disabled",
+      "period10"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B05",
+    "policy": "period10",
+    "block": 5,
+    "job": 2,
+    "order": [
+      "period10",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B06",
+    "policy": "period10",
+    "block": 6,
+    "job": 2,
+    "order": [
+      "disabled",
+      "period10"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B07",
+    "policy": "period10",
+    "block": 7,
+    "job": 2,
+    "order": [
+      "period10",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B08",
+    "policy": "period10",
+    "block": 8,
+    "job": 3,
+    "order": [
+      "disabled",
+      "period10"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B09",
+    "policy": "period10",
+    "block": 9,
+    "job": 3,
+    "order": [
+      "period10",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period10-B10",
+    "policy": "period10",
+    "block": 10,
+    "job": 3,
+    "order": [
+      "disabled",
+      "period10"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B01",
+    "policy": "period100",
+    "block": 1,
+    "job": 1,
+    "order": [
+      "disabled",
+      "period100"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B02",
+    "policy": "period100",
+    "block": 2,
+    "job": 1,
+    "order": [
+      "period100",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B03",
+    "policy": "period100",
+    "block": 3,
+    "job": 1,
+    "order": [
+      "disabled",
+      "period100"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B04",
+    "policy": "period100",
+    "block": 4,
+    "job": 1,
+    "order": [
+      "period100",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B05",
+    "policy": "period100",
+    "block": 5,
+    "job": 2,
+    "order": [
+      "disabled",
+      "period100"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B06",
+    "policy": "period100",
+    "block": 6,
+    "job": 2,
+    "order": [
+      "period100",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B07",
+    "policy": "period100",
+    "block": 7,
+    "job": 2,
+    "order": [
+      "disabled",
+      "period100"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B08",
+    "policy": "period100",
+    "block": 8,
+    "job": 3,
+    "order": [
+      "period100",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B09",
+    "policy": "period100",
+    "block": 9,
+    "job": 3,
+    "order": [
+      "disabled",
+      "period100"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-period100-B10",
+    "policy": "period100",
+    "block": 10,
+    "job": 3,
+    "order": [
+      "period100",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 100,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B01",
+    "policy": "randomized",
+    "block": 1,
+    "job": 1,
+    "order": [
+      "randomized",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B02",
+    "policy": "randomized",
+    "block": 2,
+    "job": 1,
+    "order": [
+      "disabled",
+      "randomized"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1730,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B03",
+    "policy": "randomized",
+    "block": 3,
+    "job": 1,
+    "order": [
+      "randomized",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1731,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B04",
+    "policy": "randomized",
+    "block": 4,
+    "job": 1,
+    "order": [
+      "disabled",
+      "randomized"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1732,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B05",
+    "policy": "randomized",
+    "block": 5,
+    "job": 2,
+    "order": [
+      "randomized",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1733,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B06",
+    "policy": "randomized",
+    "block": 6,
+    "job": 2,
+    "order": [
+      "disabled",
+      "randomized"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1734,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B07",
+    "policy": "randomized",
+    "block": 7,
+    "job": 2,
+    "order": [
+      "randomized",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1735,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B08",
+    "policy": "randomized",
+    "block": 8,
+    "job": 3,
+    "order": [
+      "disabled",
+      "randomized"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1736,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B09",
+    "policy": "randomized",
+    "block": 9,
+    "job": 3,
+    "order": [
+      "randomized",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1737,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-randomized-B10",
+    "policy": "randomized",
+    "block": 10,
+    "job": 3,
+    "order": [
+      "disabled",
+      "randomized"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1738,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B01",
+    "policy": "every",
+    "block": 1,
+    "job": 1,
+    "order": [
+      "disabled",
+      "every"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B02",
+    "policy": "every",
+    "block": 2,
+    "job": 1,
+    "order": [
+      "every",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B03",
+    "policy": "every",
+    "block": 3,
+    "job": 1,
+    "order": [
+      "disabled",
+      "every"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B04",
+    "policy": "every",
+    "block": 4,
+    "job": 1,
+    "order": [
+      "every",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B05",
+    "policy": "every",
+    "block": 5,
+    "job": 2,
+    "order": [
+      "disabled",
+      "every"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B06",
+    "policy": "every",
+    "block": 6,
+    "job": 2,
+    "order": [
+      "every",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B07",
+    "policy": "every",
+    "block": 7,
+    "job": 2,
+    "order": [
+      "disabled",
+      "every"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B08",
+    "policy": "every",
+    "block": 8,
+    "job": 3,
+    "order": [
+      "every",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B09",
+    "policy": "every",
+    "block": 9,
+    "job": 3,
+    "order": [
+      "disabled",
+      "every"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  },
+  {
+    "id": "E4-every-B10",
+    "policy": "every",
+    "block": 10,
+    "job": 3,
+    "order": [
+      "every",
+      "disabled"
+    ],
+    "warmup_per_arm": 20,
+    "measured_per_arm": 30,
+    "schedule_seed": 1729,
+    "phase": "warmup consumes update IDs 1..20; measurement continues at 21"
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "bytes": 134217856,
+    "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/inputs/main-corpus/train.npy",
+    "fresh_opaque_hash_verified": false,
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/main-corpus/train.npy",
+    "role": "train",
+    "sha256": "5d75752ac19314882b7c6f162cb5f2d8754f01452f29334224ee86947cc50c07"
+  },
+  {
+    "bytes": 1948069851,
+    "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3495917/qualification/histories/seed-1234/warm10.pt",
+    "fresh_opaque_hash_verified": false,
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3495917/qualification/histories/seed-1234/warm10.pt",
+    "role": "early-history1234",
+    "sha256": "e6dbfcb2a9126f1b2f74883e0876d2c0ac1a11ed2be9eb3d2c480decd5760fc1",
+    "stage": "early-warm10"
+  },
+  {
+    "bytes": 1948071195,
+    "durable_work_exists_at_observation": true,
+    "durable_work_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3496051/clean/recovery-at-200.pt",
+    "fresh_opaque_hash_verified": false,
+    "hash_authority": "historical sidecar; not fresh opaque verification",
+    "new_ranch_custody_verified": false,
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3496051/impact/clean/recovery-at-200.pt",
+    "proposed_ranch_path": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-20261019/inputs/history-1234-corrected210.pt",
+    "role": "corrected210-history1234",
+    "sha256": "63a258ddef05c2c59e146db8282d58736f4f2fda7373dc7e2bef9c05b7baddb7"
+  },
+  {
+    "bytes": 1948071195,
+    "durable_work_exists_at_observation": false,
+    "durable_work_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3501924/clean/recovery-at-200.pt",
+    "fresh_opaque_hash_verified": false,
+    "hash_authority": "historical sidecar; not fresh opaque verification",
+    "new_ranch_custody_verified": false,
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3501924/impact/clean/recovery-at-200.pt",
+    "proposed_ranch_path": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-20261019/inputs/history-1-corrected210.pt",
+    "role": "corrected210-history1",
+    "sha256": "f9a7026e81f3de64d4abeda41efb9c74743e06e79395a7a07e2a796f6fe356ff"
+  },
+  {
+    "bytes": 1948071323,
+    "durable_work_exists_at_observation": false,
+    "durable_work_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3501989/clean/recovery-at-200.pt",
+    "fresh_opaque_hash_verified": false,
+    "hash_authority": "historical sidecar; not fresh opaque verification",
+    "new_ranch_custody_verified": false,
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3501989/impact/clean/recovery-at-200.pt",
+    "proposed_ranch_path": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-20261019/inputs/history-2-corrected210.pt",
+    "role": "corrected210-history2",
+    "sha256": "e39a45cdb981b1c45b9215eef29457a887bc08849c0bd5a6c1a295f6a61ab5d4"
+  },
+  {
+    "bytes": 4194436,
+    "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/inputs/final-holdout/holdout.npy",
+    "fresh_opaque_hash_verified": false,
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/final-holdout/holdout.npy",
+    "role": "final-holdout",
+    "sha256": "842f55762a8bd8d7d25d9d54962b800f677808a86f47e57c82058228f577174e"
+  }
+]

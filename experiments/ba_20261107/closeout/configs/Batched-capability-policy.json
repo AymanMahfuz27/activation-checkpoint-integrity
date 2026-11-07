@@ -1,0 +1,20 @@
+{
+  "abft_unexported_native_calibration": "unsupported; no exact original GPU reduction claimed",
+  "campaign_bound_su": 102,
+  "campaign_ceiling_su": 105,
+  "e2_primary_confidence": 0.975,
+  "e2_recovery_confidence": 0.99375,
+  "interval_units": "E2 three history means of two sites; E4 equal three jobs; E5 three paired histories",
+  "live_model_restore": false,
+  "max_su": 1,
+  "method_review_sha256": "8016f68787996868f7cd40e4b0fbab92ecf129a2dddf56b9a4c39e61966f6f90",
+  "model_or_scoring": false,
+  "new_training": false,
+  "old_failed_M4": "retained separately; excluded from repaired 638 denominator",
+  "prior_analysis_reserved_su": 1,
+  "process_rng_restore": false,
+  "recurring_monitor": false,
+  "remaining_analysis_su": 1,
+  "retry_authority": false,
+  "scope": "E1_E5_RECORD_ANALYSIS_ONLY"
+}
