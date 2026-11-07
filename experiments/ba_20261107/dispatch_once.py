@@ -11,25 +11,73 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shlex
+import secrets
 import subprocess
-import sys
+
+
+def framed_response(raw, marker):
+    """Select one nonce-prefixed JSON line while retaining terminal notices."""
+    lines = raw.decode("utf-8", errors="replace").splitlines()
+    matches = [line[len(marker) :] for line in lines if line.startswith(marker)]
+    if len(matches) != 1:
+        raise RuntimeError(
+            "Missing or duplicate receipt frame; reconcile only, never resubmit"
+        )
+
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Duplicate receipt JSON key")
+            result[key] = value
+        return result
+
+    result = json.loads(matches[0], object_pairs_hook=unique)
+    if not isinstance(result, dict) or type(result.get("returncode")) is not int:
+        raise RuntimeError("Invalid framed receipt; reconcile only")
+    return result
+
+
+def save_transport(record, stdout, stderr, returncode):
+    """Keep exact transport bytes and readable compatibility sidecars."""
+    stdout, stderr = stdout or b"", stderr or b""
+    (record / "stdout.raw").write_bytes(stdout)
+    (record / "stderr.raw").write_bytes(stderr)
+    (record / "stdout.txt").write_text(stdout.decode("utf-8", errors="replace"))
+    (record / "stderr.txt").write_text(stderr.decode("utf-8", errors="replace"))
+    (record / "returncode.txt").write_text(str(returncode) + "\n")
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('packet', type=Path)
-    parser.add_argument('record', type=Path)
+    parser.add_argument("packet", type=Path)
+    parser.add_argument("record", type=Path)
     args = parser.parse_args()
     packet = json.loads(args.packet.read_text())
     args.record.mkdir(parents=True, exist_ok=False)
-    (args.record / 'intent.json').write_text(json.dumps({
-        'at_utc': datetime.now(timezone.utc).isoformat(), 'packet': packet,
-        'packet_sha256': hashlib.sha256(args.packet.read_bytes()).hexdigest(),
-        'automatic_retry': False}, indent=2) + '\n')
-    remote = r'''
+    marker = "ACI_DISPATCH_" + secrets.token_hex(24) + ":"
+    orchestrator = Path(__file__).resolve()
+    orchestrator_sha = hashlib.sha256(orchestrator.read_bytes()).hexdigest()
+    intent = {
+        "at_utc": datetime.now(timezone.utc).isoformat(),
+        "packet": packet,
+        "packet_sha256": hashlib.sha256(args.packet.read_bytes()).hexdigest(),
+        "orchestrator_path": str(orchestrator),
+        "orchestrator_sha256": orchestrator_sha,
+        "response_marker": marker,
+        "automatic_retry": False,
+    }
+    with (args.record / "intent.json").open("x") as stream:
+        stream.write(json.dumps(intent, indent=2) + "\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    remote = r"""
 import hashlib,json,os,re,subprocess
 from pathlib import Path
 p=PACKET
+marker=FRAME_MARKER
+orchestrator_sha=ORCHESTRATOR_SHA
 root=Path('/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/ba-20261107')
 root.mkdir(exist_ok=True)
 checkout=root/p['checkout_name']
@@ -64,7 +112,7 @@ control=root/p['control_name'];control.mkdir(exist_ok=False)
 if 'release' in p:
     (control/'execution-release.json').write_text(json.dumps(p['release'],indent=2,sort_keys=True)+'\n')
 intent=control/'dispatch-intent.json'
-with intent.open('x') as f: json.dump({'packet':p,'automatic_retry':False},f,indent=2)
+with intent.open('x') as f: json.dump({'packet':p,'automatic_retry':False,'orchestrator_sha256':orchestrator_sha,'response_marker':marker},f,indent=2)
 env=os.environ.copy();env.update(p['environment'])
 result=subprocess.run(['sbatch','--parsable',str(checkout/p['batch'])],capture_output=True,text=True,env=env)
 receipt={'returncode':result.returncode,'stdout':result.stdout,'stderr':result.stderr,'automatic_retry':False}
@@ -76,21 +124,57 @@ if result.returncode==0:
     receipt['job_id']=job
     receipt['immediate_queue']=subprocess.check_output(['squeue','-j',job,'-o','%.18i %.16P %.20a %.28j %.8T %.10M %.10l %.6D %R'],text=True)
     (control/'accepted.json').write_text(json.dumps(receipt,indent=2)+'\n')
-print(json.dumps(receipt))
+print('\n'+marker+json.dumps(receipt),flush=True)
 raise SystemExit(result.returncode)
-'''
-    remote = remote.replace('PACKET', repr(packet), 1)
-    socket = f'/tmp/tacc-control-{os.getuid()}/ctrl-ls6-activation-checkpoint-integrity.sock'
-    result = subprocess.run(['ssh', '-S', socket, '-o', 'BatchMode=yes',
-            'aymanmahfuz@ls6.tacc.utexas.edu', 'python3', '-'],
-            input=remote, capture_output=True, text=True, timeout=150)
-    (args.record / 'stdout.txt').write_text(result.stdout)
-    (args.record / 'stderr.txt').write_text(result.stderr)
-    (args.record / 'returncode.txt').write_text(str(result.returncode) + '\n')
-    print(result.stdout)
-    print(result.stderr, file=sys.stderr)
+"""
+    remote = remote.replace("PACKET", repr(packet), 1)
+    remote = remote.replace("FRAME_MARKER", repr(marker), 1)
+    remote = remote.replace("ORCHESTRATOR_SHA", repr(orchestrator_sha), 1)
+    socket = (
+        f"/tmp/tacc-control-{os.getuid()}/ctrl-ls6-activation-checkpoint-integrity.sock"
+    )
+    # TACC's nonterminal shell startup can stall before the command. Request a
+    # terminal, but pass Python as a quoted command instead of feeding a PTY.
+    try:
+        result = subprocess.run(
+            [
+                "ssh",
+                "-tt",
+                "-S",
+                socket,
+                "-o",
+                "BatchMode=yes",
+                "aymanmahfuz@ls6.tacc.utexas.edu",
+                "python3 -c " + shlex.quote(remote),
+            ],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            timeout=150,
+        )
+    except subprocess.TimeoutExpired as error:
+        save_transport(args.record, error.stdout, error.stderr, "TIMEOUT_UNKNOWN")
+        (args.record / "transport-error.json").write_text(
+            json.dumps(
+                {
+                    "status": "AMBIGUOUS_TIMEOUT_RECONCILE_ONLY",
+                    "timeout_seconds": 150,
+                    "automatic_retry": False,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        raise
+    save_transport(args.record, result.stdout, result.stderr, result.returncode)
+    receipt = framed_response(result.stdout, marker)
+    (args.record / "parsed-response.json").write_text(
+        json.dumps(receipt, indent=2) + "\n"
+    )
+    print(json.dumps(receipt))
+    if result.returncode != receipt["returncode"]:
+        raise RuntimeError("Transport and framed return codes differ; reconcile only")
     return result.returncode
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())

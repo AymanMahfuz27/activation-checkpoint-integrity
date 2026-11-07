@@ -1,0 +1,81 @@
+{
+  "at_utc": "2026-11-07T20:27:57.527297+00:00",
+  "reviewer": "/root/closeout_audit; independent of setup implementation",
+  "experiment_id": "BA-SETUP-DEV-20261107-v1",
+  "scope": "PRECHECK_ONLY_CPU_DEV_ENVIRONMENT_QUALIFICATION",
+  "verdict": "PROMOTE",
+  "scientific_acceptance": false,
+  "execution_or_actual_setup_acceptance": false,
+  "contract_sha256": "efd4b2db5bc791f85d052381d405402234410c64d37596b6ca37a67622f1ac86",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup-dev.sbatch": "9ae7c9242bd8f61de92845aee1b8f9220f2227d5056c2eb549593a3d2c81bc91",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/ba_20261107/setup_preflight/preregistration.json": "1b3b2998e0cd4cecbdb863762663f20abfc05007ef62c6bc9d185d6405bba480",
+    "experiments/ba_20261107/setup_preflight/run_setup.py": "e63a4422e785f0755b2712a0a4ac3ff8bb3b4f9218a13e639b27cd669cf539ee"
+  },
+  "fixture_definition_count": 0,
+  "prior_actual_setup_failure_review_sha256": "4aa0dcbfce0678790fa972fd8f554c9b7264eae2d0e86ac16c1038240b5e93d1",
+  "implementation_report_sha256": "f11576210cdce0abf5de6a4bb5dcd5fe7ab4c10c5206576a23503d1a55d6225c",
+  "hypothesis": "A fresh job-specific Scratch environment can install the unchanged58hashlocked package set from the existing same-filesystem uv cache using real hardlinks and complete runtime/import validation within the20minute processing budget.",
+  "reviewed_method": [
+    "Pinned base Python invokes stdlib admission before any uv invocation, environment creation or third-party import. Existing owned-node/account/source/release/batch/quota/runtime guards remain unchanged.",
+    "One exclusive job-specific Scratch environment; same parent/cache and actual environment st_dev required. Existing exact 58-package hashlock unchanged; uv0.12.3/base Python3.13.7 are checked; sync uses require-hashes, explicit hardlink, same cu126 index/strategy.",
+    "Full installed importlib.metadata normalized-name/version census must equal all 58 lock pins exactly, without duplicates/extras. Interpreter/prefix and actual torch/numpy import locations must belong to this new environment.",
+    "Actual large libtorch_cuda.so must be regular, size>=64MB, nlink>=2 and share device+inode+size with at least one actual regular cache file; rejects representative copy fallback. Cache walk does not assume an opaque cache bucket layout and is bounded by processing deadline/file census.",
+    "No chmod, direct cache deletion or package-content mutation; uv owns cache transactions. Bytecode compilation/writes disabled. CPU child imports torch/numpy with CUDA_VISIBLE_DEVICES empty, requires unavailable CUDA/zero devices and exact CUDA-build metadata; no model or numerical fixture is run.",
+    "Representative library device/inode/size/mtime comparison enforced before and after read-only imports. Complete commands/raw output, metadata/version/filesystem/proof/source/result/failure/terminal/custody evidence retained; environment remains on Scratch, outside WORK evidence copy.",
+    "All installer/import subprocesses start in owned process groups; bounded wait kills only that group on interruption/timeout. Existing admission sets processing alarm and deadline with 600-second reserve; shell USR1/TERM handling forwards to its worker and bounds waiting. Internal results remain pending independent actual review."
+  ],
+  "resolved_findings": [
+    {
+      "id": "SETUP-COLLECTION-01",
+      "initial_issue": "Generic collector excluded ba-setup and demanded a nonexistent outer installed.txt.",
+      "resolution": "Collector now explicitly admits ba-setup and requires exactly runner/modules/exit shell controls; installed-freeze and metadata remain inside the receipted ba-setup directory. No change to other studies or scientific processing.",
+      "retrieve_results_sha256": "30205277ee664b5e574cfb7649772e213e835b395eb3c6ec2bc34d716d0d9aca"
+    }
+  ],
+  "blocking_findings": [],
+  "transport": {
+    "dispatcher_sha256": "4e6799f707a7c6dbacc1d700130a3b0e57bcbda55345e34d622b9adb27ced627",
+    "retrieve_results_sha256": "30205277ee664b5e574cfb7649772e213e835b395eb3c6ec2bc34d716d0d9aca",
+    "base_transport_review_sha256": "d95006b232988052e871b0c8cad47f35f57deafe513c964b7fc7a81a2efe87ed",
+    "setup_delta": "Only ba-setup study choice and three-control whitelist reviewed; source AST valid."
+  },
+  "required_actual_acceptance": [
+    "Real owned development allocation and exact newly committed/reviewed/released source; no automatic retry.",
+    "Saved actual admission and all command statuses succeed within allocation processing deadline, fresh exclusive venv/cache same-device proof, installed exact full58 census, regular actual representative cache inode proof, CPU import/prefix/build/visibility checks, stable representative library and complete custody.",
+    "Independent actual-result review before using or reusing the environment in a separately sealed GPU DEV package; all CUDA/native fixtures and scientific source/input/injection/noninterference gates remain unqualified."
+  ],
+  "limitations": [
+    "CPU setup passing within its at-most20minute processing window does not establish that a future fresh GPU install leaves the required20minutes. GPU admission must still independently pass its unchanged remaining-time gate; reuse/setup policy requires a new reviewed source/contract.",
+    "Hardlink proof is for the registered large representative library; this is not a proof that every installed file is hardlinked or byte-identical to a historical full environment.",
+    "Source enforces representative mtime stability but stat_record does not serialize mtime; an actual review can verify the enforced check and saved inode/size values, not independently reproduce an absent raw mtime pair.",
+    "Cache link counts/ctime naturally change when creating links; shared_files_modified=False means no direct package-content/permission modification, not invariant cache metadata.",
+    "A pre-admission failure can still require explicit append-only custody recovery; no successful setup or GPU release is inferred from source review."
+  ],
+  "validation": [
+    "Read complete checks.py/run_setup.py/batch/preregistration and engineer config-diff report; all six actual file hashes match contract4526c7e9.",
+    "AST parsed all sealed Python and collector; bash -n batch passed. Existing engineer stdlib metadata/owned-tempfile checks acknowledged, not redundantly rerun. No third-party import, remote operation or numerical execution.",
+    "Final contract efd4b2db hash verified; exact eight-key runtime whitelist checked, six source pins unchanged, collector30205277 unchanged."
+  ],
+  "official_method_references": [
+    {
+      "url": "https://docs.astral.sh/uv/concepts/cache/",
+      "checked": "Official same-filesystem linking requirement, versioned cache and prohibition on direct mutation; no performance guarantee inferred."
+    },
+    {
+      "url": "https://docs.astral.sh/uv/reference/cli/#uv-pip-sync",
+      "checked": "Official explicit link-mode/require-hashes controls; actual pinned version is checked by the allocated job."
+    }
+  ],
+  "verdict_reasoning": "The bounded CPU DEV package directly tests the observed setup failure mechanism with frozen dependencies and actual filesystem/inode evidence, preserves runtime and custody gates, and limits interpretation to setup readiness. No source blocker remains after collector integration correction.",
+  "supersedes_for_current_contract": {
+    "review": "dev-precheck.json",
+    "sha256": "2d60cf10e1d0325029d9dd49c80597474b17209450a03a0901449bed70c97459",
+    "old_contract_sha256": "efd4b2db5bc791f85d052381d405402234410c64d37596b6ca37a67622f1ac86"
+  },
+  "final_contract_amendment": "Only receipt enrichment: runtime_environment now additionally freezes CUDA_VISIBLE_DEVICES empty, PYTHONDONTWRITEBYTECODE1, UV_COMPILE_BYTECODE0. Batch and qualify already required them; unchanged common.admit now checks/records all eight keys before uv. All six source/config pins unchanged.",
+  "implementation_report_limit": "Engineer report references the prior4526c7e9 contract; its six-file pins/config diff/hypothesis remain identical. This review explicitly binds the final efd4b2db contract."
+}

@@ -1,0 +1,45 @@
+{
+  "admission": "Existing stdliballocated_common.admit verifies source/review/realownedCPUresources/batch/runtimeenvironment/quota BEFORE uvvenv/install.",
+  "baseline": "Same provenance-environment.lock, uv0.12.3, Python3.13.7 and original PyTorchcu126 extraindex/unsafe-best-match flags; historical setup copied packages from Scratch cache into tmp environment.",
+  "cache_contract": "Read-only metadata scan locates actualcachedinode without relying on opaquebucketnames. No chmod or directsharedcache/packagefile mutation; PYTHONDONTWRITEBYTECODE1,UV_COMPILE_BYTECODE0. uv alone manages cache transactionally.",
+  "documentation": [
+    {
+      "url": "https://docs.astral.sh/uv/concepts/cache/",
+      "used_for": "Samefilesystem requirement forlinking, cacheinternals areversioned, nevermutate cachedfilesdirectly."
+    },
+    {
+      "url": "https://docs.astral.sh/uv/reference/cli/#uv-pip-sync",
+      "used_for": "Explicit --link-modehardlink and --require-hashes pip-sync options."
+    }
+  ],
+  "environment_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/environments/ba-20261107/$SLURM_JOB_ID",
+  "execution_phase": "CPU_DEV_ENVIRONMENT_QUALIFICATION",
+  "experiment_id": "BA-SETUP-DEV-20261107-v1",
+  "falsification": "Differentfilesystem, copied/symlinkedrepresentative, absentmatchingcachedinode, differingpackagecensus/version/importprefix, importfailure, processingcutoff or installfailure =>failclosed/preservepartialScratchenv and evidence; no automaticretry orGPUrelease.",
+  "hypothesis": "A fresh job-specific Scratch environment can install the unchanged58hashlocked package set from the existing same-filesystem uv cache using real hardlinks and complete runtime/import validation within the20minute processing budget.",
+  "isolated_change": "Environment destination moved to project Scratch on same filesystem as cache; link-modehardlink replacescopy. No package pin, wheel hash or numerical setting changes.",
+  "no_claims": [
+    "No model/training or numericalfixture",
+    "No CUDAexecutionqualification",
+    "No CPU-vs-GPU scientificspeedup estimate",
+    "No performance claim from crosshardware setupdurations",
+    "No futureGPUenvironmentreuse beforeactualindependentreview"
+  ],
+  "qualification": [
+    "Exact58normalizeddistributionversionsmatch the unchangedhashlocked requirements.",
+    "BasePython3.13.7 and uv0.12.3 verified.",
+    "Actualvenvroot/cache st_dev equal; actuallarge libtorch_cuda.so shares st_dev/st_ino with a regularcachedfile and st_nlink>=2.",
+    "Installed torch2.13.0+cu126 and numpy2.5.2 import from thisnewprefix; CUDAvisibility deliberatelyhidden and availabilityFalse/devicecount0 expected.",
+    "Representative sharedlibrary inode/size/mtime stable through imports.",
+    "Fullraw uvstreams/commands/durations/environment/version/filesystem/link/source/failure/custody evidence retained."
+  ],
+  "resources": {
+    "cpus_per_task": 8,
+    "max_su": 0.5,
+    "nodes": 1,
+    "partition": "development",
+    "processing_budget_seconds": 1200,
+    "retention_reserve_seconds": 600,
+    "wall_minutes": 30
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "account": "CCR26063",
+  "automatic_retry": false,
+  "batch": "experiments/ba_20261107/setup-dev.sbatch",
+  "campaign_id": "ba-setup-dev-20261107-v1",
+  "cpus": 8,
+  "execution_phase": "CPU_DEV_ENVIRONMENT_QUALIFICATION",
+  "expected_package_count": 58,
+  "experiment_id": "BA-SETUP-DEV-20261107-v1",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup-dev.sbatch": "9ae7c9242bd8f61de92845aee1b8f9220f2227d5056c2eb549593a3d2c81bc91",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/ba_20261107/setup_preflight/preregistration.json": "1b3b2998e0cd4cecbdb863762663f20abfc05007ef62c6bc9d185d6405bba480",
+    "experiments/ba_20261107/setup_preflight/run_setup.py": "e63a4422e785f0755b2712a0a4ac3ff8bb3b4f9218a13e639b27cd669cf539ee"
+  },
+  "hypothesis": "A fresh job-specific Scratch environment can install the unchanged58hashlocked package set from the existing same-filesystem uv cache using real hardlinks and complete runtime/import validation within the20minute processing budget.",
+  "job_name": "vg-ba-setup-dev",
+  "max_su": 0.5,
+  "new_training_or_scoring": false,
+  "no_claims": [
+    "No model/training or numericalfixture",
+    "No CUDAexecutionqualification",
+    "No CPU-vs-GPU scientificspeedup estimate",
+    "No performance claim from crosshardware setupdurations",
+    "No futureGPUenvironmentreuse beforeactualindependentreview"
+  ],
+  "nodes": 1,
+  "output_max_bytes": 100000000,
+  "partition": "development",
+  "processing_budget_seconds": 1200,
+  "qualification_targets": [
+    "Exact58normalizeddistributionversionsmatch the unchangedhashlocked requirements.",
+    "BasePython3.13.7 and uv0.12.3 verified.",
+    "Actualvenvroot/cache st_dev equal; actuallarge libtorch_cuda.so shares st_dev/st_ino with a regularcachedfile and st_nlink>=2.",
+    "Installed torch2.13.0+cu126 and numpy2.5.2 import from thisnewprefix; CUDAvisibility deliberatelyhidden and availabilityFalse/devicecount0 expected.",
+    "Representative sharedlibrary inode/size/mtime stable through imports.",
+    "Fullraw uvstreams/commands/durations/environment/version/filesystem/link/source/failure/custody evidence retained."
+  ],
+  "requirements_lock": "experiments/ba_20261107/provenance-environment.lock",
+  "retention_reserve_seconds": 600,
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_COMPILE_BYTECODE": "0"
+  },
+  "time_limit": "00:30:00"
+}
