@@ -1,0 +1,136 @@
+{
+  "at_utc": "2026-11-07T23:18:29.615898+00:00",
+  "reviewer": "/root/closeout_audit; independent of matrix configuration author",
+  "experiment_id": "BA-PROVENANCE-20261107-v1",
+  "scope": "PRECHECK_ONLY_ORIGINAL_SIX_CASE_DEV_MATRIX_COMPLETION",
+  "verdict": "PROMOTE",
+  "scientific_acceptance": false,
+  "actual_matrix_execution_or_fixture_acceptance": false,
+  "contract_sha256": "5ac24ddc70b9b515ced5322ca51fd1075334fb46a14f125c2bce208879f519ba",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/copy_runtime.py": "be2f53f62e15b79391d9e1bfaa00d9022bb5e52fee1096b7508b9567b5352ffd",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/provenance-matrix-copy40-dev.sbatch": "9149fafd6f5a6cb44a368caef129427584b0bef72be9a0d3090f23eeedcd0fd8",
+    "experiments/ba_20261107/provenance/preregistration-copy40.json": "f7f728a5f4944006cf3885bbcc0e763a46cf0b0b199f2d8375e2bc9014092ff3",
+    "experiments/ba_20261107/provenance/preregistration-matrix-copy40.json": "dbf2e17e8740e2543880a8a3cc11e43865219852cc004f4592b7ef0f9a674570",
+    "experiments/ba_20261107/provenance/preregistration.json": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
+    "experiments/ba_20261107/provenance/provenance.py": "78024080402aeb35836f3ade06102272ff3eb781633cc281c0054e7f5e94af0e",
+    "experiments/ba_20261107/provenance/test_provenance_allocated.py": "0c429b5fec2489a5ad36b5079ff5895412763f9c5c244c84328cdcd67464e3ab",
+    "experiments/ba_20261107/provenance_job.py": "74dd09166512874ab99ff3c5445e745643b938b23e0cb78be03108e8091ac867",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b"
+  },
+  "fixture_definition_count": 6,
+  "case_order": [
+    [
+      6,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      11,
+      0
+    ],
+    [
+      6,
+      22
+    ],
+    [
+      0,
+      22
+    ],
+    [
+      11,
+      22
+    ]
+  ],
+  "execution_phase": "FULL_SIX_CASES",
+  "total_arms": 28,
+  "arm_plan": {
+    "per_case": [
+      "clean-native",
+      "clean-trace",
+      "fault-native",
+      "fault-trace"
+    ],
+    "primary_only_comparators": [
+      "checkpoint_boundaries-native",
+      "checkpoint_boundaries-trace",
+      "all_operators-native",
+      "all_operators-trace"
+    ]
+  },
+  "upstream_traceability": {
+    "implementation_report": {
+      "path": "experiments/ba_20261107/provenance/implementation-report-matrix.json",
+      "sha256": "e86fb6edeb815ff9e1a27b908df1e93e225bc724466067fcb41d040560ee6ed3"
+    },
+    "archivist_brief": {
+      "path": "artifacts/revision3/ba-20261107/researcher-brief.json",
+      "sha256": "d6db696696759fbdc4c70c6225c8914f7b0f327b1829f1008c7b868e8543641d",
+      "role": "Factual state, not scientific proposal or verdict"
+    },
+    "researcher_decision": "Parent-delivered PROCEED from /root/provenance_design for unchanged original six controls, recorded as conversation-only in implementation report. No matrix-method artifact is claimed; prior placement review is not substituted.",
+    "hypothesis": "Original registered primary GELU replay/backward mechanism; remaining fixed layer/bit cases are controls, not a newly invented held-out family."
+  },
+  "baseline_integrity": {
+    "status": "CONFIRMED_FOR_SOURCE",
+    "baseline_contract_sha256": "c9e1506ed55fc8732135753f7ac1ab40f48f4f4414bc19c97a02b10821410704",
+    "accepted_primary_job": "3562268",
+    "accepted_primary_review_sha256": "3b3bd54f128ab96f4ea392829567a5a3e9038a3f7ce1dd68c1c903b3f4afe2c1",
+    "accepted_placement_job": "3562498",
+    "accepted_placement_review_sha256": "eb91fa51cb1f55be1d98ba82b22ecae05cd7a9f2e9f56c512d423eb236c4482d",
+    "preserved": "All nine prior nonbatch execution source/config/fixture/lock pins, exact history/train inputs, historical contract, numerical settings, seven runtime keys and copy qualification unchanged."
+  },
+  "reviewed_delta": [
+    "Four new configuration/report files only. New batch differs from accepted primary batch only in job name, log paths and exclusive checkout namespace; same40minute1node8CPU A100DEV envelope<=2SU and copy bootstrap/retention behavior.",
+    "Existing core CASES literal exactly equals contract six-case order: (6,0),(0,0),(11,0),(6,22),(0,22),(11,22). FULL_SIX_CASES already selects all six; four arms per case plus four comparators only inside primary(6,0) branch yields28.",
+    "Scientific core78024080, wrapper74dd0916, copyhelperbe2f53f6 and six CUDA fixture methods are byte-identical to accepted primary. Exact input/history and environment58lock/7runtime keys preserved; primary visibility retains noCUDAoverride.",
+    "New matrix preregistration states original control completion, same outcome-neutral fields and explicit limits; original and copy40 preregistrations remain pinned and preserved.",
+    "Outcome-neutral source audit confirms summary records input/output equality and finite zero/nonzero VJP; fault-clean distances are reported without requiring changes. PRIMARY_EVENT byte admission and original detector comparators apply only to(6,0). No bit22-positive, output-equal or nonzero-effect assertion is added for controls.",
+    "All existing validity gates remain: actual ACCEPTED lifecycle, complete four original/replay/backward target observations, unambiguous microbatch joins, native approximate=none and exact observer endpoint parity. Invalid/nonfinite/coverage failures are retained, not relabeled as scientific negative success.",
+    "Exact review map adds primary3562268/PROMOTE and placement3562498/PROMOTE alongside reviewed GPU3561830/CPU3562135 MODIFY failures. Parent checks actual artifact contents/hash/scope/job before sealing release; runtime validates the sealed attestations at both stages."
+  ],
+  "blocking_findings": [],
+  "required_before_and_during_execution": [
+    "New committed source/release must bind this exact contract/precheck and all four actual review hashes with correct jobs/scopes/verdicts; never substitute source-only PROMOTE.",
+    "Parent must reconcile official OpGuard terminal accounting/custody and fresh queue before submission. Its scientific outcome is not a semantic prerequisite, but queue-self-only bootstrap remains mandatory; no overlapping owned pending/running work.",
+    "Fresh storage/quota/budget reconciliation and both source-bound native admissions; copy setup cutoff preserves1260seconds, postsetup original>=1200 and600retention remain unchanged. No runtime extension or automatic retry.",
+    "All six actual CUDA fixtures must pass without skips and all28 exact declared arms must be retained before full completion is claimed. Audit each case event/site/bits/input/output/actual-consumer joins, finite metrics and strict trace noninterference individually.",
+    "Review the repeated primary for consistency in the controlled quantities: event, training tensors/gradients, consumer/output pattern and checker decisions/census. Unused visibleCUDA1/2 RNG states are not controlled across fresh jobs; within-phase fullstate/RNG parity remains mandatory.",
+    "Independent actual-result review must preserve differing/equal outputs, zero/nonzero finite local VJP and changed/unchanged one-update endpoints as outcomes. Do not adapt sites or force the original primary result onto all controls."
+  ],
+  "budget": {
+    "this_job_cap_su": 2,
+    "declared_bound": {
+      "combined_bound_su": 7.655,
+      "combined_cap_su": 9,
+      "combined_gpu_bound_su": 7,
+      "cpu_runtime_based_estimate_su": 0.655,
+      "four_terminal_gpu_attempts_rate_estimate_su": 3,
+      "gpu_cap_su": 7.5,
+      "official_OpGuard_cap_su": 2,
+      "settled_debit": false,
+      "this_matrix_cap_su": 2
+    },
+    "assessment": "At already refreshed published rates, four terminal sub15minute GPU jobs estimate3SU; officialcap2+matrixcap2 yields7GPU<=7.5 and CPU1169/3600+1189/3600=.655, combined7.655<9. This is an estimated reservation bound, not settled debit or authorization for further retries."
+  },
+  "limits": [
+    "No new production sweep, held-out fault family, population coverage/incidence, algorithmic novelty, learning/recovery or overhead claim.",
+    "Repeated primary shares the same immutable history/state and is a consistency control, not an independent scientific replicate. Six layer/bit controls are not six independent histories.",
+    "Identical original/replay input hashes may match both roles. Only uniquely different input joins distinguish provenance; hashes do not establish shared storage identity.",
+    "Accepted placement control attributes the retained all-output miss to the tested post-producer-record delivery timing. Matrix late-hook arms cannot restore a generic intrinsic all-output blindness claim.",
+    "Execution completion alone does not establish every control supports the primary hypothesis; per-case validity and scientific conclusions remain distinct.",
+    "Primary-only recorded timings do not validate matrix duration or peak memory. Time/memory failure must remain a preserved failed attempt under the frozen resource gate."
+  ],
+  "validation": [
+    "All eleven actual pinned files match contract5ac24ddc; original nine nonbatch pins preserved. AST parses sealed Python, exact CASES literal matches order, source branch structure gives6*4+4=28, batch bash-n passes.",
+    "Complete new batch/prereg/config/report diff inspected and unchanged core outcome-neutral paths reviewed. Exact brief hashd6db6966 and implementation reporte86fb6ed verified.",
+    "Two targeted stdlib prerequisite negatives independently reject missing placement attestation and wrong primary job; correctly shaped four-attestation schema accepts. No fakeallocation/UV/qualify/numerical path called.",
+    "No remote query, Torch/NumPy/model import, tensor loading or numerical computation."
+  ],
+  "verdict_reasoning": "Configuration-only completion of the original frozen controls uses accepted source, explicit outcome-neutral interpretation, actual primary/placement prerequisites and unchanged allocation/scientific gates. Conditional source promotion is supported; matrix results remain unobserved."
+}

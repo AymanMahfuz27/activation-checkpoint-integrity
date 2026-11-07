@@ -1,0 +1,150 @@
+{
+  "arms": 28,
+  "baseline": "Pinned corrected210-history1234, original native completion execution, FP32 eager, preserved RNG, diagnostic batch4x512x4, seed1729, observer disabled",
+  "cases": [
+    [
+      6,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      11,
+      0
+    ],
+    [
+      6,
+      22
+    ],
+    [
+      0,
+      22
+    ],
+    [
+      11,
+      22
+    ]
+  ],
+  "execution": "Allocated A100 DEV40minutes<=2SU; complete the original six-case28-arm control matrix with unchanged core/runtime/fixtures; no automatic retry or production release",
+  "experiment_id": "BA-PROVENANCE-20261107-v1",
+  "falsification": "If backward consumes the unchanged input or input change does not reproduce, the proposed mechanism is unsupported; if outputs differ, this is not an output-equal gap; if observer changes state/gradients/counts or join is ambiguous, stop with retained failure",
+  "hypothesis": "The retained layer6 bit0 replay miss changes the actual saved input consumed by native GELU backward while the GELU outputs agree; explicit input observation exposes it without changing training.",
+  "isolated_change": "New GELU input/output and actual backward-argument observation; faults are separately matched within treatment",
+  "matrix_completion_amendment": {
+    "arm_plan": {
+      "per_case": [
+        "clean-native",
+        "clean-trace",
+        "fault-native",
+        "fault-trace"
+      ],
+      "primary_only_comparators": [
+        "checkpoint_boundaries-native",
+        "checkpoint_boundaries-trace",
+        "all_operators-native",
+        "all_operators-trace"
+      ],
+      "total_arms": 28
+    },
+    "automatic_retry": false,
+    "baseline_contract": "experiments/ba_20261107/provenance-copy40-dev-contract.json",
+    "baseline_contract_sha256": "c9e1506ed55fc8732135753f7ac1ab40f48f4f4414bc19c97a02b10821410704",
+    "baseline_phase": "DEV_PRIMARY_SMOKE",
+    "cases": [
+      [
+        6,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        11,
+        0
+      ],
+      [
+        6,
+        22
+      ],
+      [
+        0,
+        22
+      ],
+      [
+        11,
+        22
+      ]
+    ],
+    "classification": "ORIGINAL_REGISTERED_CONTROL_COMPLETION",
+    "execution_phase": "FULL_SIX_CASES",
+    "limits": [
+      "One fixed history/state and original six cases; no held-out family, population rate or fault incidence estimate.",
+      "No new input detector, algorithmic novelty, learning/recovery consequence or performance claim.",
+      "Unchanged equal input hashes identify values and may match both roles; only actual unique differing-input joins disambiguate original/replay.",
+      "Per-case delivered events/coverage/finite effects must be audited from retained actual records; execution completion alone is not scientific acceptance."
+    ],
+    "outcome_neutrality": "For every control, changed or equal GELU output, changed or unchanged finite same-cotangent VJP, and changed or unchanged one-update fault-clean endpoints are retained outcomes. Bit22 is not forced positive and no layer/bit/site is adapted. Validity and trace noninterference gates remain unchanged.",
+    "primary_repeat": "The repeated layer6bit0 is a consistency control from the same immutable history/state, not an independent replicate.",
+    "production_release": false,
+    "queue_constraint": "Owned queue must contain this exact job alone at bootstrap; wait until official OpGuard job3563136 is terminal before dispatch. OpGuard outcome is not a semantic prerequisite.",
+    "required_actual_reviews": {
+      "CPU_HARDLINK_FAILURE_REVIEWED": {
+        "job_id": "3562135",
+        "verdict": "MODIFY"
+      },
+      "GPU_SETUP_FAILURE_REVIEWED": {
+        "job_id": "3561830",
+        "verdict": "MODIFY"
+      },
+      "PLACEMENT_CONTROL_ACCEPTED": {
+        "job_id": "3562498",
+        "verdict": "PROMOTE"
+      },
+      "PRIMARY_PROVENANCE_ACCEPTED": {
+        "job_id": "3562268",
+        "verdict": "PROMOTE"
+      }
+    },
+    "single_change": "Select the already implemented FULL_SIX_CASES path instead of the accepted primary-onlyDEV phase; no scientific code or method changes.",
+    "timing_interpretation": "All faults use the unchanged historical late module-hook delivery. Accepted placement3562498 already attributes that all-operator miss to post-producer-record timing; the matrix cannot restore a generic intrinsic all-output blindness claim."
+  },
+  "no_claims": [
+    "Full OpGuard comparison",
+    "New observation algorithm or novelty",
+    "Learning impact",
+    "Overhead",
+    "Population coverage",
+    "Hardware fault incidence"
+  ],
+  "noninterference": "Exact full model/buffer/optimizer/scheduler/cursor/update/RNG state and pre-clipping gradient byte parity for trace on/off in each treatment; all four original/replay checkpoint contexts must remain",
+  "parameter_count_delta": 0,
+  "primary_admission": "Exactly reproduce the historical injection element and old/new bits before interpreting the mechanism",
+  "primary_case": [
+    6,
+    0
+  ],
+  "primary_event": {
+    "element": 6154933,
+    "new_bits_u32": 3198802411,
+    "old_bits_u32": 3198802410,
+    "role": "recompute"
+  },
+  "resource_only_amendment": {
+    "automatic_retry": false,
+    "baseline_preregistration": "experiments/ba_20261107/provenance/preregistration.json",
+    "baseline_preregistration_sha256": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
+    "dev_minutes": 40,
+    "environment_installation": "Fresh exclusive private node-local venv, same exact hashlocked requirements with --link-mode copy",
+    "max_su": 2,
+    "previous_dev_minutes": 30,
+    "previous_max_su": 1.5,
+    "production_release": false,
+    "reason": "Retained GPU3561830 exhausted the unchanged post-setup admission window; actual CPU3562135 hardlink attempt was unqualified. Preserve exact copy-installed packages and scientific methods with a larger DEV time envelope.",
+    "required_actual_review_scope": "Reviewed negative setup results enable resource-only amendment; their expected MODIFY verdicts do not establish CUDA/model qualification.",
+    "unchanged": "Hypothesis, model, data, state, seeds, device visibility, scientific source, fixture methods and census, input/historical pins, execution phase and case/arm selection, post-setup >=1200s admission and600s retention reserve."
+  },
+  "same_cotangent_vjp": "Use the actual native backward cotangent on both original and replay inputs, after natural execution, as a local derivative sensitivity diagnostic"
+}
