@@ -1,0 +1,91 @@
+{
+  "at_utc": "2026-11-07T20:37:39.318496+00:00",
+  "reviewer": "/root/closeout_audit; reviewer did not implement GPU bootstrap/qualifier",
+  "study": "opguard",
+  "scope": "CONDITIONAL_PRECHECK_ONLY_GPU_DEV_HARDLINK_ENVIRONMENT",
+  "verdict": "PROMOTE",
+  "scientific_acceptance": false,
+  "actual_setup_or_CUDA_acceptance": false,
+  "contract_sha256": "5b559763bbed67a53a729918af1aa178d0ec6b3a75a7cb32806873a1bb52b5f1",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/hardlink_runtime.py": "8332cc8098706169b4b01de2f3b86aa792401331f71c706832aed8b6a0eaa38e",
+    "experiments/ba_20261107/opguard-environment.in": "1aa79aa5b33651232b8e91fb0064d6c05427272a490ea5ecfbfc0cdf46b54c9c",
+    "experiments/ba_20261107/opguard-environment.lock": "e9e57154007bb9c4b3ea48226dee62e3eddec9404e5ebee52fbb5e2a79dcd34d",
+    "experiments/ba_20261107/opguard-hardlink-dev.sbatch": "bb623870a7c95e4633770186e5c784f2d8eaf57e7c19ab7d02bbd84fc0dbebcb",
+    "experiments/ba_20261107/opguard_baseline/aggregate.py": "00a1423e0d82dd608a169ae2b381b013db2fe2510ab4562d6cae7637eb505c62",
+    "experiments/ba_20261107/opguard_baseline/preregistration.json": "7941106860534b39cf016aab5031286b9725910b77a1eb967251ff31ccb4b2de",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/opguard_baseline/test_allocated.py": "348572a87a237d09ee0b1750718c3710b882b32cda1019cdf9ab0883a4f64dfe",
+    "experiments/ba_20261107/opguard_fixtures.py": "b9aaba2760859aec431c0485428ec4ead9367b6ca2d7d5d7574089d94342e79f",
+    "experiments/ba_20261107/opguard_job.py": "fef431ce823e4fd8dda4fe3b7f87d8b4a12f1dc85b5d0c11759bff89e0344676",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b"
+  },
+  "fixture_definition_count": 8,
+  "fixture_ids": [
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_registered_single_bit_input_delta_with_equal_outputs_qualifies",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_uncommitted_raw_trace_and_abnormal_child_exit_are_rejected",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_placeholder_and_wrong_regional_layout_are_not_value_coverage",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_gradient_state_or_reference_change_disqualifies_observer",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_native_smoke_and_signature_control_cannot_be_invented",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_installed_native_regional_xor_exposes_the_selected_single_bit",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_manifest_canonicalizes_singleton_and_expanded_zero_stride"
+  ],
+  "required_actual_reviews": [
+    "CPU_SETUP_HARDLINK_ACCEPTED",
+    "PRIMARY_PROVENANCE_ACCEPTED"
+  ],
+  "prior_scientific_source_review": {
+    "path": "artifacts/revision3/ba-20261107/review-opguard/single-device-precheck.json",
+    "sha256": "1b3c7fca2600e7d807e6982eaac7c6209b041d427918ba71d0879f090bd1e1cc"
+  },
+  "hypothesis_and_scientific_scope": "Existing registered scientific hypothesis and primary-only DEV phase unchanged. This amendment addresses fresh environment materialization and qualification, not model math, estimator, coverage or arm expansion.",
+  "baseline_integrity": "CONFIRMED_FOR_SOURCE: exact original scientific core/fixture/preregistration/lock hashes, fixture IDs, input descriptors and historical contract/source pins unchanged; no new numerical comparison reviewed.",
+  "reviewed_delta": [
+    "Fresh exclusive Scratch job-specific environment uses explicit uv hardlinks from canonical same-filesystem cache with exact require-hashes lock. BasePython3.13.7 and uv0.12.3 checked before installation.",
+    "Bootstrap invokes unchanged common.admit before uv for exact source/release/owned allocation/batch/runtime/quota and requires owned queue contains only self. Its setup cutoff is original remaining-minus1260seconds, preserving the original postsetup1200second minimum plus60second control margin.",
+    "Each scientific wrapper separately calls unchanged common.admit again after installation, then calls qualify before Torch, fixtures or model. AST comparison against exact oldf5caacc source proves the conditional qualifier block is its only change.",
+    "Qualifier requires executing isolated prefix/executable/Python and exact normalized installed58or65 distributions; regular large actual Torch cache+installed inode equality and actual same filesystem; no numerical modules already imported.",
+    "Both stages check the exact named prerequisite-review attestation map from the source/release hash-bound parent release. Missing/extra labels, nonPROMOTE, malformed review SHA or nondecimal job IDs fail.",
+    "Bootstrap own compact source/contract/release/raw command/failure/terminal/custody evidence is retained independently. Qualifier copies only setup evidence into scientific output and verifies every copied file SHA, never environment/cache. Each source-bound scientific fixture/release/noninterference/custody gate remains.",
+    "Owned process-group subprocess handling and early setup alarm retain failures without automatic retry. Shell signals forward to only the tracked worker; output retention remains bounded and source removal false."
+  ],
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "0",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_COMPILE_BYTECODE": "0"
+  },
+  "collector_amendment": {
+    "sha256": "18b8150bf9c30636ec17e41b84808ceb9f8b0dd504d9ddb22c62b46f97f98024",
+    "scope": "Add three explicit ba-{provenance,placement,opguard}-environment-setup choices. Known suffix maps outer controls to parent study; bootstrap failures collect exactly runner/modules/exit without requiring installed.txt. Existing normal GPU four controls and CPUcloseout eight controls unchanged.",
+    "source_precheck": "AST and complete relevant branches inspected; base nonce framing/SFTP/custody logic unchanged."
+  },
+  "blocking_findings": [],
+  "required_before_dispatch": [
+    "Parent independently accepts actual CPU setup3562135, checks its actual-result review content/scope/job/contract/custody, then binds its exact review SHA in the new release; static setup precheck is insufficient.",
+    "For placement/OpGuard, parent additionally independently accepts actual repaired primary provenance before release. Preserve all earlier failed attempts. No dependent or automatic dispatch from this source precheck.",
+    "Fresh reviewed execution revision/release and independent queue/quota/source checks; sequential dispatch because bootstrap owns-self-only queue census.",
+    "Actual fresh bootstrap success, postsetup common admission>=1200seconds, exact versions/inode qualification and every original CUDA/native/scientific gate must pass; retain all failure/unsupported evidence and independent actual review."
+  ],
+  "limits": [
+    "prerequisites() validates sealed parent release attestations and SHA syntax, not the referenced actual-review file contents. Parent must verify stage-specific actual acceptance and exact owning evidence before creating that attestation; this code cannot distinguish a mislabeled PRECHECK_ONLY PROMOTE hash.",
+    "The60second control margin is a bound to attempt fresh admission, not proof that retention/control overhead fits. Excess overhead must fail the unchanged second admission, not relax it.",
+    "Inode proof covers the registered representative large library, not all package-file hardlink identities or historical full-environment byte equality.",
+    "Bootstrap admission/source/storage failure before a returned contract may still require append-only external custody recovery. Setup-only results/terminal0 are not scientific acceptance.",
+    "Primary retains prior CUDA visibility policy with no override; placement/OpGuard retain CUDA_VISIBLE_DEVICES0 and one-device scientific guard. No crossphase full-RNG equivalence claim.",
+    "No measured hardlink setup improvement, actual CUDA fixture pass, model outcome, scientific speedup or full-six-case completion follows from source review."
+  ],
+  "validation": [
+    "All actual9/10/12source pins match respective final contracts; original core/fixture/preregistration/lock, inputs/history, scientific phase and resource fields are unchanged; all fixture IDs identical.",
+    "Complete helper, three batches and wrapper insertion inspected; AST parses all pinned Python, bash-n passes all batches. Exact wrapper AST equals prior pinnedf5caacc after removing only the conditional qualifier block.",
+    "Four independent stdlib-only prerequisite parser negatives reject missing, extra, nonPROMOTE and malformedSHA attestations; correctly formed attestation shape accepts. No allocation/network/bootstrap/qualify/model path called, no numerical import.",
+    "Prior engineer stdlib failed-command retention checks acknowledged; no redundant numerical or remote test performed."
+  ],
+  "verdict_reasoning": "The environmental amendment preserves scientific source and original admission gates, provides actual inode/version evidence in each allocation and retains bounded setup failures. Conditional source acceptance is appropriate; actual prerequisites and all allocated stages remain open."
+}

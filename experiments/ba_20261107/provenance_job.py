@@ -37,6 +37,9 @@ def main():
         with tarfile.open(out / 'exact-experiment-source-and-config.tar.gz', 'x:gz') as archive:
             for name in sorted(contract['files']):
                 archive.add(checkout / name, arcname=name, recursive=False)
+        if contract.get('environment_installation') == 'FRESH_SCRATCH_HARDLINK_V1':
+            from hardlink_runtime import qualify
+            qualify(checkout, out, contract)
         historical = Path(contract['source_path'])
         original = contract['historical_contract']
         historical_revision = command(out, 'historical-head', ['git', '-C', str(historical), 'rev-parse', 'HEAD']).strip()

@@ -157,7 +157,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("job")
     parser.add_argument(
-        "study", choices=["ba-closeout", "ba-provenance", "ba-placement", "ba-opguard", "ba-setup"]
+        "study", choices=[
+            "ba-closeout", "ba-provenance", "ba-placement", "ba-opguard", "ba-setup",
+            "ba-provenance-environment-setup", "ba-placement-environment-setup",
+            "ba-opguard-environment-setup",
+        ]
     )
     parser.add_argument("destination", type=Path)
     args = parser.parse_args()
@@ -300,7 +304,7 @@ def main():
         archive.add(folder, arcname=args.study)
     # Preserve only declared, nonsecret shell controls. They live outside the
     # scientific folder because the final exit record is written by the shell.
-    prefix = "analysis" if args.study == "ba-closeout" else args.study
+    prefix = "analysis" if args.study == "ba-closeout" else args.study.removesuffix("-environment-setup")
     names = (
         (
             [
@@ -328,7 +332,7 @@ def main():
             )
         ]
     )
-    if args.study == "ba-setup":
+    if args.study == "ba-setup" or args.study.endswith("-environment-setup"):
         # Setup installs only after admission, so its installed-freeze evidence
         # lives inside the receipted study rather than the outer shell controls.
         names = [prefix + suffix for suffix in ("-runner.log", "-modules.txt", "-exit-code.txt")]
