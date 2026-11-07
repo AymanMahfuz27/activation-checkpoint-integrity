@@ -13,7 +13,8 @@
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_gradient_state_or_reference_change_disqualifies_observer",
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_native_smoke_and_signature_control_cannot_be_invented",
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_installed_native_regional_xor_exposes_the_selected_single_bit",
-    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object"
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_manifest_canonicalizes_singleton_and_expanded_zero_stride"
   ],
   "hypothesis": "Official configured layer6 activation input I/O summaries expose the retained single-bit replay input change while its activation output signature agrees, without changing the matched native training execution.",
   "isolated_change": "Official make_wrapper applied only to unique layer6 activation.forward; metadata/count-only actual-intervention context accessor shared by native/official arms.",

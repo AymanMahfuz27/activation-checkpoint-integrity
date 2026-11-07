@@ -28,7 +28,7 @@ def digest(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('job')
-    parser.add_argument('study', choices=['ba-closeout', 'ba-provenance'])
+    parser.add_argument('study', choices=['ba-closeout', 'ba-provenance', 'ba-placement', 'ba-opguard'])
     parser.add_argument('destination', type=Path)
     args = parser.parse_args()
     if not args.job.isdecimal():

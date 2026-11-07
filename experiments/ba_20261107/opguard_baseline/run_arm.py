@@ -64,7 +64,7 @@ def manifest(value, completion):
             require(leaf.layout == torch.strided, "Unsupported nonstrided state")
             raw = (
                 leaf.detach()
-                .contiguous()
+                .clone(memory_format=torch.contiguous_format)
                 .reshape(-1)
                 .view(torch.uint8)
                 .cpu()

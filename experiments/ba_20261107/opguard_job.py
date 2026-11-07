@@ -163,8 +163,8 @@ def main():
 
         if torch.__version__ != '2.13.0+cu126' or numpy.__version__ != '2.5.2':
             raise RuntimeError('Pinned torch/numpy runtime differs')
-        if not torch.cuda.is_available() or torch.cuda.device_count() < 1:
-            raise RuntimeError('Allocated CUDA device unavailable')
+        if not torch.cuda.is_available() or torch.cuda.device_count() != 1:
+            raise RuntimeError('Exactly one registered logical CUDA device required')
         properties = torch.cuda.get_device_properties(0)
         if 'A100' not in properties.name or properties.major != 8 or properties.minor != 0:
             raise RuntimeError('Registered A100 device required')

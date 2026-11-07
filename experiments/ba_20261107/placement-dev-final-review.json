@@ -1,0 +1,65 @@
+{
+  "arm_count": 8,
+  "at_utc": "2026-11-07T19:44:55.446460+00:00",
+  "blocking_findings": [],
+  "campaign_id": "ba-placement-dev-20261107-v1",
+  "contract_sha256": "ad4ae4dfb1bdf33ceca99ab9b225383e1303b18dd4eb10f01260c17004085706",
+  "execution_or_actual_fixture_acceptance": false,
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/placement-dev.sbatch": "2620b6a812e8211cf5005c4e8c817a4b712a7e63b86cc46bc9dec22fb5e11f65",
+    "experiments/ba_20261107/placement/injector.py": "488886c9699c7d669d97cf8ab718e0012d6e4cf433ebbae0f737e5cf22a16439",
+    "experiments/ba_20261107/placement/preregistration.json": "c7b4d8f26dfcb90ff45871d87f8de3eaf38d0ace510ea25e3ddf073658a2255a",
+    "experiments/ba_20261107/placement/run_placement.py": "f4dd2fe86f5fc682f69bd50be47697ac2e53ebe323713eaa4d6ab6459850573a",
+    "experiments/ba_20261107/placement/test_allocated.py": "0f22e68d2466e9d7ff4439cf527634968594d20c540f8ca0dc5139048d3c398b",
+    "experiments/ba_20261107/placement_job.py": "3baaae4f14f16648d8a20575d5440fe36fdda8009d1235253168d2cdef53e0ba",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de"
+  },
+  "fixture_definition_count": 7,
+  "limits": [
+    "No numerical/model/CUDA test executed locally",
+    "Endpoint equivalence is scoped to full gradients/accepted state/event bytes; no new GELU saved-input trace or general alias-preservation proof",
+    "One selected fault/history/state; no population, physical incidence, performance, full competitor or new-detector novelty claim",
+    "Source-level order/alias reasoning must be confirmed by actual allocated fixtures and model parity",
+    "A post-observation mutation result weakens claims about observation of every perturbed producer output; it does not certify general output-only safety"
+  ],
+  "method_review_sha256": "aacf284f8ff038072780a91b98a4a1ad34839b529827daa762171a0d7ee5c847",
+  "required_before_and_during_execution": [
+    "Independent actual acceptance of repaired primary DEV before this dependent dispatch",
+    "Fresh source/contract/reviewer/commit/batch bound release and native grant/quota/queue admission",
+    "Actual runtime environment receipt, visible CUDA count1, exact historical source/input bytes and A100 qualification",
+    "All seven allocated CUDA fixtures pass without errors/failures/skips before eight-arm model study",
+    "Do not interpret checker decisions if early/late delivery parity or observer noninterference/census unsupported",
+    "Preserve raw partials/failures, full custody and independent actual-result review; no automatic retry or production expansion"
+  ],
+  "resolved_findings": [
+    {
+      "id": "PLACE-RETENTION-01",
+      "issue": "Derived context/census validation could mask the original ERROR row and discard lower-mode delivery evidence",
+      "resolution": "run_arm now writes raw-arm-execution.json immediately after completion.execute/context exit and before every derived gate; includes original row, restore receipt, actual contexts and early candidates/deliveries/order. No tensor dump or relaxed gate."
+    }
+  ],
+  "reviewed_method": [
+    "Reads original pinned module-hook injector and upper CaptureMode dispatch directly. Late faults arrive after producer record; early lower mode invokes natural addmm once and returns clone-mutated output before upper record. Shared capture recursion flag is intentionally ignored in lower mode; mutation bookkeeping disables modes only after natural op.",
+    "Exact region/role/operator/operand schema, output shape/dtype/contiguity/numel, old/new bits and first-occurrence census qualified; no site search or fallback. Fixed flat coordinate shared across deliberate native2D/module3D shapes.",
+    "Original intervention class remains unchanged; subclass exposes actual instance/context and removes only late hook installation for early arms. Native clone strategy records version/pointer/view metadata; mathematical derivative independence is not assumed sufficient.",
+    "Each full-model arm restores exact complete prestate; accepted early/late and observed/unobserved faults require strict finite byte/value equality of full state, preclip and postclip gradients, including RNG. All eight contexts per region and matched observer populations checked.",
+    "Rejecting early enforce must retain same finite preclip gradients and all protected persistent prestate except RNG; no postclip transition reached and no rollback or RNG-restoration claim. Valid nonpredicted checker patterns are retained separately.",
+    "Clean early lower mode remains installed with disabled fault/alloutput observation, zero events, finite gradient and complete matching pairs. This is a mode-specific negative control, not an additional independent clean observer endpoint comparison.",
+    "Seven allocated definitions cover actual upper CaptureMode ordering, helper-event exclusion, disabled/original behavior, duplicate/missing candidate rejection, wrong bits/shape/schema, tiny cloned-output autograd parity and zero-stride logical byte/source immutability. Actual fixture pass remains required.",
+    "Frozen single-device mapping matches old per-worker CUDA_VISIBLE_DEVICES; avoids uncontrolled unused device RNGs in fresh-process baseline. No cross-phase full RNG manifest equivalence to three-visible-device primary is claimed."
+  ],
+  "reviewer": "/root/closeout_audit; did not implement placement source/method",
+  "runtime_environment": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "0",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4"
+  },
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "verdict": "PROMOTE",
+  "visible_cuda_devices": 1
+}

@@ -13,15 +13,15 @@
   "falsification": "Any changed native fullstate/gradient/injection/replaycount disqualifies observation. Missing, fallback, metadata-only, ambiguous, partial or undrained official summaries are unsupported rather than detector misses. Changed output signatures falsify the claimed output-equal case. A failed single-bit signature control is unqualified and cannot support a miss claim.",
   "files": {
     "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
-    "experiments/ba_20261107/opguard-dev.sbatch": "7456ab1eebc95481934c9876b0814fc07f9ab79e74359dc7a5c6d4aace682570",
+    "experiments/ba_20261107/opguard-dev.sbatch": "a685e27532f4c0d31146676ae99204515b5bc0414052912f2242ab37ea519cbf",
     "experiments/ba_20261107/opguard-environment.in": "1aa79aa5b33651232b8e91fb0064d6c05427272a490ea5ecfbfc0cdf46b54c9c",
     "experiments/ba_20261107/opguard-environment.lock": "e9e57154007bb9c4b3ea48226dee62e3eddec9404e5ebee52fbb5e2a79dcd34d",
     "experiments/ba_20261107/opguard_baseline/aggregate.py": "00a1423e0d82dd608a169ae2b381b013db2fe2510ab4562d6cae7637eb505c62",
-    "experiments/ba_20261107/opguard_baseline/preregistration.json": "edf54f69c4703cfa5828dd75ca9461e7c6fff6614f0f200002030a57615aaeab",
-    "experiments/ba_20261107/opguard_baseline/run_arm.py": "a498f51c7b95dab213316a9f63491002c13ca7147e28b41daa4783e50fbdfe0b",
-    "experiments/ba_20261107/opguard_baseline/test_allocated.py": "dfa0c7988ca2489bd8e6dc31742212adcdead6c66ca77e818a72582a1718755b",
+    "experiments/ba_20261107/opguard_baseline/preregistration.json": "7941106860534b39cf016aab5031286b9725910b77a1eb967251ff31ccb4b2de",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/opguard_baseline/test_allocated.py": "348572a87a237d09ee0b1750718c3710b882b32cda1019cdf9ab0883a4f64dfe",
     "experiments/ba_20261107/opguard_fixtures.py": "b9aaba2760859aec431c0485428ec4ead9367b6ca2d7d5d7574089d94342e79f",
-    "experiments/ba_20261107/opguard_job.py": "87494f4ac6efa14ced30df3f6b38a35a8262f9629ea6395235cd14cbb9add024"
+    "experiments/ba_20261107/opguard_job.py": "0234e1200c22a33db433b4aa0986d2b945f3901b20ef71cf23a2ed94ac27a905"
   },
   "fixture_ids": [
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_registered_single_bit_input_delta_with_equal_outputs_qualifies",
@@ -30,7 +30,8 @@
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_gradient_state_or_reference_change_disqualifies_observer",
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_native_smoke_and_signature_control_cannot_be_invented",
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_installed_native_regional_xor_exposes_the_selected_single_bit",
-    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object"
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_manifest_canonicalizes_singleton_and_expanded_zero_stride"
   ],
   "historical_contract": {
     "campaign_id": "m4-repair-20261025-v1",
@@ -756,6 +757,7 @@
     "role": "recompute"
   },
   "process_isolation": "Each of four arms runs in a fresh normally exiting process; parent validates zero status and normal exit before reading drained official raw JSONL.",
+  "qualification_amendment": "Preventive canonical-stride logical-byte manifests and expanded singleton byte/source-immutability regression, motivated by provenance DEV3561684. No OpGuard runtime failure has been observed. Repaired primary DEV actual review remains required.",
   "raw_outputs": [
     "arm-result.json typedstate/gradient manifests and original intervention record",
     "child stdout/stderr/outcome receipts",
@@ -766,6 +768,7 @@
   ],
   "runtime_environment": {
     "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "0",
     "MAX_JOBS": "4",
     "MKL_NUM_THREADS": "4",
     "OMP_NUM_THREADS": "4",
@@ -779,5 +782,7 @@
     "clean-official",
     "fault-native",
     "fault-official"
-  ]
+  ],
+  "visibility_scope": "Original M3/M4 worker visibility: one logical GPU. Fresh-process comparisons require all recorded RNG streams controlled; unused physical GPU generators are excluded by visibility before Python initialization.",
+  "visible_cuda_devices": 1
 }

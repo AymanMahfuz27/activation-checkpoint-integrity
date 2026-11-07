@@ -1,10 +1,12 @@
 """Allocated native XOR/wrapper and retained-trace rejection controls."""
 
 import copy
+import hashlib
 import json
 import os
 from pathlib import Path
 import sys
+import struct
 import tempfile
 import unittest
 
@@ -246,6 +248,26 @@ class OfficialBaselineFixtures(unittest.TestCase):
         )(1)(original, torch.ones(4, device="cuda"))
         self.assertEqual(len(calls), 1)
         self.assertIs(result, calls[0])
+
+    def test_manifest_canonicalizes_singleton_and_expanded_zero_stride(self):
+        import torch
+        from ac_integrity.research import completion
+        from opguard_baseline.run_arm import manifest
+
+        for size in (1, 4):
+            value = torch.ones((), device="cuda").expand(size)
+            self.assertEqual(value.stride(), (0,))
+            actual = manifest({"zero_stride": value}, completion)
+            record = next(iter(actual.values()))
+            self.assertEqual(
+                record["sha256"],
+                hashlib.sha256(struct.pack("<f", 1.0) * size).hexdigest(),
+            )
+            self.assertEqual(record["bytes"], size * 4)
+            self.assertEqual(value.stride(), (0,))
+            self.assertEqual(value.detach().cpu().tolist(), [1.0] * size)
+            self.assertEqual(record["shape"], [size])
+            self.assertEqual(record["stride"], [0])
 
 
 if __name__ == "__main__":
