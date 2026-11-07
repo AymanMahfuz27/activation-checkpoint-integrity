@@ -9,6 +9,7 @@ import tarfile
 import traceback
 import subprocess
 import time
+import shutil
 
 from allocated_common import ROOT, admit, command, retain, sha, verify_file, write
 
@@ -69,6 +70,21 @@ def run_official_study(checkout, out, contract, contract_path):
     doctor = json.loads(report_text)
     if doctor.get('native_ready') is not True:
         raise RuntimeError('Official native extensions not qualified')
+    native_files = {}
+    binary_out = out / 'installed-native-artifacts'
+    binary_out.mkdir()
+    prefix = Path(sys.prefix).resolve()
+    for label, metadata in doctor['extensions'].items():
+        binary = Path(metadata['path']).resolve()
+        if not binary.is_relative_to(prefix) or not binary.is_file():
+            raise RuntimeError('Native extension is outside the isolated environment')
+        destination = binary_out / (label + '-' + binary.name)
+        shutil.copyfile(binary, destination)
+        if sha(binary) != sha(destination):
+            raise RuntimeError('Native binary custody differs')
+        native_files[label] = {'installed_path': str(binary), 'sha256': sha(destination),
+                               'bytes': destination.stat().st_size}
+    write(out / 'native-binary-custody.json', native_files)
     bounded_command(out, 'opguard-doctor-native', [sys.executable,
                     '-m', 'opguard.doctor', '--require-native'], cwd=sandbox)
     smoke_text = bounded_command(out, 'opguard-official-native-smoke', [sys.executable,

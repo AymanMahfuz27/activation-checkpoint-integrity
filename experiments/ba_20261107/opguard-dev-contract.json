@@ -21,7 +21,7 @@
     "experiments/ba_20261107/opguard_baseline/run_arm.py": "a498f51c7b95dab213316a9f63491002c13ca7147e28b41daa4783e50fbdfe0b",
     "experiments/ba_20261107/opguard_baseline/test_allocated.py": "dfa0c7988ca2489bd8e6dc31742212adcdead6c66ca77e818a72582a1718755b",
     "experiments/ba_20261107/opguard_fixtures.py": "b9aaba2760859aec431c0485428ec4ead9367b6ca2d7d5d7574089d94342e79f",
-    "experiments/ba_20261107/opguard_job.py": "9052853f680784ca93dc79ed30f31c12ee2dd538af05ef858cd15659e5119a86"
+    "experiments/ba_20261107/opguard_job.py": "87494f4ac6efa14ced30df3f6b38a35a8262f9629ea6395235cd14cbb9add024"
   },
   "fixture_ids": [
     "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_registered_single_bit_input_delta_with_equal_outputs_qualifies",
