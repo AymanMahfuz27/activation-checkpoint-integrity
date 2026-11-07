@@ -41,7 +41,7 @@ def main():
     (args.destination / 'native-accounting.txt').write_text(result.stdout)
     rows = [line.split('|') for line in result.stdout.splitlines() if line.strip()]
     terminal = {'COMPLETED', 'FAILED', 'TIMEOUT', 'CANCELLED', 'OUT_OF_MEMORY', 'NODE_FAIL'}
-    if len(rows) != 1 or rows[0][0] != args.job or rows[0][1] != 'CCR26063' or rows[0][3] not in terminal:
+    if len(rows) != 1 or rows[0][0] != args.job or rows[0][1].upper() != 'CCR26063' or rows[0][3] not in terminal:
         raise RuntimeError('Exact owned job is not terminal; no data copied')
     source = f'{ROOT}/artifacts/{args.job}/{args.study}'
     receipt = subprocess.run(ssh + ['cat ' + shlex.quote(source + '/output-custody.json')],

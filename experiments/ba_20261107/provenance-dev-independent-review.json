@@ -1,0 +1,58 @@
+{
+  "arms": 8,
+  "at_utc": "2026-11-07T18:53:10.565971+00:00",
+  "campaign_id": "ba-provenance-dev-20261107-v1",
+  "contract_sha256": "5ad458ad993def7956f5db204be541bce486d02d0f3bf72c56ec1ed5c7f52789",
+  "execution_or_actual_fixture_acceptance": false,
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "d366f3fd634f9e01165bbb57c2d176c4e67b3fc806790161bdca543aa3baa73c",
+    "experiments/ba_20261107/provenance-dev.sbatch": "d3e708e6b78ddffe94db8f1e27cd98a833b96b462db005800c8634cb28e0eeff",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/provenance/preregistration.json": "8003cdf4d4c901748b227aa8550a94023baddee681b18f66656046c1dd635ae2",
+    "experiments/ba_20261107/provenance/provenance.py": "88aaa0fba14bb9d2a99debda7670309ebdddb01afba78e60b3a00fc933fe8c74",
+    "experiments/ba_20261107/provenance/test_provenance_allocated.py": "61c88ceb35e580274a204be817368d4d1325b8324f5f5be6e2de70b4685d962b",
+    "experiments/ba_20261107/provenance_job.py": "e806dfbb04122505566508944f5e209ad2d20795f4f64a5970aa7306bcc7f984"
+  },
+  "fixture_definition_count": 5,
+  "limits": [
+    "No CUDAfixture/model/numerical work executed locally",
+    "Inheritedexecution prose says<=1hour; exactDEVtime_limit00:30:00 andschedulerdescriptor/batch are binding",
+    "Nativebackward inputbytes matching replay proves observedvalueprovenance; equalclean original/replay bytes do not identify storageidentity",
+    "Onehistory/state; fixedsoftwarefault; no overhead, learningimpact, populationcoverage, novelty or completeOpGuardcomparison claim",
+    "Admissionfailure before admitreturns requires parentretrieval ofScratchfailure records; no automaticretry"
+  ],
+  "max_su": 1.5,
+  "partition": "gpu-a100-dev",
+  "phase": "DEV_PRIMARY_SMOKE",
+  "protocol_subset": "PrimaryL6bit0 only:clean/fault x traceoff/on=4arms; originalboundary/alloperator observers x traceoff/on=4arms. Sixcase/28arm preregistration retained as umbrella; devcontract overrides its case/arm/resource scope, results explicitly mark DEVphase. DEV does not complete sixcase study.",
+  "required_before_and_during_execution": [
+    "Parent binds actualcommit and exactnewreview/contract/batch in separateDEVrelease",
+    "Fresh nativegrant/quota/queue verifies canceledproductionjob3561505 terminal and onlynonduplicateexistingCPU3561473 allowed",
+    "Actual5CUDAfixtures pass withoutskip before8armmodelstudy",
+    "Historicalsource and exactinputbytes checked atactualDEVruntime",
+    "All perarm gradients/fullstate/RNG/counter parity, exactprimaryevent and four original/replay/backward observations required",
+    "AfterDEVterminal independentactualresultreview before anyproductionexpansion; source/config changes require meaningfulDEVrevalidation"
+  ],
+  "reviewed_source_delta": "Core selects CASES[:1] only for explicit DEV_PRIMARY_SMOKE; whitelists phases and exact case list; result records phase and dynamic8arm census. Tracer, injector, joins, parity, primaryevent, currentobservationcomparators unchanged. Batch changes name/partition/time/logpath/isolatedcheckout only.",
+  "reviewer": "/root/closeout_audit; independent reviewer did not implement GPU source",
+  "scientific_acceptance": false,
+  "scope": "PRECHECK_ONLY",
+  "static_checks": [
+    "All7source/configfileSHA256 match actualcontract",
+    "Python AST passes without numerical imports",
+    "bash-n passes devbatch",
+    "Exact5CUDAfixturedefinitions match contract",
+    "Examined full tracer/consumerjoin/parity code and onecase subset; no savedtensorhook installed",
+    "Retain exactsource/configarchive, contract/release, all perarm records, terminal/failure and freshquota custody",
+    "Exact30minute descriptor and batchhash checked natively by sameadmission;600secondretentionreserve retained"
+  ],
+  "time_limit": "00:30:00",
+  "unchanged_from_reviewed_production_candidate": [
+    "allocated_common.py",
+    "provenance_job.py",
+    "provenance/test_provenance_allocated.py",
+    "provenance-environment.lock",
+    "provenance/preregistration.json"
+  ],
+  "verdict": "PROMOTE"
+}

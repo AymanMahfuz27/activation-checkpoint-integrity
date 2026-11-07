@@ -228,21 +228,24 @@ def run(out, contract):
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
     require(contract["experiment_id"] == "BA-PROVENANCE-20261107-v1", "Wrong provenance contract")
-    require(contract["cases"] == [list(case) for case in CASES], "Frozen six-case census changed")
+    phase = contract.get('execution_phase', 'FULL_SIX_CASES')
+    require(phase in ('FULL_SIX_CASES', 'DEV_PRIMARY_SMOKE'), 'Unknown execution phase')
+    cases = CASES[:1] if phase == 'DEV_PRIMARY_SMOKE' else CASES
+    require(contract["cases"] == [list(case) for case in cases], "Frozen phase case census changed")
     inputs = contract["inputs"]
     item = next(row for row in inputs if row["role"] == "corrected210-history1234")
     stream = completion.stream_from_inputs(inputs)
     engine = completion.load_engine(item)
     prestate = completion.snapshot(engine)
     started = time.monotonic()
-    results = {"experiment_id": contract["experiment_id"], "status": "RUNNING",
+    results = {"experiment_id": contract["experiment_id"], "execution_phase": phase, "status": "RUNNING",
                "independent_review": "PENDING", "parameter_count": sum(p.numel() for p in engine.model.parameters()),
                "parameter_count_delta": 0, "cases": [], "comparators": [],
                "limits": ["One history/state; fixed selected software bit faults, no incidence inference",
                           "Diagnostic transfers and snapshots invalidate performance claims",
                           "Input tracing comparator is not an execution of full OpGuard",
                           "No held-out learning consequence is measured"]}
-    for layer, bit in CASES:
+    for layer, bit in cases:
         name = f"L{layer}-bit{bit}"
         folder = out / name
         folder.mkdir()
@@ -308,7 +311,7 @@ def run(out, contract):
         write(folder / "case-results.json", results["cases"][-1])
         del clean_saved, clean_gradients, fault_saved, fault_gradients, references
     results.update(status="COMPLETE_PENDING_INDEPENDENT_REVIEW", elapsed_seconds=time.monotonic() - started,
-                   arms_executed=28, peak_allocated_bytes=torch.cuda.max_memory_allocated())
+                   arms_executed=4 * len(cases) + 4, peak_allocated_bytes=torch.cuda.max_memory_allocated())
     write(out / "results.json", results)
     return results
 
