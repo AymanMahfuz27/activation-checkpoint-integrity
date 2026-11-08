@@ -1,0 +1,871 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-08T06:38:55.325866+00:00",
+  "status": "RESEARCHER_RECOMMENDATION_NOT_SOURCE_OR_EXECUTION_RELEASE",
+  "mode": "NORMAL_PLANNING_NEXT",
+  "experiment_id": "BB-DEMAND-20261108-v1",
+  "recommended_rank": 1,
+  "title": "Profiled original-to-consumer activation obligations",
+  "category": "training_integrity_observation",
+  "upstream_brief": {
+    "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/state-brief.json",
+    "sha256": "9d59e1c5055a7b7ff3e175b9e64f87f5b79c45c6dd841d7e50b1fe59b7d8561b"
+  },
+  "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "falsification": [
+    "An admitted changed demanded argument is consumed without a value mismatch or an explicit unsupported plan.",
+    "A clean profile or observing policy changes matched gradients, recorded state/RNG, native execution count or the intervention.",
+    "Plan ambiguity, metadata/order/schema drift or missing demands is silently accepted.",
+    "No strictly lower fingerprint byte count than full registered-family I/O: selection-efficiency premise not supported.",
+    "Cost ratio interval crossing1 is INCONCLUSIVE; a lower point estimate alone is not a demonstrated latency gain."
+  ],
+  "ranked_alternatives": [
+    {
+      "rank": 2,
+      "id": "SELECTED_FORWARD_ABLATION",
+      "disposition": "REQUIRED_ABLATION_IN_MAIN_PILOT",
+      "purpose": "Same learned fields observed during recompute forward isolate selection from consumer-time observation."
+    },
+    {
+      "rank": 3,
+      "id": "COMPILER_DERIVED_OBLIGATIONS",
+      "disposition": "FUTURE_NOT_RELEASED",
+      "purpose": "Generate dependency registry from pinned derivative specifications or joint graphs only after live prototype value is known."
+    }
+  ],
+  "registry": [
+    {
+      "family": "gelu",
+      "forward": "aten.gelu.default",
+      "backward": "aten.gelu_backward.default",
+      "forward_activation_inputs": [
+        "self"
+      ],
+      "forward_outputs": [
+        "output"
+      ],
+      "backward_activation_args": [
+        {
+          "name": "self",
+          "position": 1
+        }
+      ],
+      "scalar_guards": {
+        "approximate": "none"
+      }
+    },
+    {
+      "family": "native_layer_norm",
+      "forward": "aten.native_layer_norm.default",
+      "backward": "aten.native_layer_norm_backward.default",
+      "forward_activation_inputs": [
+        "input"
+      ],
+      "forward_outputs": [
+        "output[0]",
+        "output[1]",
+        "output[2]"
+      ],
+      "backward_activation_args": [
+        {
+          "name": "input",
+          "position": 1
+        },
+        {
+          "name": "mean",
+          "position": 3
+        },
+        {
+          "name": "rstd",
+          "position": 4
+        }
+      ],
+      "excluded_persistent_args": [
+        "weight",
+        "bias"
+      ]
+    },
+    {
+      "family": "softmax",
+      "forward": "aten._softmax.default",
+      "backward": "aten._softmax_backward_data.default",
+      "forward_activation_inputs": [
+        "self"
+      ],
+      "forward_outputs": [
+        "output"
+      ],
+      "backward_activation_args": [
+        {
+          "name": "output",
+          "position": 1
+        }
+      ],
+      "scalar_guards": {
+        "dim": "registered last axis",
+        "half_to_float": false,
+        "input_dtype": "float32"
+      }
+    },
+    {
+      "family": "relu",
+      "forward": "aten.relu.default",
+      "backward": "aten.threshold_backward.default",
+      "forward_activation_inputs": [
+        "self"
+      ],
+      "forward_outputs": [
+        "output"
+      ],
+      "backward_activation_args": [
+        {
+          "name": "self",
+          "position": 1
+        }
+      ],
+      "scalar_guards": {
+        "threshold": 0
+      }
+    },
+    {
+      "family": "tanh",
+      "forward": "aten.tanh.default",
+      "backward": "aten.tanh_backward.default",
+      "forward_activation_inputs": [
+        "self"
+      ],
+      "forward_outputs": [
+        "output"
+      ],
+      "backward_activation_args": [
+        {
+          "name": "output",
+          "position": 1
+        }
+      ]
+    },
+    {
+      "family": "sigmoid",
+      "forward": "aten.sigmoid.default",
+      "backward": "aten.sigmoid_backward.default",
+      "forward_activation_inputs": [
+        "self"
+      ],
+      "forward_outputs": [
+        "output"
+      ],
+      "backward_activation_args": [
+        {
+          "name": "output",
+          "position": 1
+        }
+      ]
+    }
+  ],
+  "registry_binding": "Bind actual func._schema names/positions/kwargs canonically; exact overload/scalar signature must qualify. Position values are sanity anchors, not permission to ignore a changed schema.",
+  "declared_coverage": "Registered checkpoint-region activation values and the declared fault windows only. Incoming gradients, persistent parameters and uncheckpointed regions are not protected by this claim.",
+  "excluded_claims": [
+    "new input-checking novelty",
+    "full automatic OpGuard superiority or coverage",
+    "automatic fault location outside admitted cases",
+    "faults occurring after the consumer check",
+    "universal alias/storage provenance",
+    "population incidence",
+    "learning benefit",
+    "new method cost before timing results"
+  ],
+  "apis": {
+    "compile_plan": "compile_plan(profile_records,registry,declared_envelope)->Plan",
+    "profile": "ProfileMode(registry,role_context,root_forward_context)",
+    "check": "CheckMode(plan,policy,signature_store,external_fault=None)",
+    "finish": "CheckMode.finish()->PASS|VALUE_MISMATCH|UNSUPPORTED_PLAN",
+    "gate": "make_pre_gate_callback(mode,enforce)->callback(engine,mean_loss)"
+  },
+  "profile_contract": {
+    "calibration_clean_only": true,
+    "logical_forward_key": [
+      "checkpoint_region_or_external",
+      "role_collapsed_microbatch",
+      "registered_forward_ordinal",
+      "exact_operator_schema",
+      "input_or_output_field_path"
+    ],
+    "record_all_registered_forwards_including_external": true,
+    "root_phase_context": "Metadata-only root model forward pre/post hooks with exception-safe cleanup; checkpoint role takes precedence for replay. Native backward otherwise has no assumed region.",
+    "value_class_key": [
+      "canonical_complete_blake3",
+      "shape",
+      "dtype",
+      "device"
+    ],
+    "all_compatible_candidate_sites_retained": true,
+    "runtime_original_unanimity_required": true,
+    "mixed_inside_outside_class": "UNSUPPORTED_AT_PROFILE",
+    "outside_class": "Only if ALL profile candidates are outside checkpoint; freeze backward ordinal/schema/metadata/count; runtime cannot reclassify by values.",
+    "class_split": "UNSUPPORTED_PLAN_CLASS_SPLIT_NOT_FAULT_DETECTION_CREDIT",
+    "unknown_or_missing_slot": "UNSUPPORTED_PLAN",
+    "freeze_before_fault_evaluation": true,
+    "actual_storage_alias_identity_proved": false
+  },
+  "shared_fingerprint_backend": {
+    "function": "ac_integrity.capture.fingerprint.fingerprint_tensor",
+    "arguments": {
+      "include_sketch": false,
+      "backend": "full"
+    },
+    "signature_field": "signatures",
+    "canonicalization": "detach().clone(memory_format=torch.contiguous_format) under disabled modes",
+    "store": "BB-owned GPU-resident signature/class/flag store; no legacy all_operators scope relabeling",
+    "all_policies_same_backend_and_copy_rule": true,
+    "all_runtime_copies_allocations_comparisons_synchronization_charged": true,
+    "profiling_cost_reported_separately": true
+  },
+  "policies": [
+    "disabled",
+    "outputs_only",
+    "full_forward_io",
+    "selected_forward",
+    "selected_consumer"
+  ],
+  "policy_semantics": {
+    "disabled": "Unobserved historical engine reference.",
+    "outputs_only": "Original/recompute comparisons for every activation output of registered forward families inside checkpoint regions.",
+    "full_forward_io": "Original/recompute comparisons for every activation input and output of the SAME registered families and regions.",
+    "selected_forward": "The learned demand fields compared at original/recompute forward locations.",
+    "selected_consumer": "Every original candidate-class member hashed and unanimous; demanded actual native backward argument compared at consumption."
+  },
+  "execution_preservation": {
+    "parameter_count_delta": 0,
+    "historical_engine_unchanged": true,
+    "model_optimizer_scheduler_data_states_preserved": true,
+    "historical_engine_policy": "disabled",
+    "historical_engine_scope": "checkpoint_boundaries; BB method separately named",
+    "no_saved_tensor_hooks_or_eager_saved_attrs": true,
+    "private_bookkeeping_guard": true,
+    "disable_modes_for_copies_and_hashes": true,
+    "do_not_blanket_suppress_capture_in_operator": true,
+    "native_returns_preserved": true,
+    "normal_observer_gradient_state_rng_parity_required": true,
+    "enforcement_gate": "Historical cheap_observer/pre_gate_observer after gradient capture, before clipping and optimizer",
+    "rng_rollback_claim": false
+  },
+  "toy_protocol": {
+    "families": [
+      "gelu",
+      "native_layer_norm",
+      "softmax",
+      "relu",
+      "tanh",
+      "sigmoid"
+    ],
+    "calibration_seed": 11,
+    "evaluation_seed": 37,
+    "shape": [
+      2,
+      17
+    ],
+    "changed_shape_negative": [
+      3,
+      33
+    ],
+    "layernorm_normalized_shape": [
+      17
+    ],
+    "relu_fixed_positive_coordinate": {
+      "element": 0,
+      "value": 1.0,
+      "consumer_bit": 31
+    },
+    "other_consumer_bits": 22,
+    "other_consumer_element": "numel//2 fixed before outcomes",
+    "zero_vjp_outcomes_retained": true
+  },
+  "model_protocol": {
+    "model": "Pythia160M FP32 eager preserved-RNG",
+    "calibration_state": "corrected210-history1234",
+    "heldout_state": "early-history1234 warm10; do not reprofile",
+    "independent_histories": 1,
+    "diagnostic_batch": {
+      "microbatch": 4,
+      "sequence": 512,
+      "accumulation": 4
+    },
+    "pytorch_native_gelu_backward_shape": [
+      4,
+      512,
+      3072
+    ],
+    "consumer_independent_global_ordinals": {
+      "L11": 0,
+      "L6": 5,
+      "L0": 11,
+      "later_microbatch_increment": 12
+    },
+    "consumer_injector": "Counts native GELU backward calls independently of selector; reuse historical Intervention.mutate and same dense_h_to_4h.output identity; log external events separately.",
+    "cases": [
+      {
+        "state": "later-update210",
+        "layer": 6,
+        "bit": 0,
+        "seed": 1729,
+        "window": "replay_forward",
+        "microbatch": 0,
+        "consumer_ordinal": 5
+      },
+      {
+        "state": "later-update210",
+        "layer": 6,
+        "bit": 0,
+        "seed": 1729,
+        "window": "consumer_entry",
+        "microbatch": 0,
+        "consumer_ordinal": 5
+      },
+      {
+        "state": "later-update210",
+        "layer": 0,
+        "bit": 0,
+        "seed": 41,
+        "window": "replay_forward",
+        "microbatch": 0,
+        "consumer_ordinal": 11
+      },
+      {
+        "state": "later-update210",
+        "layer": 0,
+        "bit": 0,
+        "seed": 41,
+        "window": "consumer_entry",
+        "microbatch": 0,
+        "consumer_ordinal": 11
+      },
+      {
+        "state": "later-update210",
+        "layer": 11,
+        "bit": 22,
+        "seed": 73,
+        "window": "replay_forward",
+        "microbatch": 0,
+        "consumer_ordinal": 0
+      },
+      {
+        "state": "later-update210",
+        "layer": 11,
+        "bit": 22,
+        "seed": 73,
+        "window": "consumer_entry",
+        "microbatch": 0,
+        "consumer_ordinal": 0
+      },
+      {
+        "state": "early-warm10",
+        "layer": 6,
+        "bit": 0,
+        "seed": 1729,
+        "window": "replay_forward",
+        "microbatch": 0,
+        "consumer_ordinal": 5
+      },
+      {
+        "state": "early-warm10",
+        "layer": 6,
+        "bit": 0,
+        "seed": 1729,
+        "window": "consumer_entry",
+        "microbatch": 0,
+        "consumer_ordinal": 5
+      },
+      {
+        "state": "early-warm10",
+        "layer": 0,
+        "bit": 0,
+        "seed": 41,
+        "window": "replay_forward",
+        "microbatch": 0,
+        "consumer_ordinal": 11
+      },
+      {
+        "state": "early-warm10",
+        "layer": 0,
+        "bit": 0,
+        "seed": 41,
+        "window": "consumer_entry",
+        "microbatch": 0,
+        "consumer_ordinal": 11
+      },
+      {
+        "state": "early-warm10",
+        "layer": 11,
+        "bit": 22,
+        "seed": 73,
+        "window": "replay_forward",
+        "microbatch": 0,
+        "consumer_ordinal": 0
+      },
+      {
+        "state": "early-warm10",
+        "layer": 11,
+        "bit": 22,
+        "seed": 73,
+        "window": "consumer_entry",
+        "microbatch": 0,
+        "consumer_ordinal": 0
+      }
+    ],
+    "clean_arms_per_state": [
+      "disabled",
+      "outputs_only",
+      "full_forward_io",
+      "selected_forward",
+      "selected_consumer"
+    ],
+    "fault_arms_per_case": [
+      "disabled",
+      "outputs_only",
+      "full_forward_io",
+      "selected_forward",
+      "selected_consumer",
+      "selected_consumer_enforce"
+    ],
+    "profile_parity_pair": true,
+    "model_arms_planned": 84,
+    "no_adaptive_sites_or_grid_extension": true,
+    "no_forced_output_equal_or_nonzero_effect": true
+  },
+  "fixture_ids": [
+    "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+    "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+    "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+    "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+    "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+    "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+    "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+    "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+    "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+    "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+    "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+    "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+    "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+    "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim"
+  ],
+  "timing_protocol": {
+    "conditional_release": "ALL 12 frozen model cases complete as SUPPORTED, with no unexpected UNSUPPORTED/class split; all clean/profile/matched state-gradient-RNG parity, source/runtime/custody and actual pilot PROMOTE; strict fingerprint-byte reduction against full forward I/O. Deliberate unsupported negative fixtures are controls, never successful detections. Any unsupported held-out case remains in the denominator and blocks all timing releases. No automatic corrective release.",
+    "independent_jobs": 3,
+    "max_minutes_each": 40,
+    "max_su_each": 2,
+    "production_batch": {
+      "microbatch": 4,
+      "sequence": 512,
+      "accumulation": 32
+    },
+    "production_profile": "New clean production plan per independent job; diagnostic plan not reused across accumulation changes.",
+    "checked_policies": [
+      "outputs_only",
+      "full_forward_io",
+      "selected_forward",
+      "selected_consumer"
+    ],
+    "paired_blocks_per_policy_per_job": 2,
+    "warmups_per_arm": 2,
+    "measured_updates_per_arm": 6,
+    "total_updates_per_job": 128,
+    "restore_full_prestate_before_arm": true,
+    "final_eight_update_pair_state_parity_required": true,
+    "order": "Execute frozen_pair_schedule in listed order for each job_index. Each policy has one disabled-first and one checked-first block per job; no outcome-dependent reordering.",
+    "primary_contrast": "DIRECT selected_consumer/full_forward_io measured elapsed ratio, matched by fixed block index within each independent job; no division by disabled timings in the primary estimand.",
+    "estimator": "For job j: x_j=(log(T_consumer,j,0/T_fullIO,j,0)+log(T_consumer,j,1/T_fullIO,j,1))/2. Equal-weight mean of exactly three x_j; Student-t95 df2 interval on mean log ratio, then exponentiate. T is sum of six measured update seconds excluding the two warmups; all normal observer work and decision synchronization included.",
+    "independent_unit": "Slurm job, not inner block/update/microbatch",
+    "other_intervals": "Secondary individual/descriptive; not simultaneous family guarantee.",
+    "profile_cost": "Raw profiling walltime/bytes exported separately; use conservative positive-savings-only amortization and no free-profile assumption.",
+    "secondary_contrast": "For each other policy p and block b use its own paired disabled arm T_p,j,b/T_disabled_for_p,j,b; descriptive secondary overhead only, not the primary normalized contrast.",
+    "frozen_pair_schedule": [
+      {
+        "job_index": 0,
+        "policy": "outputs_only",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "outputs_only"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "outputs_only",
+        "block_index": 1,
+        "arm_order": [
+          "outputs_only",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "full_forward_io",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "full_forward_io"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "full_forward_io",
+        "block_index": 1,
+        "arm_order": [
+          "full_forward_io",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "selected_forward",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "selected_forward"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "selected_forward",
+        "block_index": 1,
+        "arm_order": [
+          "selected_forward",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "selected_consumer",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "selected_consumer"
+        ]
+      },
+      {
+        "job_index": 0,
+        "policy": "selected_consumer",
+        "block_index": 1,
+        "arm_order": [
+          "selected_consumer",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "selected_consumer",
+        "block_index": 0,
+        "arm_order": [
+          "selected_consumer",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "selected_consumer",
+        "block_index": 1,
+        "arm_order": [
+          "disabled",
+          "selected_consumer"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "selected_forward",
+        "block_index": 0,
+        "arm_order": [
+          "selected_forward",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "selected_forward",
+        "block_index": 1,
+        "arm_order": [
+          "disabled",
+          "selected_forward"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "full_forward_io",
+        "block_index": 0,
+        "arm_order": [
+          "full_forward_io",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "full_forward_io",
+        "block_index": 1,
+        "arm_order": [
+          "disabled",
+          "full_forward_io"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "outputs_only",
+        "block_index": 0,
+        "arm_order": [
+          "outputs_only",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 1,
+        "policy": "outputs_only",
+        "block_index": 1,
+        "arm_order": [
+          "disabled",
+          "outputs_only"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "full_forward_io",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "full_forward_io"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "full_forward_io",
+        "block_index": 1,
+        "arm_order": [
+          "full_forward_io",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "selected_consumer",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "selected_consumer"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "selected_consumer",
+        "block_index": 1,
+        "arm_order": [
+          "selected_consumer",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "outputs_only",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "outputs_only"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "outputs_only",
+        "block_index": 1,
+        "arm_order": [
+          "outputs_only",
+          "disabled"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "selected_forward",
+        "block_index": 0,
+        "arm_order": [
+          "disabled",
+          "selected_forward"
+        ]
+      },
+      {
+        "job_index": 2,
+        "policy": "selected_forward",
+        "block_index": 1,
+        "arm_order": [
+          "selected_forward",
+          "disabled"
+        ]
+      }
+    ]
+  },
+  "e1_diagnostic": {
+    "experiment_id": "BB-E1-NORM-20261108-v1",
+    "original_aggregate_unchanged": true,
+    "selected_cases": [
+      {
+        "state": "early-warm10",
+        "case_id": "gradient-L0-exponent-high-bit30"
+      },
+      {
+        "state": "early-warm10",
+        "case_id": "recompute-L6-exponent-high-bit30"
+      },
+      {
+        "state": "later-update210",
+        "case_id": "gradient-L0-exponent-high-bit30"
+      },
+      {
+        "state": "later-update210",
+        "case_id": "recompute-L0-exponent-high-bit30"
+      }
+    ],
+    "paired_clean_controls_per_state": true,
+    "probe_on_off_required": true,
+    "planned_model_arms": 12,
+    "measurements": [
+      "element_finiteness",
+      "recomputed_per_tensor_and_global_FP32_L2",
+      "FP64_L2_reference",
+      "FP32_representability_with_relative_1e-6_boundary_band",
+      "actual_native_clip_status",
+      "transaction_phase",
+      "protected_state_and_gradient_probe_parity"
+    ],
+    "native_clipping_unchanged": true,
+    "do_not_call_recomputed_norm_native_return_value": true,
+    "robust_clip_fallback_not_released": true
+  },
+  "resource_portfolio": {
+    "separate_new_max_su": 9,
+    "optional_cpu_dev": {
+      "minutes": 60,
+      "max_su": 1,
+      "required_by_orchestrator_before_gpu": true,
+      "fixture_count": 20
+    },
+    "gpu_dev_pilot": {
+      "minutes": 40,
+      "max_su": 2
+    },
+    "gpu_dev_timing": {
+      "jobs": 3,
+      "minutes_each": 40,
+      "max_su_each": 2
+    },
+    "postsetup_minimum_seconds": 1200,
+    "retention_seconds": 600,
+    "actual_remaining_time_gate": true,
+    "serial_queue_self": true,
+    "no_automatic_retry": true,
+    "no_long_learning_or_production_release": true
+  },
+  "primary_sources": [
+    {
+      "classification": "DIRECT_SEMANTIC_PRECEDENT",
+      "url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/tools/autograd/derivatives.yaml",
+      "use": "Family demand sanity oracle, not a claim of discovered derivative dependencies."
+    },
+    {
+      "classification": "DIRECT_EXISTING_INPUT_IO_PRECEDENT",
+      "url": "https://github.com/OrderLab/OpGuard/blob/146d6bb523cf8364bbf2788cb319aef1a46f966b/opguard/wrapped_ops.py",
+      "use": "Existing capability; component matched baselines do not benchmark whole OpGuard."
+    },
+    {
+      "classification": "ANALOGOUS_HOOK_MECHANISM",
+      "url": "https://docs.pytorch.org/docs/stable/autograd.html",
+      "use": "Hooks influence saved state and require separate correctness proof; not used."
+    },
+    {
+      "classification": "DIRECT_CHECKPOINT_IMPLEMENTATION",
+      "url": "https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py",
+      "use": "Nonreentrant checkpoint mechanisms; source execution remains pinned historical."
+    }
+  ],
+  "writing_policy": "Record positive, zero, negative, unsupported and censored outcomes. Execution, custody, source precheck, actual acceptance and publication novelty remain separate.",
+  "numeric_model_execution_by_researcher": false,
+  "source_edits_by_researcher": false,
+  "fixture_layout": "Flat direct module test_selector_allocated.SelectorFixtures; not selector package",
+  "cpu_fixture_ids": [
+    "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+    "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+    "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+    "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+    "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+    "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+    "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+    "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+    "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+    "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+    "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+    "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+    "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+    "test_selector_allocated.SelectorFixtures.test_cpu_blake3_matches_canonical_published_bytes",
+    "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+    "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+    "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+    "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+    "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+    "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+  ],
+  "cpu_fixture_scope": "Required CPU DEV first:13device-genericselectorlogicmethods+1distinctCPUgolden+6E1tests=20, zero skips; does not qualify CUDA. Original14GPUselector+same6E1=20 all mandatory on A100.",
+  "per_update_lifecycle": "Cache structure/classmembership only. Fresh original-forward signatures/counters/flags every update; no calibration or previous-update payload reference reused. Reset/storage costs charged to all policies.",
+  "revision_note": "Orchestrator-required CPU-first qualification: device-parameterized shared13selector tests +distinctCPUgolden, sixE1tests; explicit20CPU/20GPU censuses, original14GPU selector methods unchanged. Previous211c/4200 exactfiles retained underhistory; method/cases/resourceceiling unchanged.",
+  "cpu_selector_fixture_ids": [
+    "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+    "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+    "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+    "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+    "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+    "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+    "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+    "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+    "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+    "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+    "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+    "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+    "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+    "test_selector_allocated.SelectorFixtures.test_cpu_blake3_matches_canonical_published_bytes"
+  ],
+  "e1_fixture_ids": [
+    "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+    "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+    "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+    "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+    "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+    "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+  ],
+  "gpu_fixture_ids": [
+    "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+    "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+    "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+    "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+    "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+    "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+    "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+    "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+    "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+    "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+    "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+    "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+    "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+    "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+    "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+    "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+    "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+    "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+    "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+    "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+  ],
+  "test_device_environment": "BB_TEST_DEVICE=cpu or cuda:0; driver explicitly sets after allocation/environment admission",
+  "pre_outcome_clarification": {
+    "author": "/root responding to independent method-review questions",
+    "at_utc": "2026-11-08T06:53:40.731466+00:00",
+    "ancestor_plan_sha256": "a4547f52417df3e26b2cd33ede16ae2659c7e147a6e870f714eeca3ea1a4b5db",
+    "changes": [
+      "All12-case timing admission gate explicit",
+      "Direct elapsed primary denominator/matching fixed",
+      "24 exact pair-order records for3jobs frozen before any outcome"
+    ],
+    "scope_or_budget_changed": false,
+    "numerical_outcomes_observed": false
+  }
+}

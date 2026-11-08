@@ -1,0 +1,205 @@
+{
+  "experiment_id": "BB20261108-INFRASTRUCTURE",
+  "hypothesis": "N/A: faithful namespace/resource adaptation of reviewed BA infrastructure; no scientific hypothesis or method is introduced.",
+  "goal": "Prepare isolated once-only BB dispatch, terminal-custody collection/recovery and fresh private-copy environment qualification for later method-specific DEV releases.",
+  "scope": "INFRASTRUCTURE_SOURCE_PRECHECK_ONLY",
+  "created_at_utc": "2026-11-08T06:33:53.032166+00:00",
+  "base_revision": "1faeeff0344848d49099d16ae81b9f412b294519",
+  "ownership": "Only six new experiments/bb_20261108 infrastructure/documentation files. Existing BA source, scientific cores, frozen evidence, canonical README and RESEARCH_LOG are unchanged by this task.",
+  "run_status": "LOCAL_STATIC_AND_STDLIB_CHECKS_PASSED_PENDING_INDEPENDENT_REVIEW",
+  "ready_to_run_science": false,
+  "files_changed": {
+    "dispatch_once.py": "Two literal namespace substitutions only: new branch and remote control root.",
+    "retrieve_results.py": "Exact four-study BB whitelist; normal four and setup three shell controls use BB study prefix.",
+    "recover_transfer.py": "New immediate-parent provenance pin, BB collector path and same four-study/control whitelist; no collection or retry algorithm change.",
+    "copy_runtime.py": "Exact-file shared stdlib imports; selector/e1 paths; both exact58 lock counts; only two registered resource combinations; prerequisite docstring generalized.",
+    "README.md": "Compatibility ABI, resource/namespace/control contracts, preserved gates, trust boundaries and pending allocated qualification.",
+    "implementation-report-infrastructure.json": "This source/change/validation handoff, including exact parent diffs and reproducible stdlib fixture source."
+  },
+  "source_sha256": {
+    "dispatch_once.py": "eb5d7ba5b650146007e906603e8401c18fcd447c48d8c1e1f225a26987237384",
+    "retrieve_results.py": "0594a6a40a695c54d020339467058846bfb784112e614cb7eb2f5fca45d079c9",
+    "recover_transfer.py": "148fb73c00f8e0b1221c196ea7be8c801c8fc63637cc4c2dacacbf0456514b54",
+    "copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "README.md": "a4c2e7ce7fbff836d580173ad7c256caee2012145b11904625005ed2d63c8539"
+  },
+  "parent_source_sha256": {
+    "dispatch_once.py": "4e6799f707a7c6dbacc1d700130a3b0e57bcbda55345e34d622b9adb27ced627",
+    "retrieve_results.py": "c1ecabf3dbca11dc692348860d54c07b3ba983e3227b7680f3a85825b7e87148",
+    "recover_transfer.py": "a5c190dbc2d037bef099a020734fac9c23812507ae62d50b3e4307a5c7e21b9b",
+    "copy_runtime.py": "be2f53f62e15b79391d9e1bfaa00d9022bb5e52fee1096b7508b9567b5352ffd"
+  },
+  "shared_unchanged_dependencies": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de"
+  },
+  "source_diff_from_ba": {
+    "dispatch_once.py": "--- experiments/ba_20261107/dispatch_once.py\n+++ experiments/bb_20261108/dispatch_once.py\n@@ -78,12 +78,12 @@\n p=PACKET\n marker=FRAME_MARKER\n orchestrator_sha=ORCHESTRATOR_SHA\n-root=Path('/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/ba-20261107')\n+root=Path('/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/bb-20261108')\n root.mkdir(exist_ok=True)\n checkout=root/p['checkout_name']\n if checkout.exists():\n     raise RuntimeError('Exclusive new checkout already exists; reconcile, do not retry')\n-subprocess.run(['git','clone','--quiet','--branch','experiment/ba-20261107',\n+subprocess.run(['git','clone','--quiet','--branch','experiment/bb-20261108',\n   'https://github.com/AymanMahfuz27/activation-checkpoint-integrity.git',str(checkout)],check=True)\n subprocess.run(['git','-C',str(checkout),'pull','--ff-only','--quiet'],check=True)\n subprocess.run(['git','-C',str(checkout),'checkout','--quiet','--detach',p['revision']],check=True)\n",
+    "retrieve_results.py": "--- experiments/ba_20261107/retrieve_results.py\n+++ experiments/bb_20261108/retrieve_results.py\n@@ -157,11 +157,13 @@\n     parser = argparse.ArgumentParser()\n     parser.add_argument(\"job\")\n     parser.add_argument(\n-        \"study\", choices=[\n-            \"ba-closeout\", \"ba-provenance\", \"ba-placement\", \"ba-opguard\", \"ba-setup\",\n-            \"ba-provenance-environment-setup\", \"ba-placement-environment-setup\",\n-            \"ba-opguard-environment-setup\",\n-        ]\n+        \"study\",\n+        choices=[\n+            \"bb-selector\",\n+            \"bb-e1\",\n+            \"bb-selector-environment-setup\",\n+            \"bb-e1-environment-setup\",\n+        ],\n     )\n     parser.add_argument(\"destination\", type=Path)\n     args = parser.parse_args()\n@@ -318,38 +320,13 @@\n         archive.add(folder, arcname=args.study)\n     # Preserve only declared, nonsecret shell controls. They live outside the\n     # scientific folder because the final exit record is written by the shell.\n-    prefix = \"analysis\" if args.study == \"ba-closeout\" else args.study.removesuffix(\"-environment-setup\")\n-    names = (\n-        (\n-            [\n-                prefix + suffix\n-                for suffix in (\n-                    \"-runner.log\",\n-                    \"-installed.txt\",\n-                    \"-modules.txt\",\n-                    \"-started-at.txt\",\n-                    \"-ended-at.txt\",\n-                    \"-node.txt\",\n-                    \"-slurm-job.txt\",\n-                )\n-            ]\n-            + [\"final-analysis-exit-code.txt\"]\n-        )\n-        if args.study == \"ba-closeout\"\n-        else [\n-            prefix + suffix\n-            for suffix in (\n-                \"-runner.log\",\n-                \"-installed.txt\",\n-                \"-modules.txt\",\n-                \"-exit-code.txt\",\n-            )\n-        ]\n-    )\n-    if args.study == \"ba-setup\" or args.study.endswith(\"-environment-setup\"):\n-        # Setup installs only after admission, so its installed-freeze evidence\n-        # lives inside the receipted study rather than the outer shell controls.\n-        names = [prefix + suffix for suffix in (\"-runner.log\", \"-modules.txt\", \"-exit-code.txt\")]\n+    prefix = args.study.removesuffix(\"-environment-setup\")\n+    suffixes = (\n+        (\"-runner.log\", \"-modules.txt\", \"-exit-code.txt\")\n+        if args.study.endswith(\"-environment-setup\")\n+        else (\"-runner.log\", \"-installed.txt\", \"-modules.txt\", \"-exit-code.txt\")\n+    )\n+    names = [prefix + suffix for suffix in suffixes]\n     control_script = \"\"\"import base64,hashlib,json\n from pathlib import Path\n root=Path(ROOT)\n",
+    "recover_transfer.py": "--- experiments/ba_20261107/recover_transfer.py\n+++ experiments/bb_20261108/recover_transfer.py\n@@ -1,6 +1,6 @@\n \"\"\"Recover interrupted read-only custody collection into a new exclusive folder.\n \n-Derived from independently reviewed recover_opguard_transfer.py (dd0002c4).\n+Adapted from independently reviewed BA source recovery helper (a5c190db).\n No experiment is run or retried. Recheck owned terminal accounting and identical\n original/Scratch/WORK receipts, reuse only verified partial members, then fetch\n only missing/different members and verify every declared byte/hash.\n@@ -19,7 +19,7 @@\n import tarfile\n \n REPO = Path(__file__).resolve().parents[2]\n-DERIVED_FROM_SHA256 = \"dd0002c47f8941de3e222d450dfe0c5a73fa98d1452fbd6ab673423449075fcf\"\n+DERIVED_FROM_SHA256 = \"a5c190dbc2d037bef099a020734fac9c23812507ae62d50b3e4307a5c7e21b9b\"\n TERMINAL_STATES = (\n     \"COMPLETED\",\n     \"FAILED\",\n@@ -37,7 +37,15 @@\n def parse_args(argv=None):\n     parser = argparse.ArgumentParser(description=__doc__)\n     parser.add_argument(\"job\")\n-    parser.add_argument(\"study\", choices=(\"ba-provenance\", \"ba-opguard\"))\n+    parser.add_argument(\n+        \"study\",\n+        choices=(\n+            \"bb-selector\",\n+            \"bb-e1\",\n+            \"bb-selector-environment-setup\",\n+            \"bb-e1-environment-setup\",\n+        ),\n+    )\n     parser.add_argument(\"original\", type=Path)\n     parser.add_argument(\"destination\", type=Path)\n     parser.add_argument(\"--expected-state\", required=True, choices=TERMINAL_STATES)\n@@ -102,7 +110,7 @@\n def main(argv=None):\n     args = parse_args(argv)\n     spec = importlib.util.spec_from_file_location(\n-        \"collector\", REPO / \"experiments/ba_20261107/retrieve_results.py\"\n+        \"collector\", REPO / \"experiments/bb_20261108/retrieve_results.py\"\n     )\n     collector = importlib.util.module_from_spec(spec)\n     spec.loader.exec_module(collector)\n@@ -303,15 +311,13 @@\n     if original_receipt.read_bytes() != original_bytes:\n         raise RuntimeError(\"Original custody receipt changed during recovery\")\n     (folder / \"output-custody.json\").write_bytes(original_bytes)\n-    names = [\n-        args.study + suffix\n-        for suffix in (\n-            \"-runner.log\",\n-            \"-installed.txt\",\n-            \"-modules.txt\",\n-            \"-exit-code.txt\",\n-        )\n-    ]\n+    prefix = args.study.removesuffix(\"-environment-setup\")\n+    suffixes = (\n+        (\"-runner.log\", \"-modules.txt\", \"-exit-code.txt\")\n+        if args.study.endswith(\"-environment-setup\")\n+        else (\"-runner.log\", \"-installed.txt\", \"-modules.txt\", \"-exit-code.txt\")\n+    )\n+    names = [prefix + suffix for suffix in suffixes]\n     control_script = \"\"\"import base64,hashlib,json\n from pathlib import Path\n root=Path(ROOT)\n",
+    "copy_runtime.py": "--- experiments/ba_20261107/copy_runtime.py\n+++ experiments/bb_20261108/copy_runtime.py\n@@ -7,6 +7,7 @@\n \n import argparse\n import importlib.metadata\n+import importlib.util\n import json\n import os\n from pathlib import Path\n@@ -19,23 +20,47 @@\n import time\n import traceback\n \n-from allocated_common import ROOT, admit, command, retain, sha, write\n-from setup_preflight.checks import parse_lock, require, verify_versions\n+# Import only the reviewed stdlib ABI from its exact source files. Future BB\n+# contracts must pin both files; no BA numerical module or global path is loaded.\n+_SHARED = Path(__file__).resolve().parents[1] / \"ba_20261107\"\n+_common_spec = importlib.util.spec_from_file_location(\n+    \"_bb_shared_admission\", _SHARED / \"allocated_common.py\"\n+)\n+_common = importlib.util.module_from_spec(_common_spec)\n+_common_spec.loader.exec_module(_common)\n+_checks_spec = importlib.util.spec_from_file_location(\n+    \"_bb_shared_lock_checks\", _SHARED / \"setup_preflight/checks.py\"\n+)\n+_checks = importlib.util.module_from_spec(_checks_spec)\n+_checks_spec.loader.exec_module(_checks)\n+ROOT, admit, command, retain, sha, write = (\n+    _common.ROOT,\n+    _common.admit,\n+    _common.command,\n+    _common.retain,\n+    _common.sha,\n+    _common.write,\n+)\n+parse_lock, require, verify_versions = (\n+    _checks.parse_lock,\n+    _checks.require,\n+    _checks.verify_versions,\n+)\n \n \n def paths(study):\n-    require(study in (\"provenance\", \"placement\", \"opguard\"), \"Unknown copy study\")\n+    require(study in (\"selector\", \"e1\"), \"Unknown copy study\")\n     job = os.environ.get(\"SLURM_JOB_ID\", \"\")\n     require(\n         sys.platform == \"linux\" and job.isdecimal(), \"Real Linux Slurm job required\"\n     )\n-    environment = Path(\"/tmp\") / (\"aci-ba-copy-\" + job) / \"environment\"\n-    bootstrap = ROOT / \"artifacts\" / job / (\"ba-\" + study + \"-environment-setup\")\n+    environment = Path(\"/tmp\") / (\"aci-bb-copy-\" + job) / \"env\"\n+    bootstrap = ROOT / \"artifacts\" / job / (\"bb-\" + study + \"-environment-setup\")\n     return environment, bootstrap\n \n \n def prerequisites(contract):\n-    \"\"\"Require reviewed failures for the amendment and accepted primary for dependents.\"\"\"\n+    \"\"\"Validate the exact source-sealed ACTUAL review requirements in the release.\"\"\"\n     release = json.loads(Path(os.environ[\"BA_RELEASE_PATH\"]).read_text())\n     actual = release.get(\"prerequisite_reviews\", {})\n     required = contract[\"required_review_verdicts\"]\n@@ -84,17 +109,25 @@\n         == contract[\"campaign_id\"] + \"-environment-setup\",\n         \"Registered compact setup custody envelope differs\",\n     )\n-    require(\n-        contract[\"partition\"] == \"gpu-a100-dev\"\n-        and contract[\"time_limit\"] == \"00:40:00\"\n-        and contract[\"max_su\"] == 2\n-        and contract[\"cpus\"] == 8,\n-        \"Registered 40-minute DEV resource-only envelope differs\",\n+    resource = (\n+        contract[\"copy_study\"],\n+        contract[\"partition\"],\n+        contract[\"time_limit\"],\n+        contract[\"cpus\"],\n+        contract[\"max_su\"],\n+    )\n+    require(\n+        type(contract[\"max_su\"]) in (int, float)\n+        and resource\n+        in {\n+            (\"selector\", \"gpu-a100-dev\", \"00:40:00\", 8, 2),\n+            (\"e1\", \"development\", \"01:00:00\", 8, 1),\n+        },\n+        \"Registered BB study/resource envelope differs\",\n     )\n     expected = parse_lock(checkout / contract[\"requirements_lock\"])\n     require(\n-        len(expected) == contract[\"expected_package_count\"]\n-        and len(expected) == (65 if contract[\"copy_study\"] == \"opguard\" else 58),\n+        len(expected) == contract[\"expected_package_count\"] and len(expected) == 58,\n         \"Exact lock package census differs\",\n     )\n     return expected\n@@ -370,8 +403,6 @@\n \n if __name__ == \"__main__\":\n     parser = argparse.ArgumentParser()\n-    parser.add_argument(\n-        \"--study\", required=True, choices=(\"provenance\", \"placement\", \"opguard\")\n-    )\n+    parser.add_argument(\"--study\", required=True, choices=(\"selector\", \"e1\"))\n     args = parser.parse_args()\n     raise SystemExit(bootstrap(Path(__file__).resolve().parents[2], args.study))\n"
+  },
+  "config_diff": {
+    "dispatch.branch": [
+      "experiment/ba-20261107",
+      "experiment/bb-20261108"
+    ],
+    "dispatch.remote_control_root": [
+      "ROOT/slurm/ba-20261107",
+      "ROOT/slurm/bb-20261108"
+    ],
+    "collector_and_recovery.allowed_studies": [
+      "BA-specific historical whitelist",
+      [
+        "bb-selector",
+        "bb-e1",
+        "bb-selector-environment-setup",
+        "bb-e1-environment-setup"
+      ]
+    ],
+    "runtime.study": [
+      "provenance|placement|opguard",
+      "selector|e1"
+    ],
+    "runtime.environment": [
+      "/tmp/aci-ba-copy-JOB/environment",
+      "/tmp/aci-bb-copy-JOB/env"
+    ],
+    "runtime.setup_namespace": [
+      "ba-STUDY-environment-setup",
+      "bb-STUDY-environment-setup"
+    ],
+    "runtime.expected_packages": [
+      "58 primary/placement or65 OpGuard",
+      "58 for both BB studies"
+    ],
+    "runtime.resources": [
+      "gpu-a100-dev /00:40:00 /8CPU /max2SU only",
+      {
+        "selector": {
+          "partition": "gpu-a100-dev",
+          "time_limit": "00:40:00",
+          "nodes": 1,
+          "tasks": 1,
+          "cpus_per_task": 8,
+          "max_su": 2
+        },
+        "e1": {
+          "partition": "development",
+          "time_limit": "01:00:00",
+          "nodes": 1,
+          "tasks": 1,
+          "cpus_per_task": 8,
+          "max_su": 1
+        }
+      }
+    ],
+    "shared_import_resolution": [
+      "ordinary module imports via batch search path",
+      "exact reviewed BA file paths; no global sys.path change"
+    ]
+  },
+  "baseline_config_reference": [
+    "experiments/ba_20261107/provenance-copy40-dev-contract.json",
+    "experiments/ba_20261107/provenance-copy40-dev.sbatch"
+  ],
+  "preserved_gates": [
+    "Exclusive local dispatch intent before SSH; exclusive checkout/control intent; actual orchestrator SHA; no automatic retry; timeout remains ambiguous reconciliation-only.",
+    "Nonce-framed TTY machine output; raw streams and payload sidecars; account/expiry, quota, owned queue and source pins before sbatch.",
+    "Real owned Slurm resource descriptor and actual batch/source/release/runtime/storage/time admission before UV, then original fresh postsetup admission >=1200s with600s retention reserve.",
+    "Bootstrap-owned queue only self; original1260s postsetup admission/control margin; bounded subprocess groups; separate100000000-byte setup custody; never copy environment/cache to WORK.",
+    "Fresh private node-local copy; Python3.13.7/uv0.12.3; --require-hashes --link-mode copy; original indexes and full normalized58-version map; prefix/interpreter/PYC flags before numerical imports.",
+    "Exact declared prerequisite verdict/job/SHA metadata with optional contract-pinned job IDs; reviewer/operator authenticates ACTUAL content/scope/custody before release.",
+    "Terminal native accounting; source namespace; identical Scratch/WORK custody; safe canonical ASCII relative members without glob syntax; every declared size/SHA; explicit local archive origin.",
+    "Recovery preserves original bytes and reuses only regular verified partial members, refetches only missing/different ones, retains raw exceptions, and submits no work."
+  ],
+  "parameter_count": "N/A: infrastructure only; no model or method change.",
+  "validation": {
+    "ruff_command": "ruff check experiments/bb_20261108/dispatch_once.py experiments/bb_20261108/retrieve_results.py experiments/bb_20261108/recover_transfer.py experiments/bb_20261108/copy_runtime.py",
+    "ruff_result": "All checks passed.",
+    "stdlib_result": {
+      "status": "PASS",
+      "scope": "LOCAL_STDLIB_AND_STATIC_ONLY",
+      "groups": [
+        {
+          "check": "Four immutable BA parents unchanged; four BB ASTs valid; dispatcher exact two namespace substitutions",
+          "status": "PASS"
+        },
+        {
+          "check": "All four modules import stdlib only; explicit shared-module and recovery repository paths resolve",
+          "status": "PASS"
+        },
+        {
+          "check": "Canonical safe members accepted; ten traversal/control/glob/non-ASCII cases rejected",
+          "status": "PASS"
+        },
+        {
+          "check": "Dispatcher nonce framing accepts one frame and rejects missing/duplicate/duplicate-key responses",
+          "status": "PASS"
+        },
+        {
+          "check": "Mocked collector transport preserves chatter and payloads; command failure retains evidence and rejects acceptance",
+          "status": "PASS"
+        },
+        {
+          "check": "Both real control-expression blocks produce exact four/three BB controls for all four namespaces; eight parser-help paths pass",
+          "status": "PASS"
+        },
+        {
+          "check": "Recovery four BB choices accepted; wrong job/study/overlap/nonterminal/accounting owner outcome rejected",
+          "status": "PASS"
+        },
+        {
+          "check": "Both registered resource envelopes parse the unchanged58 lock; six wrong study/partition/time/CPU/SU/count cases reject",
+          "status": "PASS"
+        },
+        {
+          "check": "Synthetic review map matches exact MODIFY/job/SHA metadata; wrong verdict/job/missing census rejects (no actual review acceptance inferred)",
+          "status": "PASS"
+        },
+        {
+          "check": "Remaining dispatcher/runtime help paths pass; no numerical dependency imported by fixtures",
+          "status": "PASS"
+        }
+      ],
+      "remote_calls": 0,
+      "numerical_imports": 0,
+      "model_runs": 0,
+      "allocated_qualification": false
+    },
+    "embedded_remote_python_ast": [
+      {
+        "file": "dispatch_once.py",
+        "embedded_script_sha256": "a28a889dc4f0ce3ffd5d034ca17859c8e1a7e4423f72a904df61306ae8b9c540"
+      },
+      {
+        "file": "retrieve_results.py",
+        "embedded_script_sha256": "a4c60dc033785237bc620d54f05dbdfdcbf66351e47f02655ae004ec904a0d5b"
+      },
+      {
+        "file": "retrieve_results.py",
+        "embedded_script_sha256": "ba41b6093a28ce0e6d0897c7a2bf65f377ec3be6fcc6c9f3ea032f8bd3286e76"
+      },
+      {
+        "file": "recover_transfer.py",
+        "embedded_script_sha256": "5f3c026f5da0184e82b37239ab8fae5fb00c0fcc76e8831364e1d021d224dfb0"
+      }
+    ],
+    "stdlib_fixture_reproduce": "Save validation.stdlib_fixture_source to a temporary .py file; from the repository root run PYTHONDONTWRITEBYTECODE=1 python3 TEMPFILE. Only metadata/help/mocked transport paths execute.",
+    "stdlib_fixture_source": "import argparse\nimport ast\nimport base64\nimport contextlib\nimport copy\nimport hashlib\nimport importlib.util\nimport io\nimport json\nimport os\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport tempfile\nfrom types import SimpleNamespace\nfrom unittest.mock import patch\n\nREPO = Path.cwd().resolve()\nBASE = REPO / 'experiments/ba_20261107'\nBB = REPO / 'experiments/bb_20261108'\nRESULTS = []\n\n\ndef load(name):\n    spec = importlib.util.spec_from_file_location('bb_' + name, BB / (name + '.py'))\n    module = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(module)\n    return module\n\n\ndef expect_error(callback):\n    try:\n        callback()\n    except (RuntimeError, ValueError, SystemExit, KeyError):\n        return\n    raise AssertionError('Malformed metadata accepted')\n\n\ndef passed(label):\n    RESULTS.append({'check': label, 'status': 'PASS'})\n\n\npins = {\n    'dispatch_once.py': '4e6799f707a7c6dbacc1d700130a3b0e57bcbda55345e34d622b9adb27ced627',\n    'retrieve_results.py': 'c1ecabf3dbca11dc692348860d54c07b3ba983e3227b7680f3a85825b7e87148',\n    'recover_transfer.py': 'a5c190dbc2d037bef099a020734fac9c23812507ae62d50b3e4307a5c7e21b9b',\n    'copy_runtime.py': 'be2f53f62e15b79391d9e1bfaa00d9022bb5e52fee1096b7508b9567b5352ffd',\n}\nfor name, pin in pins.items():\n    assert hashlib.sha256((BASE / name).read_bytes()).hexdigest() == pin\n    ast.parse((BB / name).read_text(), filename=name)\nexpected = (BASE / 'dispatch_once.py').read_text().replace('experiment/ba-20261107', 'experiment/bb-20261108').replace('slurm/ba-20261107', 'slurm/bb-20261108')\nassert (BB / 'dispatch_once.py').read_text() == expected\npassed('Four immutable BA parents unchanged; four BB ASTs valid; dispatcher exact two namespace substitutions')\n\ndispatch, collector, recovery, runtime = [load(name) for name in ('dispatch_once', 'retrieve_results', 'recover_transfer', 'copy_runtime')]\nruntime.no_numerical_imports()\nassert not any(name.split('.')[0] in ('torch', 'numpy', 'transformers') for name in sys.modules)\nassert runtime._SHARED == BASE\nassert recovery.REPO == REPO\npassed('All four modules import stdlib only; explicit shared-module and recovery repository paths resolve')\n\nfor name in ('results.json', 'proof/raw.stdout', 'x-1/a_b.txt'):\n    assert str(collector.safe_member(name)) == name\nfor name in ('../escape', '/absolute', 'a//b', 'a/./b', 'a*', 'a?', 'a[b]', 'a\\\\b', 'a\\n', 'caf\u00e9'):\n    expect_error(lambda name=name: collector.safe_member(name))\npassed('Canonical safe members accepted; ten traversal/control/glob/non-ASCII cases rejected')\n\nmarker = 'TEST_NONCE:'\nvalid = b'notice\\r\\n' + marker.encode() + b'{\"returncode\":0}\\r\\n'\nassert dispatch.framed_response(valid, marker) == {'returncode': 0}\nfor raw in (b'notice', valid + valid, marker.encode() + b'{\"returncode\":0,\"returncode\":1}'):\n    expect_error(lambda raw=raw: dispatch.framed_response(raw, marker))\npassed('Dispatcher nonce framing accepts one frame and rejects missing/duplicate/duplicate-key responses')\n\nwith tempfile.TemporaryDirectory(prefix='bb-transport-stdlib-') as temporary:\n    root = Path(temporary)\n    nonce = 'a' * 48\n    envelope = {'returncode': 0, 'stdoutbase64': base64.b64encode(b'payload\\n').decode(), 'stderrbase64': base64.b64encode(b'command diagnostic\\n').decode()}\n    raw = b'terminal notice\\r\\nACI_REMOTE_TEXT_' + nonce.encode() + b':' + json.dumps(envelope).encode() + b'\\r\\n'\n    fake = subprocess.CompletedProcess([], 0, raw, b'transport diagnostic')\n    with patch.object(collector.secrets, 'token_hex', return_value=nonce), patch.object(collector.subprocess, 'run', return_value=fake):\n        assert collector.remote_text(['not-executed'], ['not-executed'], root, 'valid') == 'payload\\n'\n    assert (root / 'valid.transport.stdout.raw').read_bytes() == raw\n    assert (root / 'valid.payload.stdout').read_bytes() == b'payload\\n'\n    assert (root / 'valid.payload.stderr').read_bytes() == b'command diagnostic\\n'\n    envelope['returncode'] = 2\n    raw_error = b'ACI_REMOTE_TEXT_' + nonce.encode() + b':' + json.dumps(envelope).encode()\n    with patch.object(collector.secrets, 'token_hex', return_value=nonce), patch.object(collector.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, raw_error, b'')):\n        expect_error(lambda: collector.remote_text(['not-executed'], ['not-executed'], root, 'nonzero'))\n    assert (root / 'nonzero.envelope.json').is_file()\npassed('Mocked collector transport preserves chatter and payloads; command failure retains evidence and rejects acceptance')\n\nstudies = ('bb-selector', 'bb-e1', 'bb-selector-environment-setup', 'bb-e1-environment-setup')\nfor source in ('retrieve_results', 'recover_transfer'):\n    tree = ast.parse((BB / (source + '.py')).read_text())\n    main = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'main')\n    start = next(index for index, node in enumerate(main.body) if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name) and node.targets[0].id == 'prefix' and isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Attribute) and node.value.func.attr == 'removesuffix')\n    statements = main.body[start:start + 3]\n    assert [node.targets[0].id for node in statements] == ['prefix', 'suffixes', 'names']\n    code = compile(ast.fix_missing_locations(ast.Module(body=statements, type_ignores=[])), '<actual-control-expressions>', 'exec')\n    for study in studies:\n        scope = {'args': SimpleNamespace(study=study)}\n        exec(code, scope)\n        prefix = study.removesuffix('-environment-setup')\n        suffixes = ('-runner.log', '-modules.txt', '-exit-code.txt') if study.endswith('-environment-setup') else ('-runner.log', '-installed.txt', '-modules.txt', '-exit-code.txt')\n        assert scope['names'] == [prefix + suffix for suffix in suffixes]\n        args = [sys.executable, str(BB / (source + '.py')), '123', study]\n        if source == 'retrieve_results':\n            args += ['unused', '--help']\n        else:\n            args += ['original', 'new', '--expected-state', 'COMPLETED', '--expected-exit', '0:0', '--help']\n        result = subprocess.run(args, capture_output=True, text=True, timeout=10)\n        assert result.returncode == 0\npassed('Both real control-expression blocks produce exact four/three BB controls for all four namespaces; eight parser-help paths pass')\n\nwith contextlib.redirect_stderr(io.StringIO()):\n    for study in studies:\n        parsed = recovery.parse_args(['123', study, '/tmp/bb-original', '/tmp/bb-new', '--expected-state', 'COMPLETED', '--expected-exit', '0:0'])\n        assert parsed.study == study\n    for change in ('bad-job', 'ba-provenance', 'overlap', 'running'):\n        args = ['123', 'bb-selector', '/tmp/bb-original', '/tmp/bb-new', '--expected-state', 'COMPLETED', '--expected-exit', '0:0']\n        if change == 'bad-job': args[0] = '12;3'\n        if change == 'ba-provenance': args[1] = change\n        if change == 'overlap': args[3] = '/tmp/bb-original/child'\n        if change == 'running': args[5] = 'RUNNING'\n        expect_error(lambda args=args: recovery.parse_args(args))\nrow_args = SimpleNamespace(job='123', expected_state='COMPLETED', expected_exit='0:0')\nassert recovery.accounting_row('123|CCR26063|bb-fixture|COMPLETED|438|1|0:0\\n', row_args)[0] == '123'\nexpect_error(lambda: recovery.accounting_row('124|CCR26063|bb-fixture|COMPLETED|438|1|0:0\\n', row_args))\nexpect_error(lambda: recovery.accounting_row('123|WRONG|bb-fixture|COMPLETED|438|1|0:0\\n', row_args))\npassed('Recovery four BB choices accepted; wrong job/study/overlap/nonterminal/accounting owner outcome rejected')\n\nbase_contract = {'environment_installation': 'FRESH_NODE_LOCAL_COPY_V1', 'bootstrap_output_max_bytes': 100_000_000, 'campaign_id': 'bb-fixture', 'bootstrap_custody_campaign': 'bb-fixture-environment-setup', 'requirements_lock': 'experiments/ba_20261107/provenance-environment.lock', 'expected_package_count': 58, 'copy_study': 'selector', 'partition': 'gpu-a100-dev', 'time_limit': '00:40:00', 'cpus': 8, 'max_su': 2}\nassert len(runtime.expected_versions(REPO, base_contract)) == 58\ncpu = dict(base_contract, copy_study='e1', partition='development', time_limit='01:00:00', max_su=1)\nassert len(runtime.expected_versions(REPO, cpu)) == 58\nfor changes in ({'copy_study': 'opguard'}, {'partition': 'development'}, {'time_limit': '00:30:00'}, {'cpus': 12}, {'max_su': 3}, {'expected_package_count': 65}):\n    malformed = dict(base_contract, **changes)\n    expect_error(lambda malformed=malformed: runtime.expected_versions(REPO, malformed))\npassed('Both registered resource envelopes parse the unchanged58 lock; six wrong study/partition/time/CPU/SU/count cases reject')\n\nwith tempfile.TemporaryDirectory(prefix='bb-prerequisite-stdlib-') as temporary:\n    release = Path(temporary) / 'release.json'\n    contract = {'required_review_verdicts': {'TEST_ACTUAL_FAILURE_REVIEWED': 'MODIFY'}, 'required_review_job_ids': {'TEST_ACTUAL_FAILURE_REVIEWED': '123'}}\n    data = {'prerequisite_reviews': {'TEST_ACTUAL_FAILURE_REVIEWED': {'verdict': 'MODIFY', 'job_id': '123', 'review_sha256': 'b' * 64}}}\n    release.write_text(json.dumps(data))\n    with patch.dict(os.environ, {'BA_RELEASE_PATH': str(release)}):\n        assert runtime.prerequisites(contract) == data['prerequisite_reviews']\n        for change in ('verdict', 'job', 'missing'):\n            altered = copy.deepcopy(data)\n            if change == 'verdict': altered['prerequisite_reviews']['TEST_ACTUAL_FAILURE_REVIEWED']['verdict'] = 'PROMOTE'\n            if change == 'job': altered['prerequisite_reviews']['TEST_ACTUAL_FAILURE_REVIEWED']['job_id'] = '124'\n            if change == 'missing': altered['prerequisite_reviews'] = {}\n            release.write_text(json.dumps(altered))\n            expect_error(lambda: runtime.prerequisites(contract))\npassed('Synthetic review map matches exact MODIFY/job/SHA metadata; wrong verdict/job/missing census rejects (no actual review acceptance inferred)')\n\nfor name in ('dispatch_once', 'copy_runtime'):\n    result = subprocess.run([sys.executable, str(BB / (name + '.py')), '--help'], capture_output=True, text=True, timeout=10)\n    assert result.returncode == 0\nassert not any(name.split('.')[0] in ('torch', 'numpy', 'transformers') for name in sys.modules)\npassed('Remaining dispatcher/runtime help paths pass; no numerical dependency imported by fixtures')\n\nresult = {'status': 'PASS', 'scope': 'LOCAL_STDLIB_AND_STATIC_ONLY', 'groups': RESULTS, 'remote_calls': 0, 'numerical_imports': 0, 'model_runs': 0, 'allocated_qualification': False}\nPath('/tmp/bb-infrastructure-validation.json').write_text(json.dumps(result, indent=2) + '\\n')\nprint(json.dumps(result, indent=2))\n",
+    "harness_corrections": "First metadata fixture selected every variable named prefix, including the unrelated WORK prefix; changed the fixture to extract the real consecutive removesuffix/prefix, suffixes, names block. No implementation failure or code change resulted. Embedded-script scan was widened to ignore leading whitespace so all4 bodies are parsed."
+  },
+  "estimated_runtime": "No allocated runtime measured. Selector cap40min/2SU; CPU E1 cap60min/1SU. Setup cutoff is dynamically bounded to preserve1260s before fresh scientific admission. Method runtime awaits preregistration.",
+  "how_to_run": "Not released. Future method owner must supply exact scientific runner/batch/contracts, environment and input pins, prerequisite review census and source-bound independent release. Infrastructure command forms are in README; --help paths were exercised locally only.",
+  "baseline_preservation": "All four immediate BA parent source hashes are unchanged; dispatcher byte equality after exactly two documented substitutions passed. Exact diffs for remaining three files are retained above.",
+  "qualification_limits": [
+    "No remote calls, credentials, push, dispatch, install, Torch/NumPy import, numerical/model fixture, filesystem performance or CUDA qualification occurred.",
+    "No scientific runner, method core, batch, contract, seed, input selection, prerequisite label or detector claim was invented.",
+    "Shared legacy BA_* variable names remain ABI only and must point to BB contract/release. Future contracts must pin the two exact BA stdlib source files and unchanged58-package lock in addition to all BB scientific files.",
+    "Prerequisite runtime validates declared metadata and matching IDs, not review contents. The independent method precheck/operator must reject missing/empty required ACTUAL review census and authenticate actual review scope/custody.",
+    "Setup and later scientific admission are independent. Installation completion alone does not establish sufficient remaining time, runtime correctness, numerical validity or scientific acceptance.",
+    "Serial dispatch is mandatory under the setup only-self owned-queue guard. A precheck does not release production or permit automatic retries."
+  ],
+  "independent_review": "PENDING: infrastructure-only source precheck; no allocated/method acceptance."
+}

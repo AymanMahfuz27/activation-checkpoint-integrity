@@ -1,0 +1,166 @@
+{
+  "baseline_config_reference": [
+    "experiments/bb_20261108/method-plan.json CPU fixture protocol (source86614b2a)",
+    "experiments/ba_20261107/provenance-copy40-dev.sbatch orchestration/retention pattern only, not a scientific performance baseline",
+    "experiments/ba_20261107/provenance-copy40-dev-contract.json unchanged historical source registry"
+  ],
+  "config_diff": {
+    "comparison_scope": "New CPU fixture stage; no scientific estimator, historical code, checkpoint or prior acceptance criterion is changed.",
+    "cpus": "8 unchanged",
+    "data_access": "No corpus/checkpoint/model restore; only the byte-pinned21379B historicalE1disposition JSON",
+    "device": "CUDA-dependent provenance reference wrapper -> explicitCPU/zeroCUDAvisibility",
+    "fixture_census": "14 selectorCPU (13shared+distinctCPUgolden) +6E1 =20; CUDAgolden not selected; no skips/expected failures",
+    "max_su": "2 reference wrapper ->1",
+    "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "partition": "gpu-a100-dev reference wrapper -> development CPU fixture stage",
+    "reviewed_runtime_base": "BB copy_runtime52bafc89 / BA common47b10b9e / checksfda67b51 / lockafbdeae9, unchanged.",
+    "wall_time": "00:40:00 reference wrapper ->01:00:00"
+  },
+  "contract_source_sha256": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/cpu_job.py": "6ed195915c5b8422be21410d0552f86bddfc6039593034f4d302322791160182",
+    "experiments/bb_20261108/e1-cpu-dev.sbatch": "b0526ca2264ef2aeddc791ae21ea4ab31647b1fdba5d661b8111c60e8a245b6c",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a"
+  },
+  "created_at_utc": "2026-11-08T06:56:31.887444+00:00",
+  "cuda_qualification": false,
+  "estimated_runtime": "Unmeasured. Hard cap60minutes/1CPU-SU; bootstrap dynamically preserves1260s for fresh>=1200s admission with600s retention reserve. No timing/performance estimate is inferred from other hardware.",
+  "experiment_id": "BB-DEMAND-CPU-20261108-v1",
+  "files_changed": {
+    "experiments/bb_20261108/cpu_job.py": "Stdlib-only top-level driver; fresh physical/runtime/exact-prerequisite gates before numerical token/imports; historical source and smallJSON verification; explicit20-ID no-skip fixture run with partial outcomes, archives and bounded durable retention.",
+    "experiments/bb_20261108/e1-cpu-dev-contract.json": "Pinned11-source package,20fixture census, unchanged226-file historical registry, one21379-byte metadata input, five authentic ACTUAL review SHA/scope/job bindings and source-only controls separately.",
+    "experiments/bb_20261108/e1-cpu-dev.sbatch": "Exclusive owned development60min/8CPU/max1SU,10minretention signal, fresh job-private node-localcopy bootstrap followed by CPUdriver; four normal/three bootstrap controls.",
+    "experiments/bb_20261108/implementation-report-cpu.json": "This handoff and reproducible static-check source; deliberately excluded from scientific contract pins."
+  },
+  "final_oracle_coherence_correction": {
+    "actual_acceptance": false,
+    "final_fixture_sha256": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a",
+    "fix": "Capture preclip gradients privately before real clipping; coherent model/buffer/optimizer/scheduler/cursor/update/RNG and preclip/postclip enforcement oracle fields.",
+    "limitation": "Twelve of13 intermediate-package files are preserved, including exact contract/report. Core owner retained no91306509 fixture backup, and isolated worktree check found7e68. No913 bytes were reconstructed; round3 is not a complete source archive. Round1/2 complete13-file packages remain.",
+    "manifest_sha256": "f43ab19ad46aac31d30d6e4a8ffdde0bc25e018582084baf35274eb9a8b7c9ad",
+    "numerical_execution": false,
+    "preserved_partial_package": "artifacts/revision3/bb-20261108/history/cpu-precheck-round3/",
+    "prior_contract_sha256": "ce109a2dac1eb40e50ed5d8edaaf7c5c065c07ff9ad94d5a46c89624feb997cc",
+    "prior_report_sha256": "a4e30d7adf5249997d41091cbbefbf51b786cab6d2e89b40a1cea4046904062d",
+    "source_review_signal": "closeout_audit FINAL_SOURCE_READY confirms full consolidated crosswalk and no further requested source changes before this refreeze.",
+    "unchanged": "Core9550, CPUdriver6ed, batchb052, method86614,20IDs and all runtime/input/resource/strict-old-criteria gates."
+  },
+  "goal": "Qualify the exact20 CPU selector/golden/E1 fixtures in a real development allocation before an A100 pilot; export old E1 strict disposition metadata unchanged.",
+  "how_to_run": "Not released. Parent must independently precheck the exact CPUcontract/source, authenticate all five ACTUAL priorreviews, freeze/push isolated BB checkout and invoke the once-only dispatcher with e1-cpu-dev-source/control and the sealedbatch. Allocated batch bootstraps copy_runtime --study e1 then /tmp/aci-bb-copy-JOB/env/bin/python -B cpu_job.py. Never invoke cpu_job locally or on a login node.",
+  "how_to_verify_baseline_preserved": "Static validation confirms unchanged frozenBB infrastructure hashes, BA historical226-file registry and58-package lock; allocated fixtures then own toygradient/state/RNG/nativeexecution parity. Historical source/checkpoints/criteria are never modified.",
+  "hypothesis": "The frozen selector logic, canonical CPU BLAKE3 and E1 norm discriminator pass their exact20 CPU fixtures without skipping; CPU-only qualification does not establish CUDA, Pythia compatibility or method efficacy.",
+  "implementation_summary": [
+    "Fresh common.admit verifies source/release/nativejob/actualbatch/environment/storage/time. Then copy_runtime.qualify verifies actual privateprefix/Python/full58versions/setup evidence before any numerical import.",
+    "The driver requires a nonempty exactfive ACTUAL review census and checks fixed hash/scope/job/verdict metadata against the sealed release. Parent independently authenticates actual content/custody before dispatch; source-only reviews are separately labeled and cannot substitute for actual outcomes.",
+    "Historical source revision/all226file hashes are verified and archived before the fingerprint import. A fresh CPU-only numerical-admission receipt precedes setting BB_NUMERICAL_ADMISSION=PASS:JOB; inherited admission tokens are rejected.",
+    "The actual imported Torch/NumPy versions and zero exposedCUDA devices are checked. Only20 explicitly ordered unique unittest IDs are loaded; actual imported fixture/core module paths must equal the checkout. Started/finished/passed IDs, all tracebacks/skips and normal-exit status survive an interrupted fixture run where a result object exists.",
+    "A completed run requires all20 tests started/finished/passed in order, zero skips/failures/errors/expected failures/unexpected successes and normal runner exit. Exit zero is CPUexecution completion pending independent actual review, not CUDA or scientific acceptance.",
+    "The old26-row disposition JSON is copied byte-identically. Separate metadata preserves categories20/2/4 and scientific_acceptance=false; original strict criteria, denominator and overallMODIFY are not cleared.",
+    "Exact raw contract/release plus11pinned files and a separate full226-file historical source archive are retained. Every postadmission error is preserved under fixed2GB/600s custody with fresh nativequota.",
+    "If source/release/time admission fails, a separate fixednamespace failure-only collector rechecks the real owned RUNNINGCPU descriptor/node and actualbatch bytes before compact custody. It archives fixed nonsecret source paths as PRESENT_UNQUALIFIED/missing, never grants the numerical token, and records retention failure explicitly if live custody cannot complete."
+  ],
+  "independent_source_review": "PENDING",
+  "mandatory_fixture_crosswalk_correction": {
+    "actual_acceptance": false,
+    "independent_rereview": "PENDING",
+    "new_test_sha256": "91306509ad01e3c87bd9f2bbdc9916230483669fdecaadc611f6618fcd97b1d4",
+    "numerical_execution": false,
+    "preserved_manifest_sha256": "2624659b07654243406db24fb5e6ada640dc5a7e01c07264060bdc1d6c165f7a",
+    "preserved_package": "artifacts/revision3/bb-20261108/history/cpu-precheck-round2/",
+    "prior_contract_sha256": "253f4246d5cc7bce0ae6cba049a2528410ff54601da1af8128c3009e7e3391c0",
+    "prior_report_sha256": "1892410727d9aa58b737a2f62efb857dbe9ca6f45d3d0fa68b222988f096bc19",
+    "reason": "Consolidated source-review crosswalk required additional declared subcases under the same20 fixture IDs before allocated qualification.",
+    "subcases": [
+      "Empty and FP32 element counts255/256/257, i.e.1020/1024/1028bytes, in existing CPU/CUDA golden methods; prior archive reason says chunk boundaries, not counts of255chunks.",
+      "All6families heldoutseed37 clean and consumer-fault parity",
+      "Outside-scope nativeLayerNorm multislot/count drift",
+      "Explicit dtype/stride/region/root-microbatch drift",
+      "Actual clip/counter spy for preclip/preoptimizer enforcement"
+    ],
+    "unchanged": "Core9550, CPUdriver6ed, batchb052, method86614,20IDs, resource/runtime/source/input/old-criteria gates."
+  },
+  "not_performed": [
+    "No local numerical/scientific module import, Torch/NumPy execution, tiny-batch smoke, environment installation, remote/auth/push/dispatch, model restore or numerical acceptance.",
+    "No fake Slurm environment or local bypass was used. First actual CPUallocated job is the smoke/qualification step; its exact20fixtures must pass without skips and receive independent actual review before A100 release.",
+    "The earlier247e E1 source-only review is an ancestor control; currentc56helper+181test and 9550selector+98a1test require the new wholeCPUpackage source precheck and allocated CPU execution."
+  ],
+  "parameter_count": "N/A to CPU fixture driver. Method declares0new trainable parameters; no historical model was instantiated or counted locally.",
+  "parent_method_id": "BB-DEMAND-20261108-v1",
+  "potential_risks_or_caveats": [
+    "Static syntax/census/hash checks cannot establish Python/Torch numerical API compatibility or actual fixture success; CPUDEV is required.",
+    "CPU success cannot qualify CUDA hashing, GPU launch/build semantics, Pythia replay, heldoutcases, selection-efficiency, methodcost or novelty.",
+    "The five actual prerequisite review contents are trusted only after parent authentication; runtime exactpins/scopes do not independently establish provenance of a forged release.",
+    "A failing sourceadmission can only collect fixed ownedjobfailure evidence; it never creates a sourcepass or numericalwork release. Nativequota/terminaltime loss may still prevent durable custody; retain explicit Scratchfailure evidence and do not infer completion.",
+    "No automaticretry or productionrelease. A later source/config/runtime change invalidates the applicable qualification and needs an independently reviewed fresh DEV release.",
+    "No actual PythonAPI defect has been diagnosed yet; do not describe pending tests as passing or the E1 modelmechanism as resolved."
+  ],
+  "run_status": "NOT_RUN_PENDING_FINAL_CPU_SOURCE_PRECHECK_SEAL",
+  "sanity_checks_passed": {
+    "bash": {
+      "command": "bash -n experiments/bb_20261108/e1-cpu-dev.sbatch",
+      "result": "exit0"
+    },
+    "caught_pre_release_drift": {
+      "cause": "Parent-confirmed preoutcome Researcher timing-only amendment for explicit12case support gate and direct matchedcost denominator/frozenABBA orders. CPU20census/core/scope/budgets unchanged. Refreeze followed authorization; no job/scientific test failed.",
+      "earlier_draft_contract_sha256": "eb519902a82a01a8a5ad7cdfcba7a8cc022005cf010846cfc55c62e3478bfd08",
+      "earlier_method_sha256": "a4547f52417df3e26b2cd33ede16ae2659c7e147a6e870f714eeca3ea1a4b5db",
+      "new_method_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb"
+    },
+    "reproducible_static_source": "import ast\nimport hashlib\nimport json\nimport re\nimport shlex\nfrom pathlib import Path\n\nrepo = Path.cwd()\nbb = repo / 'experiments/bb_20261108'\nsha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()\nc = json.loads((bb / 'e1-cpu-dev-contract.json').read_text())\nplan = json.loads((bb / 'method-plan.json').read_text())\nchecks = []\nfor name, pin in c['files'].items():\n    assert sha(repo / name) == pin, (name, 'stale pin')\nassert len(c['files']) == 11\nassert 'experiments/bb_20261108/e1-cpu-dev-contract.json' not in c['files']\nassert not any('implementation-report' in x for x in c['files'])\nchecks.append('All11 source/config/lock pins match; contract/report self-hashes excluded')\nold = json.loads((repo / 'experiments/ba_20261107/provenance-copy40-dev-contract.json').read_text())\nassert c['historical_contract'] == old['historical_contract'] and c['source_path'] == old['source_path']\nassert len(c['historical_contract']['source_files']) == 226\nchecks.append('Historical226-file source registry/revision is semantically identical to accepted BA contract')\nassert c['fixture_ids'] == plan['cpu_fixture_ids'] and len(set(c['fixture_ids'])) == 20\nfor module in ('test_selector_allocated', 'test_e1_allocated'):\n    tree = ast.parse((bb / (module + '.py')).read_text())\n    classes = {x.name: {y.name for y in x.body if isinstance(y, ast.FunctionDef)} for x in tree.body if isinstance(x, ast.ClassDef)}\n    for name in c['fixture_ids']:\n        m, k, f = name.split('.')\n        if m == module:\n            assert f in classes[k]\nassert len(c['selector_fixture_ids']) == 14 and len(c['e1_fixture_ids']) == 6\nassert not any('test_full_cuda' in x for x in c['fixture_ids'])\nchecks.append('CPU20 ordered IDs match frozen method and actual AST methods:13shared+CPUgolden+6E1; CUDAgolden excluded')\ntree = ast.parse((bb / 'cpu_job.py').read_text())\nmain = next(x for x in tree.body if isinstance(x, ast.FunctionDef) and x.name == 'main')\nimports = {a.name for x in tree.body if isinstance(x, ast.Import) for a in x.names}\nassert imports <= {'hashlib','importlib','importlib.util','json','os','signal','socket','sys','tarfile','traceback','unittest'}\nassert {x.module for x in tree.body if isinstance(x, ast.ImportFrom)} == {'pathlib'}\nfind = lambda name: min(x.lineno for x in ast.walk(main) if isinstance(x, ast.Call) and ast.unparse(x.func) == name)\nadmit, qual, prereq = find('common.admit'), find('runtime.qualify'), find('verify_prerequisites')\ntoken = next(x.lineno for x in ast.walk(main) if isinstance(x, ast.Assign) and any(isinstance(t, ast.Subscript) and ast.unparse(t) == \"os.environ['BB_NUMERICAL_ADMISSION']\" for t in x.targets))\ntorchline = min(x.lineno for x in ast.walk(main) if isinstance(x, ast.Import) and any(a.name == 'torch' for a in x.names))\nassert admit < qual < prereq < token < torchline\nassert 'source_allocation_guard' not in (bb / 'cpu_job.py').read_text()\nchecks.append('CPUdriver stdlib-only top imports; AST order admit->runtimequalify->exactACTUALbindings->token->Torch; no oldCUDA model guard')\ntext = (bb / 'e1-cpu-dev.sbatch').read_text()\ndirectives = dict(re.findall(r'^#SBATCH --([^=\\s]+)=(.*)$', text, re.M))\nfor k, v in {'job-name':'vg-bb-e1-cpu-dev','account':'CCR26063','partition':'development','nodes':'1','ntasks':'1','cpus-per-task':'8','time':'01:00:00','signal':'B:USR1@600'}.items():\n    assert directives[k] == v\nassert '#SBATCH --exclusive\\n' in text and '#SBATCH --no-requeue\\n' in text\nexports = {}\nfor line in text.splitlines():\n    if line.startswith('export '):\n        for assignment in shlex.split(line[7:]):\n            k, v = assignment.split('=', 1)\n            exports[k] = v\nassert all(exports[k] == v for k, v in c['runtime_environment'].items())\nassert '--study e1' in text and '/tmp/aci-bb-copy-$SLURM_JOB_ID/env/bin/python' in text and 'e1-cpu-dev-source' in text\nchecks.append('Batch resource directives,9sealed environment keys,CPUvisibility,jobenv andsource paths match contract')\nassert set(c['required_review_verdicts']) == set(c['required_review_job_ids']) == set(c['required_review_scopes']) == set(c['required_review_sha256'])\nassert len(c['required_review_verdicts']) == 5\nfor name, path in c['actual_review_evidence_paths'].items():\n    p = repo / path\n    d = json.loads(p.read_text())\n    assert sha(p) == c['required_review_sha256'][name]\n    assert d['job_id'] == c['required_review_job_ids'][name] and d['scope'] == c['required_review_scopes'][name] and d['verdict'] == c['required_review_verdicts'][name]\nassert sorted(c['required_review_verdicts'].values()) == ['MODIFY','PROMOTE','PROMOTE','PROMOTE','PROMOTE']\nchecks.append('Five nonempty ACTUAL prerequisite hashes/IDs/scopes/verdicts match saved reviews; source controls remain separate')\np = repo / 'artifacts/revision3/ba-20261107/terminal-3561473/extracted/ba-closeout/results/e1-validation-dispositions.json'\ni = c['inputs'][0]\nassert len(c['inputs']) == 1 and i['bytes'] == p.stat().st_size == 21379 and i['sha256'] == sha(p)\nd = json.loads(p.read_text())\ncounts = {}\nfor row in d['rows']:\n    counts[row['disposition']] = counts.get(row['disposition'], 0) + 1\nassert len(d['rows']) == 26 and counts == c['retained_e1_disposition_counts']\nchecks.append('Only21379B retainedE1JSON input registered; exact digest and unchanged26/20/2/4 metadata match')\ninfra = json.loads((bb / 'implementation-report-infrastructure.json').read_text())\nfor name, pin in infra['source_sha256'].items():\n    assert sha(bb / name) == pin\nassert len(re.findall(r'^[-\\w.]+==', (repo / c['requirements_lock']).read_text(), re.M)) == 58\nchecks.append('Frozen six-file BB infrastructure binding and unchanged58-package lock preserved')\nresult = {'status':'PASS','scope':'STATIC_AST_HASH_CENSUS_ONLY','checks':checks,'scientific_modules_imported':False,'numerical_execution':False,'remote_calls':0,'allocated_tests_run':False,'contract_sha256':sha(bb / 'e1-cpu-dev-contract.json')}\nPath('/tmp/bb-cpu-static-validation.json').write_text(json.dumps(result, indent=2) + '\\n')\nprint(json.dumps(result, indent=2))\n",
+    "ruff": {
+      "command": "ruff check experiments/bb_20261108/cpu_job.py",
+      "result": "All checks passed."
+    },
+    "static": {
+      "allocated_tests_run": false,
+      "checks": [
+        "All11 source/config/lock pins match; contract/report self-hashes excluded",
+        "Historical226-file source registry/revision is semantically identical to accepted BA contract",
+        "CPU20 ordered IDs match frozen method and actual AST methods:13shared+CPUgolden+6E1; CUDAgolden excluded",
+        "CPUdriver stdlib-only top imports; AST order admit->runtimequalify->exactACTUALbindings->token->Torch; no oldCUDA model guard",
+        "Batch resource directives,9sealed environment keys,CPUvisibility,jobenv andsource paths match contract",
+        "Five nonempty ACTUAL prerequisite hashes/IDs/scopes/verdicts match saved reviews; source controls remain separate",
+        "Only21379B retainedE1JSON input registered; exact digest and unchanged26/20/2/4 metadata match",
+        "Frozen six-file BB infrastructure binding and unchanged58-package lock preserved"
+      ],
+      "contract_sha256": "387bb64ac20c70e77c9b81a8445c1961d4768ea383b9dcdd0c7bc85a3319c0e3",
+      "numerical_execution": false,
+      "remote_calls": 0,
+      "scientific_modules_imported": false,
+      "scope": "STATIC_AST_HASH_CENSUS_ONLY",
+      "status": "PASS"
+    },
+    "static_reproduce": "Save sanity_checks_passed.reproducible_static_source to a temporary .py and run python3 TEMPFILE from repo root. It parses source and hashes/metadata only; never imports the scientific modules."
+  },
+  "scientific_acceptance": false,
+  "scope": "CPU_DEV_SOURCE_PRECHECK_CANDIDATE_ONLY",
+  "source_precheck_correction": {
+    "actual_acceptance": false,
+    "allocated_or_numerical_execution": false,
+    "finding": "A known-family extra overload (for example aten.gelu.out) was ignored when default events still matched; frozen method requires fail-closed unsupported overload handling.",
+    "fix": "Core owner rejects unsupported overloads with a registered native schema base, and adds an overload-negative subcase to the existing schema fixture.",
+    "independent_rereview": "PENDING",
+    "new_source_sha256": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "new_test_sha256": "7e6856f7652fde25afb1db23088bd12d8f19d54398eabf147a1351ccbe5ee28f",
+    "preserved": "Twenty exact fixture IDs, CPUdriver6ed19591, batchb0526ca2, method86614b2a, source/runtime/input/resource/old-criteria gates unchanged.",
+    "preserved_manifest_sha256": "463d7bb998af4ef568bf63f9d639f7d77eb70693487d30da74572e1abd7b9daa",
+    "preserved_package": "artifacts/revision3/bb-20261108/history/cpu-precheck-round1/",
+    "prior_contract_sha256": "930e81396e4f37871c1eda74ba68ede51ec11d9f37e498928f0501cf0b004769",
+    "prior_report_sha256": "1cc3489b2e77cfb48d450c620c4142995c85e02907e464b6cf2837d65211e9b7",
+    "prior_source_sha256": "c0127178a16a524a09a1af54240097035cfae6664e70b7871ab84d6f21cec886",
+    "prior_test_sha256": "3b59e4cd9f6cd5f562ce61bf1d3a25912ec671e83a89401e8d8aa65f84383d96"
+  },
+  "source_sha256": {
+    "cpu_job.py": "6ed195915c5b8422be21410d0552f86bddfc6039593034f4d302322791160182",
+    "e1-cpu-dev-contract.json": "387bb64ac20c70e77c9b81a8445c1961d4768ea383b9dcdd0c7bc85a3319c0e3",
+    "e1-cpu-dev.sbatch": "b0526ca2264ef2aeddc791ae21ea4ab31647b1fdba5d661b8111c60e8a245b6c"
+  },
+  "updated_at_utc": "2026-11-08T07:08:41.477733+00:00"
+}

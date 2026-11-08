@@ -1,0 +1,310 @@
+{
+  "review_id": "BB20261108-CPU-DEV-FINAL-SOURCE-PRECHECK",
+  "created_utc": "2026-11-08T07:11:26.070467+00:00",
+  "reviewer": {
+    "agent": "/root/closeout_audit",
+    "role": "Independent Experiment Analyst",
+    "provider": "Codex; no Claude or separately billed reviewer"
+  },
+  "scope": "PRECHECK_ONLY_BB_CPU_DEV_SOURCE_AND_CONTRACT",
+  "verdict": "PROMOTE",
+  "contract_sha256": "387bb64ac20c70e77c9b81a8445c1961d4768ea383b9dcdd0c7bc85a3319c0e3",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/cpu_job.py": "6ed195915c5b8422be21410d0552f86bddfc6039593034f4d302322791160182",
+    "experiments/bb_20261108/e1-cpu-dev.sbatch": "b0526ca2264ef2aeddc791ae21ea4ab31647b1fdba5d661b8111c60e8a245b6c",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a"
+  },
+  "scientific_acceptance": false,
+  "empirical_acceptance": false,
+  "allocated_qualification": false,
+  "execution_release": false,
+  "headline_result": "The corrected frozen CPU fixture package meets the source/method/admission/custody contract and contains the exact required20fixture census. All identified fail-closed and fixture-completeness gaps are resolved in the inspected bytes. No allocated test outcome is inferred.",
+  "hypothesis_tested": "The frozen selector logic, canonical CPU BLAKE3 and E1 norm discriminator pass their exact20 CPU fixtures without skipping; CPU-only qualification does not establish CUDA, Pythia compatibility or method efficacy.",
+  "implementation_report": {
+    "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/experiments/bb_20261108/implementation-report-cpu.json",
+    "sha256": "65430c93f294a597a59c914b705f6d1d300550a89c399b5400cb691f5fd7f30e",
+    "bytes": 22462
+  },
+  "contract": {
+    "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/experiments/bb_20261108/e1-cpu-dev-contract.json",
+    "sha256": "387bb64ac20c70e77c9b81a8445c1961d4768ea383b9dcdd0c7bc85a3319c0e3",
+    "bytes": 59290
+  },
+  "batch": {
+    "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/experiments/bb_20261108/e1-cpu-dev.sbatch",
+    "sha256": "b0526ca2264ef2aeddc791ae21ea4ab31647b1fdba5d661b8111c60e8a245b6c",
+    "bytes": 2212
+  },
+  "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+  "source_commit": "Not yet assigned for release; parent must bind the final pushed commit and this exact review in the once-only execution release.",
+  "baseline_integrity": {
+    "status": "SOURCE_CONFIRMED_RUNTIME_UNMEASURED",
+    "reason": "All11pins match, the226-file historical registry exactly equals frozen BA, the same58-package lock/common/checks/runtime remain unchanged, and five owning ACTUAL review bytes authenticate exact hash/scope/job/verdict. Only selector and selector-fixture pins changed from initial contract930e8139; every other contract field is unchanged.",
+    "no_empirical_comparison": "This is a new CPU qualification candidate. No CPU numerical fixture, CUDA behavior, historical model replay, E1 mechanism result or performance has been measured."
+  },
+  "validity_assessment": {
+    "source_assessment": "HIGH_WITH_EXPLICIT_ALLOCATED_RUNTIME_GATE",
+    "empirical_result_validity": "NOT_ASSESSED_NO_NUMERICAL_EXECUTION",
+    "remaining_failure_modes": [
+      "Pinned Python/Torch APIs, native argument lowering and numerical fixture expectations can still fail in the actual allocation.",
+      "Installation, quota or remaining time can fail; partial/failure custody is bounded rather than guaranteed under native terminal loss.",
+      "CPU results cannot qualify CUDA kernels, model replay/held-out cases, selection efficiency, latency or new-method novelty."
+    ]
+  },
+  "fixture_census": {
+    "cpu_golden": 1,
+    "e1": 6,
+    "expected_failures_allowed": 0,
+    "order": "exact_fixture_ids",
+    "selector_shared": 13,
+    "skips_allowed": 0,
+    "total": 20,
+    "fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+      "test_selector_allocated.SelectorFixtures.test_cpu_blake3_matches_canonical_published_bytes",
+      "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+      "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+      "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+      "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+      "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+      "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+    ],
+    "source_defined_ids_match": true,
+    "frozen_method_ids_match": true,
+    "normal_runner_exit_required": true,
+    "exact_started_finished_passed_order_required": true,
+    "empirical_outcome": "NOT_RUN"
+  },
+  "resolved_findings": [
+    {
+      "id": "CPU-S1",
+      "initial_problem": "An unknown overload from a registered native family could be silently ignored while expected default events remained complete.",
+      "resolution": "Core9550maintains registered operator bases and rejects unregistered overloads before native execution, setting unsupported status. Existing schema fixture adds gelu.out after a valid default call.",
+      "status": "RESOLVED_IN_SOURCE_NOT_YET_ALLOCATED"
+    },
+    {
+      "id": "CPU-S2",
+      "initial_problem": "Digest goldens omitted the method’s required empty and chunk-boundary cases.",
+      "resolution": "Both CPU and CUDA golden methods include empty tensors and FP32counts255/256/257 around the1024-byte chunk boundary, plus singleton/noncontiguous/large multichunk. CPU also covers expanded4; zero-stride singleton is explicit.",
+      "status": "RESOLVED_IN_SOURCE_NOT_YET_ALLOCATED"
+    },
+    {
+      "id": "CPU-S3",
+      "initial_problem": "Six-family profiling did not complete the declared seed37held-out and consumer-control comparisons.",
+      "resolution": "All six families profile at11, assert native backward family/count/argument paths, then compare clean seed37and independent consumer faults with disabled/all four policies and complete state parity. ReLU uses positive element0/signbit31; others use fixed middle element/bit22.",
+      "status": "RESOLVED_IN_SOURCE_NOT_YET_ALLOCATED"
+    },
+    {
+      "id": "CPU-S4",
+      "initial_problem": "Outside-slot tests lacked the declared final LayerNorm input/mean/rstd census and outside add/drop/change negatives.",
+      "resolution": "A distinct residual feeds an uncheckpointed final LayerNorm with all three outside bindings, held-out parity and added/dropped/epsilon-changed negatives. A separate mixed inside/outside class negative remains.",
+      "status": "RESOLVED_IN_SOURCE_NOT_YET_ALLOCATED"
+    },
+    {
+      "id": "CPU-S5",
+      "initial_problem": "The combined schema fixture lacked explicit dtype/stride/region/root-microbatch drift cases.",
+      "resolution": "These subcases now join shape/options/family/count/overload negatives within the same required fixture method. No fixture-ID denominator changed.",
+      "status": "RESOLVED_IN_SOURCE_NOT_YET_ALLOCATED"
+    },
+    {
+      "id": "CPU-S6",
+      "initial_problem": "Enforcement originally proved only pre-optimizer behavior; the toy never clipped. Adding real clipping also required a separate preclip parity oracle.",
+      "resolution": "The toy now calls actual clip_grad_norm_ after the gate, counts clipping/optimizer calls, and includes a clean positive control. Preclip gradients are copied under no_grad/disabled modes; postclip gradients and model/buffer/optimizer/scheduler/cursor/update/RNG state remain separately covered. Rejection asserts clipping/optimizer unreached and protected persistent state unchanged, while RNG advances.",
+      "status": "RESOLVED_IN_SOURCE_NOT_YET_ALLOCATED"
+    }
+  ],
+  "component_reviews": [
+    {
+      "component": "selector.py",
+      "assessment": "PASS_FOR_CPU_QUALIFICATION_SOURCE",
+      "finding": "Full source inspected. Clean classes retain all compatible members; runtime requires original unanimity, complete event/argument coverage and fixed outside slots. Fresh CheckMode state prevents previous-update payload reuse. Canonical detached clones and full BLAKE3 are privately excluded; normal family calls remain visible. Unknown known-base overloads now fail closed. Native execution and return identity are preserved in the actual dispatch path.",
+      "limits": "The future model/timing driver must create/reset per-update stores and retain exact plan/registry/source identity. This CPU package makes no Pythia or multi-update timing claim."
+    },
+    {
+      "component": "selector fixtures",
+      "assessment": "PASS_FOR_SOURCE_COMPLETENESS",
+      "finding": "All20CPU IDs remain exact; required selector negatives, six-family held-out/consumer controls, independent fault delivery, full preclip/state/RNG parity, clipping gate and CPU digest oracle are present. GPU-only golden is not selected by CPU; it remains required for the later A100 package."
+    },
+    {
+      "component": "E1 helper and six fixtures",
+      "assessment": "PASS_FOR_CPU_QUALIFICATION_SOURCE",
+      "finding": "Allocated guard precedes Torch import; read-only FP32/FP64 reductions and pure metadata classifier preserve the difference between controlled overflow and a stable native-shaped norm. Explicit nonfinite JSON/range/boundary/nonmutation/input-qualification cases are present. Actual native clip outcome is never invented; original26criteria remain unchanged."
+    },
+    {
+      "component": "cpu_job.py admission",
+      "assessment": "PASS",
+      "finding": "No numerical top-level imports. Refuses inherited numerical token. Real owned Linux/job guard, common source/release/batch/environment/resource/storage/time admission, exact private-copy metadata qualification, nonempty five ACTUAL review SHA/scope/job/verdict bindings and historical226source/input checks precede numerical receipt/token and Torch/NumPy imports. Actual imported versions and zero CUDA visibility are checked. No corpus/checkpoint/model restore occurs."
+    },
+    {
+      "component": "cpu_job.py fixture accounting",
+      "assessment": "PASS",
+      "finding": "Exact ordered20IDs loaded with no loader errors; actual module file paths match checkout. Started/finished/passed IDs and tracebacks/skips/expected failures survive interruption when a result exists. Completion requires normal runner exit, every required ID in order and zero failure/error/skip/expected-failure/unexpected-success. A partial result cannot reach execution_complete."
+    },
+    {
+      "component": "cpu_job.py retention",
+      "assessment": "PASS_WITH_BOUNDED_FAILURE_CUSTODY",
+      "finding": "After admission, fixed2GB live-quota custody retains partial errors, raw controls, exact contract/release/source and historical archive. If common admission never returns, failure-only retention independently checks the exact owned RUNNING CPU descriptor, assigned physical node and scheduler batch bytes; only fixed nonsecret sources are archived as unqualified. It never grants the numerical token or source pass. Retention failure is explicit with Scratch evidence preserved."
+    },
+    {
+      "component": "batch and resource contract",
+      "assessment": "PASS",
+      "finding": "Exclusive development60min/one node/one task/8CPUs/max1SU, no requeue, warning600s, CPU visibility/device flags, copy bootstrap and postsetup driver are fixed. Failed bootstrap exits before driver; four normal or three bootstrap controls are compatible with reviewed BB collector. Worker termination/partial evidence gets bounded550s before force kill; no retry."
+    },
+    {
+      "component": "shared runtime and historical metadata",
+      "assessment": "PASS",
+      "finding": "Reviewed runtime52b/common47b/checksfda/58lock unchanged. Historical226registry is read-only and identical to old frozen contract. Sole21379B disposition input rehashes to the known artifact and preserves26rows/20-2-4categories/strict/scientific-false flags byte-identically. Old E1 aggregate is not cleared."
+    }
+  ],
+  "actual_prerequisite_bindings": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-opguard/actual-review-3565254.json",
+      "sha256": "91f3b47af04bb0c6f8a9ae932432f854032fff0646c45a3a94b4e29156a49156",
+      "scope": "ACTUAL_CONFIGURED_OFFICIAL_OPGUARD_INPUT_OUTPUT_BASELINE_AND_CUSTODY_REVIEW",
+      "job_id": "3565254",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-placement/actual-review-3562498.json",
+      "sha256": "eb91fa51cb1f55be1d98ba82b22ecae05cd7a9f2e9f56c512d423eb236c4482d",
+      "scope": "ACTUAL_FIXED_FAULT_PLACEMENT_CONTROL_AND_CUSTODY_REVIEW",
+      "job_id": "3562498",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-provenance/actual-review-3562268.json",
+      "sha256": "3b3bd54f128ab96f4ea392829567a5a3e9038a3f7ce1dd68c1c903b3f4afe2c1",
+      "scope": "ACTUAL_PRIMARY_PROVENANCE_RESULT_AND_CUSTODY_REVIEW",
+      "job_id": "3562268",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": {
+      "path": "artifacts/revision3/ba-20261107/review-closeout/actual-review.json",
+      "sha256": "5270b185e1eecd6ca0c84d31d25d815d9248ce597d14a7abff3ce51a3bd6d3d9",
+      "scope": "INDEPENDENT_ACTUAL_RESULT_REVIEW_SECTION_SPECIFIC",
+      "job_id": "3561473",
+      "verdict": "MODIFY",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-provenance/actual-matrix-review-3565105.json",
+      "sha256": "08edb99dfa5c31dbeea9c1f14c16a55dc926d63195d6f5fd0e432894e3b46267",
+      "scope": "ACTUAL_ORIGINAL_SIX_CASE_PROVENANCE_MATRIX_AND_CUSTODY_REVIEW",
+      "job_id": "3565105",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    }
+  },
+  "source_review_controls": {
+    "infrastructure": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/infrastructure-precheck.json",
+      "sha256": "bfce1f6093e051b4c9aefd3adfab4fa57d60cdc6d8d38cca8603bc3730ec9274",
+      "bytes": 12201
+    },
+    "method": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/method-precheck.json",
+      "sha256": "c6731adf10c792ce24dee28bd2d596b4119756636117a66b942c34a0b99fe484",
+      "bytes": 26450
+    },
+    "initial_modify": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/cpu-source-precheck-initial-930e8139.json",
+      "sha256": "61369994a6d09a8ad48919651894c76651bc4c9ed563e3789efb452c659014ce",
+      "bytes": 3405
+    },
+    "ancestral_E1_review": "ce6e52f5covers247ehelper only; currentc56/181helper/fixtures were independently included in this whole-package source review, not grandfathered."
+  },
+  "independent_validation": {
+    "status": "PASS",
+    "all11pins": true,
+    "Python_ASTs": 8,
+    "bash_n": "PASS",
+    "fixture_ids_defined_in_source": 20,
+    "fixture_census_unchanged": true,
+    "historical_registry_entries": 226,
+    "historical_registry_exact_match": true,
+    "actual_reviews_content_authenticated": 5,
+    "old_disposition_bytes": 21379,
+    "old_disposition_rows": 26,
+    "original_contract_nonpin_fields_unchanged": true,
+    "only_pins_changed_from_initial": [
+      "experiments/bb_20261108/selector.py",
+      "experiments/bb_20261108/test_selector_allocated.py"
+    ],
+    "full_initial_and_round2_archives_verified": [
+      13,
+      13
+    ],
+    "method": "Full source/diff and mandatory-fixture crosswalk inspection; stdlib AST/hash/JSON/set/cardinality checks and bash syntax only. No numerical module was imported and no fixture/main/Slurm/installation path was invoked.",
+    "numerical_imports": 0,
+    "numerical_fixtures_executed": 0,
+    "model_or_tensor_loads": 0,
+    "remote_queries_or_writes": 0
+  },
+  "archival_lineage": {
+    "initial_contract": "930e81396e4f37871c1eda74ba68ede51ec11d9f37e498928f0501cf0b004769",
+    "initial_modify_review_sha256": "61369994a6d09a8ad48919651894c76651bc4c9ed563e3789efb452c659014ce",
+    "round1_manifest": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/history/cpu-precheck-round1/manifest.json",
+      "sha256": "463d7bb998af4ef568bf63f9d639f7d77eb70693487d30da74572e1abd7b9daa",
+      "bytes": 2738
+    },
+    "round2_manifest": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/history/cpu-precheck-round2/manifest.json",
+      "sha256": "2624659b07654243406db24fb5e6ada640dc5a7e01c07264060bdc1d6c165f7a",
+      "bytes": 2759
+    },
+    "round3_manifest": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/history/cpu-precheck-round3/manifest.json",
+      "sha256": "f43ab19ad46aac31d30d6e4a8ffdde0bc25e018582084baf35274eb9a8b7c9ad",
+      "bytes": 2968
+    },
+    "round3_exact_files": 12,
+    "round3_missing_exact_intermediate": [
+      {
+        "path": "experiments/bb_20261108/test_selector_allocated.py",
+        "current_sha256": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a",
+        "expected_sha256": "91306509ad01e3c87bd9f2bbdc9916230483669fdecaadc611f6618fcd97b1d4",
+        "status": "INTERMEDIATE_SOURCE_BYTES_UNAVAILABLE_NOT_RECONSTRUCTED"
+      }
+    ],
+    "limit": "The unexecuted intermediate91306509fixture bytes were not retained. Its known SHA is recorded,12other round3files and both earlier13-file rounds are exact, and no guessed reconstruction was accepted. This does not obscure an allocated outcome or prevent review of exact final98a14bytes."
+  },
+  "required_after_source_precheck": [
+    "Parent must copy this exact source review, commit/push the frozen package and bind exact final revision, contract and review SHA in a once-only release; fresh live account/quota/queue/resource gates still apply.",
+    "Actual CPU20fixtures must complete with0failures/errors/skips/expected failures and exact complete custody, then receive independent ACTUAL review before A100 release.",
+    "A failed/interrupted/unqualified attempt retains its exact original evidence and denominator; corrections require a new reviewed release, never automatic retry.",
+    "CPU acceptance does not authorize timing: all12supported pilot cases, complete parity/source/runtime/custody, actual pilot PROMOTE and strict byte reduction remain timing prerequisites."
+  ],
+  "blocking_findings": [],
+  "remaining_scientific_gaps": [
+    "No actual CPU API/numerical success yet.",
+    "CUDA/Pythia compatibility, held-out structural stability, selection bytes, latency, profiling amortization and historical E1 mechanism categories remain unmeasured.",
+    "No new input-checking novelty, full automatic OpGuard superiority, learning benefit or blanket E1 aggregate repair."
+  ],
+  "verdict_reasoning": "The frozen corrected source closes the concrete overload escape and all mandatory fixture omissions without changing the20-ID census, scientific method, historical criteria or resource gates. Admission, exact prerequisites, partial-result accounting and failure-only custody fail closed in inspected source. Promote only this source/contract for an independently released allocated CPU qualification; empirical success remains unknown.",
+  "suggested_next_action": "Bind the exact final source review into the isolated committed package and perform the separately authorized single CPU DEV qualification after fresh release/admission checks. No A100 or timing release follows from this precheck alone.",
+  "lesson_for_archivist": "A valid source package needs both fail-closed operator-family census and fixtures that actually cover declared subcases; final CPU source is reviewable, while no numerical qualification is yet established."
+}
