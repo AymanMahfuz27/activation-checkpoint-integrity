@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=vg-bb-timing-dev
+#SBATCH --job-name=vg-bb-timing-v2-dev
 #SBATCH --account=CCR26063
 #SBATCH --partition=gpu-a100-dev
 #SBATCH --nodes=1
@@ -9,8 +9,8 @@
 #SBATCH --no-requeue
 #SBATCH --time=00:40:00
 #SBATCH --signal=B:USR1@600
-#SBATCH --output=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/bb-20261108/timing-dev-%j.out
-#SBATCH --error=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/bb-20261108/timing-dev-%j.err
+#SBATCH --output=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/bb-20261108/timing-v2-dev-%j.out
+#SBATCH --error=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/bb-20261108/timing-v2-dev-%j.err
 set -euo pipefail
 project=/scratch/09999/aymanmahfuz/activation-checkpoint-integrity
 python="$project/tools/python/cpython-3.13.7-linux-x86_64-gnu/bin/python3.13"
@@ -43,18 +43,18 @@ finish() {
 trap finish EXIT
 trap 'exit 124' USR1 TERM INT
 case "${BA_CONTRACT_PATH:-}" in
-  "$project/slurm/bb-20261108/timing-0-dev-source/experiments/bb_20261108/timing-0-dev-contract.json")
-    checkout="$project/slurm/bb-20261108/timing-0-dev-source" ;;
-  "$project/slurm/bb-20261108/timing-1-dev-source/experiments/bb_20261108/timing-1-dev-contract.json")
-    checkout="$project/slurm/bb-20261108/timing-1-dev-source" ;;
-  "$project/slurm/bb-20261108/timing-2-dev-source/experiments/bb_20261108/timing-2-dev-contract.json")
-    checkout="$project/slurm/bb-20261108/timing-2-dev-source" ;;
+  "$project/slurm/bb-20261108/timing-v2-0-dev-source/experiments/bb_20261108/timing-v2-0-dev-contract.json")
+    checkout="$project/slurm/bb-20261108/timing-v2-0-dev-source" ;;
+  "$project/slurm/bb-20261108/timing-v2-1-dev-source/experiments/bb_20261108/timing-v2-1-dev-contract.json")
+    checkout="$project/slurm/bb-20261108/timing-v2-1-dev-source" ;;
+  "$project/slurm/bb-20261108/timing-v2-2-dev-source/experiments/bb_20261108/timing-v2-2-dev-contract.json")
+    checkout="$project/slurm/bb-20261108/timing-v2-2-dev-source" ;;
   *)
     printf '%s\n' 'Exact sealed timing contract/index path required' >&2
     exit 65 ;;
 esac
 "$python" -B - "$BA_CONTRACT_PATH" "$checkout" <<'PREFLIGHT'
-import hashlib,json,os,sys
+import hashlib,json,os,re,sys
 from pathlib import Path
 path,checkout=map(Path,sys.argv[1:])
 if path.is_symlink() or not path.is_file():
@@ -63,7 +63,10 @@ raw=path.read_bytes()
 if hashlib.sha256(raw).hexdigest()!=os.environ['BA_CONTRACT_SHA256']:
     raise RuntimeError('Sealed timing contract SHA differs')
 contract=json.loads(raw)
-index=int(checkout.name.split('-')[1])
+match=re.fullmatch(r'timing-v2-([012])-dev-source',checkout.name)
+if match is None:
+    raise RuntimeError('Exact v2 timing checkout required')
+index=int(match[1])
 if contract.get('draft') is not False or type(contract.get('timing_job_index')) is not int or contract['timing_job_index']!=index:
     raise RuntimeError('Draft or mismatched timing template cannot install/run')
 PREFLIGHT

@@ -22,8 +22,17 @@ import unittest
 
 
 REMOTE_ROOT = Path("/scratch/09999/aymanmahfuz/activation-checkpoint-integrity")
-MAX_TIMING_RESULT_BYTES = 4_194_304
+MAX_TIMING_RESULT_BYTES = 33_554_432
 OUTPUT_MAX_BYTES = 2_000_000_000
+COHORT_ID = "bb-20261108-timing-cap32-v2"
+TRANSPORT_AMENDMENT_SHA256 = (
+    "d439e623a43f773c2bd4132e5032dd3ecca187965b16d0f85107c72587cd61fc"
+)
+REDUCTION_CLARIFICATION_SHA256 = (
+    "ff09eeac86e46bcd87f7909e6ad2756177a504ef7420c80dd3626fe718e5a741"
+)
+FAILURE_REVIEW_KEY = "ACTUAL_BB_TIMING_V1_CAP_FAILURE_REVIEWED"
+CLOSED_JOB_IDS = {"3565495"}
 PILOT_REVIEW_KEY = "ACTUAL_BB_SELECTOR_PILOT_ACCEPTED"
 BASE_REVIEW_KEYS = {
     "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED",
@@ -33,6 +42,7 @@ BASE_REVIEW_KEYS = {
     "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED",
     "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED",
     PILOT_REVIEW_KEY,
+    FAILURE_REVIEW_KEY,
 }
 POSITIVE_PILOT_GATE = {
     "execution_complete": True,
@@ -79,14 +89,14 @@ def checkout_index(checkout):
         checkout.parent == REMOTE_ROOT / "slurm/bb-20261108",
         "Timing checkout parent differs",
     )
-    match = re.fullmatch(r"timing-([012])-dev-source", checkout.name)
+    match = re.fullmatch(r"timing-v2-([012])-dev-source", checkout.name)
     require(match is not None, "Timing checkout does not name a registered index")
     return int(match[1])
 
 
 def campaign(index):
     require(type(index) is int and index in (0, 1, 2), "Invalid timing index")
-    return "bb-20261108-timing-%d-dev-v1" % index
+    return "bb-20261108-timing-v2-%d-dev-v1" % index
 
 
 def exact_fields(actual, expected, label):
@@ -113,7 +123,8 @@ def verify_timing_scope(checkout, path, contract, index):
     )
     require(
         path
-        == checkout / ("experiments/bb_20261108/timing-%d-dev-contract.json" % index),
+        == checkout
+        / ("experiments/bb_20261108/timing-v2-%d-dev-contract.json" % index),
         "Sealed timing contract path differs",
     )
     exact_fields(
@@ -134,9 +145,9 @@ def verify_timing_scope(checkout, path, contract, index):
         },
         {
             "campaign_id": campaign(index),
-            "source_checkout_name": "timing-%d-dev-source" % index,
-            "control_directory_name": "timing-%d-dev-control" % index,
-            "job_name": "vg-bb-timing-dev",
+            "source_checkout_name": "timing-v2-%d-dev-source" % index,
+            "control_directory_name": "timing-v2-%d-dev-control" % index,
+            "job_name": "vg-bb-timing-v2-dev",
             "partition": "gpu-a100-dev",
             "time_limit": "00:40:00",
             "cpus": 8,
@@ -151,6 +162,24 @@ def verify_timing_scope(checkout, path, contract, index):
         "Common thirteen-source census differs",
     )
     exact_fields(
+        {
+            name: contract[name]
+            for name in (
+                "cohort_id",
+                "transport_amendment_sha256",
+                "reduction_clarification_sha256",
+                "raw_timing_result_max_bytes",
+            )
+        },
+        {
+            "cohort_id": COHORT_ID,
+            "transport_amendment_sha256": TRANSPORT_AMENDMENT_SHA256,
+            "reduction_clarification_sha256": REDUCTION_CLARIFICATION_SHA256,
+            "raw_timing_result_max_bytes": MAX_TIMING_RESULT_BYTES,
+        },
+        "Fresh cap32 cohort binding",
+    )
+    exact_fields(
         contract["required_pilot_timing_eligibility"],
         POSITIVE_PILOT_GATE,
         "Required positive pilot gate",
@@ -162,7 +191,7 @@ def timing_review_key(index):
         type(index) is int and index in (0, 1),
         "Only first two jobs are prior timing results",
     )
-    return "ACTUAL_BB_TIMING_%d_VALIDITY_ACCEPTED" % index
+    return "ACTUAL_BB_TIMING_V2_%d_VALIDITY_ACCEPTED" % index
 
 
 def verify_timing_reviews(actual, contract, index):
@@ -175,11 +204,19 @@ def verify_timing_reviews(actual, contract, index):
         BASE_REVIEW_KEYS <= set(actual) and extras <= allowed,
         "Timing prerequisite census differs",
     )
-    if index == 2:
-        require(extras == allowed, "Third job needs both prior actual validity reviews")
+    require(extras == allowed, "Fresh cohort needs all earlier actual validity reviews")
     require(
         actual[PILOT_REVIEW_KEY]["verdict"] == "PROMOTE",
         "Pilot actual review is not promoted",
+    )
+    failure = actual[FAILURE_REVIEW_KEY]
+    require(
+        failure["verdict"] == "MODIFY"
+        and failure["job_id"] == "3565495"
+        and failure["scope"] == "ACTUAL_BB_TIMING_JOB_AND_CUSTODY_REVIEW"
+        and failure["review_sha256"]
+        == "1d848a04629a69f7a78311736b2086eccd0b0e68ebd8a23bee8c51f5d49ca0a3",
+        "Closed v1 failure disposition is not bound",
     )
     exact_fields(
         actual[PILOT_REVIEW_KEY].get("timing_eligibility"),
@@ -188,8 +225,9 @@ def verify_timing_reviews(actual, contract, index):
     )
     for name in extras:
         require(
-            actual[name]["verdict"] == "PROMOTE",
-            "Prior timing validity was not accepted",
+            actual[name]["verdict"] == "PROMOTE"
+            and actual[name]["job_id"] not in CLOSED_JOB_IDS,
+            "Prior fresh-cohort timing validity was not accepted",
         )
 
 
@@ -356,7 +394,7 @@ def failure_retention_admission(common, checkout, out, job, index):
         "UserId": "aymanmahfuz(893489)",
         "Account": "CCR26063",
         "JobState": "RUNNING",
-        "JobName": "vg-bb-timing-dev",
+        "JobName": "vg-bb-timing-v2-dev",
         "Partition": "gpu-a100-dev",
         "NumNodes": "1",
         "NumTasks": "1",
@@ -394,7 +432,7 @@ def failure_retention_admission(common, checkout, out, job, index):
     # Retain fixed, nonsecret source paths even when source/release admission
     # failed. Missing files are explicit; this archive grants no source approval.
     source_names = SOURCE_FILES + (
-        "experiments/bb_20261108/timing-%d-dev-contract.json" % index,
+        "experiments/bb_20261108/timing-v2-%d-dev-contract.json" % index,
     )
     sources = {}
     with tarfile.open(out / "failure-source-and-config.tar.gz", "x:gz") as archive:
@@ -431,7 +469,7 @@ def sha_text(value):
 
 
 def prior_input_role(index):
-    return "timing-result-%d" % index
+    return "timing-v2-result-%d" % index
 
 
 def verify_input_registry(contract, index):
@@ -473,6 +511,9 @@ def verify_input_registry(contract, index):
             isinstance(job, str) and re.fullmatch(r"[1-9][0-9]*", job) is not None,
             "Prior timing job ID is invalid",
         )
+        require(
+            job not in CLOSED_JOB_IDS, "Closed old-cohort timing data cannot enter v2"
+        )
         path = REMOTE_ROOT / "artifacts" / job / "bb-selector/timing-study.json"
         item = next(
             row for row in inputs if row["role"] == prior_input_role(previous_index)
@@ -485,8 +526,12 @@ def verify_input_registry(contract, index):
             "Prior result path/index differs",
         )
         require(
+            item["cohort_id"] == COHORT_ID,
+            "Prior timing input names a different cohort",
+        )
+        require(
             type(item["bytes"]) is int
-            and 0 < item["bytes"] < MAX_TIMING_RESULT_BYTES
+            and 0 < item["bytes"] <= MAX_TIMING_RESULT_BYTES
             and sha_text(item["sha256"]),
             "Prior result pin or size is invalid",
         )
@@ -733,7 +778,7 @@ def read_prior_result(item):
         before = os.fstat(stream.fileno())
         require(
             stat.S_ISREG(before.st_mode)
-            and 0 < before.st_size < MAX_TIMING_RESULT_BYTES
+            and 0 < before.st_size <= MAX_TIMING_RESULT_BYTES
             and before.st_size == item["bytes"],
             "Prior result is not a bounded regular declared file",
         )
@@ -885,6 +930,17 @@ def main():
         reviews = verify_prerequisites(runtime, contract)
         verify_timing_reviews(reviews, contract, index)
         common.write(out / "actual-prerequisite-review-bindings.json", reviews)
+        common.write(
+            out / "timing-cohort-binding.json",
+            {
+                "cohort_id": COHORT_ID,
+                "transport_amendment_sha256": TRANSPORT_AMENDMENT_SHA256,
+                "reduction_clarification_sha256": REDUCTION_CLARIFICATION_SHA256,
+                "raw_timing_result_max_bytes": MAX_TIMING_RESULT_BYTES,
+                "closed_unpooled_job_ids": sorted(CLOSED_JOB_IDS),
+                "scientific_acceptance": False,
+            },
+        )
         historical = Path(contract["source_path"])
         original = contract["historical_contract"]
         revision = common.command(
@@ -1059,7 +1115,7 @@ def main():
         # This unwrapped base payload is immutable and written exactly once.
         common.write(out / "timing-study.json", timing)
         require(
-            0 < (out / "timing-study.json").stat().st_size < MAX_TIMING_RESULT_BYTES,
+            0 < (out / "timing-study.json").stat().st_size <= MAX_TIMING_RESULT_BYTES,
             "Current timing result exceeds its bounded input size",
         )
         validate_timing_result(timing, method, index)
@@ -1098,6 +1154,8 @@ def main():
                 "total_updates_executed": 129,
                 "timing_pairs": 8,
                 "inputs": inputs,
+                "cohort_id": COHORT_ID,
+                "cohort_binding_file": "timing-cohort-binding.json",
                 "timing_result_file": "timing-study.json",
                 "timing_result_sha256": base_sha,
                 "method_binding_file": "timing-method-binding.json",

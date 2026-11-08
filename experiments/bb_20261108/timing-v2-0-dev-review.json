@@ -1,0 +1,209 @@
+{
+  "review_id": "BB-TIMING-CAP32-V2-INDEX0-FINAL-SOURCE",
+  "created_utc": "2026-11-08T10:00:26.595618+00:00",
+  "reviewer": {
+    "agent": "/root/closeout_audit",
+    "role": "independent experiment analyst",
+    "authored_candidate": false
+  },
+  "scope": "PRECHECK_ONLY_BB_TIMING_DEV_SOURCE_AND_CONTRACT",
+  "verdict": "PROMOTE",
+  "cohort_id": "bb-20261108-timing-cap32-v2",
+  "timing_job_index": 0,
+  "contract_sha256": "37179ae2ed1ea26899b6597436b1cd6c5dd31356760ef3d2f826a40275c17031",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/aggregate_timing.py": "2568ea44a4d5dceec50941f3b27bbb8aa7840b15bfa55993c81856ec564bcaee",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/selector_integration.py": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a",
+    "experiments/bb_20261108/timing-dev.sbatch": "92c4df74fded80f5feb8938fff21a66725691a3f27d8bee3bdd6b5b8f50a82b8",
+    "experiments/bb_20261108/timing_job.py": "732ed823c240884bbf42b8053bec112fe3cd58840160c4d164f6efb93e24f254"
+  },
+  "controls": {
+    "experiments/bb_20261108/timing-v2-0-dev-contract.json": "37179ae2ed1ea26899b6597436b1cd6c5dd31356760ef3d2f826a40275c17031",
+    "experiments/bb_20261108/timing-v2-1-dev-contract.json": "2419bf8b2c47c70d22f675be7237be410fefd74a5ad6d2acea512a16c911cfbd",
+    "experiments/bb_20261108/timing-v2-2-dev-contract.json": "3bf577f1aafb5e42b713f08a4146bfb5f90124276cedf76f044f890041aaae27",
+    "experiments/bb_20261108/timing-v2-dev-contract-template.json": "caa76c175c50adc1d375b542321678676052c9620c199cf9e7d1653c90f7d0af",
+    "experiments/bb_20261108/implementation-report-timing-v2.json": "78438886ad534d9743842f2868f498c9aa312e0d282922beac71cf7b36b9339a",
+    "experiments/bb_20261108/implementation-report-analysis.json": "2cee6684edf1e2cede8623219bd24b49b2defa5cadcc499bffb92e7cd8cf235e",
+    "artifacts/revision3/bb-20261108/timing-cap32-v2-amendment.json": "d439e623a43f773c2bd4132e5032dd3ecca187965b16d0f85107c72587cd61fc",
+    "artifacts/revision3/bb-20261108/timing-cap32-v2-reduction-clarification.json": "ff09eeac86e46bcd87f7909e6ad2756177a504ef7420c80dd3626fe718e5a741",
+    "artifacts/revision3/bb-20261108/timing-v2-source-diff.json": "5cfc8185a3ac66d3dc3b5554e0b8ddfb87fb3f38c1acbdaebd7143e6563e7788",
+    "artifacts/revision3/bb-20261108/timing-v2-metadata-validation.json": "589eb6ac39e5ba9898afa1bf05fa28341234cf22c3a521812776650d5b5eebf1",
+    "artifacts/revision3/bb-20261108/timing-v2-producer-compatibility.json": "af23fa7961cce6b0bbe8f200c4370aedcca8f99b045d3f4ffcbd24e23b68cb7b",
+    "artifacts/revision3/bb-20261108/history/timing-v1-before-cap32-v2/manifest.json": "e8dc4c9a03fe0b7d2b5ea6065b7e00d4ab1b0c30c3caf629ccc4474cf8f47895",
+    "artifacts/revision3/bb-20261108/reviews/timing-v2-amendment-source-precheck.json": "945a0fbc61e5f16cb6958684b48119b4603edbf48a3148c70c1a4016b92934f8",
+    "artifacts/revision3/bb-20261108/reviews/actual-timing0-failure-review-3565495.json": "1d848a04629a69f7a78311736b2086eccd0b0e68ebd8a23bee8c51f5d49ca0a3",
+    "artifacts/revision3/bb-20261108/reviews/timing-0-source-precheck.json": "8b3c1bebe598f4e829a3188ac716e012cfe57b7b49ef944548372da54c347444",
+    "artifacts/revision3/bb-20261108/reviews/timing-reducer-source-precheck.json": "40b452038326d5ac6dfc57405f946bc33acb7fbc5660201a292234a1cb8a448b"
+  },
+  "scientific_acceptance": false,
+  "allocated_cap32_qualification": false,
+  "empirical_timing_acceptance": false,
+  "execution_release": false,
+  "automatic_release": false,
+  "old_cohort_direction_inspected": false,
+  "old_new_pooling_accepted": false,
+  "identity_normalization_accepted": false,
+  "exact_review_scope": "Full corrected common harness/reducer/batch and conditional0/1/2branches reviewed. Only concrete timing-v2-0-dev-contract.json is sealed. Later new1/2and generic template remain DRAFT with future ACTUAL controls unknown; they receive no execution release from this artifact.",
+  "headline_result": "The complete cap32-v2 package preserves the outcome-blind closed-cohort disposition and exact source-comparability rule while repairing the bounded serialization envelope. No corrected source or contract blocker remains.",
+  "hypothesis_tested": "No empirical timing hypothesis tested by source review. Prospective experiment remains the frozen direct selected-consumer/full-I/O three-job comparison with full execution parity and charged measured profile cost.",
+  "baseline_integrity": {
+    "status": "CONFIRMED_SOURCE_ONLY",
+    "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "core_sha256": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "fixture_source_sha256": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a",
+    "unchanged_common_source_files": 10,
+    "changed_common_source_files": [
+      "experiments/bb_20261108/timing_job.py",
+      "experiments/bb_20261108/timing-dev.sbatch",
+      "experiments/bb_20261108/aggregate_timing.py"
+    ],
+    "historical226registry_method_fixture_ids_inputs_lock_and_numeric_source_unchanged": true,
+    "pooling_identity": "All13new common source pins are identical across new0/new1/new2/template. Their full comparable identity must match across actual new jobs; old full-source identities are never normalized into it."
+  },
+  "validity_assessment": {
+    "source_and_metadata": "PASS",
+    "allocated_post_size_path": "NOT_YET_QUALIFIED",
+    "timing_result_or_significance": "NOT_AVAILABLE",
+    "decision_limit": "Source approval does not establish actual CUDA/production timing completion or release any job."
+  },
+  "old_evidence_and_restart": {
+    "original_job": "3565495",
+    "original_native_outcome": "FAILED1:0",
+    "failure_review_sha256": "1d848a04629a69f7a78311736b2086eccd0b0e68ebd8a23bee8c51f5d49ca0a3",
+    "old_pooling_validity": false,
+    "old_measurement_completion_record_retained": true,
+    "old_raw_sha256": "8955e548f5c940180772b310519d414f425a4cb79320442fc4ea1c3038052086",
+    "old_direction_unread": true,
+    "all55preedit_archive_members_exact": true,
+    "archive_manifest_sha256": "e8dc4c9a03fe0b7d2b5ea6065b7e00d4ab1b0c30c3caf629ccc4474cf8f47895",
+    "archive_contents": "All13old sources, affected reports/templates/old indexed controls, executed0release/packet/dispatch/native/output controls and bytecopy of raw failed timing result. No reconstructed bytes or old binding artifact.",
+    "new_design": "Exactly3newjobs under distinct v2 source/control/contract/campaign/job namespaces. No silent replacement within the failed cohort, subset interval, old/new pooling or effect-based progression."
+  },
+  "amendment_controls": {
+    "amendment_sha256": "d439e623a43f773c2bd4132e5032dd3ecca187965b16d0f85107c72587cd61fc",
+    "clarification_sha256": "ff09eeac86e46bcd87f7909e6ad2756177a504ef7420c80dd3626fe718e5a741",
+    "prospective_design_review_sha256": "945a0fbc61e5f16cb6958684b48119b4603edbf48a3148c70c1a4016b92934f8",
+    "before_reduction": "PriorNEW0/1complete ACTUAL/custody and exact source/result/binding controls; currentNEW2complete129updates/8pairs/immutable raw and fresh physical qualification but current ACTUAL/custody explicitly pending.",
+    "before_acceptance": "All3terminal new-job ACTUAL/custody and independent pooled analysis review. No fabricated current review.",
+    "planning_ceiling": "Parent-supplied1.97completed+6newcaps=7.97estimatedSUwithin unchanged9SUceiling; not verified settled debits or an allocation grant."
+  },
+  "complete_isolated_diff_review": {
+    "reducer": "Exact byte reverse-substitution proves only MAX_RESULT_BYTES4_194_304->33_554_432 changed. No estimator, validation, arithmetic, weights, sample size, inference, percentage transform, amortization or admission change.",
+    "driver": [
+      "32MiB inclusive raw result/input/read bound agrees with reducer and all new contracts. Total study2GB/setup100MB envelopes unchanged.",
+      "Strict timing-v2-[012]-dev-source namespaces, matching indexed contract/control/campaign names and vg-bb-timing-v2-dev job. Registered index remains assigned once from checkout; CUDA loop retains separate device_index.",
+      "Typed exact cohort ID/d439/ff09/cap fields required; separate timing-cohort-binding.json exported before model work, without modifying the unwrapped timing result.",
+      "Eight base ACTUAL prerequisites, with exact original failure1d848/job3565495/scope/MODIFY explicitly required. Index1now mandates NEW0 validity; index2mandates both NEW0/1, regardless of effect direction.",
+      "Closed3565495refused as prior timing result or prior validity item. Prior result role names v2 and explicit input cohort_id required. No old/full-source normalization or binding reconstruction path added.",
+      "Current base raw write, validation, full comparable binding, after-own-measurement prior reads, honest current pending attestation,3argument third-job reducer, source/partial-failure/custody pipeline otherwise preserved."
+    ],
+    "batch": "Only job/log/source/contract namespace changes and correct regex extraction for v2index; resource/env/module/bootstrap/signal/retention controls unchanged."
+  },
+  "new0_actual_prerequisites": {
+    "count": 8,
+    "all_exact_saved_file_hashes_scopes_and_verdicts_verified": true,
+    "job_ids": {
+      "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "3565254",
+      "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "3562498",
+      "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "3562268",
+      "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "3561473",
+      "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "3565105",
+      "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "3565408",
+      "ACTUAL_BB_SELECTOR_PILOT_ACCEPTED": "3565466",
+      "ACTUAL_BB_TIMING_V1_CAP_FAILURE_REVIEWED": "3565495"
+    },
+    "required_verdicts": {
+      "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "PROMOTE",
+      "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "PROMOTE",
+      "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "PROMOTE",
+      "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "MODIFY",
+      "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "PROMOTE",
+      "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "PROMOTE",
+      "ACTUAL_BB_SELECTOR_PILOT_ACCEPTED": "PROMOTE",
+      "ACTUAL_BB_TIMING_V1_CAP_FAILURE_REVIEWED": "MODIFY"
+    },
+    "positive_pilot_gate": "Exact14typed raw selector fields remain required in the authenticated release; the actual pilot39c3positive17field review vector remains distinct. No source-only precheck substitutes for ACTUAL evidence.",
+    "native_driver": "Accepted pilot570.195.03proof remains pinned and enforced on all3A100devices before measurements.",
+    "operator_boundary": "Parent authenticates actual contents/custody; runtime validates exact declared hashes/scopes/jobs/verdicts and typed metadata."
+  },
+  "unchanged_numeric_and_execution_protocol": {
+    "source_method": "Exact86614and71cdsource/API unchanged",
+    "production_recipe": {
+      "microbatch": 4,
+      "sequence": 512,
+      "accumulation": 32
+    },
+    "fresh_profile_each_new_job": true,
+    "timed_updates_per_job": 128,
+    "profile_updates_per_job": 1,
+    "total_updates_per_job": 129,
+    "pairs_per_job": 8,
+    "arm_warmups": 2,
+    "arm_measured_updates": 6,
+    "all24frozen_schedule_entries_unchanged": true,
+    "parity": "Each8update pair requires full accepted state/RNG and postclip-gradient parity; invalid source/census/parity/native execution fails closed.",
+    "scope": "Same20ordered no-skip CUDA/E1fixture methods,58locked private environment,3A100sm80/RNG topology, native fullBLAKE3sourcec097and historical model guard. No core/model/optimizer/precision/operator policy change.",
+    "estimator": "Direct consumer/full-forward-I/O block elapsed ratios, two log ratios averaged per job, equal3job means, sample variance/SE/t95df2 and exponentiation unchanged. Disabled normalization stays secondary; no one-job or subset CI.",
+    "profile_charge": "Measured profile call/export+immutable identity setup+census admission remains charged with explicit scope, not whole process/install time."
+  },
+  "cross_job_controls_and_custody": {
+    "same13map_across_new_jobs_verified": true,
+    "full_runtime_graph_binding_preserved": true,
+    "current_base_immutable_unwrapped": true,
+    "current_third_pending_not_fake_ACTUAL": true,
+    "prior_bytes_only_after_current_measurements": true,
+    "prior_files_bounded_regular_non_symlink_and_exact_raw_SHA": true,
+    "prior_result_copies_retained": true,
+    "no_directional_stopping_or_replacement": true,
+    "failure_custody": "Exact owned job/node/native batch source-index-derived failure namespace, fixed source archive and2GB/livequota/600s retention unchanged; no numerical approval from failure collector.",
+    "source_and_storage_admission": "Fresh common beforeUV and aftersetup, exactselfqueue,1260setup/1200scientific gates,600retention,40min8CPUexclusiveA100DEV/max2SU/no-requeue unchanged."
+  },
+  "independent_validation": {
+    "performed": [
+      "All55old archive members independently byte/SHA/size verified without reading original timing direction",
+      "Complete three changed-file diff against old archive; ten unchanged source hashes and reducer reverse-one-constant exact proof",
+      "All13current pins and Python ASTs, bash-n and single registered-index AST store",
+      "Real new0scope/input registry and all8saved ACTUAL hash/scope/verdict controls",
+      "Metadata negatives reject old namespace, wrong cohort/cap/type/d439/ff09, missing/incorrect failure disposition and missing earlier-new validity reviews",
+      "Explicit closed3565495prior-input refusal checked before any file I/O or statistics",
+      "New1/new2DRAFT scope rejection and identical13maps checked",
+      "Engineering metadata validation589eand producer compatibilityaf23records inspected; latter uses old plan/old identity only as schema/temporary sidecar proof, not salvage or pooling qualification"
+    ],
+    "not_performed": [
+      "No Torch/NumPy/Transformers/model/numerical reduction",
+      "No original durations, primary ratios, job mean or direction inspected",
+      "No main/Slurm admission/environment simulation",
+      "No remote/auth/dispatch/source edits",
+      "No allocated cap32post-size-path qualification"
+    ]
+  },
+  "draft_controls": {
+    "new1_contract_sha256": "2419bf8b2c47c70d22f675be7237be410fefd74a5ad6d2acea512a16c911cfbd",
+    "new2_contract_sha256": "3bf577f1aafb5e42b713f08a4146bfb5f90124276cedf76f044f890041aaae27",
+    "template_sha256": "caa76c175c50adc1d375b542321678676052c9620c199cf9e7d1653c90f7d0af",
+    "new1_new2_and_template_remain_draft": true,
+    "future_actual_review_result_and_custody_unknown": true,
+    "later_execution_accepted": false
+  },
+  "blocking_findings": [],
+  "limits": [
+    "First newDEV must actually qualify the formerly unreached post-size validation/binding/retention path. Source/metadata compatibility is not allocated success.",
+    "Only exact new0contract sealed; future1/2controls need separate materialization, source/contract checks and actual prerequisite bindings.",
+    "Strict complete-source/runtime/graph comparability remains mandatory for all3newjobs. Any later material change needs review and may invalidate that cohort.",
+    "No timing effect, gain, amortization, general method novelty, full automatic OpGuard, learning or population reliability accepted.",
+    "Parent must perform fresh queue/account/quota/remaining-budget admission and once-only execution release; this review is not a dispatch authorization."
+  ],
+  "verdict_reasoning": "The bounded repair and new cohort controls exactly implement the sealed outcome-blind disposition and prospective amendment. All numerical/estimator source and gates remain intact, closed data are refused, original source/control/evidence bytes are preserved, and exact new0controls pass independent static/metadata checks. No source blocker remains; actual qualification and future releases remain separate.",
+  "suggested_next_action": "Parent may bind this exact review to an independently admitted source/contract-specific new0release, then review actual full results/custody before any later indexed release; unfavorable valid measurements must remain eligible.",
+  "lesson_for_archivist": "A transport-cap repair can retain strict scientific source identity by starting a new fixed cohort and explicitly excluding completed operational failures, rather than normalizing old measurements into the new identity."
+}

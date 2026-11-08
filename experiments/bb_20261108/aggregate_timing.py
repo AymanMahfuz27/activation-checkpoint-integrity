@@ -16,7 +16,7 @@ import stat
 
 
 RESULT_ROOT = Path("/scratch/09999/aymanmahfuz/activation-checkpoint-integrity")
-MAX_RESULT_BYTES = 4_194_304
+MAX_RESULT_BYTES = 33_554_432
 METHOD_FILE_SHA256 = "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb"
 METHOD_CONTENT_SHA256 = "8f6fb9ecc5616e680b4dc36f1666d162777be9704e02b2f673a70f43148b9f70"
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}\Z")

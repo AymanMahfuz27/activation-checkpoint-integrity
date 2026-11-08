@@ -38,7 +38,7 @@
     "output_status": "COMPLETE_PENDING_INDEPENDENT_REVIEW; execution_complete=true; scientific_acceptance=false; current_job_actual_review_complete=false.",
     "prior_attestation": "ACTUAL_PROMOTED; matchingjob_id; valid rawresultSHA, custodySHA and reviewSHA. Parent verifies the controls and method binding contents.",
     "records": "List of exactly3 ordered wrapper dictionaries, corresponding to result indices0,1,2. Raw result payloads stay separate.",
-    "result_path": "Exact regular nonsymlink ROOT/artifacts/JOB/bb-selector/timing-study.json,0<size<=4194304bytes.",
+    "result_path": "Exact regular nonsymlink ROOT/artifacts/JOB/bb-selector/timing-study.json,0<size<=33554432bytes.",
     "signature": "aggregate_timing(records, method_plan, method_plan_sha256) -> JSON-serializable dict; raises TimingAggregationError or underlying fatal input error on invalidity.",
     "wrapper_exact_keys": [
       "job_id",
@@ -61,13 +61,18 @@
       "baseline": "Frozen direct consumer/full-I/O log-ratio estimator",
       "new": "Same estimator; implemented conditional reducer only"
     },
+    "raw_result_max_bytes": {
+      "baseline": 4194304,
+      "new": 33554432,
+      "scope": "Transport size bound only; estimator and validation unchanged"
+    },
     "result_inputs": {
       "baseline": "Three separately retained timing-job results",
       "new": "Read-only exact raw files with separately authenticated parent attestations; no rewritten result payloads"
     }
   },
   "estimated_runtime": {
-    "bound": "At most12MiB raw result input, exactly3jobs/24pairs; no training or model load.",
+    "bound": "At most96MiB raw result input, exactly3jobs/24pairs; no training or model load.",
     "measured": false,
     "seconds": null
   },
@@ -91,7 +96,7 @@
   "implementation_summary": [
     "Public aggregate_timing(records,method_plan,method_plan_sha256) first calls existing e1_diagnostics._allocated_only. No I/O or numerical analysis occurs at module import; no Torch/NumPy/SciPy imports exist.",
     "Requires exactly three ordered wrappers for indices0/1/2, three distinct ASCII decimal job IDs and one complete raw TIMING payload per job. Index2 must be the current freshly admitted Slurm job.",
-    "Reads only exact /scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/JOB/bb-selector/timing-study.json, rejects symlinks/nonregular files and reads at most4MiB. Checks descriptor stability and exact raw-byte SHA before strictUTF8 JSON parsing; duplicate keys and exceptional numeric constants are rejected.",
+    "Reads only exact /scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/JOB/bb-selector/timing-study.json, rejects symlinks/nonregular files and reads at most32MiB. Checks descriptor stability and exact raw-byte SHA before strictUTF8 JSON parsing; duplicate keys and exceptional numeric constants are rejected.",
     "Prior indices0/1 require ACTUAL_PROMOTED attestations with result/custody/review SHA256s. Current index2 requires CURRENT_COMPLETE_PENDING_REVIEW and explicit null custody/review fields. The parent authenticates actual review/custody contents and the linkage to numerical method bindings; this reducer does not claim to perform that external authentication.",
     "All jobs require the same exact six-field SHA method binding plus production recipe. Frozen raw methodSHA is separate from an additional canonical method-content check; result SHA always refers to the exact raw file, never a normalized or self-referential serialization.",
     "Validates complete source schema,128timed+1profile129updates/job, exact8frozen policy/block records and order, two positive finite warmups/six positive finite measured updates per arm, actual full-state/gradient/RNG parity and qualified nonempty native counters. Every measured sum and recorded secondary/direct ratio/log/job mean is checked against recomputation.",
@@ -124,7 +129,7 @@
     "ready_for_execution_claim": false,
     "reason": "Only source/AST/Ruff work authorized locally. Numerical qualification is deferred to the conditional allocated third timing job."
   },
-  "run_status": "NOT_RUN; NO_NUMERICAL_EXECUTION",
+  "run_status": "CAP32_V2_SOURCE_CANDIDATE_NOT_RUN; NO_NUMERICAL_EXECUTION",
   "sanity_checks_passed": [
     {
       "check": "AST parse",
@@ -161,7 +166,7 @@
     }
   ],
   "sanity_checks_pending": [
-    "Independent reducer source review before any use.",
+    "Independent full corrected cap32-v2 source review; prior40b45203 review remains evidence for original36a62 estimator only.",
     "Future admitted third timing job: execute built-in analytic df2 critical-value/CDF consistency check and reduce all3 authentic raw results.",
     "Minimal allocated negative qualification using existing real wrapper metadata: missingjob, duplicatejob, wrongrawSHA, mismatchedbinding and falselypromotedcurrent attestation must fail without an interval. No source result files may be changed; parent retains each expected-negative outcome separately.",
     "Independent actual review of third-job results, exact parent attestations/custody, pooled estimator and conditional amortization before scientific acceptance."
@@ -169,8 +174,29 @@
   "scientific_acceptance": false,
   "source_files": {
     "aggregate_timing.py": {
-      "bytes": 23541,
-      "sha256": "36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c"
+      "bytes": 23542,
+      "sha256": "2568ea44a4d5dceec50941f3b27bbb8aa7840b15bfa55993c81856ec564bcaee"
+    }
+  },
+  "transport_cap32_amendment": {
+    "allocated_qualification_pending": true,
+    "amendment_sha256": "d439e623a43f773c2bd4132e5032dd3ecca187965b16d0f85107c72587cd61fc",
+    "cohort_id": "bb-20261108-timing-cap32-v2",
+    "direction_inspected": false,
+    "exact_source_diff": "MAX_RESULT_BYTES = 4_194_304 -> MAX_RESULT_BYTES = 33_554_432; one line only",
+    "new_source_sha256": "2568ea44a4d5dceec50941f3b27bbb8aa7840b15bfa55993c81856ec564bcaee",
+    "old_cohort_closed_unpooled": true,
+    "old_report_archive": "artifacts/revision3/bb-20261108/history/timing-v1-before-cap32-v2/experiments/bb_20261108/implementation-report-analysis.json",
+    "old_source_sha256": "36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c",
+    "reduction_clarification_sha256": "ff09eeac86e46bcd87f7909e6ad2756177a504ef7420c80dd3626fe718e5a741",
+    "reverse_substitution_byte_equal": true,
+    "source_review_pending": true,
+    "validation": {
+      "ast": "PASS",
+      "independent_corrected_source_review": "PENDING",
+      "numerical_execution": false,
+      "reverse_constant_substitution": "BYTE_IDENTICAL",
+      "ruff": "PASS"
     }
   }
 }
