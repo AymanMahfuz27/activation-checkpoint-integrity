@@ -1,0 +1,77 @@
+{
+  "at_utc": "2026-11-08T04:03:57.738819+00:00",
+  "reviewer": "/root/closeout_audit; independent of correction author",
+  "experiment_id": "BA-OPGUARD-L6-20261107-v1",
+  "scope": "CONDITIONAL_PRECHECK_ONLY_OPGUARD_FIXTURE_CHILD_IMPORT_CORRECTION",
+  "verdict": "PROMOTE",
+  "scientific_acceptance": false,
+  "actual_corrected_fixture_or_model_acceptance": false,
+  "contract_sha256": "398f7c78f497bcd2df7f2f9466f33308c4b514f0655a9a09d13afd61b255032d",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/copy_runtime.py": "be2f53f62e15b79391d9e1bfaa00d9022bb5e52fee1096b7508b9567b5352ffd",
+    "experiments/ba_20261107/opguard-copy40-import-dev.sbatch": "3c0809607a4b460696c833df0bbd6d698b955aa1754aa9e95d2e75e640950ec7",
+    "experiments/ba_20261107/opguard-environment.in": "1aa79aa5b33651232b8e91fb0064d6c05427272a490ea5ecfbfc0cdf46b54c9c",
+    "experiments/ba_20261107/opguard-environment.lock": "e9e57154007bb9c4b3ea48226dee62e3eddec9404e5ebee52fbb5e2a79dcd34d",
+    "experiments/ba_20261107/opguard_baseline/aggregate.py": "00a1423e0d82dd608a169ae2b381b013db2fe2510ab4562d6cae7637eb505c62",
+    "experiments/ba_20261107/opguard_baseline/preregistration-copy40.json": "4cd21f208a244e4e3c777fd158eb6ffa202837e3450ea9b9b17b834bdbd917e3",
+    "experiments/ba_20261107/opguard_baseline/preregistration-import-copy40.json": "b75f56ab5a41f826abc9abec51614080f7c465fbb7ce9d40dfb173209dd435af",
+    "experiments/ba_20261107/opguard_baseline/preregistration.json": "7941106860534b39cf016aab5031286b9725910b77a1eb967251ff31ccb4b2de",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/opguard_baseline/test_allocated.py": "348572a87a237d09ee0b1750718c3710b882b32cda1019cdf9ab0883a4f64dfe",
+    "experiments/ba_20261107/opguard_fixtures.py": "cfec7e37aa11dd24b57cc4612085faa807cdbee2e8cc99283c4a7e692d4524d7",
+    "experiments/ba_20261107/opguard_job.py": "fb484ab08d5a0ad9c0607dfc42f16490a0215f69b19f9d8df4332449db77bf7f",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b"
+  },
+  "fixture_definition_count": 8,
+  "fixture_ids": [
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_registered_single_bit_input_delta_with_equal_outputs_qualifies",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_uncommitted_raw_trace_and_abnormal_child_exit_are_rejected",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_placeholder_and_wrong_regional_layout_are_not_value_coverage",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_gradient_state_or_reference_change_disqualifies_observer",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_native_smoke_and_signature_control_cannot_be_invented",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_installed_native_regional_xor_exposes_the_selected_single_bit",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_manifest_canonicalizes_singleton_and_expanded_zero_stride"
+  ],
+  "actual_failure_review": {
+    "job_id": "3563136",
+    "verdict": "MODIFY",
+    "scope": "ACTUAL_OPGUARD_FIXTURE_FAILURE_NATIVE_QUALIFICATION_AND_RECOVERED_CUSTODY_REVIEW",
+    "path": "artifacts/revision3/ba-20261107/review-opguard/actual-failure-3563136.json",
+    "sha256": "a48705731709321d666e5ec7c35c67336ef6ecf9634aaccfd8f7471593cd598d"
+  },
+  "implementation_report_sha256": "801fdfec7f9a24904dfd2dc768ccc458302e9834425b6f06d13f122dda26f77c",
+  "hypothesis": "Unchanged configured official layer6 activation I/O comparison; this amendment only repairs fixture child import bootstrapping, not the scientific hypothesis or result.",
+  "baseline_integrity": "CONFIRMED_FOR_SOURCE: all eleven unaffected prior nonbatch pins and exact official revision/runtime pins,65lock,history/train inputs,8fixture methods/IDs,fourfresh arms,numerical settings and source/runtime/custody gates preserved.",
+  "reviewed_delta": [
+    "Exactly two fixture-entrypoint lines after sealed contract load: historical=Path(contract[source_path]); sys.path.insert(0,str(historical/src)). This runs before unchanged suite loading and matches run_arm main namespace setup.",
+    "The parent had already verified every historical source pin before launching fixtures. This correction gives the fresh child its own source import path; parent sys.path is process-local and was not inherited.",
+    "Qualification sandbox cwd, global PYTHONPATH, installed official package/build, native doctor/smoke, threebinary retention and all official model source/identity checks remain unchanged. No source-checkout official package fallback is added.",
+    "New exclusive batch/log/checkout/control/campaign namespace; unchanged40minute1node8CPU A100DEV<=2SU envelope, early copybootstrap and fresh postsetup>=1200/600retention gates.",
+    "New preregistration adds only fixture_child_import_amendment; original/resource-amended preregistrations remain pinned. Exact actual fixture-failure3563136/MODIFY label is added to existing generic sealed review-map validation.",
+    "All eight fixture methods remain byte-identical, including original failed zero-stride test. No native/fixture/scientific assertion, census or comparison is relaxed."
+  ],
+  "blocking_findings": [],
+  "required_before_and_during_execution": [
+    "Matrix must first become terminal and have accounted resources/custody reconciled; fresh queue must be empty. Matrix scientific verdict is not a semantic baseline prerequisite.",
+    "Parent must verify remaining GPU budget supports the entire new<=2SU cap under unchanged7.5GPU/1.5CPU/9combined ceilings. Current source promotion does not reserve budget or release a retry. Do not assume both matrix and corrected baseline can consume full2SU simultaneously without that reconciliation.",
+    "New exact committed source/precheck/release with actual failurea4870573/job3563136 and accepted primary3b3bd54f/job3562268, plus previous actual setup negative review hashes/scopes. Parent verifies full actual content, not only hash syntax.",
+    "Real new allocated native build/doctor/smoke and fresh child must pass all eight exact fixtures without errors/failures/skips, including the original failing import/manifest path. No primary-fixture substitution or local numerical proof.",
+    "Only after all fixture gates may all four original clean/fault native/official model children execute. Verify installed official source/native identity, exact event/call/raw regional signatures, normal-exit trace drain and full gradient/state/RNG noninterference; retain unsupported/negative outcomes.",
+    "Complete durable custody and independent actual-result review remain required before any scientific comparison is accepted. No automatic retry or production expansion."
+  ],
+  "limits": [
+    "The two-line source correction is supported by the actual traceback and namespace construction; it does not prove remaining fixtures or model arms will pass.",
+    "The failed run qualified official native build/smoke only and produced no detector result; its canonical manifest test body was not reached. Preserve that boundary.",
+    "Runtime prerequisite validation checks sealed expected labels/verdicts/job IDs/SHA syntax, not referenced actual-review file contents. Parent source-bound attestation remains necessary.",
+    "No baseline performance, learning/population inference, complete automatic OpGuard or new input-detector novelty claim. Private environment is not durable; original native binary custody remains required."
+  ],
+  "validation": [
+    "All fourteen actual pins match exact contract398f7c78. Eleven prior unaffected nonbatch pins, input/history/runtime/official keys,65package lock and all8fixture methods/IDs match the failed baseline contract.",
+    "Exact fixture diff against pinned5c6fad84 is only two path-bootstrap lines before suite collection; AST parses all sealed Python and new batch bash-n passes. Prereg differs only in named import amendment.",
+    "Implementation report801fdfec records the now completed actual failure reviewa4870573 and correct recovered namespace/receipt. Actual failure and complete custody were independently audited before this source verdict.",
+    "No additional redundant test; original failing allocated fixture is the regression. No network, UV/Torch/model import or numerical execution."
+  ],
+  "verdict_reasoning": "Minimal child namespace correction addresses the independently localized integration error while preserving every original scientific and native qualification gate. Conditional source promotion is supported; actual correction success and budget eligibility remain open."
+}

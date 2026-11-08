@@ -269,22 +269,36 @@ def main():
         )
     # SFTP bypasses shell startup and transports binary bytes without a PTY.
     # Copy only declared members; no recursive traversal or remote mutation.
-    transfer = subprocess.run(
-        [
-            "sftp",
-            "-b",
-            "-",
-            "-o",
-            "ControlPath=" + socket,
-            "-o",
-            "BatchMode=yes",
-            "aymanmahfuz@ls6.tacc.utexas.edu",
-        ],
-        input="\n".join(transfers + ["quit"]) + "\n",
-        capture_output=True,
-        text=True,
-        timeout=240,
-    )
+    # A native-build archive has hundreds of small files. Bound the transfer
+    # by its declared member count, retaining a hard ceiling and partial logs.
+    transfer_timeout = max(240, min(900, len(transfers) * 2))
+    try:
+        transfer = subprocess.run(
+            [
+                "sftp",
+                "-b",
+                "-",
+                "-o",
+                "ControlPath=" + socket,
+                "-o",
+                "BatchMode=yes",
+                "aymanmahfuz@ls6.tacc.utexas.edu",
+            ],
+            input="\n".join(transfers + ["quit"]) + "\n",
+            capture_output=True,
+            text=True,
+            timeout=transfer_timeout,
+        )
+    except subprocess.TimeoutExpired as error:
+        (args.destination / "sftp-timeout.stdout.raw").write_bytes(error.stdout or b"")
+        (args.destination / "sftp-timeout.stderr.raw").write_bytes(error.stderr or b"")
+        (args.destination / "sftp-timeout.json").write_text(
+            json.dumps({"timeout_seconds": transfer_timeout,
+                        "declared_members": len(transfers),
+                        "status": "PARTIAL_TRANSFER_PRESERVED_NO_AUTOMATIC_RETRY"},
+                       indent=2) + "\n"
+        )
+        raise
     (args.destination / "sftp-transfer.stdout").write_text(transfer.stdout)
     (args.destination / "sftp-transfer.stderr").write_text(transfer.stderr)
     if transfer.returncode:

@@ -1,0 +1,83 @@
+{
+  "actual_failure_review": {
+    "embedded_bootstrap_members": 42,
+    "expected_verdict": "MODIFY",
+    "job_id": "3563136",
+    "main_members": 594,
+    "native_binaries": 3,
+    "recovered_archive_sha256": "f2ec6a32c5f2effbfa8cddd6e7e092330761b309f097d5129ab9af2d7975701e",
+    "recovered_output_receipt_path": "artifacts/revision3/ba-20261107/terminal-3563136-recovery/extracted/ba-opguard/output-custody.json",
+    "recovered_output_receipt_sha256": "e87640a8a29bf120312b37ef16862d12fd258c969a920aba9fb3f1937786e522",
+    "recovered_terminal_path": "artifacts/revision3/ba-20261107/terminal-3563136-recovery",
+    "required_label": "ACTUAL_OPGUARD_FIXTURE_FAILURE_REVIEWED",
+    "scientific_acceptance": false,
+    "scope": "ACTUAL_OPGUARD_FIXTURE_FAILURE_NATIVE_QUALIFICATION_AND_RECOVERED_CUSTODY_REVIEW",
+    "shell_controls": 4,
+    "source_config_pins": 13,
+    "status": "VERIFIED_ACTUAL_MODIFY_NEGATIVE_FIXTURE_OUTCOME_AND_RECOVERED_CUSTODY; not a model comparison result",
+    "verified_path": "artifacts/revision3/ba-20261107/review-opguard/actual-failure-3563136.json",
+    "verified_sha256": "a48705731709321d666e5ec7c35c67336ef6ecf9634aaccfd8f7471593cd598d"
+  },
+  "automatic_retry": false,
+  "baseline_config_reference": {
+    "failed_job_id": "3563136",
+    "path": "experiments/ba_20261107/opguard-copy40-dev-contract.json",
+    "sha256": "68b0f0c44e579ae01a9fd1849ba343a2b6216d3dc9cffee2073d87c6e31361ee"
+  },
+  "baseline_preservation": "Compare all prior source pins except the two-line fixture entrypoint correction and new batch; verify all8testIDs,65lock,history/input/runtime/native official pins and four-arm treatments unchanged.",
+  "config_diff": {
+    "campaign_id": [
+      "ba-opguard-copy40-dev-20261107-v1",
+      "ba-opguard-copy40-import-dev-20261107-v1"
+    ],
+    "fixture_child_sys_path": [
+      "No inherited parent mutation",
+      "Prepend exact sealed source_path/src before suite import"
+    ],
+    "job_name": [
+      "vg-ba-opguard-copy40-dev",
+      "vg-ba-opguard-import-dev"
+    ],
+    "required_actual_review_added": "ACTUAL_OPGUARD_FIXTURE_FAILURE_REVIEWED=MODIFY/job3563136"
+  },
+  "contract_sha256": "398f7c78f497bcd2df7f2f9466f33308c4b514f0655a9a09d13afd61b255032d",
+  "estimated_runtime": "Unchanged40minuteDEV ceiling<=2SU; unchanged>=1200second postsetup admission/600second retention. Nativebuild+8fixtures+4arms runtime remains to be qualified; no performance estimate.",
+  "experiment_id": "BA-OPGUARD-L6-20261107-v1",
+  "files_changed": [
+    "experiments/ba_20261107/opguard_fixtures.py",
+    "experiments/ba_20261107/opguard-copy40-import-dev.sbatch",
+    "experiments/ba_20261107/opguard-copy40-import-dev-contract.json",
+    "experiments/ba_20261107/opguard_baseline/preregistration-import-copy40.json",
+    "experiments/ba_20261107/opguard_baseline/implementation-report-import.json"
+  ],
+  "goal": "Correct only the fixture child historical-source import path while preserving the entire official baseline protocol.",
+  "how_to_run": {
+    "batch": "experiments/ba_20261107/opguard-copy40-import-dev.sbatch",
+    "checkout_name": "opguard-copy40-import-source",
+    "control_name": "opguard-copy40-import-control",
+    "entrypoint": "Unchanged opguard_job.py -> corrected opguard_fixtures.py then four fresh opguard_baseline/run_arm.py children; parent sealed once-only dispatch only after all gates."
+  },
+  "hypothesis": "Official configured layer6 activation input I/O summaries expose the retained single-bit replay input change while its activation output signature agrees, without changing the matched native training execution.",
+  "implementation_summary": "Two child-bootstrap lines mirror run_arm.main. Scientific cores, fixture methods/census,65package lock, official revision/native runtime/build, sandbox cwd and all four fresh-process model-arm gates remain unchanged. Common/copy prerequisite APIs accept the additional exact-job MODIFY map entry without modification.",
+  "numerical_local_execution": false,
+  "parameter_count": {
+    "accepted_fixed_model_baseline": 162322944,
+    "delta": 0
+  },
+  "remote_actions": false,
+  "risks_or_caveats": [
+    "This fixes a supported import-path failure; it does not prove remaining fixtures/model arms will pass.",
+    "Fresh child sandbox remains necessary to qualify installed official modules, not source-checkout copies.",
+    "Matrix is the only next release. This correction waits actual matrix terminal/resource reconciliation, queueempty and remainingGPU>=2 under unchanged7.5GPU/1.5CPU/9combined caps; no additional spend or retry follows from preparation.",
+    "No scientific comparator outcome, production performance, learning/population or fullautomaticOpGuard claim."
+  ],
+  "run_status": "NOT_RUN_CANDIDATE_ACTUAL_FAILURE_ATTESTATION_VERIFIED_INDEPENDENT_PRECHECK_PENDING_MATRIX_TERMINAL_RESOURCE_RECONCILIATION",
+  "sanity_checks": {
+    "AST": "PASS: fixture entrypoint, unchanged parent wrapper and copy helper AST parse",
+    "allocated_fixtures": "NOT_RUN; no numerical execution permitted locally",
+    "fixture_census_and_other_source_preservation": "PASS: eight original AST fixture IDs/method source pin unchanged, all eleven unaffected prior nonbatch pins preserved; fourteen current contract pins match;65lock/input/history/runtime/treatments preserved",
+    "shell": "PASS: new batch bash-n",
+    "static_path_resolution": "PASS: only two path-bootstrap AST statements evaluated against literal pinned-source path; exact src prepended, installed official search path preserved; suite load follows; no numerical imports/execution"
+  },
+  "scientific_acceptance": false
+}

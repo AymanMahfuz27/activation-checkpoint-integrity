@@ -1,0 +1,88 @@
+{
+  "baseline": "Pinned corrected210-history1234 full prestate; same historical completion engine, FP32 eager, preserved RNG, seed1729, diagnostic4x512x4, old output observer disabled.",
+  "budget": "Parent-owned bounded gpu-a100-dev40minute qualification, including nativebuild+smoke+fixtures+fourarms+600secondretention; no production or retry automatically authorized.",
+  "conditional_on": "Initial provenance DEV experiment passes native replay/noninterference/event-consumer qualification and independent actual-result review.",
+  "coverage_gate": "Exactly8original/replay activation calls with4each; exactly8newline-committed official summary records with byte-value4regional uint32 signatures on contiguous FP32[4,512,3072], actual-role/microbatch correspondence.",
+  "execution_phase": "DEV_QUALIFICATION_FIRST",
+  "experiment_id": "BA-OPGUARD-L6-20261107-v1",
+  "falsification": "Any changed native fullstate/gradient/injection/replaycount disqualifies observation. Missing, fallback, metadata-only, ambiguous, partial or undrained official summaries are unsupported rather than detector misses. Changed output signatures falsify the claimed output-equal case. A failed single-bit signature control is unqualified and cannot support a miss claim.",
+  "fixture_child_import_amendment": {
+    "automatic_retry": false,
+    "baseline_contract": "experiments/ba_20261107/opguard-copy40-dev-contract.json",
+    "baseline_contract_sha256": "68b0f0c44e579ae01a9fd1849ba343a2b6216d3dc9cffee2073d87c6e31361ee",
+    "candidate_status": "PREPARED_NOT_DISPATCHED; actual failure/custody review and fresh independent source/resource release required.",
+    "failed_job_id": "3563136",
+    "localized_change": "After parsing the exact sealed contract, fixture child inserts Path(contract[source_path])/src at sys.path[0] before importing the unchanged test suite, matching the existing run_arm.main child behavior.",
+    "mechanism": "The scientific parent sys.path mutation is process-local and is not inherited by a fresh Python child. The failing manifest fixture imports ac_integrity.research.completion from the pinned historical source.",
+    "preserved": [
+      "Sandbox cwd remains unchanged, so the installed official package remains the target.",
+      "No global PYTHONPATH widening, fallback package source, copied official module or installation change.",
+      "All eight original fixture IDs and methods, all65package pins, native build/doctor/smoke, fourfresh model arms, exact fault delivery, fullstate/gradient/RNG noninterference, regional signature controls and raw trace drain remain mandatory."
+    ],
+    "required_actual_failure_review": "ACTUAL_OPGUARD_FIXTURE_FAILURE_REVIEWED",
+    "required_verdict": "MODIFY",
+    "scientific_acceptance": false
+  },
+  "fixture_ids": [
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_registered_single_bit_input_delta_with_equal_outputs_qualifies",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_uncommitted_raw_trace_and_abnormal_child_exit_are_rejected",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_placeholder_and_wrong_regional_layout_are_not_value_coverage",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_gradient_state_or_reference_change_disqualifies_observer",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_native_smoke_and_signature_control_cannot_be_invented",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_installed_native_regional_xor_exposes_the_selected_single_bit",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_official_wrapper_executes_original_once_and_returns_same_object",
+    "opguard_baseline.test_allocated.OfficialBaselineFixtures.test_manifest_canonicalizes_singleton_and_expanded_zero_stride"
+  ],
+  "hypothesis": "Official configured layer6 activation input I/O summaries expose the retained single-bit replay input change while its activation output signature agrees, without changing the matched native training execution.",
+  "isolated_change": "Official make_wrapper applied only to unique layer6 activation.forward; metadata/count-only actual-intervention context accessor shared by native/official arms.",
+  "native_forward_contract": "Existing bound activation forward called exactly once, original result object returned unchanged, no shared activation object across layers.",
+  "native_qualification": "Pinned official installed Python bytes and native regionalXOR extension; doctor native_ready and official native_smoke verified; fallback flags false in both officialarms.",
+  "no_claims": [
+    "Full automatic OpGuard coverage",
+    "Native backward tracing",
+    "New input-observation novelty",
+    "Performance or overhead",
+    "Hardware fault incidence",
+    "Population coverage",
+    "Learning impact"
+  ],
+  "noninterference": "Exact cryptographic logical-byte hashes and typedmetadata for all initial/post model, namedbuffers, optimizer, scheduler, cursor, update, RNG leaves and preclipgradient leaves in matched native/official treatments.",
+  "opguard_revision": "146d6bb523cf8364bbf2788cb319aef1a46f966b",
+  "parameter_count_delta": 0,
+  "positive_control": "Only first recompute activation input regionalXOR delta[0,0,0,1]; allother inputsignatures unchanged.",
+  "primary_event": {
+    "element": 6154933,
+    "new_bits_u32": 3198802411,
+    "old_bits_u32": 3198802410,
+    "role": "recompute"
+  },
+  "process_isolation": "Each of four arms runs in a fresh normally exiting process; parent validates zero status and normal exit before reading drained official raw JSONL.",
+  "raw_outputs": [
+    "arm-result.json typedstate/gradient manifests and original intervention record",
+    "child stdout/stderr/outcome receipts",
+    "Unmodified official rawJSONL and sourcecollection",
+    "Official doctor and native smoke outputs",
+    "Exact native extension identity/hash and source/build/environment receipts",
+    "Structured aggregate with supported/unsupported status and explicit limits"
+  ],
+  "resource_only_amendment": {
+    "automatic_retry": false,
+    "baseline_preregistration": "experiments/ba_20261107/opguard_baseline/preregistration.json",
+    "baseline_preregistration_sha256": "7941106860534b39cf016aab5031286b9725910b77a1eb967251ff31ccb4b2de",
+    "dev_minutes": 40,
+    "environment_installation": "Fresh exclusive private node-local venv, same exact hashlocked requirements with --link-mode copy",
+    "max_su": 2,
+    "previous_dev_minutes": 30,
+    "previous_max_su": 1.5,
+    "production_release": false,
+    "reason": "Retained GPU3561830 exhausted the unchanged post-setup admission window; actual CPU3562135 hardlink attempt was unqualified. Preserve exact copy-installed packages and scientific methods with a larger DEV time envelope.",
+    "required_actual_review_scope": "Reviewed negative setup results enable resource-only amendment; their expected MODIFY verdicts do not establish CUDA/model qualification.",
+    "unchanged": "Hypothesis, model, data, state, seeds, device visibility, scientific source, fixture methods and census, input/historical pins, execution phase and case/arm selection, post-setup >=1200s admission and600s retention reserve."
+  },
+  "treatments": [
+    "clean-native",
+    "clean-official",
+    "fault-native",
+    "fault-official"
+  ]
+}

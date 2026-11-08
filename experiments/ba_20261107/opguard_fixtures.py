@@ -22,6 +22,8 @@ def main():
     if sys.platform != 'linux' or not os.environ.get('SLURM_JOB_ID', '').isdecimal():
         raise RuntimeError('Owned Slurm fixture process required')
     contract = json.loads(contract_path.read_text())
+    historical = Path(contract['source_path'])
+    sys.path.insert(0, str(historical / 'src'))
     os.environ['OPGUARD_TRACE_OUTPUT_BASE'] = str(out / 'official-trace')
     suite = unittest.defaultTestLoader.loadTestsFromName('opguard_baseline.test_allocated')
     ids = list(flatten(suite))
