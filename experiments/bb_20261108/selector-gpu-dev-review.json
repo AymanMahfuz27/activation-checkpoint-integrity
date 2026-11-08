@@ -1,0 +1,412 @@
+{
+  "review_id": "BB20261108-GPU-DEV-PILOT-SOURCE-PRECHECK",
+  "created_utc": "2026-11-08T07:50:12.449749+00:00",
+  "reviewer": {
+    "agent": "/root/closeout_audit",
+    "role": "Independent Experiment Analyst",
+    "provider": "Codex"
+  },
+  "scope": "PRECHECK_ONLY_BB_GPU_DEV_PILOT_SOURCE_AND_CONTRACT",
+  "verdict": "PROMOTE",
+  "contract_sha256": "b38d0a67661d7dce9a1afc405e5476579c6ab60cd6546213a4ba065da6d4bfee",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/e1_replay.py": "61b3da6ed65290cb023052861e494689807cad35bd07f46c729bdf91060095f4",
+    "experiments/bb_20261108/gpu_job.py": "49d7af793eb7f8d76d26054ee07d33cd13ea4c2269de7871c91d4958f16a316b",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector-gpu-dev.sbatch": "8201725c4ca9a3be0c38953ea0680293b88a2d94c167853a46722981557546cb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/selector_integration.py": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a"
+  },
+  "scientific_acceptance": false,
+  "empirical_GPU_acceptance": false,
+  "allocated_GPU_qualification": false,
+  "execution_release": false,
+  "experiment_id": "BB-DEMAND-GPU-PILOT-20261108-v1",
+  "hypothesis_tested": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "headline_result": "The exact frozen GPU pilot package resolves all four integration findings, preserves complete84-arm/12-case and12-armE1 accounting, and binds the accepted actual CPU prerequisite. Promote this source/contract for a separately authorized release; no GPU outcome or timing release is inferred.",
+  "baseline_integrity": {
+    "status": "SOURCE_CONFIRMED_GPU_RUNTIME_UNMEASURED",
+    "reason": "All14source pins, full method86614, unchanged historical226registry, shared58lock and all6ACTUAL review contents/scopes/jobs/verdicts match. Core9550/fixtures98a14remain the exact CPU-qualified bytes; new integration71cd/E1replay61b3require actualGPU qualification.",
+    "native_reference": "Historical engine remains checking-disabled/enforce-false. Pilot reference uses the same metadata context/native counter as observing policies; real consumer faults occur in native and observing arms alike. Timing APIs omit pilot counters.",
+    "parameters": "Declared0new trainable parameters; actual162322944model count is an allocated gate, not recomputed locally."
+  },
+  "validity_assessment": {
+    "source_assessment": "HIGH_WITH_EXPLICIT_GPU_RUNTIME_GATE",
+    "empirical_result_validity": "NOT_ASSESSED_NO_GPU_RESULTS",
+    "remaining_risks": [
+      "CPU success does not establish CUDA golden/kernel/native model compatibility.",
+      "An actual graph/census/class/held-out mismatch must remain invalid or unsupported as declared, without narrowing the denominator.",
+      "The full96model/probe-arm portfolio may not fit the actual postsetup deadline; preserve partial evidence, do not trim cases or retry automatically.",
+      "No selection-byte reduction, latency or E1historical mechanism has been measured in this GPU package."
+    ]
+  },
+  "exact_source_controls": {
+    "contract": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/experiments/bb_20261108/selector-gpu-dev-contract.json",
+      "sha256": "b38d0a67661d7dce9a1afc405e5476579c6ab60cd6546213a4ba065da6d4bfee",
+      "bytes": 98105
+    },
+    "implementation_report": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/experiments/bb_20261108/implementation-report-gpu.json",
+      "sha256": "254dd4258474800f5ed80dafd4fb203e49b835542ec18238068c609cb2bf6dec",
+      "bytes": 22137
+    },
+    "selector_component_report": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/experiments/bb_20261108/implementation-report-selector.json",
+      "sha256": "bc83be5a55b7edf27f7e1acd80390353557062266269e948290900b16fdc5e45",
+      "bytes": 22130
+    },
+    "integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "driver_sha256": "49d7af793eb7f8d76d26054ee07d33cd13ea4c2269de7871c91d4958f16a316b",
+    "batch_sha256": "8201725c4ca9a3be0c38953ea0680293b88a2d94c167853a46722981557546cb",
+    "method_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "source_revision": "Parent must bind the final isolated committed/pushed revision after copying this exact review.",
+    "draft": false,
+    "source_pins": 14,
+    "historical_source_registry_entries": 226,
+    "actual_review_bindings": 6
+  },
+  "resolved_integration_findings": [
+    {
+      "id": "GPU-I1",
+      "status": "RESOLVED_SOURCE",
+      "initial_source": "bf0d29349c449d43d8995b5a9c0eb22a034e5fb9ce4de7bbdccbf7f5a668d2b2",
+      "finding": "Model profile could silently omit required LayerNorm/softmax or final outside slots while checking only root/GELU counts.",
+      "resolution": "Exact12-layer per-region/role/micro census is required for both diagnostic4and production32recipes. Per region/role/micro: GELU1,softmax1,LayerNorm2; external finalLN1per micro. All native backward activation slots and exactly3outside LN bindings per micro are checked against that micro’s allowed external logical fields/metadata, retaining all equal class members. Native backward order remains learned, never inferred from forward order. Raw unsupported profiles must still pass complete architecture census; loss of families/slots is saved INVALID_PROFILE_CENSUS and fails fast."
+    },
+    {
+      "id": "GPU-I2",
+      "status": "RESOLVED_SOURCE",
+      "finding": "Failed comparisons could disappear because assertions preceded writes.",
+      "resolution": "Profile/clean/fault/protected-state comparisons are written before parity assertions. Timing additionally persists each comparison and pair summary incrementally before validation. Native row/intervention/observation records remain available on later checks. Gates remain strict."
+    },
+    {
+      "id": "GPU-I3",
+      "status": "RESOLVED_SOURCE_WITH_SCOPED_COST_FIELDS",
+      "finding": "Step-only profiling time omitted raw collection/serialization; update128label hid the extra profile update.",
+      "resolution": "Profile call wall/export bytes, admitted identity setup and census-admission time are separately retained, with the combined defined profile-admission cost distinguished from step-only time. Export-byte scope explicitly excludes separate compiled-plan/admission artifacts. Future timing returns128timed-arm updates,1production-profile update and129total; direct primary estimator is unchanged. No actual amortization or latency result is accepted."
+    },
+    {
+      "id": "GPU-I4",
+      "status": "RESOLVED_SOURCE",
+      "finding": "Frozen cache envelope contained recipe only, leaving source/runtime/allowed graph identity implicit in the outer job.",
+      "resolution": "The canonical admitted identity now includes source/historical/lock/native-kernel pins, actual runtime versions/settings/device metadata, registry and native schemas. Each profile/checked use rebuilds effective model config/module/parameter metadata and compares the complete envelope/registry inside the charged interval. State/weight payloads, cursor/update/RNG and accidental checkpoint paths are excluded so warm10and optimizer updates can share the admitted graph."
+    }
+  ],
+  "profile_census": {
+    "pilot_microbatches": 4,
+    "production_microbatches": 32,
+    "per_checkpoint_region_microbatch_role": {
+      "gelu": 1,
+      "softmax": 1,
+      "native_layer_norm": 2
+    },
+    "pilot": {
+      "gelu_original": 48,
+      "gelu_recompute": 48,
+      "gelu_backward": 48,
+      "softmax_original": 48,
+      "softmax_recompute": 48,
+      "softmax_backward": 48,
+      "LayerNorm_checkpoint_original": 96,
+      "LayerNorm_recompute": 96,
+      "LayerNorm_external_forward": 4,
+      "LayerNorm_backward": 100,
+      "outside_state_bindings": 12
+    },
+    "production": {
+      "gelu_original": 384,
+      "gelu_recompute": 384,
+      "gelu_backward": 384,
+      "softmax_original": 384,
+      "softmax_recompute": 384,
+      "softmax_backward": 384,
+      "LayerNorm_checkpoint_original": 768,
+      "LayerNorm_recompute": 768,
+      "LayerNorm_external_forward": 32,
+      "LayerNorm_backward": 800,
+      "outside_state_bindings": 96
+    },
+    "outside_order": "Actual backward ordinal is learned and frozen; no wrong24+25micro prediction.",
+    "failure": "Missing/extra required architecture/census is invalid, never successful detection. Coherent value-map unsupported status remains normal only after complete raw architecture coverage."
+  },
+  "pilot_protocol": {
+    "frozen_cases": 12,
+    "declared_method_arms": 84,
+    "E1_probe_arms": 12,
+    "independent_history_count": 1,
+    "states": [
+      "corrected210-history1234",
+      "warm10-history1234"
+    ],
+    "fixed_site_bit_seed_tuples": [
+      [
+        6,
+        0,
+        1729
+      ],
+      [
+        0,
+        0,
+        41
+      ],
+      [
+        11,
+        22,
+        73
+      ]
+    ],
+    "windows": [
+      "replay_forward",
+      "consumer_entry"
+    ],
+    "consumer_ordinals": {
+      "L11": 0,
+      "L6": 5,
+      "L0": 11,
+      "later_microbatch_increment": 12
+    },
+    "fault_selection_independent_of_plan": true,
+    "mutation_primitive": "Historical Intervention.mutate operates in place; original dense_h_to_4h.output identity preserves registered hash-selected coordinate.",
+    "fresh_state_per_arm": true,
+    "fresh_original_signatures_and_counters_per_update": true,
+    "unsupported_denominator": "Explicit unsupported/not-run records preserve all12cases and84declared arms; no trimming or detection credit.",
+    "noninterference": "Full recorded state including all3visible RNG streams, preclip gradients, native call counts and intervention records matched against native treatment; enforcement protects persistent non-RNG prestate before clip/optimizer, without rollback claim.",
+    "valid_negative_vs_invalid": "Coherent supported FALSIFIED or fully-censused value-map UNSUPPORTED is retained and may proceed to independent E1. Invalid source/runtime/census/parity/injection/native execution fails fast; no E1 continuation after invalidity.",
+    "timing_gate": "ALL12supported/complete, expected detections/noninterference/source/runtime/custody, actualpilotPROMOTE and strict fewer bytes. Consumer class split blocks all timing even when forward ablation pairs match."
+  },
+  "E1_integration": {
+    "source_sha256": "61b3da6ed65290cb023052861e494689807cad35bd07f46c729bdf91060095f4",
+    "independent_component_review": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/e1-replay-component-precheck-final.json",
+      "sha256": "4fa27c3052eedfe7b7247d7c9faecf64c96a179435911efbe67573880ef41bfb",
+      "bytes": 5068
+    },
+    "component_review_scope": "SOURCE_ONLY_COMPONENT_REVIEW",
+    "component_review_verdict": "ACCEPT_SOURCE_ONLY",
+    "review_reuse": "Trusted the separate independent component review for internal E1 implementation; full wrapper/API/source-pin integration inspected without duplicating its complete internal audit.",
+    "fixed_arms": 12,
+    "pairs": 6,
+    "actual_native_clip_outcome_separate_from_recomputed_norms": true,
+    "raw_return_and_preclip_live_postexecute_oracles_retained": true,
+    "old_638_call_denominator_and_26strict_flags_unchanged": true,
+    "no_robust_clipping_repair_treatment": true,
+    "empirical_outcome": "UNMEASURED_ON_GPU"
+  },
+  "wrapper_and_batch": {
+    "pre_numerical_gates": "Stdlib-only top level, inherited token rejection, exact native grant/source/release/batch/environment/storage/time admission, private58version/prefix qualification, nonempty6ACTUAL SHA/scope/job/verdict bindings, historical226source verification and all3opaque input byte digests precede numerical imports.",
+    "GPU_gates": "Explicit cuda:0fixture device, exactly3visible A100sm80 devices preserving registered RNG topology, no foreign compute process, exact imported versions/modules;20ordered normal fixtures with0skips/errors/failures; full CUDA golden and header-expanded native sourcec097f07e before a new historicalc9d/job/contract-bound model-work receipt and unchanged source_allocation_guard.",
+    "stages": "Driver calls pilot and independent E1 only, checks complete denominators and coherent stage completion; it never calls run_timing or produces a pooled interval.",
+    "retention": "Raw partial/error/source/input/runtime/fixture/stage evidence retained under livequota/2GB with600s reserve. Pre-admission failure permits fixed-source unqualified custody only after exact owned GPUdescriptor/node/batch proof; never numerical release.",
+    "resources": {
+      "partition": "gpu-a100-dev",
+      "minutes": 40,
+      "nodes": 1,
+      "tasks": 1,
+      "cpus_per_task": 8,
+      "exclusive": true,
+      "no_requeue": true,
+      "max_su": 2,
+      "new_phase_ceiling_su": 9,
+      "serial_owned_queue": true,
+      "automatic_retry": false
+    },
+    "visibility": "Single model devicecuda:0; all3visible device generators retained/restored for within-process full-state parity. No distributed or3GPUtraining claim."
+  },
+  "fixture_census": {
+    "cuda_golden": 1,
+    "e1": 6,
+    "expected_failures_allowed": 0,
+    "order": "exact_fixture_ids",
+    "selector_shared": 13,
+    "skips_allowed": 0,
+    "total": 20,
+    "fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+      "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+      "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+      "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+      "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+      "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+      "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+    ],
+    "method_and_source_census_match": true,
+    "CPU_does_not_replace_GPU_golden": true,
+    "empirical_GPU_status": "NOT_RUN"
+  },
+  "actual_prerequisites": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-opguard/actual-review-3565254.json",
+      "sha256": "91f3b47af04bb0c6f8a9ae932432f854032fff0646c45a3a94b4e29156a49156",
+      "scope": "ACTUAL_CONFIGURED_OFFICIAL_OPGUARD_INPUT_OUTPUT_BASELINE_AND_CUSTODY_REVIEW",
+      "job_id": "3565254",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-placement/actual-review-3562498.json",
+      "sha256": "eb91fa51cb1f55be1d98ba82b22ecae05cd7a9f2e9f56c512d423eb236c4482d",
+      "scope": "ACTUAL_FIXED_FAULT_PLACEMENT_CONTROL_AND_CUSTODY_REVIEW",
+      "job_id": "3562498",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-provenance/actual-review-3562268.json",
+      "sha256": "3b3bd54f128ab96f4ea392829567a5a3e9038a3f7ce1dd68c1c903b3f4afe2c1",
+      "scope": "ACTUAL_PRIMARY_PROVENANCE_RESULT_AND_CUSTODY_REVIEW",
+      "job_id": "3562268",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": {
+      "path": "artifacts/revision3/ba-20261107/review-closeout/actual-review.json",
+      "sha256": "5270b185e1eecd6ca0c84d31d25d815d9248ce597d14a7abff3ce51a3bd6d3d9",
+      "scope": "INDEPENDENT_ACTUAL_RESULT_REVIEW_SECTION_SPECIFIC",
+      "job_id": "3561473",
+      "verdict": "MODIFY",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": {
+      "path": "artifacts/revision3/ba-20261107/review-provenance/actual-matrix-review-3565105.json",
+      "sha256": "08edb99dfa5c31dbeea9c1f14c16a55dc926d63195d6f5fd0e432894e3b46267",
+      "scope": "ACTUAL_ORIGINAL_SIX_CASE_PROVENANCE_MATRIX_AND_CUSTODY_REVIEW",
+      "job_id": "3565105",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    },
+    "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": {
+      "path": "artifacts/revision3/bb-20261108/reviews/actual-cpu-review-3565408.json",
+      "sha256": "6ba690bc89079ce97459277754e4da7eea0428b5b64d3c9a2f2daf1f295aed4c",
+      "scope": "ACTUAL_BB_CPU_20_FIXTURE_RUNTIME_AND_CUSTODY_REVIEW",
+      "job_id": "3565408",
+      "verdict": "PROMOTE",
+      "local_content_authenticated": true
+    }
+  },
+  "opaque_input_registry": [
+    {
+      "bytes": 134217856,
+      "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/inputs/main-corpus/train.npy",
+      "fresh_opaque_hash_verified": false,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/main-corpus/train.npy",
+      "role": "train",
+      "sha256": "5d75752ac19314882b7c6f162cb5f2d8754f01452f29334224ee86947cc50c07"
+    },
+    {
+      "bytes": 1948069851,
+      "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3495917/qualification/histories/seed-1234/warm10.pt",
+      "fresh_opaque_hash_verified": false,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3495917/qualification/histories/seed-1234/warm10.pt",
+      "role": "early-history1234",
+      "sha256": "e6dbfcb2a9126f1b2f74883e0876d2c0ac1a11ed2be9eb3d2c480decd5760fc1",
+      "stage": "early-warm10"
+    },
+    {
+      "bytes": 1948071195,
+      "durable_work_exists_at_observation": true,
+      "durable_work_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3496051/clean/recovery-at-200.pt",
+      "fresh_opaque_hash_verified": false,
+      "hash_authority": "historical sidecar; not fresh opaque verification",
+      "new_ranch_custody_verified": false,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3496051/impact/clean/recovery-at-200.pt",
+      "proposed_ranch_path": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-20261019/inputs/history-1234-corrected210.pt",
+      "role": "corrected210-history1234",
+      "sha256": "63a258ddef05c2c59e146db8282d58736f4f2fda7373dc7e2bef9c05b7baddb7"
+    }
+  ],
+  "input_acceptance_boundary": "Historical digest authorities and registered paths reviewed only. No opaque input was loaded/hashed locally; GPUverify_inputs must freshly verify all3payload byte sizes/SHA in the actual allocation before unpickling/model work.",
+  "future_timing_review_boundary": {
+    "source_logic_reviewed": "Fresh production plan, new per-update stores, exact24schedule metadata across3jobs,128timed updates/job plusprofile update, direct consumer/full-I/O two-block mean log ratio and per-job output only; complete-source control flow inspected.",
+    "not_released": "No timing contract, GPU timing execution, three-job pooled reducer, interval, peak-memory benefit or amortization result is accepted by this pilot review. Those require the separately frozen timing package and actualpilot gate.",
+    "estimator": "Exactly3independent job means equally weighted, Student-t95df2 then exponentiate; no per-update/microbatch replication or normalized-disabled primary denominator.",
+    "profile_cost": "Use the explicitly scoped complete profile-call/binding/census fields, not step-only time; include any additional required profiling cost in the later conservative amortization definition."
+  },
+  "independent_validation": {
+    "status": "PASS",
+    "full_original_and_combined_diff_read": true,
+    "complete_driver_batch_contract_reviewed": true,
+    "all_source_pins": 14,
+    "Python_ASTs": 11,
+    "bash_n": "PASS",
+    "GPU_fixture_IDs": 20,
+    "historical_registry": 226,
+    "ACTUAL_review_content_bindings": 6,
+    "metadata_census_envelope_cases_reproduced": 24,
+    "metadata_fixture_source_sha256": "2950d959519d4a935be75e68e2d9b06d38af50b2b5b0550ae62d161374c31c96",
+    "owner_validation_record_sha256": "144d6e7d8512cd2bdfe69acbd799dd2176707c8a13564020f821de2a511a53a0",
+    "owner_artifact_not_overwritten": true,
+    "no_Torch_NumPy_Transformers_imported": true,
+    "numerical_fixtures_executed": 0,
+    "tensor_or_model_loads": 0,
+    "remote_queries_or_writes": 0,
+    "method": "Source/combined-diff/API inspection, exact hashes/AST/JSON/set/census checks and one isolated execution of the pure-stdlib metadata fixture prefix with fake metadata objects; no numerical module/main/Slurm path executed."
+  },
+  "archival_lineage": {
+    "initial_modify": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/gpu-integration-initial-bf0d2934.json",
+      "sha256": "1bec4f7a65b58c863ee267b7a33c2d6e726d0dcbd322dbe820c42fc001ec757f",
+      "bytes": 4616
+    },
+    "draft_archives": [
+      {
+        "directory": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/history/gpu-draft-4969e7ac",
+        "manifest_sha256": "9bceb4c6fefe5ecc257b65292b08a8092acaa9aca9b0985d944c0758b394685a",
+        "exact_files": 16
+      },
+      {
+        "directory": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/history/gpu-draft-52c0f11d",
+        "manifest_sha256": "84bc915711271d3cbbd3c827b6931895bfcde5ce28a59ec3bb259d0cd40ced40",
+        "exact_files": 16
+      }
+    ],
+    "CPU_actual_review": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/actual-cpu-review-3565408.json",
+      "sha256": "6ba690bc89079ce97459277754e4da7eea0428b5b64d3c9a2f2daf1f295aed4c",
+      "bytes": 24370
+    },
+    "method_precheck": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/method-precheck.json",
+      "sha256": "c6731adf10c792ce24dee28bd2d596b4119756636117a66b942c34a0b99fe484",
+      "bytes": 26450
+    },
+    "class_unanimity_clarification": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/reviews/cpu-class-unanimity-clarification.json",
+      "sha256": "da825fd54b1d5263d7f2a1e28beacea825cc2feab55a07f3a9af494b427de2a3",
+      "bytes": 7853
+    },
+    "history_preserved": true
+  },
+  "blocking_findings": [],
+  "remaining_limits": [
+    "No GPU fixture/model/probe has executed in this package.",
+    "A model-profile census or envelope change is not permission to narrow scope; preserve invalid/unsupported evidence and block timing.",
+    "An unsupported clean profile cannot establish full profile post-update parity; its explicit negative status grants no transparent supported-model or timing claim.",
+    "No new input-checking novelty, full automatic OpGuard comparison/superiority, learning/population/general-alias or hardware incidence claim.",
+    "CPUactualPROMOTE qualifies onlyCPU and supplies a required prerequisite, not a CUDA/model result."
+  ],
+  "verdict_reasoning": "The exact full pilot package now enforces the frozen method’s complete family/slot census and semantic cache binding, preserves failed comparisons, records scoped full profiling costs and maintains fixed cases, independent interventions, strict noninterference and complete negative accounting. Its actualCPU prerequisite is authenticated. Promote source/contract only; actualGPU execution and science remain unqualified.",
+  "suggested_next_action": "Parent may bind this exact review in the isolated committed/pushed source and once-only pilot release after fresh account/quota/empty-queue/budget checks. Require actual20CUDAfixtures, complete source/custody and independent actualGPU review. No timing release follows from this source precheck.",
+  "lesson_for_archivist": "GPU pilot source must admit the whole declared model census, bind the cache semantically and retain failed numerical evidence; the corrected package is source-approved, while GPU validity and selection/cost conclusions remain pending."
+}

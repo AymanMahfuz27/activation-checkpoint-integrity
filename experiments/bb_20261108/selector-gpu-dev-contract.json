@@ -1,0 +1,1796 @@
+{
+  "actual_review_evidence_paths": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "artifacts/revision3/ba-20261107/review-opguard/actual-review-3565254.json",
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "artifacts/revision3/ba-20261107/review-placement/actual-review-3562498.json",
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "artifacts/revision3/ba-20261107/review-provenance/actual-review-3562268.json",
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "artifacts/revision3/ba-20261107/review-closeout/actual-review.json",
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "artifacts/revision3/ba-20261107/review-provenance/actual-matrix-review-3565105.json",
+    "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "artifacts/revision3/bb-20261108/reviews/actual-cpu-review-3565408.json"
+  },
+  "automatic_retry": false,
+  "batch": "experiments/bb_20261108/selector-gpu-dev.sbatch",
+  "bootstrap_custody_campaign": "bb-20261108-selector-gpu-dev-v1-environment-setup",
+  "bootstrap_output_max_bytes": 100000000,
+  "bootstrap_output_study": "bb-selector-environment-setup",
+  "campaign_id": "bb-20261108-selector-gpu-dev-v1",
+  "completion_requirements": [
+    "All20 ordered unique CUDA/E1fixtures loaded/started/finished/passed, zero skips/failures/errors/expected failures/unexpected successes, normal runner exit",
+    "Fresh exact58runtime/prefix/imported versions and exactly3visible A100 sm80 devices matching frozenRNGtopology; allocatedSHA of all3opaque inputs",
+    "NativeCUDA BLAKE3 golden success and exact header-expandedkernel source/architecture; saved model-workreceipt plus unchanged historical source_allocation_guard",
+    "Pilot coherent evidencecomplete12-case/84-declaredarm denominator including explicit unsupported/not-run arms; no forcedpositive hypothesis or timingeligibility",
+    "E1exact12arms/6noninterference pairs, nativeclipping unchanged and old638call/26flag criteria unchanged",
+    "Full source/runtime/nativegrant/rawpartial result/custody with independent actual GPUreview before any timingrelease"
+  ],
+  "control_directory_name": "selector-gpu-dev-control",
+  "copy_study": "selector",
+  "cpus": 8,
+  "cuda_qualification": false,
+  "draft": false,
+  "e1_fixture_ids": [
+    "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+    "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+    "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+    "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+    "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+    "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+  ],
+  "environment_installation": "FRESH_NODE_LOCAL_COPY_V1",
+  "environment_path": "/tmp/aci-bb-copy-${SLURM_JOB_ID}/env",
+  "exclusive": true,
+  "execution_phase": "GPU_DEV_PILOT",
+  "expected_native_extension_hash_namespace": "Header-expanded NVRTC source; rawCUDA/header/loader bytes are independently pinned in historical_contract.source_files.",
+  "expected_native_extension_source_sha256": "c097f07e78d72c9f8985c55e7e16352e6a880d91342fea720595467655618b8e",
+  "expected_package_count": 58,
+  "experiment_id": "BB-DEMAND-GPU-PILOT-20261108-v1",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/e1_replay.py": "61b3da6ed65290cb023052861e494689807cad35bd07f46c729bdf91060095f4",
+    "experiments/bb_20261108/gpu_job.py": "49d7af793eb7f8d76d26054ee07d33cd13ea4c2269de7871c91d4958f16a316b",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector-gpu-dev.sbatch": "8201725c4ca9a3be0c38953ea0680293b88a2d94c167853a46722981557546cb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/selector_integration.py": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a"
+  },
+  "fixture_census": {
+    "cuda_golden": 1,
+    "e1": 6,
+    "expected_failures_allowed": 0,
+    "order": "exact_fixture_ids",
+    "selector_shared": 13,
+    "skips_allowed": 0,
+    "total": 20
+  },
+  "fixture_ids": [
+    "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+    "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+    "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+    "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+    "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+    "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+    "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+    "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+    "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+    "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+    "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+    "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+    "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+    "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+    "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+    "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+    "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+    "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+    "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+    "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+  ],
+  "historical_contract": {
+    "campaign_id": "m4-repair-20261025-v1",
+    "e1": {
+      "attempt_manifest": "e1-attempts-v2.json",
+      "bounded_localization_attempts": 0,
+      "calibration_dependency": "None; no E1 cheap-check thresholds. Full E1 then E2 in one M4 allocation; E3 separate concurrent allocation.",
+      "clean_controls": 4,
+      "embedded_localization_arms": 3,
+      "fault_scope_denominator": 158,
+      "injector_observation": "Exclude helper operations with scoped capture reentrancy boundary preserving original autograd; never suppress downstream native operators or fabricate post-injection native events; parity and identity alignment required",
+      "known_misses": [
+        {
+          "case_id": "recompute-L0-fraction-low-bit0",
+          "state": "early-warm10"
+        },
+        {
+          "case_id": "recompute-L6-fraction-low-bit0",
+          "state": "later-update210"
+        },
+        {
+          "case_id": "recompute-L11-fraction-low-bit0",
+          "state": "later-update210"
+        }
+      ],
+      "new_attempts_total": 638,
+      "new_primary_attempts": 474,
+      "operator_pair_identity": "attempt/rank/update/microbatch/region/call/operator-overload/ordinal/output-path; unmatched IDs unsupported",
+      "registered_additional_attempts": 478,
+      "shared_case_state_references": 158,
+      "supporting_original_fault_references": 158,
+      "supporting_plain_clean_references": 2,
+      "workers": 3
+    },
+    "e2": {
+      "accepted_updates_per_arm": 100,
+      "arms": [
+        {
+          "fault": null,
+          "history": 1234,
+          "id": "E2-H1234-clean"
+        },
+        {
+          "fault": "weight-L0-exponent-high-bit30",
+          "history": 1234,
+          "id": "E2-H1234-largest-S1729",
+          "site_seed": 1729,
+          "stratum": "largest"
+        },
+        {
+          "fault": "weight-L0-exponent-high-bit30",
+          "history": 1234,
+          "id": "E2-H1234-largest-S1730",
+          "site_seed": 1730,
+          "stratum": "largest"
+        },
+        {
+          "fault": "recompute-L0-rel0.1",
+          "history": 1234,
+          "id": "E2-H1234-smaller-S1729",
+          "site_seed": 1729,
+          "stratum": "smaller"
+        },
+        {
+          "fault": "recompute-L0-rel0.1",
+          "history": 1234,
+          "id": "E2-H1234-smaller-S1730",
+          "site_seed": 1730,
+          "stratum": "smaller"
+        },
+        {
+          "fault": null,
+          "history": 1,
+          "id": "E2-H1-clean"
+        },
+        {
+          "fault": "weight-L0-exponent-high-bit30",
+          "history": 1,
+          "id": "E2-H1-largest-S1729",
+          "site_seed": 1729,
+          "stratum": "largest"
+        },
+        {
+          "fault": "weight-L0-exponent-high-bit30",
+          "history": 1,
+          "id": "E2-H1-largest-S1730",
+          "site_seed": 1730,
+          "stratum": "largest"
+        },
+        {
+          "fault": "recompute-L0-rel0.1",
+          "history": 1,
+          "id": "E2-H1-smaller-S1729",
+          "site_seed": 1729,
+          "stratum": "smaller"
+        },
+        {
+          "fault": "recompute-L0-rel0.1",
+          "history": 1,
+          "id": "E2-H1-smaller-S1730",
+          "site_seed": 1730,
+          "stratum": "smaller"
+        },
+        {
+          "fault": null,
+          "history": 2,
+          "id": "E2-H2-clean"
+        },
+        {
+          "fault": "weight-L0-exponent-high-bit30",
+          "history": 2,
+          "id": "E2-H2-largest-S1729",
+          "site_seed": 1729,
+          "stratum": "largest"
+        },
+        {
+          "fault": "weight-L0-exponent-high-bit30",
+          "history": 2,
+          "id": "E2-H2-largest-S1730",
+          "site_seed": 1730,
+          "stratum": "largest"
+        },
+        {
+          "fault": "recompute-L0-rel0.1",
+          "history": 2,
+          "id": "E2-H2-smaller-S1729",
+          "site_seed": 1729,
+          "stratum": "smaller"
+        },
+        {
+          "fault": "recompute-L0-rel0.1",
+          "history": 2,
+          "id": "E2-H2-smaller-S1730",
+          "site_seed": 1730,
+          "stratum": "smaller"
+        }
+      ],
+      "co_primary_strata": 2,
+      "distribution": "paired Student-t, df=2; strong low-n assumptions; display all effects",
+      "evaluation_updates": [
+        0,
+        1,
+        10,
+        50,
+        100
+      ],
+      "exploratory_timepoint_ci_confidence": 0.95,
+      "extra_production_attempts": {
+        "clean_observer": 3,
+        "guarded_replay": 6,
+        "trigger_off": 12
+      },
+      "guarded_replay_outcomes": "Supported accepted misses are retained and do not stop the independent unprotected impact continuations. A rejection must preserve every protected parameter/buffer/optimizer/scheduler/cursor/counter.",
+      "histories": [
+        1234,
+        1,
+        2
+      ],
+      "individual_ci_confidence": 0.975,
+      "missing_nonfinite_policy": "Retain original arm and first failure; no replacement or complete-case population CI if any required history/site endpoint is missing. Report available effects and incomplete/censored estimand.",
+      "planned_continuation_updates": 1500,
+      "planned_target_presentations": 98304000,
+      "ppl_transform": "exp(CE contrast), applied to point and both interval endpoints",
+      "primary_endpoint": "held-out CE difference at 100 accepted updates",
+      "primary_unit": "history mean of two site-paired fault-minus-shared-clean CE differences",
+      "recovery_family": "2 strata x 4 post-baseline evaluations, Bonferroni 95% family coverage under t assumptions",
+      "recovery_individual_ci_confidence": 0.99375,
+      "recovery_rule": "After an interval wholly beyond tolerance, first scheduled point with interval wholly inside tolerance AND all later scheduled intervals wholly inside. Otherwise not demonstrated by 100. Time only localized between scheduled evaluations. Descriptive point-estimate crossings reported separately. No extension.",
+      "recovery_tolerance": {
+        "ci_required": true,
+        "relative_ppl_high": 1.01,
+        "relative_ppl_low": 0.99
+      },
+      "selection_rule": "Finite accepted original records: largest relative gradient L2; smaller is largest positive value <= largest/100; exact ties sort by state then case_id lexically. No reselection after new outcomes.",
+      "simultaneous_family_confidence_lower_bound": 0.95,
+      "site_seeds": [
+        1729,
+        1730
+      ],
+      "strata": [
+        {
+          "bit": 30,
+          "case_id": "weight-L0-exponent-high-bit30",
+          "eligible_elements": 2359296,
+          "identity": "gpt_neox.layers.0.mlp.dense_h_to_4h.weight",
+          "kind": "bit",
+          "layer": 0,
+          "location": "weight",
+          "magnitude": null,
+          "pilot_gradient_relative_l2": 7.493271181178358,
+          "pilot_state": "later-update210",
+          "selection_locked_before_new_outcomes": true,
+          "sites": [
+            {
+              "element": 1885921,
+              "seed": 1729
+            },
+            {
+              "element": 2209801,
+              "seed": 1730
+            }
+          ],
+          "stratum": "largest"
+        },
+        {
+          "bit": null,
+          "case_id": "recompute-L0-rel0.1",
+          "eligible_elements": 6291456,
+          "identity": "gpt_neox.layers.0.mlp.dense_h_to_4h.output",
+          "kind": "relative",
+          "layer": 0,
+          "location": "recompute",
+          "magnitude": 0.1,
+          "pilot_gradient_relative_l2": 0.033958435679624734,
+          "pilot_state": "later-update210",
+          "selection_locked_before_new_outcomes": true,
+          "sites": [
+            {
+              "element": 3456141,
+              "seed": 1729
+            },
+            {
+              "element": 5991674,
+              "seed": 1730
+            }
+          ],
+          "stratum": "smaller"
+        }
+      ],
+      "targets_per_update": 65536,
+      "workers": 3
+    },
+    "e3": {
+      "abft_actual_shapes": {
+        "forward": [
+          2048,
+          768,
+          3072
+        ],
+        "input_gradient": [
+          2048,
+          3072,
+          768
+        ],
+        "weight_gradient": [
+          3072,
+          2048,
+          768
+        ]
+      },
+      "abft_calibration_rule": "Per role atol = 4 * maximum absolute row/column residual across 30 clean calibration products + FP32 epsilon, rtol=0. Freeze before disjoint test/faults.",
+      "abft_event_manifest": "e3-abft-products.json",
+      "abft_per_role": {
+        "balanced_cancellation": 1,
+        "clean_calibration": 30,
+        "clean_test": 30,
+        "common_mode_operand": 1,
+        "post_product_bit": 30
+      },
+      "abft_total": 276,
+      "attempt_limit_per_cell": 300,
+      "baseline_clean_updates_total": 120,
+      "baseline_integration": "Diagnostic cheap checks on E3 early-state attempts after disjoint early-state diagnostic calibration only; production thresholds/cost controls separately calibrated. Original-source E1 has no added cheap-calibration dependency.",
+      "cheap_calibration_rule": "Separate batch-matched gradient populations; missing/nonfinite checks have no fitted threshold. Each parameter/layer FP32 norm upper bound and loss upper bound = 4 * maximum over 30 finite clean calibration values + FP32 epsilon. Freeze numeric thresholds before disjoint clean tests or faults. No tuning after test outcomes.",
+      "counterfactual": "same full pre-attempt state and recorded actual forward RNG tape; corrected preserve_rng=True replay; restore affected state afterwards",
+      "default_checkpoint_metadata_checks": "enabled PyTorch default; record shape/dtype/device loud failures separately from value checks",
+      "diagnostic_batch_clean_updates": {
+        "calibration": 30,
+        "disjoint_test": 30
+      },
+      "expected_active_counterfactual_if_overlap_validated": 1650,
+      "expected_primary_if_overlap_validated": 2973,
+      "false_alert_definition": "selected alert with exact paired values equal on a valid observation; unsupported/unalignable/observer-altered observations remain separate",
+      "layer_grouping": "gpt_neox.layers.N plus separate embedding/output/non-layer groups; FP32 norm of grouped parameter norms; named parameter diagnostics retained",
+      "max_active_counterfactuals": 8619,
+      "max_primary_attempts": 11700,
+      "operand_capture_parity_attempts": 2,
+      "production_clean_updates": {
+        "calibration": 30,
+        "disjoint_test": 30
+      },
+      "randomized_uncertainty": "8 seeds per onset; reused seeds paired across onsets; never treat24 onset cells as independent draws",
+      "rejected_evidence": "externally owned pre-gate gradients and per-microbatch RNG tape survive exceptions; post-clip/proposed-transition NOT_REACHED after pre-optimizer rejection",
+      "rng_tape_retention": "Lossless per-active-attempt tapes hashed with prestate cursor/update and corrected-use/loss-parity receipt; no full2GB per-attempt states persisted.",
+      "schedule_cells": 39,
+      "schedule_manifest": "e3-schedules.json",
+      "workers": 3,
+      "wrong_update_primary": "accepted finite proposed optimizer transition has any FP32 value unequal to corrected transition in parameters or optimizer state; signed-zero-only byte differences recorded separately; nonfinite transitions separate loud outcomes; pre/post clipping gradient disagreement separately recorded"
+    },
+    "e4": {
+      "all_operator_cost_claim": "diagnostic counters only; no final ten-pair all-operator overhead claim",
+      "block_manifest": "e4-blocks.json",
+      "concurrent_other_work_on_timing_node": false,
+      "forensics_in_measured_loop": false,
+      "fresh_jobs_per_policy": 3,
+      "node_exclusive": true,
+      "paired_blocks_per_policy": 10,
+      "per_scope_metrics": "diagnostic bytes/tensor/pair/launch/synchronization counters required for each implemented scope",
+      "policies": [
+        "startup",
+        "period10",
+        "period100",
+        "randomized",
+        "every"
+      ],
+      "primary": "equal-work full-loop elapsed ratio, policy/own-matched-disabled; summarize log ratios within job then t95 across 3 jobs, df=2; display all jobs/blocks",
+      "production_batch": {
+        "accumulation": 32,
+        "microbatch": 4,
+        "sequence": 512,
+        "targets": 65536
+      },
+      "scope": "checkpoint_boundaries",
+      "secondary": "paired block median and descriptive variability; inner-update ratio secondary; no update-level pseudoreplication",
+      "timed_gpus_per_node": 1,
+      "training_updates_total": 6400
+    },
+    "evidence_sha256": "da1f75945d700e7fd6bef68d530f23396f24175a60a26e8aa2e76905c248ae63",
+    "execution_source_revision": "c9d32e64e9fce22f0b0105d951552ba462618809",
+    "historical_schedule_census_sha256": "927b2aa6863103a50bc3ac3abb3ce1121ef07f6de962d94a6caafd6e0265f594",
+    "id": "M4-E1E2-REPAIR-20261025-v1",
+    "input_custody_sha256": "68e57c3f7bec71081178cb241a61bb091358d2501c3769ac91acdb47684abac6",
+    "input_manifest": "inputs.json",
+    "input_restore": {
+      "bytes": 1948071195,
+      "member": "corrected210-history1.pt",
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/completion/e1e4-full-20261019-v2/input-transfer/restored-history1.pt",
+      "sha256": "f9a7026e81f3de64d4abeda41efb9c74743e06e79395a7a07e2a796f6fe356ff",
+      "source_archive": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-full-20261019-v2-inputs/full-evidence.tar",
+      "status": "OPAQUE_RESTORED_BYTE_EXACT_PENDING_ALLOCATED_VERIFICATION"
+    },
+    "input_restore_receipt_sha256": "98109bac6d1209c78171b29551c3359144226cbf5fe8c0229a5dc13b7773a252",
+    "jobs": {
+      "M4": {
+        "active_gpus": 3,
+        "cpus_per_worker": 4,
+        "forecast_science_seconds": 16200,
+        "full_node_a100_gpus": 3,
+        "max_su": 18,
+        "nodes": 1,
+        "retention_minutes": 60,
+        "source_specific_basis": "Pilot5.570467s/production update and2s/diagnostic-equivalent planning,50%science margin,15min setup. M4 allows1.5hE1 and2.5hE2+15min; M5 max7442equivalentworkerload includes1GPUh baseline; E4 count2560/1920/1920. No new costpilot. Additional15min budget for two CUDA placement fixtures/exact failed-reference reconstruction/four clean controls, within original5h science window. No extra pilot.",
+        "wall_minutes": 360
+      }
+    },
+    "m4_repair": {
+      "automatic_retries": 0,
+      "budget_reconciliation_sha256": "183679f1fcd6bd7add8ee1d82a7f6acee94e7f5a351e462fbc5a22c0baf34e24",
+      "e1_e2_registered_protocols_unchanged": true,
+      "execution_authority": "DIRECT_HUMAN_REQUEST_20261025_SUBJECT_TO_REVIEW_NATIVE_AND105SU",
+      "existing_e5_jobs": {
+        "3520353": "vgfull-E5-1",
+        "3520355": "vgfull-E5-2",
+        "3520356": "vgfull-E5-3"
+      },
+      "failed_original_job_id": "3520038",
+      "failed_reference": {
+        "bytes": 3246732363,
+        "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3520038/completion/E1/early-warm10-clean-reference.pt",
+        "sha256": "62aca6911ec40eb6938ecec3e561f904e214dd0a4948962a4e52c34470fa747c"
+      },
+      "historical_attempt_reuse": "NONE; complete638callsrerun",
+      "independent_review": "DIRECT_PRIOR_HUMAN_AUTHORIZED_CODEX_REVIEW;EXACT_FINAL_PRECHECK_PENDING",
+      "original_source_revision": "b23f86b2d9337fe5f28f035b07707ce0f56bda81",
+      "parent_contract_sha256": "8880e76d174dd22fea27852f648dd846034c41f3a937811e4cefd043e1d11406",
+      "preflight": {
+        "clean_controls": 4,
+        "cuda_cases_passed": 2,
+        "no_assertion_exemptions": true,
+        "original_native_suite": {
+          "bound_in_model_work_release": true,
+          "failed": 0,
+          "passed": 102,
+          "receipt": "control/fixtures.xml",
+          "skipped": 0
+        },
+        "reference_suite": {
+          "bound_in_model_work_release": true,
+          "cuda_passed": 2,
+          "passed": 10,
+          "receipt": "control/reference-fixtures.xml",
+          "skipped": 0
+        },
+        "roles": [
+          "early-history1234",
+          "corrected210-history1234"
+        ],
+        "skipped": 0,
+        "strict_full_state_rng_and_gradient_parity": true
+      },
+      "prepared_loader_source": "cd6a229ec0600b2bf2e9c44db76b194c296765e7"
+    },
+    "monitor": "Existing90minute heartbeat updated after accepted IDs; exactknownjob reads only, no unchanged overnight notifications. Sourcefixes/retries require fresh review/authority; no automatic replacement.",
+    "new_outcomes_examined": false,
+    "pilot_contract_sha256": "e47df7009e612348a2e3ab94a97d4d8f553775b3be85a2888f1c24de9196c388",
+    "pilot_source_revision": "1fb9420894012ff7a09b6dad61178549903ce946",
+    "recorded_preparation_evidence": {
+      "copy_review_sha256": "614d10c251b05087b47e74156fd65b14f61626f12a57cebfe4857e84167b1513",
+      "fixture_log_sha256": "2fdd4b277486a2bef975ed5f9db72e23f91f981e0fd92e79b2dc59ffa3cfbb20",
+      "fixture_result": "94PASS8localCUDA-skips; allocatednativecommandincludesall8CUDAchecks",
+      "phase_budget_ledger_sha256": "93d4139d612813528c599658d87457b74961c76b1da1d01ebf402c07118ae5bf",
+      "plan_review_sha256": "5716352d1108b3fe289923b3bccb00cf0fcfd4dcf2bf5e4a813bcf741ff3af27"
+    },
+    "release_gates": {
+      "MODEL_WORK_RELEASE": "Same allocation passes exact source/clean/contract/packet/inputhash/opaqueRanchrestore/nativefixture/pinnedruntime/semanticstate/quota/ownership gates. Saved PASS tied to job/account/source/contract.",
+      "PRECHECK_ONLY": "Exact separate-agent PROMOTE memo and hash-bound release required before sbatch; author validation alone cannot release.",
+      "scientific_closeout": "Complete census, independent persistent all-member custody, allocated endpoint/statistical analysis and independent result review. No positive-result requirement."
+    },
+    "release_sequence": "Separate exact budget/source/batch-bound PRECHECK_ONLY allocation release from MODEL_WORK_RELEASE inside each same allocation after opaque hashes/environment/isolation/custody gates. No separate unbudgeted preflight job; analysis3SU not double spent. Failed preflight exits and retains evidence, never retries automatically.",
+    "resources": {
+      "account": "CCR26063",
+      "automatic_retries": 0,
+      "ceilings_su": {
+        "analysis_reserved": 3,
+        "existing_e5_reserved": 45,
+        "m4_repair": 18,
+        "original_conservative": 36
+      },
+      "combined_maximum_su": 102,
+      "cumulative_phase_ledger": "phase-budget-ledger.json; all prior58.530833SU plus entire105new assigned conservatively to eachphase=163.530833<180/210.",
+      "hardware_runtime_validation": "Native fixture/opaque/semantic source-specific preflight inside each same full allocation; no added pilot or extra job. Failed preflight retains evidence and exits without retry.",
+      "partition": "gpu-a100",
+      "proposed_combined_work_staging_and_compact_bytes_cap": 2000000000,
+      "proposed_ranch_campaign_reserve_bytes": 100000000000,
+      "proposed_scratch_campaign_output_reserve_bytes": 150000000000,
+      "rate_su_per_full_node_hour_planning": 3,
+      "retention_minutes_per_job": 60,
+      "scientific_setup_margin": 1.5,
+      "scratch_untouched_floor_bytes": 450000000000,
+      "setup_minutes_per_job": 15,
+      "spending_authorization": "DIRECT_USER_COMPLETION_REQUEST_20261025; original105SU ceiling; conservative102SUbound; noautomaticretry",
+      "storage_amendment": "No deletion; full raw+tar max116GB plus<=18GB inputtar/opaque restore fits150GB Scratch. Full Ranch<=66GB fits100GB. Compact WORK<=250MB/studyjob with2GB aggregate cap. Existing originals retained. Every allocated job rechecks fresh quota+source/input pins; final scientific custody requires all-member Ranch proof.",
+      "work_growth_observed_max_before_90_percent_bytes": 5678892646,
+      "work_untouched_floor_bytes": 50000000000
+    },
+    "source_bundle_sha256": "364857c9e9823ff4a41706e4fa8f5e1f59660cce4efa55000416c6e4647def31",
+    "source_files": {
+      ".gitattributes": "42fedd033d0169bf1c08a99bc2e976605042223f374116c2d5181ee0a60423f9",
+      ".gitignore": "611d5f85d082cf0eabee8058572a83eea1c7747571e3fa5b9449829dbc441df4",
+      "AGENTS.md": "c18e0d35fe9ebd7e10f1a4577029a0fc97d0fb79975ad883c338cb0f5d01d6c7",
+      "README.md": "3868090e102952cac9a543554fd46208065673a6250bc56c98161033abc681a4",
+      "RESEARCH_LOG.md": "563c1b2ee900c62b43992818f2025dbee0d48d8143524396cd5f7c2318bee224",
+      "activation_checkpoint_reproduction.md": "572f6a3f20c151b6c5c10da4383efb9b1fb802d1e2358add7da00bb1a610189b",
+      "condor/blake3-boundary.submit": "b64c3dcc18b307a987baf5d38b9a350a9e6a01685104eb3bf3b9d911a2f145ca",
+      "condor/fingerprint-followthrough.submit": "5f13f3b3e91265b17808a8e182bd23b1aa3d3cb1ea9a5c1e130d7bad1deade63",
+      "condor/followthrough.submit": "ab20c5d085d21a9a68e5c4a29cdc38e2f4871c6aa026f56477d2dc3c8dbe177c",
+      "condor/production-cu126.in": "c38966d38d1c65d735f88a5745e0ce829fd5f1ea1c940b87c070ba1ba67c98e5",
+      "condor/production-cu126.lock": "9c49e0b4c1ee3be8e4ed07d066a7bba24b86575100253ebeeefb26c092b86a32",
+      "condor/production-probe.submit": "a1e3ca875ff1d785af36fc2f73d1a52a60d9065fc9a3ed8a1376778b2866d226",
+      "condor/requirements-cu126.in": "2a419f907e343fab69bbd8980cb2b6444b1dec79e335b77a1d48ddf9e34afe48",
+      "condor/requirements-cu126.lock": "968f64415c1731fa2729ecb519169d74389d661ce1c78c9aac0a7d4c72c6e72e",
+      "condor/starter.submit": "bca9cd94ef40b02378aff70064c8130e0f23164089c5f6bc17672ad277ca31de",
+      "condor/upstream-cu126.in": "7c43fc5117508cbba2e72db343bf02172144595f53519e72ae45dbbe85688dc4",
+      "condor/upstream-cu126.lock": "98bae1fdcddc192d7d9ea6569413cb91bdc510981cbe081cba70e9b71421680a",
+      "configs/bug-corpus-v2.json": "305617083d3ea2ac5fc71ebb7a9f1a6557d271bb17d65c4553fcdc795d545b67",
+      "configs/impact-analysis-requirements.in": "6a9d41c54e5a67910b1f990f22c3579b56ec17c4428fefc333c35c16d428d4ca",
+      "configs/impact-analysis.lock": "4569de875dd9a4fcc909f3b96b0f5e7a685776424f9e5c6f300400bd3b550071",
+      "configs/lm125m.toml": "96dfeeed6d585259f797656562aa3caa7e064db0adaca57c403bdae3ec05fb0e",
+      "configs/lm40m.toml": "df17b99d2fbd4851ba163a20e75541e4a67ff9c58b1ea6b453d0963d739f1199",
+      "configs/perplexity-source-index.json": "3f9e1e6e8078108a1ffc69277501eecb65ab36eb5243987e1d49cb1203a25bde",
+      "configs/revision2-impact-contract.json": "69c00e59bb2ed5b3b0374d26ee7b60abf43770bedef798cdfe1c0f77155c1113",
+      "configs/revision2-scope-contract.json": "f232f5b13ca0a724569b5cd10f805578e7d338bf1f7e4594eb111c6b5df42a75",
+      "configs/smoke.toml": "61aa31b25cf343af19a08d0f170aa957551a2099fbd268c782ac52d461bd0809",
+      "docs/fingerprinter-reliability.md": "4ecafca4ae233df97ea9ddaa918032fda70f104df57727b6cdf2e26e0c9108cc",
+      "docs/fingerprinter.md": "5759127959cbf613aa01b18a779f9d78938ad6f068ebecda7a97d8a853255493",
+      "docs/followthrough-results.md": "7611efc702dbcefdf20172b66ef12905e0f51dd36c0797097ccc2def77d23600",
+      "docs/followthrough.md": "4407dc048a8bc1ea4a88ca1c59ec08111f6e89f4e1baf63570a59249867f7a6c",
+      "docs/perplexity-performance-evidence.md": "ee9d7e0f1e3a0a00f8dfb0abcf1224d16174f7880b4f2641b1baf2b9f13ca501",
+      "docs/production-plan.md": "469228bff373c4b3d678da2ae57342b8b7e1aa21ccbca76139cf54f5b70baa01",
+      "docs/production-status.md": "2b1094549ce01522e2e59c436587fd2d21834905237bf1491511f6a883a92345",
+      "docs/professor-meeting-talking-points.md": "3fcdf0e50372d4e8bc0a0aff994e1f4a272d240f0095fe136b8d99efef1edd3b",
+      "docs/remaining-project-plan.md": "7a68845b7d4ff408910a450608dc3204f595a3c7b18387566594c32d761c5a4e",
+      "pyproject.toml": "0fadbf94db318a15baf980a0499b3c292ce63164e2a38eec0c41f2dd8c257fd5",
+      "reports/condor-1553517-fit.json": "26c45ff6eb635e5e9c716a28c5429e6c77ce08a20af9bb5f2b8b06667a190e5c",
+      "reports/corpus-manifest.json": "314862232c3e15eb21b7830b30d237d02cb793d07fd22864713237b03e59e0fb",
+      "reports/f011-blake3-reliability.json": "386ceb17ab75b16a2034baf5813f6a1947a76615b7c7291bd2fc2282b6fbc620",
+      "reports/lm40m-natural-seed17.json": "a388e20a6f523046a98a5588551a97ad51808787906bab87ed288b2aceb5a995",
+      "reports/lm40m-three-step.json": "f6f8a8c936f5c4ac154b3adfa905ba2582f6f47337b5563523687d1eba7ce221",
+      "reports/production-smoke.json": "852660321fa1380fa86a9b9b3a5004a8d43e9be19e5181dad5edc21ac3039b5f",
+      "scripts/admit_m4m5.py": "6885f6f39d7150945f701fff9cb5519c7a951134a05acbe3281b81b97dcd118c",
+      "scripts/analyze_paired_impact.py": "f99f25ab03d5d1ce19b4c4258828727579a538c9695be3611c3e0974c368a9d8",
+      "scripts/archive_impact_run.py": "2220985b9f1c68a770d27d2ad94d086d29b3cb45e8a70388f0d17f328bff66fa",
+      "scripts/archive_m3_grid.py": "bab19e64b972e3448d6dad868b97b91e034e2e0a385ae2217d96ac06d575b99e",
+      "scripts/archive_primary_sources.py": "6fd80241dc10125b2b065e2e2939c310ddc02093e8ecec1179ac23341c353e1c",
+      "scripts/bootstrap_condor_env.sh": "2dda47fcfa803db29c019b5ef7d14022db259e24cf9764d72b6bf5e139880e41",
+      "scripts/collect_impact_pair.py": "ddd7b20facc95ad90e86f92475ba52feb1cbc64d5e5599a63a82e88933e57b4f",
+      "scripts/compare_clean_horizon.py": "c7106bde5bcd742360237916e1396df477306e38bd4aa2ba4ca6d736c1f60a8a",
+      "scripts/compare_impact_diagnostics.py": "7e04d9dc8985f46162a222de93b0dfad5bab1bcf78713e543a692fd9d7feb405",
+      "scripts/completion_control.py": "ac50f38ffbcafacc374e23753633f87e2ca6be4f774ac24362d20ca5286e7bf3",
+      "scripts/completion_custody.py": "32079d0e1da129fdf55f678d87257534508f655f530327e40f560faeb4fe232a",
+      "scripts/completion_ranch_receiver.py": "59b28ba50b38ac1987bc58287a7b2beb375619865aa7d4f6cb01bafa2aaef3d1",
+      "scripts/dispatch_m4m5.py": "89e0d5cda462ccd110213fd906112fbd722dff2b0cd6488bcc77e79aeda509bf",
+      "scripts/freeze_impact_contract.py": "bf1f1e3bcc17eb5a991916ebbef5c8ef2a33e855e6da32e22abbecdf8fed50c4",
+      "scripts/plan_impact_precision.py": "1c42039ba3d60073f1cee37fc7feee754e2ef8c76eb0dbc420d10bb0da6acbed",
+      "scripts/prepare_impact_holdout.py": "b9c49117bfd02ca49143309d89fb632a0674d801c1f930398369abef2a2c1644",
+      "scripts/prepare_public_corpus.py": "0651351017f1f5dd893836186e6c8c5551235215189d9d57789dd460a7d447a5",
+      "scripts/prepare_public_histories.py": "8f8ffb21149d7530a181bc5a5965b2b5ebb6f95eca61d63269bc1c6f29a241bd",
+      "scripts/prepare_task_inputs.py": "55ccb33ea85517b2e2fa2190fcf251c0dbecf741969f58c55477dfa30adccbc1",
+      "scripts/probe_clean_dropout.py": "2812991189bb60863e3fa0f6d4486711e697756926c390642a1b0ffbdc940c13",
+      "scripts/probe_clean_horizon.py": "8eb65d0daeb5ce7b8c097fa61f236debca57e80751e35cd6cbf83e10bf5aaee9",
+      "scripts/probe_clean_recipes.py": "1f64f660bd435d7044a013b9a5d993ccdb68a5a04483a9d7ec019da0bf885fe6",
+      "scripts/probe_cuda_dropout.py": "b43d80eb4e1232cbde9e0d4fd333ef4f6a79786d3dafbd785789ab88ab3ad322",
+      "scripts/probe_environment_imports.py": "a4cef4a4f5f364f25f2ef6601b216e2fb4a89744e21d9fb97ba57068148656cd",
+      "scripts/probe_impact_device_parity.py": "784b474b659adf51e4c29e7fc4ecff8202002148cc7a6b1ea7f2ec30735b5194",
+      "scripts/probe_lr0_native.py": "0c26c92666d97236d001da1976244cdd13d7f04025d3d9a31f4f844e50faf40f",
+      "scripts/probe_model_fit.py": "896260aa6411ce12d8f39b04ead722ef30d818351603cf8210fe73c155333a9c",
+      "scripts/probe_olmo_replay.py": "12b496e8e436d338516c4fa81aacd7f899ff317edf925aa5d3fa74065fa223b6",
+      "scripts/probe_olmo_visibility.py": "56f6511d6b79828f35ee822c095313ec8e8a89e781627dea5e2d25e31f8b357d",
+      "scripts/probe_public_continuation.py": "a8d65feacb8425b392c4e0e587db9d4e10bf8e336297bf3cee03e815fe8fa070",
+      "scripts/probe_public_repeatability.py": "807d0eb287254631415abb9fa9c0b1ffc82d8e915c7e7b8b50ef0b84456db39e",
+      "scripts/probe_rng_stream_control.py": "a88261fab05dd9947c078132a26fd82288541dd49764bbfc7991db9b18ef572e",
+      "scripts/probe_scoped_fault_checks.py": "000d6d81a251c548220864b2e9b8955b9f0d06dd1f6d553a6b8661f62571d390",
+      "scripts/probe_zero_rate_criterion.py": "20ac10e00c4fc5811a2e02aa7934a50083e1837e2665d97a4bad26e32f8bcf3a",
+      "scripts/qualify_public_histories.py": "2ee5e17251b283aa34e32fafb7a9123da4814268fe471bbad46117051ed3c15c",
+      "scripts/qualify_tasks.py": "4d0690047a18d25ad88695c326ab253b7e4a18dc3adab8ce297664d440c3f408",
+      "scripts/run_completion_e1.py": "b4f36e83982b08e260e08f585e33b222a71f1002328fd356cb45c7a3b5287801",
+      "scripts/run_completion_e2.py": "21abe16963071d087d99b2173f0b3c8923733dd048afbaea0cc95d2d0aee2a80",
+      "scripts/run_completion_e3.py": "30005ab74d794934a08cdcd0484a041ca9305caddf9ce7463f483e75cf4bcb30",
+      "scripts/run_completion_e4.py": "ff125f27dabeb22cbd3d7eaf70f9503f1b8a6bbeb008ed5c6f08a62ed58f2c27",
+      "scripts/run_condor_followthrough.sh": "eda28fb296b2e41cf76c88ad7785993957b295debcbe1cb01d5de1af5864f0e1",
+      "scripts/run_condor_production.sh": "f371e34a8dfd93822241ff3b4e8f4d2b0d31d50d6d7ac25ca89ecaf426c899b4",
+      "scripts/run_condor_starter.sh": "9aceb717839c583e920f4ce54ca4f04d0e9e0abb6a5cba2908956acc652c509f",
+      "scripts/run_impact_arm.py": "4f779a19b078a8e3f6fecb85ebae9fe3fd615bea267c79c3dd1f0af8ce65f2b8",
+      "scripts/run_m4m5_pilot.py": "c1df214c96ad203084f3f2065e3b551b724fdc265922a8ba72cd747de9a2471b",
+      "scripts/summarize_revision2.py": "de02345f83e55559efef0476d5c6fb2d852e40dd7063dcb6438def7561f1d9b4",
+      "scripts/verify_production_smoke.py": "d7499d3dec5edef56981dc7b1f1600337a403657f34ab87cad195aa4336e1fb8",
+      "scripts/verify_real_natural.py": "ff1242a762a42420ea32657a88b0e3e025c40e63cf5016e8b57770394344046a",
+      "src/ac_integrity/__init__.py": "9dae1d2af87c98a62e987a0c752ba1fbd48c113c705f848ab724529ad1677700",
+      "src/ac_integrity/archive_transfer.py": "edd1c348b6fa8711354e02ccee741d44c5197c4faa87b87d32fe5b5d3188b580",
+      "src/ac_integrity/capture/__init__.py": "92c88602ab17030a39d4ada7cb3eb0762bad697288b50bc6c849934199189322",
+      "src/ac_integrity/capture/compare.py": "ef3468108c5e1ae03fd8cf76e716afec3009d5903f7c6f15c34a668412bbf824",
+      "src/ac_integrity/capture/csrc/blake3_core.h": "fcec64ccdd589445b8174ef792d32628ba40ba050138368e193a5b01d344b678",
+      "src/ac_integrity/capture/csrc/fingerprint_cuda.cu": "c95681d43d6900df689ec521b8496bf23d6d4183206278f387e6a476ba04ae19",
+      "src/ac_integrity/capture/cuda_fingerprint.py": "885dfd1a5e775c1727c790af8ed3557c9c560cec02a1738545de48ffde265ca6",
+      "src/ac_integrity/capture/dispatch.py": "6537dc5ce31f03527037ebf0bcaca1eb61f2bcdc1d44c3ac6c83d895b7857d01",
+      "src/ac_integrity/capture/fingerprint.py": "99512aa295c2a4dc674f5ba057e16010b47e13e33f7c0ac826d4e32aed5fdbfd",
+      "src/ac_integrity/capture/report.py": "a760edabe5ad30c0e3e95f0c263c080be53ce67689f4c73f22bbbfbdb77b3dcb",
+      "src/ac_integrity/capture/runtime.py": "3650b759a1996915f26cf9ef5a511907f12c1f9f7fc52d6751c1a96666a434e5",
+      "src/ac_integrity/capture/writer.py": "0867378b47df8e87c093d8f7b266e7b304b52fa9ccfd41a5f3bc8b7db8447586",
+      "src/ac_integrity/cli.py": "bb53d53c04ebd86e87a0a1f6dd40085c1b37157ac16d9d2d2edd35396f988e4f",
+      "src/ac_integrity/config.py": "13b055973fb70eaaeb4bab0a2e436524353a1bd4f90828a05e4c99ef1880a6c9",
+      "src/ac_integrity/data.py": "a41bfccd9988d12a4ef2631238ab2b671683d3a9ccb4b4bc309e0dd8ee491ef9",
+      "src/ac_integrity/distributed.py": "e0bd052fe104b173af9ff7a6dec90d2d113414628d539bd53134c7ad2d82579b",
+      "src/ac_integrity/model.py": "35d19cbb3b9b5a611fa8ecbdd10b9852b35f810239ad5538d59910ab0db9a203",
+      "src/ac_integrity/natural/__init__.py": "2cefaa4b49a5860705a5e6a9dd546921221ca56d0f2631890c236089a91d7ea9",
+      "src/ac_integrity/natural/pytorch_84864.py": "2e2b13487c383e5d38c2a75094cf15c9741271c3b8e5433a6104b6b58eb01550",
+      "src/ac_integrity/production_cli.py": "e9220c71ef36d51729bc713bfa34a79f794947423b4d386b4b009e2fcbda03b6",
+      "src/ac_integrity/research/__init__.py": "35c30bb4513116270d87dbbdbcb74a711ed2920998956ecf739cf374a29ffba7",
+      "src/ac_integrity/research/abft.py": "25b3051b7867e25cad56ff44c1041b88ab2838609f07e5b605417e2f83b3d02c",
+      "src/ac_integrity/research/analysis.py": "e32664438664c547ac4553ea21565ce9892ff9a36b16d5d86c91bfb02ad6ac20",
+      "src/ac_integrity/research/completion.py": "a7df18af056efd7ba46f736524ff2afca8c73a1d62a30797fff7f89bf5ef5f4a",
+      "src/ac_integrity/research/completion_baselines.py": "fcf6ce2178c0d9918ac1dfcfce3d77d12063fa0401b8401ab3ead41995007062",
+      "src/ac_integrity/research/continuation.py": "890da7a0d47d96756e3d9370048d2dd2d6179eff23ff7bf219213ab07c6dda2b",
+      "src/ac_integrity/research/corpus.py": "f009cb2369dc4990160e5ccd9481335d4ba233511ed1b1a5aa833af17fa8f1af",
+      "src/ac_integrity/research/evaluation.py": "46ebf6ec4976cc12ad1404faf4a1438b15fb19121d3e44f7589c625f9ebc215c",
+      "src/ac_integrity/research/faults.py": "23f8f45bb403f86aa7354bd4fd91f4da9aaf40b435e6d613ccc1cff470ca9f56",
+      "src/ac_integrity/research/impact_diagnostics.py": "ced76f83795412f57bffa62ee0ca03e230a93e851cbc5b042fbfb8635a1f676c",
+      "src/ac_integrity/research/impact_protocol.py": "5832a05b966e6c7ab6b477c715b819b5f43b1ba9b1e741addb6b944f858aad21",
+      "src/ac_integrity/research/m4_repair_preflight.py": "a58e0679a11a7ae287d83acd77f489240e2bb7e23a7ecac8943f4d067ffa8f02",
+      "src/ac_integrity/research/m4m5.py": "e7ee34b5ea9813dca03fa1421bb53d2ee440ad4f4f95cda80d6e37fa8cbdbd05",
+      "src/ac_integrity/research/m5_baselines.py": "5f061fd2ae885372bfa7956bf237678a514d4b2dd3d5d5612facb27ed649f520",
+      "src/ac_integrity/research/pilot_reference/__init__.py": "d05ecc962571c7c03687cac660b3ac43a3ebb62444fc6e5c54ba7a8356aea07d",
+      "src/ac_integrity/research/pilot_reference/continuation.py": "08dce7e86eda059d852491a3ecc45b3e43caed6834226769b3d9083be50c56a6",
+      "src/ac_integrity/research/pilot_reference/m4m5.py": "99603179025e85929a75c03b46a2a45846c298a258bcf03ef21d65f214e02d45",
+      "src/ac_integrity/research/pilot_reference/origins.json": "0af2860f4f7bf79ffe43ba1383b3db23537514c74dac5c02a67d10b3b90a1511",
+      "src/ac_integrity/research/precision.py": "d5b68620f1301f1cfaef7a332986e5628f0f79746cfad0801a6a2b6a0ec1e167",
+      "src/ac_integrity/research/qualification.py": "7debe698ba7f2eb79326e7c45176c7e7daf99f7d9b0a028005e7fffc143be072",
+      "src/ac_integrity/research/reference_io.py": "69f0815ee037ba360bd6bcb861bb5c7300f68f77a8374525b53ee6e5932d7a3d",
+      "src/ac_integrity/research/schedules.py": "4e699a79a90ef9cfa0abe466f69a3b7bb0c38c80a514c00af086fd9f91e3d82f",
+      "src/ac_integrity/research/storage.py": "ff6c66a4e25005363e30ac9f85b21aea3e68ca2ef3d66ecb863e999aab0ad435",
+      "src/ac_integrity/starter/__init__.py": "df8ab51e92aef32fa71d477837be45bf6d905cdd9ae2aa64bce457644bf2a90c",
+      "src/ac_integrity/starter/capture.py": "2e66cd84b560161915226cc5ba7b503c4c82340297a09e80f3e68c7469fbe7ba",
+      "src/ac_integrity/starter/cases.py": "397c62a8c62e03d31c3eb816aacb8fbeec5fbbabecd474ae18641e7eb8225583",
+      "src/ac_integrity/starter/fixture.py": "ef24c90aff41da3c70e48b3c91ea04fb8f06c0188f26f9632016b302ed290a21",
+      "src/ac_integrity/starter/runner.py": "c9938ea21f9cb39f381980701eca9c7430385f0f87934d5ff996e5d4eb9d8350",
+      "src/ac_integrity/state.py": "1d59f931c5c1687e26a026fda2c5ab8152c11a43df8a0d9b4b64ae846d0fe36c",
+      "src/ac_integrity/train.py": "10d011f5a6cbbd3759113676b41513d4f518a33d036873afd340869732e87ce8",
+      "src/ac_integrity/upstream.py": "ecbb05ef00912ff5e72acb97f97210c01e5c80d2269983dd79cba93d04d2197e",
+      "src/ac_integrity/validation.py": "8cfb34480a8b231afa963ac9b9c24088b88dbd4c3dd113fb5abc7b07d63eace2",
+      "starter_test_cases.md": "d81d1e0d98cfe6d0f2c7896c7b3d7e26c2747d31478940835c83efbeed112232",
+      "tacc/impact_process_control.sh": "ff84733d2eba2ae1feb7e66584a816faca62d6a3c270f6d946bc5a62ebafa96c",
+      "tacc/preflight-cu126.lock": "ad1d57e15505cb0286c2aa387b00048e314032659902aaa0a5876ef6401f3ec4",
+      "tacc/preflight-requirements.in": "75ec0fe87618e0a672227bc4507a0ad23f86801ffcf81b5045e16236918323b1",
+      "tacc/preflight.py": "bd19a2250241fb151743ec087630c3c179a7c99eb96118da6d50b0d9d8678bfa",
+      "tacc/research-cu126.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+      "tacc/research-requirements.in": "36f8fea8dd860735305fb0cbf8c023c66cbb73d1ebde09b42f9be5f41b323af8",
+      "tacc/run_clean_dropout.sh": "5b7a7ef0d6a68fbb44f923292c40f576394529e66131221e18a5dd481af30f63",
+      "tacc/run_clean_horizon.sh": "da46038b15f7b131e50dd7fa8580e037485a61f6e452be870855486a3cdd1b94",
+      "tacc/run_clean_horizon_segment.sh": "aef40e931733098decc500c26508b1f1a1a76681bb052461261fe8140ba4ac74",
+      "tacc/run_clean_recipes.sh": "e6fc0cb8dd68b5207fbf92862e3727b1258134c56ebec43d30b25512ad68d9c9",
+      "tacc/run_completion.sh": "2b6801e301f2465800b2806915f10c37caccc6024da5343aba10f7fb16070208",
+      "tacc/run_history_qualification.sh": "4da1b1f5f89ecbdb9828c3eed9c1eff4de6e140bf705a1e2d13018018a13fb03",
+      "tacc/run_impact_pair.sh": "567a165571df038c3f013e813823b67913c43cfbe23b5d0224c00022f59df3b4",
+      "tacc/run_m4m5_pilot.sh": "cd15ac911b4dcb6b260e36da4e998adf92fd39348f428d1b88a94a202eb4bb9a",
+      "tacc/run_preflight.sh": "acfe4911cce009bf31278589f58271704de84205adc9edf37d975d68033888e2",
+      "tacc/run_public_repeatability.sh": "21379753fc1aff5dc800898bb57bf90d01018d02c692a9a766d49549d63be8af",
+      "tacc/run_research_pilot.sh": "b91b6e12389f68bcaf18bd15d7c8848be3df3d7fe7a0c67ec19e28db3607bc32",
+      "tacc/run_zero_rate_criterion.sh": "e855f471d9c3d1e11d0df95272aa8ae9eb929b4b92ac985233688a3a84d0be74",
+      "tests/fixtures/blake3_unkeyed_vectors.json": "42d988da784fe15b120e350b916943e969ddafbb73fcdf6790e3fbbb5876225b",
+      "tests/native_blake3_reference.cpp": "35918a215b1945e2567a0ebd8e2e54dc8624a4dd6e2923bf6e6e526a31dafdf7",
+      "tests/test_archive_transfer.py": "e9c9e0ca397f9ce8dd42297f2c030726a25d3f7ba1b406c665d6eae1af6725b3",
+      "tests/test_blake3_fingerprint.py": "16728860daf72d3eda77322fbc97d5f5cddcd6707f45b1adcf3f4453de45b857",
+      "tests/test_capture_failures.py": "dd557cef2282d564686521ce5a8621a22ebecd2899618278d4fb996f0e43a033",
+      "tests/test_clean_horizon_segments.py": "8aea1ce0c6128a30209937a5beb5556fc09b1b94ad34b832d1a05482829d6fc0",
+      "tests/test_clean_qualification_contract.py": "6f8ebf0ca4b4ac1bf212a29a32e251d246ec17a5257a1eaa73f8c337218d2e43",
+      "tests/test_completion_comparisons.py": "b696c2218e1dd63c9584cbeb58bc9aff1b62cf972dce1eecaaa5a06be1cac5dd",
+      "tests/test_completion_controls.py": "e2b0fe8d45561934b58977a76c63d9251cedd7bd22460d64b6711b070d9c43e6",
+      "tests/test_completion_evidence.py": "316896449c61610fa863a202d21c697c5c226ba6d0d4704849e9272aa7e21ec6",
+      "tests/test_fingerprint.py": "dd40d1dbc5fe9655a03d565efab6cf709453f4efd10dcffff527d166cdac064e",
+      "tests/test_impact_analysis_entry.py": "53c13d2c8acea84e0193d01a95958469c12c2b8510538cba84294a34836dfb39",
+      "tests/test_impact_protocol.py": "d14df8bcc299db3bd346684b2268ca66c9f9b2a3ed202c628a1bef11af9f483c",
+      "tests/test_lossless_capture.py": "40852da7fdf9e476c3953a59c7f3e4a3eeadce3ddbd4dc5c9a9643bc86a713f6",
+      "tests/test_m4_repair_preflight.py": "d46589df900dcf07809b6ceee595a31782df41133024db588749526be0ae5357",
+      "tests/test_m4m5.py": "b59aebe6f92739d4179089d4e0bf75cb19d49872d22877d5ec158e273c59ddbb",
+      "tests/test_m5_baselines.py": "9bd10a95d3603bc1f0e7cc1f1076040efa672c93409a3a644be25d05a803e729",
+      "tests/test_native_evaluator_core.py": "4c9955ea7f6585d1157c3bad3e418e264016210b5ab639a99238fefbb61fbf7c",
+      "tests/test_production.py": "e13813af21ed97dde10f26ee8a7481a278d0c25cb5f4443c2f174f0d0eeed2a7",
+      "tests/test_reference_io.py": "ebe3730899acf332c12f67c636650364167c221e353b200cb6b24e13d82b7677",
+      "tests/test_revision2_analysis.py": "44fb379d890556f8f03b53a4614fea485378f411a1b50168f7a6ee3a9e0f72f6",
+      "tests/test_revision2_continuation.py": "d9fa693f7c85395c137bccafc200ced88beedb0cd694adc729b35011c63f5305",
+      "tests/test_revision2_impact.py": "f531e309940d25091ff38c3ea6b9ef5af2f3aed33fdaac1fa68b0859669a3ed4",
+      "tests/test_revision2_tools.py": "662647f72fb2cb8af9b80bcdd633e10a5cf54b44ff0cfd70c44160c3db6107dc",
+      "tests/test_starter.py": "b731e991a68a340e4d1667ae3613cbd91ee4dbecaadea15ba91b6707cf986b25",
+      "tests/test_storage_quota.py": "a955d849bb0bd4d96032e40a0142660a7c9e64c33aa8017643fc1a1c2856e84b",
+      "tests/test_task_scorer.py": "603b18b6f1210df5a20075bd5a5e2fa7dff99ce1ffb7d9541ce3b375d1174b2e",
+      "upstream/pytorch_84864/reproducer.py": "e3920874880f00cdee9bfad7d4a4cd6f1b0951283e7446b8566123894976d6a2",
+      "upstream/pytorch_84864/source.json": "5c6cf445563614892666e5e784cb4c2fc0f7f2abc618acad9e22a8b045df09bd",
+      "upstream/pytorch_84864/trigger_off.py": "9eef03f529935c98ad64ff330cb3c88aa7dce55b1d8ea06b4a6d01b822937da5",
+      "upstream/revision2/allenai-OLMo-core-905/issue.json": "1593d94ff3297280584f849459adf2b3cd706296f9f22e8ffada849cd9799078",
+      "upstream/revision2/allenai-OLMo-core-905/original-block-3.py": "b60b6e2fe2d964f1fd860b8215e6cb2d8056206f8e382f486b2264efa628c6f5",
+      "upstream/revision2/allenai-OLMo-core-905/source.json": "3ac2d2ba371df050671480d7abf589f82853862b200a16975b374b76c920736b",
+      "upstream/revision2/huggingface-transformers-21381/issue.json": "4a0f225ca94c054848204fc0056408b68fe82618b296767af418524167181182",
+      "upstream/revision2/huggingface-transformers-21381/source.json": "ddd52f1cf493138bf7fdba673ec71255d118ed46fc0f2ca706f5bd3aab381f6b",
+      "upstream/revision2/pytorch-pytorch-190717/issue.json": "e2397b96b78c551acae2269f6c18892e6349ddd53b2672a94908ce2b784def96",
+      "upstream/revision2/pytorch-pytorch-190717/source.json": "fb32b07387651d69d330b42ee8aaba3f77b9db126997e79185f518fed8f07663",
+      "upstream/revision2/pytorch-pytorch-190758/issue.json": "b86ab7ec41d08aa0021c8a1f9f3a16e5d80fab52730cd908477decebb4485c5d",
+      "upstream/revision2/pytorch-pytorch-190758/original-block-0.py": "a7521d2c7469e10fab9ab9613754fc7c0b32af3765bc7c290873633a859c0d91",
+      "upstream/revision2/pytorch-pytorch-190758/original-block-1.py": "d6c60d77ea13aafa77304a6026e429936cede38c29e6d8b58ffe36eee753ce08",
+      "upstream/revision2/pytorch-pytorch-190758/source.json": "8b0b5a6e7e45671a4116dfb756097fbe53130e9b75eb8355fe2b2426c967e771",
+      "upstream/revision2/pytorch-pytorch-193671/issue.json": "c14b6432b282c4530603a9411c8bdb6fb6ed01b4e0cf51a6d9def0cafa9e5384",
+      "upstream/revision2/pytorch-pytorch-193671/original-block-0.py": "ff2b2fecdc0546a54aafdb417c561d1e07c39cbb9a292dde95f4422cbfe53444",
+      "upstream/revision2/pytorch-pytorch-193671/source.json": "8fa61d8899204fe42ddf3f03afc234083ed422abaedfb90bc20c1686d2b272b9",
+      "upstream/revision2/pytorch-pytorch-198333/formatting-normalized.py": "12af71ae78d7cb61f9f14e5082f7d169c0cb5ebebc4cfdcd083115fe2072785c",
+      "upstream/revision2/pytorch-pytorch-198333/issue.json": "325b10798abe706ee0ee9f23da69ea6b0f7420c61250e72185040c1903f7bceb",
+      "upstream/revision2/pytorch-pytorch-198333/normalization.json": "8f488254613d30f593121a217819141462158df3a5a4975d9b80ae524a6fd03f",
+      "upstream/revision2/pytorch-pytorch-198333/original-block-2.py": "2179a6fe4e73d16e5c29b3e883da989b53abcbc715d52605f24e4c48fd2fbb20",
+      "upstream/revision2/pytorch-pytorch-198333/original-block-4.py": "2a408f47ed93ce53f6bf24db7a9c189601f654e07edddd7ad0011f3b0a5d2ef8",
+      "upstream/revision2/pytorch-pytorch-198333/source.json": "53f35b304724f3c7640774121f5323b448d8a41b39bbb4cc16aa3ccb8b822345",
+      "upstream/revision2/pytorch-pytorch-198866/issue.json": "4485c167a7f779e0576613e056290a224fef5ff87602c47b93740ba78c5e78f9",
+      "upstream/revision2/pytorch-pytorch-198866/original-block-0.py": "2efa9105213619966c1b7b50ace8a607911d651cb2dd3aaa6594e3343a96884b",
+      "upstream/revision2/pytorch-pytorch-198866/source.json": "eb1eb624b03a81ec71b16716ff2d16f0aefda0b550e7f2d5cb24c387fe8b93cb",
+      "upstream/revision2/pytorch-pytorch-199250/formatting-normalized.py": "e9027013e817e5d721b56b223a97969ba8d67ea9ee88a625b1700c64eaf295f5",
+      "upstream/revision2/pytorch-pytorch-199250/issue.json": "b0aef9c7cadba17dcf5cb0961646389a3118ff2441286fcf17577611e958e7f9",
+      "upstream/revision2/pytorch-pytorch-199250/normalization.json": "abaf3a245a58bc376c2226932b4ad644393a1b7efb11ad4e04c08ad6cad1bcf8",
+      "upstream/revision2/pytorch-pytorch-199250/original-block-0.py": "4cafc32f51387d2781021f3a730e8cff50cde51a056818328e17ff4fdd3befb9",
+      "upstream/revision2/pytorch-pytorch-199250/original-block-1.py": "2a9477dfdca6425c841b4683e05a7e2fae06db9fd0fc09f050c69cdceedc271b",
+      "upstream/revision2/pytorch-pytorch-199250/source.json": "ba5e5627e731fa66ff2d996ada491e26723d8b51408df7085184834bb5a6e4b3",
+      "upstream/revision2/pytorch-pytorch-199251/formatting-normalized.py": "32617dfbdeb40f389a1a84524ac5eda0f975173dbeb1af3b4f5cee8600802903",
+      "upstream/revision2/pytorch-pytorch-199251/issue.json": "88a91b46d5b8843831a7db6760895d2933deae4ece8d5e0fa318dbca726eafca",
+      "upstream/revision2/pytorch-pytorch-199251/normalization.json": "543d9a995fb4c41b648c7b7b102e8314608bfed998353c069db920f5ce4b4e18",
+      "upstream/revision2/pytorch-pytorch-199251/original-block-0.py": "f34c97373575d46a9d4dc3f3f6980cdbbb2d61b4ff78d196d6973a28c2c45455",
+      "upstream/revision2/pytorch-pytorch-199251/source.json": "6defdc57756828eadc66d583798dfa8cb6e761f33e3ba4733cc1dae8e262aa19",
+      "uv.lock": "72715cc1d84f0524f0b2c3aac765613f69bb2e535d65411c7de98046f68585fa"
+    },
+    "source_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/m4-repair-20261025-v1/source",
+    "status": "FROZEN_FULL_E1E4_COMPLETION"
+  },
+  "historical_contract_use": "READ_ONLY_SOURCE_REGISTRY_ONLY_NOT_NEW_EXECUTION_AUTHORITY",
+  "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "inputs": [
+    {
+      "bytes": 134217856,
+      "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/inputs/main-corpus/train.npy",
+      "fresh_opaque_hash_verified": false,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/main-corpus/train.npy",
+      "role": "train",
+      "sha256": "5d75752ac19314882b7c6f162cb5f2d8754f01452f29334224ee86947cc50c07"
+    },
+    {
+      "bytes": 1948069851,
+      "durable_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3495917/qualification/histories/seed-1234/warm10.pt",
+      "fresh_opaque_hash_verified": false,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3495917/qualification/histories/seed-1234/warm10.pt",
+      "role": "early-history1234",
+      "sha256": "e6dbfcb2a9126f1b2f74883e0876d2c0ac1a11ed2be9eb3d2c480decd5760fc1",
+      "stage": "early-warm10"
+    },
+    {
+      "bytes": 1948071195,
+      "durable_work_exists_at_observation": true,
+      "durable_work_path": "/work/09999/aymanmahfuz/ls6/activation-checkpoint-integrity/evidence/3496051/clean/recovery-at-200.pt",
+      "fresh_opaque_hash_verified": false,
+      "hash_authority": "historical sidecar; not fresh opaque verification",
+      "new_ranch_custody_verified": false,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3496051/impact/clean/recovery-at-200.pt",
+      "proposed_ranch_path": "/scoutfs/users/09999/aymanmahfuz/activation-checkpoint-integrity/archives/e1e4-20261019/inputs/history-1234-corrected210.pt",
+      "role": "corrected210-history1234",
+      "sha256": "63a258ddef05c2c59e146db8282d58736f4f2fda7373dc7e2bef9c05b7baddb7"
+    }
+  ],
+  "job_name": "vg-bb-selector-gpu-dev",
+  "max_su": 2,
+  "method_plan": {
+    "apis": {
+      "check": "CheckMode(plan,policy,signature_store,external_fault=None)",
+      "compile_plan": "compile_plan(profile_records,registry,declared_envelope)->Plan",
+      "finish": "CheckMode.finish()->PASS|VALUE_MISMATCH|UNSUPPORTED_PLAN",
+      "gate": "make_pre_gate_callback(mode,enforce)->callback(engine,mean_loss)",
+      "profile": "ProfileMode(registry,role_context,root_forward_context)"
+    },
+    "category": "training_integrity_observation",
+    "cpu_fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+      "test_selector_allocated.SelectorFixtures.test_cpu_blake3_matches_canonical_published_bytes",
+      "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+      "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+      "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+      "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+      "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+      "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+    ],
+    "cpu_fixture_scope": "Required CPU DEV first:13device-genericselectorlogicmethods+1distinctCPUgolden+6E1tests=20, zero skips; does not qualify CUDA. Original14GPUselector+same6E1=20 all mandatory on A100.",
+    "cpu_selector_fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+      "test_selector_allocated.SelectorFixtures.test_cpu_blake3_matches_canonical_published_bytes"
+    ],
+    "declared_coverage": "Registered checkpoint-region activation values and the declared fault windows only. Incoming gradients, persistent parameters and uncheckpointed regions are not protected by this claim.",
+    "e1_diagnostic": {
+      "do_not_call_recomputed_norm_native_return_value": true,
+      "experiment_id": "BB-E1-NORM-20261108-v1",
+      "measurements": [
+        "element_finiteness",
+        "recomputed_per_tensor_and_global_FP32_L2",
+        "FP64_L2_reference",
+        "FP32_representability_with_relative_1e-6_boundary_band",
+        "actual_native_clip_status",
+        "transaction_phase",
+        "protected_state_and_gradient_probe_parity"
+      ],
+      "native_clipping_unchanged": true,
+      "original_aggregate_unchanged": true,
+      "paired_clean_controls_per_state": true,
+      "planned_model_arms": 12,
+      "probe_on_off_required": true,
+      "robust_clip_fallback_not_released": true,
+      "selected_cases": [
+        {
+          "case_id": "gradient-L0-exponent-high-bit30",
+          "state": "early-warm10"
+        },
+        {
+          "case_id": "recompute-L6-exponent-high-bit30",
+          "state": "early-warm10"
+        },
+        {
+          "case_id": "gradient-L0-exponent-high-bit30",
+          "state": "later-update210"
+        },
+        {
+          "case_id": "recompute-L0-exponent-high-bit30",
+          "state": "later-update210"
+        }
+      ]
+    },
+    "e1_fixture_ids": [
+      "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+      "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+      "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+      "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+      "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+      "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+    ],
+    "excluded_claims": [
+      "new input-checking novelty",
+      "full automatic OpGuard superiority or coverage",
+      "automatic fault location outside admitted cases",
+      "faults occurring after the consumer check",
+      "universal alias/storage provenance",
+      "population incidence",
+      "learning benefit",
+      "new method cost before timing results"
+    ],
+    "execution_preservation": {
+      "disable_modes_for_copies_and_hashes": true,
+      "do_not_blanket_suppress_capture_in_operator": true,
+      "enforcement_gate": "Historical cheap_observer/pre_gate_observer after gradient capture, before clipping and optimizer",
+      "historical_engine_policy": "disabled",
+      "historical_engine_scope": "checkpoint_boundaries; BB method separately named",
+      "historical_engine_unchanged": true,
+      "model_optimizer_scheduler_data_states_preserved": true,
+      "native_returns_preserved": true,
+      "no_saved_tensor_hooks_or_eager_saved_attrs": true,
+      "normal_observer_gradient_state_rng_parity_required": true,
+      "parameter_count_delta": 0,
+      "private_bookkeeping_guard": true,
+      "rng_rollback_claim": false
+    },
+    "experiment_id": "BB-DEMAND-20261108-v1",
+    "falsification": [
+      "An admitted changed demanded argument is consumed without a value mismatch or an explicit unsupported plan.",
+      "A clean profile or observing policy changes matched gradients, recorded state/RNG, native execution count or the intervention.",
+      "Plan ambiguity, metadata/order/schema drift or missing demands is silently accepted.",
+      "No strictly lower fingerprint byte count than full registered-family I/O: selection-efficiency premise not supported.",
+      "Cost ratio interval crossing1 is INCONCLUSIVE; a lower point estimate alone is not a demonstrated latency gain."
+    ],
+    "fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim"
+    ],
+    "fixture_layout": "Flat direct module test_selector_allocated.SelectorFixtures; not selector package",
+    "gpu_fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+      "test_e1_allocated.E1DiagnosticFixtures.test_finite_intermediate_overflow",
+      "test_e1_allocated.E1DiagnosticFixtures.test_true_norm_outside_fp32_range",
+      "test_e1_allocated.E1DiagnosticFixtures.test_explicit_nonfinite_json_categories",
+      "test_e1_allocated.E1DiagnosticFixtures.test_representability_boundary_band",
+      "test_e1_allocated.E1DiagnosticFixtures.test_diagnostic_does_not_mutate_gradients",
+      "test_e1_allocated.E1DiagnosticFixtures.test_rejects_unqualified_gradients"
+    ],
+    "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+    "mode": "NORMAL_PLANNING_NEXT",
+    "model_protocol": {
+      "calibration_state": "corrected210-history1234",
+      "cases": [
+        {
+          "bit": 0,
+          "consumer_ordinal": 5,
+          "layer": 6,
+          "microbatch": 0,
+          "seed": 1729,
+          "state": "later-update210",
+          "window": "replay_forward"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 5,
+          "layer": 6,
+          "microbatch": 0,
+          "seed": 1729,
+          "state": "later-update210",
+          "window": "consumer_entry"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 11,
+          "layer": 0,
+          "microbatch": 0,
+          "seed": 41,
+          "state": "later-update210",
+          "window": "replay_forward"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 11,
+          "layer": 0,
+          "microbatch": 0,
+          "seed": 41,
+          "state": "later-update210",
+          "window": "consumer_entry"
+        },
+        {
+          "bit": 22,
+          "consumer_ordinal": 0,
+          "layer": 11,
+          "microbatch": 0,
+          "seed": 73,
+          "state": "later-update210",
+          "window": "replay_forward"
+        },
+        {
+          "bit": 22,
+          "consumer_ordinal": 0,
+          "layer": 11,
+          "microbatch": 0,
+          "seed": 73,
+          "state": "later-update210",
+          "window": "consumer_entry"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 5,
+          "layer": 6,
+          "microbatch": 0,
+          "seed": 1729,
+          "state": "early-warm10",
+          "window": "replay_forward"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 5,
+          "layer": 6,
+          "microbatch": 0,
+          "seed": 1729,
+          "state": "early-warm10",
+          "window": "consumer_entry"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 11,
+          "layer": 0,
+          "microbatch": 0,
+          "seed": 41,
+          "state": "early-warm10",
+          "window": "replay_forward"
+        },
+        {
+          "bit": 0,
+          "consumer_ordinal": 11,
+          "layer": 0,
+          "microbatch": 0,
+          "seed": 41,
+          "state": "early-warm10",
+          "window": "consumer_entry"
+        },
+        {
+          "bit": 22,
+          "consumer_ordinal": 0,
+          "layer": 11,
+          "microbatch": 0,
+          "seed": 73,
+          "state": "early-warm10",
+          "window": "replay_forward"
+        },
+        {
+          "bit": 22,
+          "consumer_ordinal": 0,
+          "layer": 11,
+          "microbatch": 0,
+          "seed": 73,
+          "state": "early-warm10",
+          "window": "consumer_entry"
+        }
+      ],
+      "clean_arms_per_state": [
+        "disabled",
+        "outputs_only",
+        "full_forward_io",
+        "selected_forward",
+        "selected_consumer"
+      ],
+      "consumer_independent_global_ordinals": {
+        "L0": 11,
+        "L11": 0,
+        "L6": 5,
+        "later_microbatch_increment": 12
+      },
+      "consumer_injector": "Counts native GELU backward calls independently of selector; reuse historical Intervention.mutate and same dense_h_to_4h.output identity; log external events separately.",
+      "diagnostic_batch": {
+        "accumulation": 4,
+        "microbatch": 4,
+        "sequence": 512
+      },
+      "fault_arms_per_case": [
+        "disabled",
+        "outputs_only",
+        "full_forward_io",
+        "selected_forward",
+        "selected_consumer",
+        "selected_consumer_enforce"
+      ],
+      "heldout_state": "early-history1234 warm10; do not reprofile",
+      "independent_histories": 1,
+      "model": "Pythia160M FP32 eager preserved-RNG",
+      "model_arms_planned": 84,
+      "no_adaptive_sites_or_grid_extension": true,
+      "no_forced_output_equal_or_nonzero_effect": true,
+      "profile_parity_pair": true,
+      "pytorch_native_gelu_backward_shape": [
+        4,
+        512,
+        3072
+      ]
+    },
+    "numeric_model_execution_by_researcher": false,
+    "per_update_lifecycle": "Cache structure/classmembership only. Fresh original-forward signatures/counters/flags every update; no calibration or previous-update payload reference reused. Reset/storage costs charged to all policies.",
+    "policies": [
+      "disabled",
+      "outputs_only",
+      "full_forward_io",
+      "selected_forward",
+      "selected_consumer"
+    ],
+    "policy_semantics": {
+      "disabled": "Unobserved historical engine reference.",
+      "full_forward_io": "Original/recompute comparisons for every activation input and output of the SAME registered families and regions.",
+      "outputs_only": "Original/recompute comparisons for every activation output of registered forward families inside checkpoint regions.",
+      "selected_consumer": "Every original candidate-class member hashed and unanimous; demanded actual native backward argument compared at consumption.",
+      "selected_forward": "The learned demand fields compared at original/recompute forward locations."
+    },
+    "pre_outcome_clarification": {
+      "ancestor_plan_sha256": "a4547f52417df3e26b2cd33ede16ae2659c7e147a6e870f714eeca3ea1a4b5db",
+      "at_utc": "2026-11-08T06:53:40.731466+00:00",
+      "author": "/root responding to independent method-review questions",
+      "changes": [
+        "All12-case timing admission gate explicit",
+        "Direct elapsed primary denominator/matching fixed",
+        "24 exact pair-order records for3jobs frozen before any outcome"
+      ],
+      "numerical_outcomes_observed": false,
+      "scope_or_budget_changed": false
+    },
+    "primary_sources": [
+      {
+        "classification": "DIRECT_SEMANTIC_PRECEDENT",
+        "url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/tools/autograd/derivatives.yaml",
+        "use": "Family demand sanity oracle, not a claim of discovered derivative dependencies."
+      },
+      {
+        "classification": "DIRECT_EXISTING_INPUT_IO_PRECEDENT",
+        "url": "https://github.com/OrderLab/OpGuard/blob/146d6bb523cf8364bbf2788cb319aef1a46f966b/opguard/wrapped_ops.py",
+        "use": "Existing capability; component matched baselines do not benchmark whole OpGuard."
+      },
+      {
+        "classification": "ANALOGOUS_HOOK_MECHANISM",
+        "url": "https://docs.pytorch.org/docs/stable/autograd.html",
+        "use": "Hooks influence saved state and require separate correctness proof; not used."
+      },
+      {
+        "classification": "DIRECT_CHECKPOINT_IMPLEMENTATION",
+        "url": "https://github.com/pytorch/pytorch/blob/v2.13.0/torch/utils/checkpoint.py",
+        "use": "Nonreentrant checkpoint mechanisms; source execution remains pinned historical."
+      }
+    ],
+    "profile_contract": {
+      "actual_storage_alias_identity_proved": false,
+      "all_compatible_candidate_sites_retained": true,
+      "calibration_clean_only": true,
+      "class_split": "UNSUPPORTED_PLAN_CLASS_SPLIT_NOT_FAULT_DETECTION_CREDIT",
+      "freeze_before_fault_evaluation": true,
+      "logical_forward_key": [
+        "checkpoint_region_or_external",
+        "role_collapsed_microbatch",
+        "registered_forward_ordinal",
+        "exact_operator_schema",
+        "input_or_output_field_path"
+      ],
+      "mixed_inside_outside_class": "UNSUPPORTED_AT_PROFILE",
+      "outside_class": "Only if ALL profile candidates are outside checkpoint; freeze backward ordinal/schema/metadata/count; runtime cannot reclassify by values.",
+      "record_all_registered_forwards_including_external": true,
+      "root_phase_context": "Metadata-only root model forward pre/post hooks with exception-safe cleanup; checkpoint role takes precedence for replay. Native backward otherwise has no assumed region.",
+      "runtime_original_unanimity_required": true,
+      "unknown_or_missing_slot": "UNSUPPORTED_PLAN",
+      "value_class_key": [
+        "canonical_complete_blake3",
+        "shape",
+        "dtype",
+        "device"
+      ]
+    },
+    "ranked_alternatives": [
+      {
+        "disposition": "REQUIRED_ABLATION_IN_MAIN_PILOT",
+        "id": "SELECTED_FORWARD_ABLATION",
+        "purpose": "Same learned fields observed during recompute forward isolate selection from consumer-time observation.",
+        "rank": 2
+      },
+      {
+        "disposition": "FUTURE_NOT_RELEASED",
+        "id": "COMPILER_DERIVED_OBLIGATIONS",
+        "purpose": "Generate dependency registry from pinned derivative specifications or joint graphs only after live prototype value is known.",
+        "rank": 3
+      }
+    ],
+    "recommended_rank": 1,
+    "recorded_at_utc": "2026-11-08T06:38:55.325866+00:00",
+    "registry": [
+      {
+        "backward": "aten.gelu_backward.default",
+        "backward_activation_args": [
+          {
+            "name": "self",
+            "position": 1
+          }
+        ],
+        "family": "gelu",
+        "forward": "aten.gelu.default",
+        "forward_activation_inputs": [
+          "self"
+        ],
+        "forward_outputs": [
+          "output"
+        ],
+        "scalar_guards": {
+          "approximate": "none"
+        }
+      },
+      {
+        "backward": "aten.native_layer_norm_backward.default",
+        "backward_activation_args": [
+          {
+            "name": "input",
+            "position": 1
+          },
+          {
+            "name": "mean",
+            "position": 3
+          },
+          {
+            "name": "rstd",
+            "position": 4
+          }
+        ],
+        "excluded_persistent_args": [
+          "weight",
+          "bias"
+        ],
+        "family": "native_layer_norm",
+        "forward": "aten.native_layer_norm.default",
+        "forward_activation_inputs": [
+          "input"
+        ],
+        "forward_outputs": [
+          "output[0]",
+          "output[1]",
+          "output[2]"
+        ]
+      },
+      {
+        "backward": "aten._softmax_backward_data.default",
+        "backward_activation_args": [
+          {
+            "name": "output",
+            "position": 1
+          }
+        ],
+        "family": "softmax",
+        "forward": "aten._softmax.default",
+        "forward_activation_inputs": [
+          "self"
+        ],
+        "forward_outputs": [
+          "output"
+        ],
+        "scalar_guards": {
+          "dim": "registered last axis",
+          "half_to_float": false,
+          "input_dtype": "float32"
+        }
+      },
+      {
+        "backward": "aten.threshold_backward.default",
+        "backward_activation_args": [
+          {
+            "name": "self",
+            "position": 1
+          }
+        ],
+        "family": "relu",
+        "forward": "aten.relu.default",
+        "forward_activation_inputs": [
+          "self"
+        ],
+        "forward_outputs": [
+          "output"
+        ],
+        "scalar_guards": {
+          "threshold": 0
+        }
+      },
+      {
+        "backward": "aten.tanh_backward.default",
+        "backward_activation_args": [
+          {
+            "name": "output",
+            "position": 1
+          }
+        ],
+        "family": "tanh",
+        "forward": "aten.tanh.default",
+        "forward_activation_inputs": [
+          "self"
+        ],
+        "forward_outputs": [
+          "output"
+        ]
+      },
+      {
+        "backward": "aten.sigmoid_backward.default",
+        "backward_activation_args": [
+          {
+            "name": "output",
+            "position": 1
+          }
+        ],
+        "family": "sigmoid",
+        "forward": "aten.sigmoid.default",
+        "forward_activation_inputs": [
+          "self"
+        ],
+        "forward_outputs": [
+          "output"
+        ]
+      }
+    ],
+    "registry_binding": "Bind actual func._schema names/positions/kwargs canonically; exact overload/scalar signature must qualify. Position values are sanity anchors, not permission to ignore a changed schema.",
+    "resource_portfolio": {
+      "actual_remaining_time_gate": true,
+      "gpu_dev_pilot": {
+        "max_su": 2,
+        "minutes": 40
+      },
+      "gpu_dev_timing": {
+        "jobs": 3,
+        "max_su_each": 2,
+        "minutes_each": 40
+      },
+      "no_automatic_retry": true,
+      "no_long_learning_or_production_release": true,
+      "optional_cpu_dev": {
+        "fixture_count": 20,
+        "max_su": 1,
+        "minutes": 60,
+        "required_by_orchestrator_before_gpu": true
+      },
+      "postsetup_minimum_seconds": 1200,
+      "retention_seconds": 600,
+      "separate_new_max_su": 9,
+      "serial_queue_self": true
+    },
+    "revision_note": "Orchestrator-required CPU-first qualification: device-parameterized shared13selector tests +distinctCPUgolden, sixE1tests; explicit20CPU/20GPU censuses, original14GPU selector methods unchanged. Previous211c/4200 exactfiles retained underhistory; method/cases/resourceceiling unchanged.",
+    "schema": 1,
+    "shared_fingerprint_backend": {
+      "all_policies_same_backend_and_copy_rule": true,
+      "all_runtime_copies_allocations_comparisons_synchronization_charged": true,
+      "arguments": {
+        "backend": "full",
+        "include_sketch": false
+      },
+      "canonicalization": "detach().clone(memory_format=torch.contiguous_format) under disabled modes",
+      "function": "ac_integrity.capture.fingerprint.fingerprint_tensor",
+      "profiling_cost_reported_separately": true,
+      "signature_field": "signatures",
+      "store": "BB-owned GPU-resident signature/class/flag store; no legacy all_operators scope relabeling"
+    },
+    "source_edits_by_researcher": false,
+    "status": "RESEARCHER_RECOMMENDATION_NOT_SOURCE_OR_EXECUTION_RELEASE",
+    "test_device_environment": "BB_TEST_DEVICE=cpu or cuda:0; driver explicitly sets after allocation/environment admission",
+    "timing_protocol": {
+      "checked_policies": [
+        "outputs_only",
+        "full_forward_io",
+        "selected_forward",
+        "selected_consumer"
+      ],
+      "conditional_release": "ALL 12 frozen model cases complete as SUPPORTED, with no unexpected UNSUPPORTED/class split; all clean/profile/matched state-gradient-RNG parity, source/runtime/custody and actual pilot PROMOTE; strict fingerprint-byte reduction against full forward I/O. Deliberate unsupported negative fixtures are controls, never successful detections. Any unsupported held-out case remains in the denominator and blocks all timing releases. No automatic corrective release.",
+      "estimator": "For job j: x_j=(log(T_consumer,j,0/T_fullIO,j,0)+log(T_consumer,j,1/T_fullIO,j,1))/2. Equal-weight mean of exactly three x_j; Student-t95 df2 interval on mean log ratio, then exponentiate. T is sum of six measured update seconds excluding the two warmups; all normal observer work and decision synchronization included.",
+      "final_eight_update_pair_state_parity_required": true,
+      "frozen_pair_schedule": [
+        {
+          "arm_order": [
+            "disabled",
+            "outputs_only"
+          ],
+          "block_index": 0,
+          "job_index": 0,
+          "policy": "outputs_only"
+        },
+        {
+          "arm_order": [
+            "outputs_only",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 0,
+          "policy": "outputs_only"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "full_forward_io"
+          ],
+          "block_index": 0,
+          "job_index": 0,
+          "policy": "full_forward_io"
+        },
+        {
+          "arm_order": [
+            "full_forward_io",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 0,
+          "policy": "full_forward_io"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "selected_forward"
+          ],
+          "block_index": 0,
+          "job_index": 0,
+          "policy": "selected_forward"
+        },
+        {
+          "arm_order": [
+            "selected_forward",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 0,
+          "policy": "selected_forward"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "selected_consumer"
+          ],
+          "block_index": 0,
+          "job_index": 0,
+          "policy": "selected_consumer"
+        },
+        {
+          "arm_order": [
+            "selected_consumer",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 0,
+          "policy": "selected_consumer"
+        },
+        {
+          "arm_order": [
+            "selected_consumer",
+            "disabled"
+          ],
+          "block_index": 0,
+          "job_index": 1,
+          "policy": "selected_consumer"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "selected_consumer"
+          ],
+          "block_index": 1,
+          "job_index": 1,
+          "policy": "selected_consumer"
+        },
+        {
+          "arm_order": [
+            "selected_forward",
+            "disabled"
+          ],
+          "block_index": 0,
+          "job_index": 1,
+          "policy": "selected_forward"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "selected_forward"
+          ],
+          "block_index": 1,
+          "job_index": 1,
+          "policy": "selected_forward"
+        },
+        {
+          "arm_order": [
+            "full_forward_io",
+            "disabled"
+          ],
+          "block_index": 0,
+          "job_index": 1,
+          "policy": "full_forward_io"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "full_forward_io"
+          ],
+          "block_index": 1,
+          "job_index": 1,
+          "policy": "full_forward_io"
+        },
+        {
+          "arm_order": [
+            "outputs_only",
+            "disabled"
+          ],
+          "block_index": 0,
+          "job_index": 1,
+          "policy": "outputs_only"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "outputs_only"
+          ],
+          "block_index": 1,
+          "job_index": 1,
+          "policy": "outputs_only"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "full_forward_io"
+          ],
+          "block_index": 0,
+          "job_index": 2,
+          "policy": "full_forward_io"
+        },
+        {
+          "arm_order": [
+            "full_forward_io",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 2,
+          "policy": "full_forward_io"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "selected_consumer"
+          ],
+          "block_index": 0,
+          "job_index": 2,
+          "policy": "selected_consumer"
+        },
+        {
+          "arm_order": [
+            "selected_consumer",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 2,
+          "policy": "selected_consumer"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "outputs_only"
+          ],
+          "block_index": 0,
+          "job_index": 2,
+          "policy": "outputs_only"
+        },
+        {
+          "arm_order": [
+            "outputs_only",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 2,
+          "policy": "outputs_only"
+        },
+        {
+          "arm_order": [
+            "disabled",
+            "selected_forward"
+          ],
+          "block_index": 0,
+          "job_index": 2,
+          "policy": "selected_forward"
+        },
+        {
+          "arm_order": [
+            "selected_forward",
+            "disabled"
+          ],
+          "block_index": 1,
+          "job_index": 2,
+          "policy": "selected_forward"
+        }
+      ],
+      "independent_jobs": 3,
+      "independent_unit": "Slurm job, not inner block/update/microbatch",
+      "max_minutes_each": 40,
+      "max_su_each": 2,
+      "measured_updates_per_arm": 6,
+      "order": "Execute frozen_pair_schedule in listed order for each job_index. Each policy has one disabled-first and one checked-first block per job; no outcome-dependent reordering.",
+      "other_intervals": "Secondary individual/descriptive; not simultaneous family guarantee.",
+      "paired_blocks_per_policy_per_job": 2,
+      "primary_contrast": "DIRECT selected_consumer/full_forward_io measured elapsed ratio, matched by fixed block index within each independent job; no division by disabled timings in the primary estimand.",
+      "production_batch": {
+        "accumulation": 32,
+        "microbatch": 4,
+        "sequence": 512
+      },
+      "production_profile": "New clean production plan per independent job; diagnostic plan not reused across accumulation changes.",
+      "profile_cost": "Raw profiling walltime/bytes exported separately; use conservative positive-savings-only amortization and no free-profile assumption.",
+      "restore_full_prestate_before_arm": true,
+      "secondary_contrast": "For each other policy p and block b use its own paired disabled arm T_p,j,b/T_disabled_for_p,j,b; descriptive secondary overhead only, not the primary normalized contrast.",
+      "total_updates_per_job": 128,
+      "warmups_per_arm": 2
+    },
+    "title": "Profiled original-to-consumer activation obligations",
+    "toy_protocol": {
+      "calibration_seed": 11,
+      "changed_shape_negative": [
+        3,
+        33
+      ],
+      "evaluation_seed": 37,
+      "families": [
+        "gelu",
+        "native_layer_norm",
+        "softmax",
+        "relu",
+        "tanh",
+        "sigmoid"
+      ],
+      "layernorm_normalized_shape": [
+        17
+      ],
+      "other_consumer_bits": 22,
+      "other_consumer_element": "numel//2 fixed before outcomes",
+      "relu_fixed_positive_coordinate": {
+        "consumer_bit": 31,
+        "element": 0,
+        "value": 1.0
+      },
+      "shape": [
+        2,
+        17
+      ],
+      "zero_vjp_outcomes_retained": true
+    },
+    "upstream_brief": {
+      "path": "/Users/ayman/ChatGPT/Mootaz Project/activation-checkpoint-integrity/artifacts/revision3/bb-20261108/state-brief.json",
+      "sha256": "9d59e1c5055a7b7ff3e175b9e64f87f5b79c45c6dd841d7e50b1fe59b7d8561b"
+    },
+    "writing_policy": "Record positive, zero, negative, unsupported and censored outcomes. Execution, custody, source precheck, actual acceptance and publication novelty remain separate."
+  },
+  "method_plan_path": "experiments/bb_20261108/method-plan.json",
+  "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+  "model_restore": true,
+  "no_claims": [
+    "new input-checking novelty",
+    "full automatic OpGuard superiority or coverage",
+    "automatic fault location outside admitted cases",
+    "faults occurring after the consumer check",
+    "universal alias/storage provenance",
+    "population incidence",
+    "learning benefit",
+    "new method cost before timing results",
+    "CUDA qualification before actual fixtures/review",
+    "Production release by exitcode",
+    "E1 historical acceptance repair",
+    "Methodcost before separatelyreleased timingjobs"
+  ],
+  "no_requeue": true,
+  "nodes": 1,
+  "numerical_admission": "Fresh physical/runtime/actual review/source/input admission then numerical token. Exact20 CUDA/E1 fixtures and nativeBLAKE3source/golden precede the source-bound historical model-work receipt/guard and pilot/E1 model restore.",
+  "output_max_bytes": 2000000000,
+  "output_study": "bb-selector",
+  "parameter_count_delta": 0,
+  "parent_method_id": "BB-DEMAND-20261108-v1",
+  "partial_failure_custody": "After admission retain all results/errors via unchanged livequota/2GB custody. Admission failure permits fixednamespace custody only after fresh owned nativeCPU descriptor/node/actual-batch checks; never grants numerical admission. A retention failure remains explicit with Scratch evidence preserved.",
+  "partition": "gpu-a100-dev",
+  "pending_release_gates": [
+    "Independent exact full GPU source/contract precheck and fresh execution release",
+    "Fresh owned queue/account/quota/resource/remaining-budget admission before once-only dispatch"
+  ],
+  "python_version": "3.13.7",
+  "required_review_job_ids": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "3565254",
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "3562498",
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "3562268",
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "3561473",
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "3565105",
+    "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "3565408"
+  },
+  "required_review_scopes": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "ACTUAL_CONFIGURED_OFFICIAL_OPGUARD_INPUT_OUTPUT_BASELINE_AND_CUSTODY_REVIEW",
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "ACTUAL_FIXED_FAULT_PLACEMENT_CONTROL_AND_CUSTODY_REVIEW",
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "ACTUAL_PRIMARY_PROVENANCE_RESULT_AND_CUSTODY_REVIEW",
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "INDEPENDENT_ACTUAL_RESULT_REVIEW_SECTION_SPECIFIC",
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "ACTUAL_ORIGINAL_SIX_CASE_PROVENANCE_MATRIX_AND_CUSTODY_REVIEW",
+    "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "ACTUAL_BB_CPU_20_FIXTURE_RUNTIME_AND_CUSTODY_REVIEW"
+  },
+  "required_review_sha256": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "91f3b47af04bb0c6f8a9ae932432f854032fff0646c45a3a94b4e29156a49156",
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "eb91fa51cb1f55be1d98ba82b22ecae05cd7a9f2e9f56c512d423eb236c4482d",
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "3b3bd54f128ab96f4ea392829567a5a3e9038a3f7ce1dd68c1c903b3f4afe2c1",
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "5270b185e1eecd6ca0c84d31d25d815d9248ce597d14a7abff3ce51a3bd6d3d9",
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "08edb99dfa5c31dbeea9c1f14c16a55dc926d63195d6f5fd0e432894e3b46267",
+    "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "6ba690bc89079ce97459277754e4da7eea0428b5b64d3c9a2f2daf1f295aed4c"
+  },
+  "required_review_verdicts": {
+    "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "PROMOTE",
+    "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "PROMOTE",
+    "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "PROMOTE",
+    "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "MODIFY",
+    "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "PROMOTE",
+    "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "PROMOTE"
+  },
+  "requirements_lock": "experiments/ba_20261107/provenance-environment.lock",
+  "runtime_environment": {
+    "BB_TEST_DEVICE": "cuda:0",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "0,1,2",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_COMPILE_BYTECODE": "0"
+  },
+  "schema": 1,
+  "scientific_acceptance": false,
+  "scientific_negative_handling": "Coherent UNSUPPORTED/FALSIFIED evidencecomplete pilot is a normal scientific outcome; independent E1follows, timing stays unreleased. Invalid source/runtime/parity/injection/nativeexecution exceptions failfast; no retries or model-stage continuation after invalidity.",
+  "selector_fixture_ids": [
+    "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+    "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+    "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+    "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+    "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+    "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+    "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+    "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+    "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+    "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+    "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+    "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+    "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+    "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim"
+  ],
+  "source_archive": "All14 pinned checkout sources plus exact raw contract/release; separately all226 verified historical tracked files. Opaqueinput payloads, modelstates, environment andcache are not copied by the driver.",
+  "source_checkout_name": "selector-gpu-dev-source",
+  "source_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/slurm/m4-repair-20261025-v1/source",
+  "source_review_controls": {
+    "cpu_source_precheck": {
+      "actual_review": false,
+      "path": "artifacts/revision3/bb-20261108/reviews/cpu-source-precheck.json",
+      "scope": "PRECHECK_ONLY_BB_CPU_DEV_SOURCE_AND_CONTRACT",
+      "sha256": "6e68a1007a88fb7f16300b1f2f786e4f954ca00ee9987768b4cecff7c637e9e4",
+      "verdict": "PROMOTE"
+    },
+    "e1_ancestor": {
+      "actual_review": false,
+      "current_helper_requires_new_cpu_package_review": true,
+      "path": "artifacts/revision3/bb-20261108/reviews/e1-diagnostic-source-review.json",
+      "reviewed_source_sha256": "247e80411d7f69ac1d646c2c674bf911f3eb77f87dd9260d023d991d59274031",
+      "scope": "PRECHECK_ONLY_E1_DIAGNOSTIC_HELPER_SOURCE",
+      "sha256": "ce6e52f55328d2bc6fbf5a0b9012cfa48a3377160bbc87b22b33a16ccaeb64a0"
+    },
+    "e1_replay_corrected": {
+      "actual_review": false,
+      "path": "artifacts/revision3/bb-20261108/reviews/e1-replay-component-precheck-final.json",
+      "scope": "SOURCE_ONLY_COMPONENT_REVIEW",
+      "sha256": "4fa27c3052eedfe7b7247d7c9faecf64c96a179435911efbe67573880ef41bfb",
+      "verdict": "ACCEPT_SOURCE_ONLY"
+    },
+    "infrastructure": {
+      "actual_review": false,
+      "path": "artifacts/revision3/bb-20261108/reviews/infrastructure-precheck.json",
+      "scope": "PRECHECK_ONLY_INFRASTRUCTURE_SOURCE_AND_METADATA",
+      "sha256": "bfce1f6093e051b4c9aefd3adfab4fa57d60cdc6d8d38cca8603bc3730ec9274",
+      "verdict": "PROMOTE"
+    }
+  },
+  "status": "PREREGISTERED_GPU_DEV_CANDIDATE_PENDING_EXACT_SOURCE_PRECHECK_AND_EXECUTION_RELEASE",
+  "tasks": 1,
+  "time_limit": "00:40:00",
+  "uv_version": "0.12.3"
+}

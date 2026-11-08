@@ -1,0 +1,290 @@
+{
+  "baseline_config_reference": "Accepted BA native historical completion engine, full corrected210/history1234 and warm10/history1234 inputs; diagnostic microbatch4 sequence512 accumulation4; preserved checkpoint RNG.",
+  "config_diff": {
+    "bb_enforce": {
+      "baseline": false,
+      "experiment": "True only for registered selected_consumer_enforce fault arms"
+    },
+    "bb_observer": {
+      "baseline": "disabled",
+      "experiment": [
+        "outputs_only",
+        "full_forward_io",
+        "selected_forward",
+        "selected_consumer"
+      ]
+    },
+    "fingerprint_backend": {
+      "baseline": "not called while disabled",
+      "experiment": "full native BLAKE3; include_sketch=False; canonical contiguous clone for every checked policy"
+    },
+    "historical_engine_enforce": {
+      "baseline": false,
+      "experiment": false
+    },
+    "historical_engine_policy": {
+      "baseline": "disabled",
+      "experiment": "disabled"
+    },
+    "historical_engine_scope": {
+      "baseline": "checkpoint_boundaries",
+      "experiment": "checkpoint_boundaries"
+    },
+    "model_or_optimizer_parameters": {
+      "baseline": "unchanged historical state",
+      "experiment": "unchanged historical state"
+    }
+  },
+  "estimated_runtime": {
+    "estimate_seconds": null,
+    "measured": false,
+    "registered_budgets": "CPUDEV<=60min/1SU; GPUDEVpilot<=40min/2SU; conditional three GPUDEVtiming jobs<=40min/2SU each. Actual parent cutoff and retention admission govern execution."
+  },
+  "experiment_id": "BB-DEMAND-20261108-v1",
+  "files_changed": {
+    "implementation-report-selector.json": "Structured implementation and qualification boundary; contains source digests, configuration, fixture census and limitations.",
+    "selector.py": "Allocated-only six-family TorchDispatch profile, frozen value classes, strict event metadata, same full-BLAKE3 backend across four policies, deferred consumer comparison and pre-gate enforcement.",
+    "selector_integration.py": "Historical-engine adapter, independent consumer injector, fixed two-state twelve-case pilot and exact per-job timing schedule/contrast records.",
+    "test_selector_allocated.py": "Fourteen CPU and fourteen GPU exact selector fixture IDs, thirteen shared methods with all preregistered family/metadata/outside-scope/enforcement subcases; no skips."
+  },
+  "fixture_census": {
+    "cpu_selector_count": 14,
+    "cpu_selector_fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim",
+      "test_selector_allocated.SelectorFixtures.test_cpu_blake3_matches_canonical_published_bytes"
+    ],
+    "declared_test_methods_in_selector_module": 15,
+    "device_setting": "BB_TEST_DEVICE=cpu or cuda:0; parent must set after fresh allocation/source/runtime admission.",
+    "e1_owned_by_root_count": 6,
+    "gpu_selector_count": 14,
+    "gpu_selector_fixture_ids": [
+      "test_selector_allocated.SelectorFixtures.test_full_cuda_blake3_matches_cpu_for_canonical_and_multichunk_bytes",
+      "test_selector_allocated.SelectorFixtures.test_native_family_profiles_recover_declared_activation_demands",
+      "test_selector_allocated.SelectorFixtures.test_duplicate_values_retain_all_class_members",
+      "test_selector_allocated.SelectorFixtures.test_original_value_class_split_is_unsupported_and_blocks_optimizer",
+      "test_selector_allocated.SelectorFixtures.test_uncheckpointed_registered_slots_are_frozen_outside_scope",
+      "test_selector_allocated.SelectorFixtures.test_schema_options_metadata_order_and_count_drift_are_unsupported",
+      "test_selector_allocated.SelectorFixtures.test_private_bookkeeping_exclusion_preserves_natural_gelu",
+      "test_selector_allocated.SelectorFixtures.test_outside_scope_fault_request_is_refused_before_case",
+      "test_selector_allocated.SelectorFixtures.test_profile_and_observation_preserve_gradients_full_state_and_rng",
+      "test_selector_allocated.SelectorFixtures.test_consumer_entry_fault_distinguishes_forward_and_consumer_checks",
+      "test_selector_allocated.SelectorFixtures.test_replay_forward_input_fault_is_seen_by_appropriate_policies",
+      "test_selector_allocated.SelectorFixtures.test_native_execution_count_and_returned_values_are_unchanged",
+      "test_selector_allocated.SelectorFixtures.test_missing_or_duplicate_fields_and_demands_fail_closed",
+      "test_selector_allocated.SelectorFixtures.test_enforcement_is_preclip_preoptimizer_without_rng_rollback_claim"
+    ],
+    "shared_methods": 13,
+    "skips_allowed": 0,
+    "subcase_crosswalk": {
+      "consumer_faults": "All six families held-out seed37; native and all four observing policies share exact mutation and full-state/preclip parity; ReLU +1 at element0/signbit31, other families fixed middle/fractionbit22.",
+      "digest": "CPU published BLAKE3; GPU exact CPU full digest; empty, FP32 counts255/256/257, singleton zero stride, noncontiguous and >4MiB values.",
+      "drift": "Unknown known-family overload, scalar GELU option, FP64 dtype, changed shape, noncontiguous stride, changed region, extra root/microbatch, changed family/event count.",
+      "enforcement": "Actual clip_grad_norm_ and optimizer call counters, positive clean control, protected persistent state and explicit RNG nonrollback boundary.",
+      "outside": "Final uncheckpointed LayerNorm input/mean/rstd frozen outside; held-out parity; added/dropped/eps-changed outside events unsupported; separate mixed-scope negative.",
+      "six_families": "Profile seed11, held-out clean seed37 across four policies; exact native backward argument names/count1, forwardcount2 and rootcount1; input/output/LN mixed sanity paths.",
+      "structural": "Duplicate candidate members retained, held-out class split blocks, missing required fields/edges/event and duplicate edges fail closed."
+    },
+    "total_per_device": 20
+  },
+  "goal": "Learn clean original-forward activation obligations and check them at actual native backward consumption with matched execution and explicit unsupported scope.",
+  "how_to_run": {
+    "admission": "LinuxUID893489 + decimal SLURM_JOB_ID + fresh BB_NUMERICAL_ADMISSION=PASS:<job> set only by admitted parent before numerical import. Do not set manually on login/local.",
+    "cpu": "Parent-sealed e1-cpu-dev.sbatch -> node-local locked Python -B experiments/bb_20261108/cpu_job.py; driver performs fresh admission before imports.",
+    "direct_api": "run_pilot(new_output_directory, contract); run_timing(new_output_directory, contract). Existing sealedGPU contract fields method_plan, inputs, files, historical_contract, requirements_lock, expected_native_extension_source_sha256 and runtime_environment are required; timing additionally timing_job_index in0,1,2.",
+    "gpu": "Parent-sealed selector-gpu-dev.sbatch -> node-local locked Python -B experiments/bb_20261108/gpu_job.py; full fixture gate precedes selector_integration.run_pilot.",
+    "run_arm_api": "run_arm(engine, stream, prestate, out, *, policy=\"disabled\", plan=None, case=None, profile=False, enforce=False, batch=None, gradients=True, pilot_counter=True, restore=True, branch_update=1, capture_state=True, identity_binding=None). Profile/checked uses require the private _admitted_binding(contract) result; disabled reference does not consume a plan."
+  },
+  "how_to_verify_baseline_preserved": "Allocated fixtures compare disabled/profile/all observing policies against matched native full state and preclip gradients; model pilot additionally compares all visible RNG states, native registered counts and intervention journals. Historical engine policy/enforce remain disabled in every arm.",
+  "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "implementation_summary": [
+    "No saved attribute reads or saved_tensors_hooks. Nonreentrant checkpoint contexts and root metadata hooks expose original/recompute/external registered calls.",
+    "A clean native-argument profile freezes all compatible original logical fields in value classes, plus exact backward call ordinal/argument obligations. All-external demanded classes are frozen outside scope; mixed scope is unsupported.",
+    "No activation value is cached across updates. Each update creates fresh observer counters/flags and original signatures. Selected consumer requires every original member and class unanimity before accepting comparisons.",
+    "Unknown overloads in registered native families, schema/options/order/metadata/count changes, incomplete original/replay fields and missing/duplicate obligations fail closed.",
+    "Consumer mutation uses an independent native GELU counter before any candidate fingerprint/native call and unchanged historical Intervention.mutate. Delivery also occurs in disabled and forward-only arms; its journal is separate from legacy injections.",
+    "Observing pilot arms must preserve full model/buffer/optimizer/scheduler/cursor/update/RNG state, preclip gradients, registered native calls and fault identity against matched native references. Enforced mismatch must reject before clipping/optimizer and preserve all non-RNG persistent state.",
+    "Unsupported/falsified scientific outcomes retain all twelve case denominators, explicit per-arm status and timing blocking. Invalid native execution, parity or injection realization stops with raw partial records; no automatic correction/retry.",
+    "Timing iterates the frozen schedule exactly; each of eight pairs contains disabled/checked eight-update arms with two warmups and six measured updates, totaling128. Direct selected_consumer/full_forward_io block ratios form one mean log ratio per Slurm job; no pooled interval is calculated here.",
+    "The timed interval charges observer construction, hook/mode setup, canonical copies, hashing, comparisons, pre-gate decision transfer, cleanup and final device synchronization. Full scientific snapshots and JSON serialization occur after that interval. Production profiling cost/counters are retained separately.",
+    "The model profile is admitted only against the pinned12-block architecture: per-region/micro/original-and-recompute GELU1, softmax1, LayerNorm2, plus one final external LayerNorm per micro. Pilot counts are48/48/48 forGELU andsoftmax,96insideoriginal/96recompute/4externaloriginal/100backward forLayerNorm; production32 scales to384/384/384 and768/768/32/800.",
+    "Exactly one outside LayerNorm backward event per micro must have input/mean/rstd outside bindings (12pilot/96production), each linked to its own micro external logical field and with all class members outside. Full scalar/tensor metadata is frozen by the core; outside shapes/dtype/device are independently checked. Native outside-backward order remains learned; no unique value-class count is assumed.",
+    "Missing required model families, counts, graph slots or outside bindings produce INVALID_PROFILE_CENSUS, with rawprofile/compiledplan and explicit expected/observed census retained before raising. Even an uncompiled coherent unsupported profile must first pass the complete raw architecture census; incomplete coverage cannot be relabeled scientificunsupported.",
+    "Each profile/cached plan binds admitted source-file maps, historical revision/source pins, lock/native-source identity, actualPython/Torch/CUDA/package versions, runtime environment/visible-device metadata, registry and native schemas. Every checked update recomputes canonical allowed-model config/module/parameter metadata and validates its envelope and registry inside the charged interval. No weights/checkpoint payload, buffer values, optimizer state, cursor, update or RNG enters the graph identity.",
+    "Full profiling-call wall time includes rawprofile/arm export and any enabled transient scientific capture. Binding setup and model-census admission costs are reported separately and included in the conservative total profile admission cost; exported profile bytes are explicitly scoped to the profile-arm directory.",
+    "All full state/gradient comparisons and rejection protections are persisted before parity assertions. Each completed timing pair writes its comparison and aggregate timing record before a potential parity failure.",
+    "Timing results explicitly distinguish128 timed-arm updates,1 production-profile update and129 total update attempts. The original updates_executed128 field is labeled timed-arms-only for compatibility.",
+    "The redundant scalar-change guard now uses historical completion.compare_trees key changed_scalar_paths; byte_equal already covered those scalars before this naming correction."
+  ],
+  "main_workspace_head_when_written": "1faeeff0344848d49099d16ae81b9f412b294519",
+  "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+  "model_profile_census_gate": {
+    "architecture": {
+      "hidden_size": 768,
+      "intermediate_size": 3072,
+      "layers": 12
+    },
+    "census_failure": "INVALID_PROFILE_CENSUS; invalid experiment, not detection or scientific negative.",
+    "coherent_value_map_unsupported": "Preserved only after full raw architecture census passes; all12case denominators retained and timingblocked.",
+    "outside_order": "Learned actual native backward ordinal, not forward-order prediction.",
+    "pilot": {
+      "accumulation": 4,
+      "gelu_backward": 48,
+      "gelu_forward_original": 48,
+      "gelu_forward_recompute": 48,
+      "layernorm_backward": 100,
+      "layernorm_checkpoint_original": 96,
+      "layernorm_checkpoint_recompute": 96,
+      "layernorm_external_original": 4,
+      "outside_state_bindings": 12,
+      "softmax_backward": 48,
+      "softmax_forward_original": 48,
+      "softmax_forward_recompute": 48
+    },
+    "production": {
+      "accumulation": 32,
+      "gelu_backward": 384,
+      "gelu_forward_original": 384,
+      "gelu_forward_recompute": 384,
+      "layernorm_backward": 800,
+      "layernorm_checkpoint_original": 768,
+      "layernorm_checkpoint_recompute": 768,
+      "layernorm_external_original": 32,
+      "outside_state_bindings": 96,
+      "softmax_backward": 384,
+      "softmax_forward_original": 384,
+      "softmax_forward_recompute": 384
+    }
+  },
+  "parameter_count": {
+    "allocated_measured_total": null,
+    "expected_delta": 0,
+    "expected_total": 162322944,
+    "status": "Not measured here; pilot asserts exact count on allocated model."
+  },
+  "plan_envelope": {
+    "checked_policy_validation_cost_charged": true,
+    "excluded": [
+      "weight/checkpointpayload hashes",
+      "parameter/buffer values",
+      "optimizer/scheduler state",
+      "cursor/update",
+      "RNG/seeds",
+      "addresses/timestamps"
+    ],
+    "immutable_admitted_identity": [
+      "contract.files",
+      "historical_contract.execution_source_revision",
+      "historical_contract.source_files",
+      "requirements-lock hash",
+      "native-extension source hash",
+      "actual Python/Torch/CUDA/NumPy/Transformers versions",
+      "actual admitted runtimeenvironment and visibleGPU metadata",
+      "determinism/TF32 flags",
+      "registeredfamilies/native schemas"
+    ],
+    "recomputed_each_checked_use": [
+      "modelconfig excluding saved path/revision/version metadata",
+      "actualattentionimplementation",
+      "modulequalifiedclassnames",
+      "parametername/shape/dtype/device/requires_grad",
+      "registeredfamilies",
+      "declaredrecipe"
+    ],
+    "same_graph_warm10_supported_without_reprofiling": true
+  },
+  "potential_risks_or_caveats": [
+    "Static checks are not numerical correctness or runtime qualification. No experiment success, latency improvement or measured parameter total is claimed.",
+    "Value classes prove byte compatibility, not storage alias identity or a universal autograd dependence theorem. Clean class splits or shape/schema/count drift are unsupported.",
+    "Declared scope is registered FP32 activation-state arguments only; excludes grad_output and persistent weight/bias state.",
+    "Held-out warm10 is the same history as corrected210; twelve cases and inner timing blocks are not independent histories/jobs.",
+    "Synthetic consumer-entry delivery occurs before this check/native use; no coverage after the check or complete OpGuard superiority claim.",
+    "Raw profiling signature transfers and serialization are diagnostic cost outside cached timing; full charged production profile interval/counters are exported separately.",
+    "No remote authentication, push, dispatch or numerical execution performed by this agent.",
+    "Intermediate fixture source91306509 was briefly contract-pinned by coordination before98a1 oracle correction but its original file bytes were not separately retained. No numerical execution or source copy by this agent used that candidate. Earlier round1/round2 archives and current final source are retained by parent/infrastructure."
+  ],
+  "preflight": {
+    "allocated_smoke_passed": false,
+    "baseline_captured": "Parent seals exact historical source and input hashes; adapter restores full input state before every diagnostic arm.",
+    "conflict_check": "Only four owned BB files changed; historical source and other agent files not edited.",
+    "proposal_reread": true,
+    "ready_to_run_claim": false,
+    "reason": "Numerical qualification is deliberately pending allocated DEV execution; local numerical imports/execution prohibited.",
+    "single_variable": "Activation field selection and observation window, separated by named policies; historical engine unchanged."
+  },
+  "review_repair_history": {
+    "ancestor_integration_sha256": "bf0d29349c449d43d8995b5a9c0eb22a034e5fb9ce4de7bbdccbf7f5a668d2b2",
+    "ancestor_report_sha256": "8adb19239b53065622486644047932a44749e398445d605641357766ef2406fb",
+    "archive": "artifacts/revision3/bb-20261108/history/selector-census-prefix-bf0d2934",
+    "cpu_core_tests_unchanged": true,
+    "no_numerical_or_remote_execution_by_this_agent": true,
+    "reason": "Consolidated GPU source review model-census/identity/failure-custody/profile-cost corrections before numerical model work."
+  },
+  "run_status": "NOT_YET_RUN_BY_SELECTOR_AGENT",
+  "sanity_checks_passed": [
+    {
+      "check": "AST parse",
+      "result": "PASS",
+      "scope": "All three owned Python modules; no module execution."
+    },
+    {
+      "check": "Ruff check",
+      "result": "PASS",
+      "scope": "All three owned Python modules."
+    },
+    {
+      "check": "Static fixture method census",
+      "result": "PASS",
+      "scope": "Every exact current method-plan CPU/GPU selector ID maps to a declared method,14 each."
+    },
+    {
+      "check": "Frozen method identity",
+      "result": "PASS",
+      "scope": "Current method-plan SHA86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb."
+    },
+    {
+      "artifact": "artifacts/revision3/bb-20261108/selector-census-metadata-validation.json",
+      "artifact_sha256": "144d6e7d8512cd2bdfe69acbd799dd2176707c8a13564020f821de2a511a53a0",
+      "check": "Standard-library metadata-only census/envelope validation",
+      "numerical_qualification": false,
+      "reproduction_script": "artifacts/revision3/bb-20261108/selector-census-metadata-validation.py",
+      "reproduction_script_sha256": "2950d959519d4a935be75e68e2d9b06d38af50b2b5b0550ae62d161374c31c96",
+      "result": "PASS",
+      "scope": "24 checks using AST-extracted metadata functions, synthetic metadata only, no Torch/NumPy imported."
+    }
+  ],
+  "sanity_checks_pending": [
+    "Allocated CPU DEV20 exact tests, zero failures/errors/skips; no CUDA qualification inferred.",
+    "Allocated A10020 exact tests including native CUDA BLAKE3 golden.",
+    "Actual source/runtime/input/custody admission, native/profile matched full-state/gradient/RNG parity and parameter census.",
+    "All84 declared model arm outcomes (or explicit unsupported skips), all12 cases retained, actual independent review.",
+    "Timing only after all12supported/expected pattern/strict byte reduction and independent actual PROMOTE; exactlythree independent jobs for final interval."
+  ],
+  "scientific_acceptance": false,
+  "source_base_revision": "919c22355b6d2565fbbae6717e74f2dff217a184",
+  "source_files": {
+    "selector.py": {
+      "bytes": 29524,
+      "sha256": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e"
+    },
+    "selector_integration.py": {
+      "bytes": 52975,
+      "sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d"
+    },
+    "test_selector_allocated.py": {
+      "bytes": 26913,
+      "sha256": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a"
+    }
+  }
+}

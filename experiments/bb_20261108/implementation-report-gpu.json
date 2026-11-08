@@ -1,0 +1,162 @@
+{
+  "actual_binding_refreeze": {
+    "all_exact": true,
+    "archive_manifest_sha256": "84bc915711271d3cbbd3c827b6931895bfcde5ce28a59ec3bb259d0cd40ced40",
+    "changes": "Replace invalid CPU review scope/hash/path with the authenticated actual3565408 review; set draft=false and final candidate status. No driver/batch/scientific source, cases, inputs, fixtures or resource envelope changed.",
+    "exact_previous_package_archive": "artifacts/revision3/bb-20261108/history/gpu-draft-52c0f11d/",
+    "members": 16,
+    "previous_contract_sha256": "52c0f11d7e040021fd2bc26a13efa1d21d2b4f7b10237ec16a95d856c311ba4e",
+    "previous_report_sha256": "49fa914aee48b06190b031b2f86f528c498dc2ac74c2e2c607f2ce62d0fa1f11",
+    "reconstructed_bytes": false
+  },
+  "baseline_config_reference": [
+    "experiments/bb_20261108/method-plan.json SHA86614b2a for exactcases/baselines/windows/obligations",
+    "experiments/bb_20261108/cpu_job.py SHA6ed19591 and batchb0526ca2 for admission/fixturelogging/retention pattern",
+    "experiments/ba_20261107/provenance-copy40-dev-contract.json for unchangedhistoricalsource registry and58runtime"
+  ],
+  "config_diff": {
+    "BB_TEST_DEVICE": "cpu ->cuda:0",
+    "CUDA_VISIBLE_DEVICES": "empty ->0,1,2",
+    "cpus": "8 unchanged",
+    "fixture_ids": "20 CPU IDs ->20 GPU IDs:13 shared+CUDA golden+6 E1; the CPU golden is not selected.",
+    "inputs": "Small retained E1 JSON ->unchanged train/corrected210-history1234/early-history1234 registry, with allocated SHA verification before model restore.",
+    "max_su": "1 ->2",
+    "model_phase": "No historical CPU model restore ->84 declared pilot arms across12 cases plus12 E1 arms under the unchanged historical source guard.",
+    "partition": "development -> gpu-a100-dev",
+    "reference": "Frozen CPU driver6ed/batchb052 orchestration only. Scientific comparisons follow the exact Researcher method86614.",
+    "scientific_negative_handling": "Evidence-complete UNSUPPORTED/FALSIFIED pilot outcomes may finish normally with the full denominator and timing unreleased. Invalid execution exceptions stop further model stages.",
+    "timing": "Not called or released by this driver. Later timing requires independent actual acceptance and the full positive gate.",
+    "wall_time": "01:00:00 ->00:40:00"
+  },
+  "contract_source_sha256": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/opguard_baseline/run_arm.py": "2dd23c6fd61845d1bbd14f2c2c4e361c6dc37ce8fb52771371f671d1b797859d",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/e1_replay.py": "61b3da6ed65290cb023052861e494689807cad35bd07f46c729bdf91060095f4",
+    "experiments/bb_20261108/gpu_job.py": "49d7af793eb7f8d76d26054ee07d33cd13ea4c2269de7871c91d4958f16a316b",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector-gpu-dev.sbatch": "8201725c4ca9a3be0c38953ea0680293b88a2d94c167853a46722981557546cb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/selector_integration.py": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a"
+  },
+  "created_at_utc": "2026-11-08T07:15:23.657777+00:00",
+  "cuda_qualification": false,
+  "e1_component_source_correction": {
+    "actual_numerical_acceptance": false,
+    "corrected_adapter_sha256": "61b3da6ed65290cb023052861e494689807cad35bd07f46c729bdf91060095f4",
+    "corrected_component_review": "artifacts/revision3/bb-20261108/reviews/e1-replay-component-precheck-final.json",
+    "corrected_review_sha256": "4fa27c3052eedfe7b7247d7c9faecf64c96a179435911efbe67573880ef41bfb",
+    "corrected_verdict": "ACCEPT_SOURCE_ONLY",
+    "findings": "Post-callback live gradient parity, explicit intervention realization/census and immediate raw execution/probe retention were missing.",
+    "initial_adapter_sha256": "bd736a8c836592e315cb4c0a0d0cc34d5b039a18df7dce806ddd55c8c7b39fce",
+    "initial_component_review": "artifacts/revision3/bb-20261108/reviews/e1-replay-component-precheck.json",
+    "initial_review_sha256": "dd4a2916772755d7329535115dda8c599760f13f9b6557d61fd4bf78ae02e9ca",
+    "initial_verdict": "MODIFY"
+  },
+  "estimated_runtime": "Unmeasured. Hard cap40 minutes/max2 SU; bootstrap preserves1260 seconds for fresh>=1200-second admission including600 seconds for retention. Native compile, fixture and model costs require allocated evidence.",
+  "experiment_id": "BB-DEMAND-GPU-PILOT-20261108-v1",
+  "files_changed": {
+    "experiments/bb_20261108/gpu_job.py": "Standard-library top imports; CPU wrapper patterns adapted for CUDA qualification,20 GPU/E1 fixtures,3 allocated opaque input digests, historical model guard, registered pilot/E1 protocol and partial/durable custody.",
+    "experiments/bb_20261108/implementation-report-gpu.json": "This draft handoff and reproducible static checks; deliberately excluded from contract source pins.",
+    "experiments/bb_20261108/selector-gpu-dev-contract.json": "Final source candidate with draft=false, full method86614,14 current source pins,20 GPU fixtures and3 registered inputs. Six exact ACTUAL review bindings include CPU3565408/6ba690bc; independent GPU source and execution release remain required.",
+    "experiments/bb_20261108/selector-gpu-dev.sbatch": "Exclusive A100 DEV40 minutes/8 CPUs/max2 SU, visibility0,1,2, separate selector source/output controls, fresh private58-package copy then GPU driver."
+  },
+  "goal": "Finalize the bounded GPU pilot and independent E1 probe candidate after actual CPU-only qualification; obtain the exact GPU source precheck before any execution release.",
+  "how_to_run": "Not released. Actual CPU-only qualification is accepted. Root must obtain the exact final GPU source precheck, authenticate all ACTUAL evidence, freeze/push isolated source and create a separate execution release before using the once-only dispatcher. The allocated batch runs copy_runtime.py --study selector, then /tmp/aci-bb-copy-$SLURM_JOB_ID/env/bin/python -B gpu_job.py. Never invoke this driver locally or on a login node.",
+  "how_to_verify_baseline_preserved": "Static checks preserve all4 frozen CPU files, the BA226-file historical registry, registered inputs and58-package lock. Actual GPU fixtures and pilot/E1 state/gradient/RNG/native-execution/injection parity own the runtime proof.",
+  "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "implementation_summary": [
+    "Fresh physical admission, exact private-copy runtime qualification, six fixed ACTUAL review hash/scope/job/verdict bindings,226 historical source hashes and3 allocated input digests precede the numerical token and Torch imports. The actual CPU review is now bound; the shared admission gate still requires an independent exact GPU precheck and separate source-bound execution release.",
+    "Verify imported Torch/NumPy versions, exactly3 visible A100 sm80 devices, absence of foreign GPU compute processes and exact historical fingerprint module paths. Preserve hardware, driver, runtime and process evidence.",
+    "Run exactly20 ordered GPU/E1 tests and reject failures, errors, skips, expected failures, unexpected successes or incomplete execution before any historical model work. Preserve IDs, tracebacks and partial fixture records.",
+    "After the native golden passes, preload the kernel and verify sm80 plus the header-expanded source SHA c097f07e. Save a new job/c9d historical revision/actual contract SHA model-work receipt, set the two ACI release variables and call the unchanged historical source_allocation_guard before restore.",
+    "Call run_pilot(out/selector-study,contract) without precreating the directory. Require complete evidence and the12-case/84-declared-arm census, including explicit unsupported/not-run arms. Positive hypotheses and timing eligibility are not forced.",
+    "An evidence-complete scientific negative may proceed to the independent E1 readout. Recheck the historical guard/cutoff, call run_e1_probes(out/e1-probes,contract), and require12 arms/6 exact noninterference pairs plus unchanged clipping and original638-call/26-flag criteria. Invalid source/runtime/parity/injection/native-execution errors fail fast.",
+    "Retain exact source/control/historical-source archives, allocated input proofs, runtime/grant/fixture/stage records and partial errors under the2 GB/live-quota/600-second reserve. Admission failure permits only fixed-namespace failure custody after fresh owned descriptor/node/actual-batch checks; it never opens numerical work.",
+    "No run_timing call or statistical estimator was added. The separate integration API remains available for later reviewed releases; third-job aggregation remains outside this pilot."
+  ],
+  "independent_gpu_source_review": "Pending exact full-package seal against this final contract/report. Component source reviews and actual CPU qualification do not release GPU execution.",
+  "integration_source_consolidation": {
+    "all_previous_source_bytes_preserved": true,
+    "archive_manifest_sha256": "9bceb4c6fefe5ecc257b65292b08a8092acaa9aca9b0985d944c0758b394685a",
+    "archive_members": 16,
+    "changes": [
+      "Complete recipe-parameterized pilot4/timing32 microbatch family/outside census",
+      "Save computed parity/protection comparisons before assertions can fail",
+      "Explicit source/runtime/registry/graph envelope and per-use validation, excluding state payload hashes and incidental identity",
+      "Full profiling-call/export cost separate from timed-step cost; later timing reports128 timed updates plus1 production profile update=129 total"
+    ],
+    "component_acceptance": "PENDING final source review; no allocated GPU qualification",
+    "core_report_path": "experiments/bb_20261108/implementation-report-selector.json",
+    "core_report_sha256": "bc83be5a55b7edf27f7e1acd80390353557062266269e948290900b16fdc5e45",
+    "driver_batch_and_cpu_package_changed": false,
+    "exact_previous_package_archive": "artifacts/revision3/bb-20261108/history/gpu-draft-4969e7ac/",
+    "new_integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "no_new_contract_fields_or_pilot_cases": true,
+    "previous_contract_sha256": "4969e7ac4f0a9599440c488c790ee10344ffc5689754b45b88fc078ae1aa883f",
+    "previous_integration_sha256": "bf0d29349c449d43d8995b5a9c0eb22a034e5fb9ce4de7bbdccbf7f5a668d2b2",
+    "previous_report_sha256": "ced32daf954a51c41461faa78d9740f192633706e9c0419f10b70250b4e1f584",
+    "reconstructed_bytes": false
+  },
+  "not_performed": [
+    "No scientific module import, numerical execution, environment installation, native compile, opaque checkpoint read/hash/unpickle, remote/auth/push or dispatch occurred locally.",
+    "This GPU task did not modify scientific cores, fixtures, the root E1 adapter, frozen CPU package, BA artifacts, README/log or UI.",
+    "No new cases, adaptive sites, estimator, timing job or compute allowance were introduced."
+  ],
+  "parameter_count": "The method declares zero added trainable parameters. No model was instantiated or counted locally; the actual pilot returns its parameter count.",
+  "parent_method_id": "BB-DEMAND-20261108-v1",
+  "run_status": "NOT_RUN_PENDING_FINAL_GPU_SOURCE_PRECHECK_AND_EXECUTION_RELEASE",
+  "sanity_checks_passed": {
+    "bash": "bash -n experiments/bb_20261108/selector-gpu-dev.sbatch ->exit0",
+    "reproduce": "Save sanity_checks_passed.reproducible_static_source to a temporary Python file and run python3 TEMP.py from the repository root. It only parses source and hashes/metadata; every current source pin must match.",
+    "reproducible_static_source": "import ast\nimport hashlib\nimport json\nimport re\nimport shlex\nfrom pathlib import Path\n\nrepo=Path.cwd(); bb=repo/'experiments/bb_20261108'\nsha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\nc=json.loads((bb/'selector-gpu-dev-contract.json').read_text())\nchecks=[]; drift={}\nfor name,pin in c['files'].items():\n    actual=sha(repo/name)\n    if actual!=pin: drift[name]={'pinned':pin,'current':actual}\nassert not drift\nassert len(c['files'])==14 and not any('implementation-report' in k or k.endswith('selector-gpu-dev-contract.json') for k in c['files'])\nchecks.append('All fourteen current source pins match; no self-referential pins')\nplan=json.loads((bb/'method-plan.json').read_text())\nassert c['method_plan']==plan and c['fixture_ids']==plan['gpu_fixture_ids']\nassert len(c['fixture_ids'])==len(set(c['fixture_ids']))==20\nfor module in ('test_selector_allocated','test_e1_allocated'):\n    tree=ast.parse((bb/(module+'.py')).read_text())\n    classes={x.name:{y.name for y in x.body if isinstance(y,ast.FunctionDef)} for x in tree.body if isinstance(x,ast.ClassDef)}\n    for name in c['fixture_ids']:\n        m,k,f=name.split('.')\n        if m==module: assert f in classes[k]\nassert any('test_full_cuda_blake3' in n for n in c['fixture_ids'])\nassert not any('test_cpu_blake3_matches_canonical' in n for n in c['fixture_ids'])\nchecks.append('Twenty CUDA/E1 fixture IDs match frozen method/source methods, with CUDAgolden replacing CPUgolden')\ntree=ast.parse((bb/'gpu_job.py').read_text()); main=next(x for x in tree.body if isinstance(x,ast.FunctionDef) and x.name=='main')\nimports={a.name for x in tree.body if isinstance(x,ast.Import) for a in x.names}\nassert imports<= {'hashlib','importlib','importlib.util','json','os','signal','socket','sys','tarfile','traceback','unittest'}\nassert {x.module for x in tree.body if isinstance(x,ast.ImportFrom)}=={'pathlib'}\nlines=lambda name:sorted(x.lineno for x in ast.walk(main) if isinstance(x,ast.Call) and ast.unparse(x.func)==name)\ntoken=next(x.lineno for x in ast.walk(main) if isinstance(x,ast.Assign) and any(isinstance(t,ast.Subscript) and ast.unparse(t)==\"os.environ['BB_NUMERICAL_ADMISSION']\" for t in x.targets))\ntorchline=min(x.lineno for x in ast.walk(main) if isinstance(x,ast.Import) and any(a.name=='torch' for a in x.names))\nassert lines('common.admit')[0]<lines('runtime.qualify')[0]<lines('verify_prerequisites')[0]<lines('verify_inputs')[0]<token<torchline\nassert lines('run_fixtures')[0]<lines('native.preload_cuda_fingerprint')[0]<lines('completion.source_allocation_guard')[0]<lines('run_pilot')[0]<lines('completion.source_allocation_guard')[1]<lines('run_e1_probes')[0]\nassert not lines('run_timing')\nchecks.append('Stdlib-only top imports; fresh admission/runtime/reviews/inputsha precede Torch; exactfixtures/nativekernel/oldguard precede pilot thenE1; no timing call')\ntext=(bb/'selector-gpu-dev.sbatch').read_text(); directives=dict(re.findall(r'^#SBATCH --([^=\\s]+)=(.*)$',text,re.M))\nfor k,v in {'job-name':'vg-bb-selector-gpu-dev','account':'CCR26063','partition':'gpu-a100-dev','nodes':'1','ntasks':'1','cpus-per-task':'8','time':'00:40:00','signal':'B:USR1@600'}.items(): assert directives[k]==v\nassert '#SBATCH --exclusive\\n' in text and '#SBATCH --no-requeue\\n' in text\nexports={}\nfor line in text.splitlines():\n    if line.startswith('export '):\n        for item in shlex.split(line[7:]):\n            k,v=item.split('=',1);exports[k]=v\nassert all(exports[k]==v for k,v in c['runtime_environment'].items())\nassert exports['CUDA_VISIBLE_DEVICES']=='0,1,2' and exports['BB_TEST_DEVICE']=='cuda:0'\nassert '--study selector' in text and '/tmp/aci-bb-copy-$SLURM_JOB_ID/env/bin/python' in text\nchecks.append('GPUbatch matches40min/8CPU/2SU contract, exclusive/no-requeue,9sealedkeys and exact3GPU RNG visibility')\nold=json.loads((repo/'experiments/ba_20261107/provenance-copy40-dev-contract.json').read_text())\nassert c['historical_contract']==old['historical_contract'] and len(c['historical_contract']['source_files'])==226\nregistry=json.loads((repo/'experiments/ba_20261107/closeout/configs/inputs.json').read_text())\nexpected=[item for item in registry if item['role'] in ('train','corrected210-history1234','early-history1234')]\nassert c['inputs']==expected and len(expected)==3\nsource=repo/'artifacts/revision2/session-20261025-completion/source/src/ac_integrity/capture/csrc'\nassembled=(source/'fingerprint_cuda.cu').read_bytes().replace(b'#include \"blake3_core.h\"',(source/'blake3_core.h').read_bytes())\nassert hashlib.sha256(assembled).hexdigest()==c['expected_native_extension_source_sha256']\nchecks.append('Unchanged226 historical registry and3 opaque input records; byte-only loader expansion reproduces pinned nativekernel SHA')\nkey='ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED'\nassert c['draft'] is False and c['required_review_job_ids'][key]=='3565408' and c['required_review_sha256'][key]=='6ba690bc89079ce97459277754e4da7eea0428b5b64d3c9a2f2daf1f295aed4c' and c['required_review_scopes'][key]=='ACTUAL_BB_CPU_20_FIXTURE_RUNTIME_AND_CUSTODY_REVIEW'\nassert c['required_review_verdicts'][key]=='PROMOTE'\nassert len(c['required_review_verdicts'])==6\nfor name,path in c['actual_review_evidence_paths'].items():\n    p=repo/path; d=json.loads(p.read_text())\n    assert sha(p)==c['required_review_sha256'][name]\n    assert d['job_id']==c['required_review_job_ids'][name] and d['scope']==c['required_review_scopes'][name] and d['verdict']==c['required_review_verdicts'][name]\nchecks.append('Allsix real ACTUAL review hashes/IDs/scopes/verdicts bind; CPU3565408 qualifiesCPUonly; finalGPUsourceprecheck/release stillrequired')\nfor name in ('cpu_job.py','e1-cpu-dev.sbatch','e1-cpu-dev-contract.json','implementation-report-cpu.json'):\n    expected={'cpu_job.py':'6ed195915c5b8422be21410d0552f86bddfc6039593034f4d302322791160182','e1-cpu-dev.sbatch':'b0526ca2264ef2aeddc791ae21ea4ab31647b1fdba5d661b8111c60e8a245b6c','e1-cpu-dev-contract.json':'387bb64ac20c70e77c9b81a8445c1961d4768ea383b9dcdd0c7bc85a3319c0e3','implementation-report-cpu.json':'65430c93f294a597a59c914b705f6d1d300550a89c399b5400cb691f5fd7f30e'}[name]\n    assert sha(bb/name)==expected\nchecks.append('Allfour independentlyprechecked CPUfiles remain frozen')\nresult={'status':'PASS_FINAL_STATIC_PENDING_GPU_SOURCE_PRECHECK_AND_RELEASE','checks':checks,'source_drift_pending_root':drift,'remote_calls':0,'scientific_imports':False,'numerical_execution':False,'allocated_tests_run':False,'releasable':False,'contract_sha256':sha(bb/'selector-gpu-dev-contract.json')}\nPath('/tmp/bb-gpu-static-validation.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps(result,indent=2))\n",
+    "ruff": "ruff check experiments/bb_20261108/gpu_job.py ->All checks passed.",
+    "static": {
+      "allocated_tests_run": false,
+      "checks": [
+        "All fourteen current source pins match; no self-referential pins",
+        "Twenty CUDA/E1 fixture IDs match frozen method/source methods, with CUDAgolden replacing CPUgolden",
+        "Stdlib-only top imports; fresh admission/runtime/reviews/inputsha precede Torch; exactfixtures/nativekernel/oldguard precede pilot thenE1; no timing call",
+        "GPUbatch matches40min/8CPU/2SU contract, exclusive/no-requeue,9sealedkeys and exact3GPU RNG visibility",
+        "Unchanged226 historical registry and3 opaque input records; byte-only loader expansion reproduces pinned nativekernel SHA",
+        "Allsix real ACTUAL review hashes/IDs/scopes/verdicts bind; CPU3565408 qualifiesCPUonly; finalGPUsourceprecheck/release stillrequired",
+        "Allfour independentlyprechecked CPUfiles remain frozen"
+      ],
+      "contract_sha256": "b38d0a67661d7dce9a1afc405e5476579c6ab60cd6546213a4ba065da6d4bfee",
+      "numerical_execution": false,
+      "releasable": false,
+      "remote_calls": 0,
+      "scientific_imports": false,
+      "source_drift_pending_root": {},
+      "status": "PASS_FINAL_STATIC_PENDING_GPU_SOURCE_PRECHECK_AND_RELEASE"
+    }
+  },
+  "scientific_acceptance": false,
+  "scope": "GPU_DEV_PILOT_SOURCE_CANDIDATE_PENDING_EXACT_PRECHECK_AND_EXECUTION_RELEASE",
+  "source_sha256": {
+    "gpu_job.py": "49d7af793eb7f8d76d26054ee07d33cd13ea4c2269de7871c91d4958f16a316b",
+    "selector-gpu-dev-contract.json": "b38d0a67661d7dce9a1afc405e5476579c6ab60cd6546213a4ba065da6d4bfee",
+    "selector-gpu-dev.sbatch": "8201725c4ca9a3be0c38953ea0680293b88a2d94c167853a46722981557546cb"
+  },
+  "unresolved_gates": [
+    "Independent exact full GPU source/contract precheck and separate source-bound execution release.",
+    "Fresh owned queue/account/quota/resource/budget admission, actual CUDA golden/all20 GPU/E1 fixtures, complete registered pilot/E1 evidence and custody, then independent actual GPU review.",
+    "Exit zero does not release timing or establish a positive hypothesis, novelty, superiority, learning, population coverage or production readiness. No automatic retry."
+  ],
+  "updated_at_utc": "2026-11-08T07:39:42.872706+00:00",
+  "upstream_cpu_actual_qualification": {
+    "accepted_scope": "CPU-only20 ordered fixtures/runtime/custody",
+    "cuda_qualification": false,
+    "job_id": "3565408",
+    "model_efficacy_qualification": false,
+    "path": "artifacts/revision3/bb-20261108/reviews/actual-cpu-review-3565408.json",
+    "scope": "ACTUAL_BB_CPU_20_FIXTURE_RUNTIME_AND_CUSTODY_REVIEW",
+    "sha256": "6ba690bc89079ce97459277754e4da7eea0428b5b64d3c9a2f2daf1f295aed4c",
+    "verdict": "PROMOTE"
+  }
+}
