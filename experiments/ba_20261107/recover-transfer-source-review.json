@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-08T05:09:05.818979+00:00",
+  "reviewer": "/root/closeout_audit",
+  "scope": "SOURCE_ONLY_RECOVERY_HELPER_LOCATION_PROMOTION_PRECHECK",
+  "verdict": "PROMOTE",
+  "scientific_acceptance": false,
+  "source_path": "experiments/ba_20261107/recover_transfer.py",
+  "source_sha256": "a5c190dbc2d037bef099a020734fac9c23812507ae62d50b3e4307a5c7e21b9b",
+  "preserved_original_path": "artifacts/revision3/ba-20261107/recover_transfer.py",
+  "preserved_original_sha256": "3a5c93cde243e823162b3877ad7b9105b666cf149b23c10d1a89adca6ac2d9e3",
+  "collector_sha256": "c1ecabf3dbca11dc692348860d54c07b3ba983e3227b7680f3a85825b7e87148",
+  "prior_source_review_sha256": "1081e904b5fda79bcd520f3e02178bd0a4cb9a5700a7c44a3ad8c6cddf9699a5",
+  "blocking_findings": [],
+  "reviewed_change": "Exactly one line changes REPO parents[3] to parents[2] for the new experiments/ba_20261107 location. Reverse replacement equals the original source bytes exactly; both static __file__ paths resolve to the same repository root. All argument/account/receipt/reuse/SFTP/fullhash/failure/archive gates remain identical.",
+  "validation": "Original/new source hashes verified, exact reverse-one-line byte comparison and root-path equality checked; AST parses. No main, network, transfer or numerical execution.",
+  "actual_vs_precheck": "Actual matrix recovery used preserved original3a5c93cd; promoteda5c190db has not been executed by this review. This artifact does not add or change a scientific result."
+}
