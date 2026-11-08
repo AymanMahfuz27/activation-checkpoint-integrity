@@ -1,0 +1,176 @@
+{
+  "api": {
+    "counting": "n3jobs,df2;384timed-arm updates +3profile updates =387total acrossall3jobs. Inner blocks/updates are not additional independent observations.",
+    "current_attestation": "CURRENT_COMPLETE_PENDING_REVIEW; matching currentjob_id; exactrawresultSHA; custody_sha256=null and review_sha256=null.",
+    "evidence_attestation_exact_keys": [
+      "status",
+      "job_id",
+      "result_sha256",
+      "custody_sha256",
+      "review_sha256"
+    ],
+    "existing_method_binding_domain_guidance": "Parent should hash the canonical allowed_model_graph separately, and normalized admitted runtime/historical source/native-source/registry/schema identity separately. Exclude incidental executioncommit/jobcontractindex/timestamps/payloadweights; parent actual controls must bind those projections to the hashed results.",
+    "job_id": "ASCII decimal string, nonzero, distinct across all3; index2 equals current SLURM_JOB_ID.",
+    "method_binding_exact_keys": [
+      "method_plan_sha256",
+      "selector_core_sha256",
+      "selector_integration_sha256",
+      "requirements_lock_sha256",
+      "model_graph_sha256",
+      "runtime_sha256",
+      "production_recipe"
+    ],
+    "method_binding_values": "Six lowercase64hexSHA256s and the exact method production_recipe; all3 maps must match and methodSHA equals86614b2a.",
+    "output_primary_fields": [
+      "mean_log_ratio",
+      "sample_variance_log_ratio",
+      "standard_error_log_ratio",
+      "student_t_critical_95_df2",
+      "log_interval_95",
+      "geometric_mean_ratio",
+      "ratio_interval_95",
+      "direction",
+      "elapsed_change_percent",
+      "elapsed_change_percent_interval_95",
+      "time_saving_percent",
+      "time_saving_percent_interval_95"
+    ],
+    "output_status": "COMPLETE_PENDING_INDEPENDENT_REVIEW; execution_complete=true; scientific_acceptance=false; current_job_actual_review_complete=false.",
+    "prior_attestation": "ACTUAL_PROMOTED; matchingjob_id; valid rawresultSHA, custodySHA and reviewSHA. Parent verifies the controls and method binding contents.",
+    "records": "List of exactly3 ordered wrapper dictionaries, corresponding to result indices0,1,2. Raw result payloads stay separate.",
+    "result_path": "Exact regular nonsymlink ROOT/artifacts/JOB/bb-selector/timing-study.json,0<size<=4194304bytes.",
+    "signature": "aggregate_timing(records, method_plan, method_plan_sha256) -> JSON-serializable dict; raises TimingAggregationError or underlying fatal input error on invalidity.",
+    "wrapper_exact_keys": [
+      "job_id",
+      "result_path",
+      "method_binding",
+      "evidence_attestation"
+    ]
+  },
+  "baseline_config_reference": "Frozen method86614b2a timing_protocol and run_timing result schema in selector_integration.py71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d.",
+  "config_diff": {
+    "dependencies": {
+      "baseline": "Existing locked environment",
+      "new": "No new dependencies; stdlib only plus existing E1 admission helper"
+    },
+    "pilot_workflow": {
+      "baseline": "Unchanged",
+      "new": "Unchanged; no reducer pin or call added"
+    },
+    "primary_estimator": {
+      "baseline": "Frozen direct consumer/full-I/O log-ratio estimator",
+      "new": "Same estimator; implemented conditional reducer only"
+    },
+    "result_inputs": {
+      "baseline": "Three separately retained timing-job results",
+      "new": "Read-only exact raw files with separately authenticated parent attestations; no rewritten result payloads"
+    }
+  },
+  "estimated_runtime": {
+    "bound": "At most12MiB raw result input, exactly3jobs/24pairs; no training or model load.",
+    "measured": false,
+    "seconds": null
+  },
+  "estimator_static_proof": {
+    "amortization": "mean(C0,C1,C2)/mean(saved_seconds_per_update_j), onlyifpooledsavings>0. All3jobs remain; no clipping negative jobs.",
+    "between_jobs": "mean=(x0+x1+x2)/3; s2=sum((xj-mean)^2)/2; SE=sqrt(s2/3).",
+    "critical_value": "For df2,F(t)=1/2+t/(2sqrt(t^2+2)). SettingF(t)=0.975 gives t=sqrt(2)*0.95/sqrt(1-0.95^2); computation and inverse-CDF consistency check occur only after allocation guard.",
+    "interval": "exp(mean +/- t*SE). Upper<1 means FASTER; lower>1 means SLOWER; otherwise INCONCLUSIVE.",
+    "percent_views": "Elapsedchange=100*(ratio-1), orderedCI same transform. Timesaving=100*(1-ratio), CI=[100*(1-upper),100*(1-lower)]. Same primary endpoint.",
+    "within_job": "x_j=(log(T_consumer,j,0/T_fullIO,j,0)+log(T_consumer,j,1/T_fullIO,j,1))/2, where eachT is the six measured update sum."
+  },
+  "experiment_id": "BB-DEMAND-20261108-v1",
+  "files_changed": {
+    "aggregate_timing.py": "New standard-library reducer: fresh admission guard, exact raw result bytes, complete three-job/schedule/custody declarations, direct matched-block estimator, df2 interval and same-endpoint presentation transforms.",
+    "implementation-report-analysis.json": "API/evidence schema, exact estimator, static checks, planned allocated qualification and limitations."
+  },
+  "goal": "Implement the already-frozen direct three-job timing estimator and conditional full-profile point amortization, for the future allocated third timing job only.",
+  "how_to_run": "Inside the future freshly admitted third timing job only, after writing/fsyncing timing-study.json and separately authenticated analysis-input-bindings.json: aggregate_timing(bindings[\"records\"], contract[\"method_plan\"], contract[\"method_plan_sha256\"]). Parent writes returned analysis separately; do not add to pilot.",
+  "how_to_verify_baseline_preserved": "Review this task diff: only the new reducer/report are owned. Reducer opens evidence read-only and contains no model code, scheduler actions, dispatch, source mutation or pilot calls.",
+  "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "implementation_summary": [
+    "Public aggregate_timing(records,method_plan,method_plan_sha256) first calls existing e1_diagnostics._allocated_only. No I/O or numerical analysis occurs at module import; no Torch/NumPy/SciPy imports exist.",
+    "Requires exactly three ordered wrappers for indices0/1/2, three distinct ASCII decimal job IDs and one complete raw TIMING payload per job. Index2 must be the current freshly admitted Slurm job.",
+    "Reads only exact /scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/JOB/bb-selector/timing-study.json, rejects symlinks/nonregular files and reads at most4MiB. Checks descriptor stability and exact raw-byte SHA before strictUTF8 JSON parsing; duplicate keys and exceptional numeric constants are rejected.",
+    "Prior indices0/1 require ACTUAL_PROMOTED attestations with result/custody/review SHA256s. Current index2 requires CURRENT_COMPLETE_PENDING_REVIEW and explicit null custody/review fields. The parent authenticates actual review/custody contents and the linkage to numerical method bindings; this reducer does not claim to perform that external authentication.",
+    "All jobs require the same exact six-field SHA method binding plus production recipe. Frozen raw methodSHA is separate from an additional canonical method-content check; result SHA always refers to the exact raw file, never a normalized or self-referential serialization.",
+    "Validates complete source schema,128timed+1profile129updates/job, exact8frozen policy/block records and order, two positive finite warmups/six positive finite measured updates per arm, actual full-state/gradient/RNG parity and qualified nonempty native counters. Every measured sum and recorded secondary/direct ratio/log/job mean is checked against recomputation.",
+    "Recomputes primary block ratios only from selected_consumer and full_forward_io measured elapsed totals, without disabled normalization. Averages two log ratios within each job, then gives exactly three job means equal weight.",
+    "Uses sample variance divisor2, standard error sqrt(variance/3), analytic Student-t95 df2 inverse and exponentiated log interval. The analytic CDF is checked numerically only when the guarded reducer eventually runs.",
+    "Returns ratio point/interval/direction and monotone elapsed-change/time-saving percentage views of that same endpoint. The saving interval reverses the ratio bounds correctly.",
+    "Conditional point amortization divides the mean full measured profile admission cost by the equal-job mean seconds saved per update, including all negative-saving jobs. The whole profile is charged to selected_consumer alone. The point is absent without positive pooled savings, and no cost-win is supported by an inconclusive primary interval.",
+    "No data files are modified or written; the future driver must first persist raw timing-study.json and separate analysis-input-bindings.json, then call the reducer and persist timing-pooled-analysis.json. Any invalid input fails the entire reduction; there is no subset, replacement or complete-case interval."
+  ],
+  "method_content_sha256": "8f6fb9ecc5616e680b4dc36f1666d162777be9704e02b2f673a70f43148b9f70",
+  "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+  "parameter_count": {
+    "delta": 0,
+    "status": "N/A - read-only analysis, no model parameters loaded or changed"
+  },
+  "potential_risks_or_caveats": [
+    "Parent-authenticated attestations are a required trust boundary; the reducer does not inspect or cryptographically sign review/custody control contents.",
+    "Exactly3independentjobs anddf2 require strong normality/independence assumptions. The interval is not a simultaneous family guarantee or a model/history population claim.",
+    "Python binary64 arithmetic is finite; overflow, underflow tozero or nonfinite fields fail closed. Recorded/recomputed quantities use relative andabsolute tolerance1e-12.",
+    "Point amortization is conditional and is not a confidence bound. An inconclusive primaryCI grants no cost-win.",
+    "The current job is unreviewed at reduction time. The final analysis remains pending independent actual review and custody.",
+    "No local numeric tests, Torch/NumPy imports, source result invention, model runs, remote operations or pilot-contract changes were performed."
+  ],
+  "preflight": {
+    "allocated_smoke_passed": false,
+    "baseline_preserved": "No CPU/GPU/pilot/integration source changed by this task.",
+    "no_new_hypothesis": true,
+    "parameter_constraint": "N/A",
+    "proposal_reread": true,
+    "ready_for_execution_claim": false,
+    "reason": "Only source/AST/Ruff work authorized locally. Numerical qualification is deferred to the conditional allocated third timing job."
+  },
+  "run_status": "NOT_RUN; NO_NUMERICAL_EXECUTION",
+  "sanity_checks_passed": [
+    {
+      "check": "AST parse",
+      "result": "PASS",
+      "scope": "New reducer source parsed, not imported/executed."
+    },
+    {
+      "check": "Ruff",
+      "result": "PASS",
+      "scope": "New reducer only."
+    },
+    {
+      "check": "Admission order static inspection",
+      "result": "PASS",
+      "scope": "First publicAPI executable call is existing_allocated_only before file/statistical work."
+    },
+    {
+      "check": "Imports static inspection",
+      "result": "PASS",
+      "scope": [
+        "import hashlib",
+        "import json",
+        "import math",
+        "import os",
+        "from pathlib import Path",
+        "import re",
+        "import stat"
+      ]
+    },
+    {
+      "check": "Frozen estimator/source-schema crosswalk",
+      "result": "PASS_SOURCE_ONLY",
+      "scope": "Read actual71cd run_timing return schema and exact86614 timing_protocol; no measured results invented or consumed."
+    }
+  ],
+  "sanity_checks_pending": [
+    "Independent reducer source review before any use.",
+    "Future admitted third timing job: execute built-in analytic df2 critical-value/CDF consistency check and reduce all3 authentic raw results.",
+    "Minimal allocated negative qualification using existing real wrapper metadata: missingjob, duplicatejob, wrongrawSHA, mismatchedbinding and falselypromotedcurrent attestation must fail without an interval. No source result files may be changed; parent retains each expected-negative outcome separately.",
+    "Independent actual review of third-job results, exact parent attestations/custody, pooled estimator and conditional amortization before scientific acceptance."
+  ],
+  "scientific_acceptance": false,
+  "source_files": {
+    "aggregate_timing.py": {
+      "bytes": 23541,
+      "sha256": "36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c"
+    }
+  }
+}

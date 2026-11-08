@@ -1,0 +1,210 @@
+{
+  "review_id": "BB-TIMING-INDEX0-FINAL-SOURCE-EE8482AF",
+  "created_utc": "2026-11-08T08:58:55.406498+00:00",
+  "reviewer": {
+    "agent": "/root/closeout_audit",
+    "role": "independent experiment analyst",
+    "authored_candidate": false
+  },
+  "scope": "PRECHECK_ONLY_BB_TIMING_DEV_SOURCE_AND_CONTRACT",
+  "verdict": "PROMOTE",
+  "timing_job_index": 0,
+  "contract_sha256": "ee8482af7d3ba55c3023b070f29413891fa6915e733d01d0ba804da9c6be612a",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/aggregate_timing.py": "36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/selector_integration.py": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a",
+    "experiments/bb_20261108/timing-dev.sbatch": "4dbe767b2f64607d6369755e969926de9626499666dcbe77839216699ad7e95c",
+    "experiments/bb_20261108/timing_job.py": "e19f83fba10ff4f167c11e5d0e48b181bb93ee59f64d7554c73ac83c0a4ab44f"
+  },
+  "controls": {
+    "experiments/bb_20261108/timing-0-dev-contract.json": "ee8482af7d3ba55c3023b070f29413891fa6915e733d01d0ba804da9c6be612a",
+    "experiments/bb_20261108/timing-dev-contract-template.json": "8ffa70072a496f998bee413d6ae4762241fad53966e74a10c1881528bbf3df4c",
+    "experiments/bb_20261108/implementation-report-timing.json": "aabf807cc6542244a4334a7aa397edcf5d15095fce4f4c81785b2f51343d9a64",
+    "artifacts/revision3/bb-20261108/reviews/timing-source-precheck-initial-6fe7d915.json": "3b49454d26c1a48098593ec4dbcfac4461b3c00f2dd374841e374e70f6ce403b",
+    "artifacts/revision3/bb-20261108/reviews/timing-reducer-source-precheck.json": "40b452038326d5ac6dfc57405f946bc33acb7fbc5660201a292234a1cb8a448b",
+    "artifacts/revision3/bb-20261108/reviews/actual-pilot-review-3565466.json": "39c3d0132150a396a8ed8ae1813622a1939b73696f02aa687bd0ceec1c317f87",
+    "artifacts/revision3/bb-20261108/history/timing-initial-6fe7d915/manifest.json": "7102f522d22f9c489405b0f8bee72046b00c76ed966ec5c7d6eb083b31862a11"
+  },
+  "scientific_acceptance": false,
+  "empirical_timing_acceptance": false,
+  "allocated_timing_qualification": false,
+  "execution_release": false,
+  "automatic_release": false,
+  "exact_contract_scope": "Only materialized timing-0-dev-contract.json. Full common source branches0/1/2 are reviewed conditionally; later indexed contracts/releases and their future actual bindings need separate seals. The template remains invalid/draft and grants no future execution.",
+  "experiment_id": "BB-DEMAND-TIMING-20261108-v1",
+  "hypothesis_tested": "No empirical hypothesis is tested in source review. The future frozen experiment tests direct selected-consumer/full-forward-I/O elapsed time with exact execution parity, while charging measured profile admission cost.",
+  "headline_result": "Corrected timing0 harness and all13 common source pins match the frozen production protocol; registered control index is preserved and the third-job reducer/custody paths remain conditional.",
+  "baseline_integrity": {
+    "status": "CONFIRMED_SOURCE_ONLY",
+    "method_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "reducer_sha256": "36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c",
+    "source_comparison": "Full initial driver/batch/template/report read, full corrected driver diff inspected, exact materialized contract and refreshed report inspected. Core9550/tests98a1/integration71cd/reducer36a/runtime52b and historical226registry remain unchanged; no estimator or model-code change."
+  },
+  "validity_assessment": {
+    "source": "PASS",
+    "allocated_timing_API_or_completion": "UNMEASURED",
+    "effect_direction_or_cost_gain": "UNMEASURED",
+    "no_result_promotion": "Passing source and prior pilot controls cannot establish timing validity, effect or significance."
+  },
+  "resolved_findings": [
+    {
+      "id": "TIMING-CONTROL-INDEX-SHADOWED",
+      "initial_source_sha256": "6fe7d915ad112664a89179e81ad975abc4a630da6e817aaf476fa5860c556cd2",
+      "initial_review_sha256": "3b49454d26c1a48098593ec4dbcfac4461b3c00f2dd374841e374e70f6ce403b",
+      "initial_verdict": "MODIFY",
+      "original_mechanism": "CUDA device loop overwrote registered timing index with2, corrupting timing0/1 validation, branch/metadata and durable campaign selection.",
+      "corrected_source_sha256": "e19f83fba10ff4f167c11e5d0e48b181bb93ee59f64d7554c73ac83c0a4ab44f",
+      "minimal_correction": "Only three CUDA-loop references renamed from index to device_index. Registered main index remains derived once from checkout.",
+      "independent_validation": "Exact diff against preserved initial source; AST finds exactly one index store in main, from checkout_index, and a separate device_index loop. All consumers retain the actual registered index.",
+      "status": "RESOLVED"
+    }
+  ],
+  "index_and_resource_scope": {
+    "checkout_authority": "Exact remote root/slurm/bb-20261108/timing-[012]-dev-source namespaces only, derived from resolved executing source path; materialized contract path and typed index must match.",
+    "index0_controls": {
+      "campaign_id": "bb-20261108-timing-0-dev-v1",
+      "source_checkout_name": "timing-0-dev-source",
+      "control_directory_name": "timing-0-dev-control",
+      "draft": false,
+      "template": false
+    },
+    "resource": "One exclusive gpu-a100-dev node/one task/8CPUs,40min,max2SU,no-requeue,600s retention reserve. Bootstrap leaves1260s; fresh postsetup common admission still requires at least1200s.",
+    "phase_budget": "No budget or dispatch authority granted by this review. Operator must reconcile actual queue/account/quota and unchanged9SU portfolio before each once-only release."
+  },
+  "admission_pipeline": [
+    "Batch accepts only three exact indexed contract paths and checks regular contract/raw SHA/draft=false/typed matching index before UV; exports the sealed9environment keys and retains normal four bb-selector outer controls.",
+    "Existing pinned runtime bootstrap performs common source/release/actual grant/batch/storage admission before private copy installation, exact-self queue check and bounded setup cutoff; no environment/cache payload retained.",
+    "Main refuses inherited numerical token, performs fresh common admission, source/config archive and indexed scope verification, then58package private runtime qualification and exact ACTUAL prerequisites.",
+    "Historical226files and execution revision are reverified/archived; only corpus and corrected210 opaque payloads are freshly hashed before model work. Prior timing metadata may validate early but prior timing bytes are never read before current measurements.",
+    "Numerical token is issued only after physical/source/runtime/review/input gates. Imported Torch2.13+cu126/NumPy2.5.2, all3visible A100sm80 devices and native NVIDIA driver570.195.03 must match; other compute processes are refused.",
+    "All20ordered CUDA/E1 fixtures must load/start/finish/pass normally with zero failure/error/skip/expected failure. The historical full native BLAKE3 expanded sourcec097... qualifies before source-bound historical model receipt/guard and production model restore.",
+    "Main invokes only existing run_timing; no run_pilot or E1 model-probe call. Source/harness exceptions retain failure/native/source/fixture/partial measurement/terminal evidence and fixed own-job custody without automatic retry."
+  ],
+  "positive_pilot_prerequisite": {
+    "review_path": "artifacts/revision3/bb-20261108/reviews/actual-pilot-review-3565466.json",
+    "review_sha256": "39c3d0132150a396a8ed8ae1813622a1939b73696f02aa687bd0ceec1c317f87",
+    "job_id": "3565466",
+    "scope": "ACTUAL_BB_SELECTOR_PILOT_E1_AND_CUSTODY_REVIEW",
+    "verdict": "PROMOTE",
+    "actual_review_eligibility_true": true,
+    "raw_projection_sha256": "3b9efbc202ce17fbc1f1a6cd7bc46b600299a058c74ee7f9af8ab9b11ad930c7",
+    "required_typed_raw_projection": {
+      "all_declared_cases_supported": true,
+      "all_detection_expectations_met": true,
+      "arms_declared": 84,
+      "arms_executed": 84,
+      "arms_not_run_unsupported": 0,
+      "cases_declared": 12,
+      "evidence_complete": true,
+      "execution_complete": true,
+      "parameter_count_delta": 0,
+      "scientific_outcome": "EXPECTED_PATTERN",
+      "strict_fingerprint_byte_reduction": true,
+      "supported_cases": 12,
+      "timing_prerequisites_met": true,
+      "unsupported_cases": 0
+    },
+    "projection_validation": "Every14required raw field matched real retained selector result with exact bool/int/string types; a validity PROMOTE alone cannot open timing. The accepted review’s richer17-field evidence vector remains distinct. Parent must authenticate the review/control/raw linkage, then put this exact14field projection in its release attestation.",
+    "independent_negative_checks": "Wrong execution boolean-as-int, count-as-boolean, supported count, unsupported count, byte flag and outcome were each refused by pure metadata gate; no actual authority/Slurm context was simulated.",
+    "all7_ACTUAL_review_hashes_scopes_and_verdicts_authenticated": true,
+    "actual_review_job_ids": {
+      "ACTUAL_BA_CONFIGURED_OFFICIAL_BASELINE_ACCEPTED": "3565254",
+      "ACTUAL_BA_PLACEMENT_CONTROL_ACCEPTED": "3562498",
+      "ACTUAL_BA_PRIMARY_PROVENANCE_ACCEPTED": "3562268",
+      "ACTUAL_BA_RETAINED_CLOSEOUT_REVIEWED": "3561473",
+      "ACTUAL_BA_SIX_CASE_MATRIX_ACCEPTED": "3565105",
+      "ACTUAL_BB_CPU_QUALIFICATION_ACCEPTED": "3565408",
+      "ACTUAL_BB_SELECTOR_PILOT_ACCEPTED": "3565466"
+    }
+  },
+  "production_protocol": {
+    "fresh_plan": "A new clean4x512x32production plan per job, no diagnostic plan reuse. Complete12layer registered architecture/native/backward/outside census must pass.",
+    "updates_per_job": {
+      "timed_arm_updates": 128,
+      "separate_profile_updates": 1,
+      "total": 129
+    },
+    "measurements": "8fixed policy/block pairs; each pair has disabled plus its checked policy, exactly2warmups and6measured updates per arm. Full prestate restored before each arm; new observer/counters/runtime fingerprints per update.",
+    "parity": "Each pair requires exact full final eight-update state/RNG and post-clipping gradient parity. Producer persists pair and parity evidence before assertion. Invalid or unsupported production execution is not a successful timing case.",
+    "timing_endpoint": "Existing71cd step timer includes observer setup/cache-envelope validation, canonical clone/hash, deferred comparisons, decision transfer and device synchronization. Scientific snapshot/artifact serialization after the step remains outside this endpoint.",
+    "profile_cost": "Measured complete profile call/export plus immutable binding setup and census admission, with declared byte/file scope and no free-profile assumption. Not all process/environment setup cost.",
+    "frozen_schedule": "Method86614exact24entries/3job indices;8per job; AB/BA order and cross-job rotations fixed before outcomes. No new scheduling or measurement endpoint."
+  },
+  "raw_result_immutability": {
+    "base": "Unwrapped run_timing dictionary written exactly once to timing-study.json before result validation or binding/analysis derivation;0<size<4194304.",
+    "forbidden_payload_fields": [
+      "job_id",
+      "result_path",
+      "method_binding",
+      "evidence_attestation"
+    ],
+    "sidecars": "timing-method-binding.json and results.json separately identify current raw SHA. Index2 writes analysis-input-bindings/validation/custody/pooled analysis separately; base SHA checked unchanged after reduction.",
+    "retention": "Raw current base survives derived validation/reducer failure and remains source of the exact byte hash."
+  },
+  "comparable_method_binding": {
+    "method": "Exact method/core/integration/lock SHA values and production recipe.",
+    "model_graph": "Canonical allowed_model_graph digest, including config/attention mode/module and parameter metadata; no parameter state bytes.",
+    "runtime": "Canonical full admitted_identity plus qualified NVIDIA driver version. Includes identical13common source map, historical source226/revision, lock/native source/runtime/settings/hardware/registry/native schemas.",
+    "excluded_incidental_controls": "Current BB execution commit, indexed contract/checkouts/control paths, job index/ID, timestamps and model/RNG/optimizer payload states are absent by construction from these comparison projections.",
+    "cross_job_requirement": "Allthreebindings must equal, including source/runtime/hardware/graph; a mismatch invalidates pooling rather than selecting compatible subsets."
+  },
+  "conditional_later_index_branches": {
+    "index1": "Same common source; no prior timing bytes or pooling. May require timing0 ACTUAL validity review; its effect direction is neither read nor gated. Later exact indexed contract/release needs independent review.",
+    "index2_before_measurements": "Exactly both prior ACTUAL validity reviews required, plus two small exact raw-result metadata wrappers/inputs with fixed indices0/1, distinct decimal jobs, paths, byte sizes, raw SHA and review/custody pins. Only metadata validated early.",
+    "index2_after_measurements": "Current raw base and binding written before analysis_records. Persist all3separate wrappers first; compare prior actual review/job/result/custody metadata and same method binding; bounded read-only regular/nonsymlink prior reads check stable fstat and exact raw hash, retain portable copies, then frozen reducer independently rereads authentic original paths.",
+    "current_attestation": "Index2current wrapper CURRENT_COMPLETE_PENDING_REVIEW with actual raw SHA and explicit null review/custody hashes; no invented current actual acceptance.",
+    "reducer": "Exactly3arguments records/method/methodfileSHA and one invocation only on registered index2. Complete three-job direct estimator already source-qualified by40b452; allocated qualification and independent actual review remain required.",
+    "selection_policy": "Earlier validity PROMOTE refers only to source/runtime/parity/completeness/custody. No ratio/significance/direction test controls subsequent jobs; no subset CI, replacement, direction-based stopping or automatic retry."
+  },
+  "failure_custody": {
+    "admitted_failures": "Existing live-quota2GB retention preserves source/config/partial result/native/terminal evidence with600s reserve and source_removed=false.",
+    "pre_admission_failures": "Separate failure-only collector derives campaign from source checkout index, rechecks exact owned RUNNING job/user/account/partition/node/resources and actual scheduler batch bytes, archives only fixed nonsecret source paths as PRESENT_UNQUALIFIED/MISSING; never grants numerical admission.",
+    "signal_boundary": "USR1at600seconds and worker termination/retention handling preserve bounded cutoff evidence; successful retention still requires actual live native checks and durable copy/hash equality."
+  },
+  "independent_validation": {
+    "performed": [
+      "Full driver/template/batch/report review and source-to71cd/36a/86614API crosswalk",
+      "Exact corrected three-reference source diff and single registered-index AST store regression",
+      "13currentpins, all Python source ASTs and bash-n",
+      "Real timing0 indexed scope/input census/contract SHA checks without main or physical admission",
+      "All7actual review hashes/scopes/verdicts and raw14typed pilot eligibility checked against current retained evidence",
+      "Six pure metadata gate negatives refused",
+      "Initial15-file archive exact hashes; no reconstructed bytes",
+      "Retained actual pilot driver570.195.03 corroborates new native driver gate"
+    ],
+    "not_performed": [
+      "No timing/model/Torch/NumPy import or numerical reduction",
+      "No main/physical admission/Slurm environment simulation",
+      "No remote/auth/push/dispatch",
+      "No actual timing0fixture/model/update/retention qualification"
+    ]
+  },
+  "archival_lineage": {
+    "initial_exact_archive": "artifacts/revision3/bb-20261108/history/timing-initial-6fe7d915",
+    "manifest_sha256": "7102f522d22f9c489405b0f8bee72046b00c76ed966ec5c7d6eb083b31862a11",
+    "members": 15,
+    "all_exact": true,
+    "reconstructed_bytes": false,
+    "initial_MODIFY_review_preserved": true
+  },
+  "blocking_findings": [],
+  "limits": [
+    "Source review cannot establish production batch32model/native API execution, walltime fit, numerical parity, CUDA acceptance or durable retention. Each actual job remains independently reviewed.",
+    "Standalone source/runtime checks trust an operator-authenticated release; hash syntax and synthetic metadata alone do not prove actual review contents or custody.",
+    "Only timing0contract is materialized/sealed here; future timing1/2actual review/result/custody/runtime projections are unknown. Conditional branch review grants no future release.",
+    "No speed, profiler amortization, generalized detection, learning benefit or method novelty claim follows from pilot or source evidence."
+  ],
+  "verdict_reasoning": "The only blocking executable defect was the overwritten registered timing index; its minimal correction and regression preserve the entire source-derived namespace. Exact timing0 scope, positive actual pilot gate, source/runtime/input admission, frozen production measurements and honest later pooling/retention boundaries now pass full source review. Actual qualification and independent serial releases remain required.",
+  "suggested_next_action": "Operator may bind this exact review to a fresh source/contract-specific timing0execution release after queue/account/quota/budget admission. Accept or reject actual timing validity without regard to effect direction; later indexed contracts require new seals.",
+  "lesson_for_archivist": "Separate a common conditional timing harness from indexed actual releases; preserving the registered control index is essential for both result validity and custody namespace."
+}

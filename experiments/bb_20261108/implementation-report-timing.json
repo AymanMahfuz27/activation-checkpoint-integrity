@@ -1,0 +1,225 @@
+{
+  "api_and_schemas": {
+    "base_payload": "Only the unmodified returned timing dictionary in timing-study.json; no job_id/result_path/method_binding/evidence_attestation keys added.",
+    "current_wrapper": "Same4keys; status CURRENT_COMPLETE_PENDING_REVIEW, current Slurm job/result SHA, review_sha256:null,custody_sha256:null.",
+    "index2_outputs": [
+      "analysis-input-bindings.json",
+      "analysis-validation-pending.json",
+      "analysis-input-custody.json",
+      "analysis-prior-results/PRIOR_JOB/timing-study.json",
+      "timing-pooled-analysis.json",
+      "analysis-validation-complete.json"
+    ],
+    "index2_prior_input": "role timing-result-0 or timing-result-1; timing_job_index0/1; exact job_id/path/bytes/sha256. Require0<bytes<4194304, no symlink component, stable before/after fstat and full hash.",
+    "index2_prior_wrapper": {
+      "evidence_attestation": {
+        "custody_sha256": "accepted actual custody SHA256",
+        "job_id": "same job",
+        "result_sha256": "exact raw SHA256",
+        "review_sha256": "accepted ACTUAL validity review SHA256",
+        "status": "ACTUAL_PROMOTED"
+      },
+      "job_id": "decimal actual prior job",
+      "method_binding": "exact7-field object above",
+      "result_path": "ROOT/artifacts/JOB/bb-selector/timing-study.json"
+    },
+    "integration_call": "selector_integration.run_timing(new_out_directory, contract)",
+    "method_binding": {
+      "additional_field": "production_recipe",
+      "canonical_JSON": "sort_keys=True,separators=(comma,colon),allow_nan=False,UTF8, matching frozen core",
+      "model_graph_sha256": "SHA256(canonical JSON(production-plan.declared_envelope.allowed_model_graph))",
+      "runtime_sha256": "SHA256(canonical JSON({admitted_identity:full production-plan.declared_envelope.admitted_identity,nvidia_driver_version:qualified native version}))",
+      "sha_fields": [
+        "method_plan_sha256",
+        "selector_core_sha256",
+        "selector_integration_sha256",
+        "requirements_lock_sha256",
+        "model_graph_sha256",
+        "runtime_sha256"
+      ]
+    },
+    "namespace_materialization": "Copy template to timing-i-dev-contract.json; set typed indexi, exact timing-i-dev-source/control and bb-20261108-timing-i-dev-v1 campaign/bootstrap fields. Same driver/batch/13sourcepins for allthree. Populate actual pilot/native driver and per-index review/input controls before fresh exact releases.",
+    "pilot_release_item_extra_field": "timing_eligibility exactly equals required_pilot_timing_eligibility with explicit bool/int/string types",
+    "prior_release_item_extra_fields": [
+      "result_sha256",
+      "custody_sha256"
+    ],
+    "reducer_call": "aggregate_timing.aggregate_timing(records, method_plan, method_plan_sha256) -- exactlyTHREE arguments"
+  },
+  "baseline_config_reference": [
+    "experiments/bb_20261108/gpu_job.py49d7af79 and selector-gpu-dev.sbatch8201725c: unchanged admission/fixture/native/retention pattern",
+    "experiments/bb_20261108/selector_integration.py71cd: existing frozen run_timing protocol",
+    "experiments/bb_20261108/method-plan.json86614: unchanged timing schedule/estimator/production recipe",
+    "experiments/bb_20261108/aggregate_timing.py36a62: separately source-reviewed reducer40b45203"
+  ],
+  "baseline_preservation": "Frozen pilot4files/CPU/core/integration/reducer sources remain unchanged; static hashes and fixture/schedule crosswalk match. Actual perjob native execution/state/gradient/RNG and measurement validity still require allocated qualification/review.",
+  "common_source_sha256": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/aggregate_timing.py": "36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/selector.py": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+    "experiments/bb_20261108/selector_integration.py": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d",
+    "experiments/bb_20261108/test_e1_allocated.py": "181697f9b1ee6c5f7323510e12fe204a8ed47e87ff1fa7fcdb348c5a212d4a53",
+    "experiments/bb_20261108/test_selector_allocated.py": "98a14a7ce225265de201a4828c88964273099a88ca18eff9be99ee75d225512a",
+    "experiments/bb_20261108/timing-dev.sbatch": "4dbe767b2f64607d6369755e969926de9626499666dcbe77839216699ad7e95c",
+    "experiments/bb_20261108/timing_job.py": "e19f83fba10ff4f167c11e5d0e48b181bb93ee59f64d7554c73ac83c0a4ab44f"
+  },
+  "config_diff": {
+    "analysis": "Onlyindex2 reads prior2 result bytes after its current base payload is written once and invokes the frozen3-argument reducer",
+    "eligibility": "A PROMOTE validity verdict alone is insufficient; exact typed14-field positive84arm/12case pilot vector is required in its actual review attestation",
+    "fixtures": "Same20 CUDA/E1 fixture IDs, zero omissions/skips",
+    "later_release": "Timing validity reviews constrain completeness/parity/source/runtime/custody only, never estimate direction; indices0/1 never pool",
+    "model_work": "Pilot84declared arms plus12E1 ->run_timing only:128 timed-arm updates+1 production profile update=129 perjob",
+    "native_driver": "New timing-only expected_nvidia_driver_version, accepted from pilot evidence and enforced on allthree GPUs before measurements; included in runtime binding",
+    "opaque_inputs": "train+corrected210-history1234 only; early-history1234 not loaded",
+    "phase": "GPU_DEV_PILOT ->GPU_DEV_TIMING",
+    "resource_envelope": "40min/8CPU/exclusive/no-requeue/max2SU unchanged perjob; exactly3 serial indices0/1/2, conditional portfolio unchanged",
+    "source_files": "Common13-file map identical across allthree: timing driver/batch, runtime, core/tests, integration, E1helper/tests, method, reducer, BAcommon/checks/58lock; no E1adapter/BAmanifest dependency"
+  },
+  "created_at_utc": "2026-11-08T08:45:48.711622+00:00",
+  "cuda_qualification": false,
+  "estimated_runtime": "Unmeasured. Each candidate job has a hard40min/max2SU cap with original fresh>=1200s postsetup admission and600s retention reserve. Three conditional caps plus actual BB consumption must fit the unchanged9SU portfolio. No hardware/time extrapolation is asserted.",
+  "experiment_id": "BB-DEMAND-TIMING-20261108-v1",
+  "files_changed": {
+    "experiments/bb_20261108/implementation-report-timing.json": "This implementation/API/validation handoff; excluded from source pins to avoid self-reference.",
+    "experiments/bb_20261108/timing-0-dev-contract.json": "New exact index0 candidate authorized after actual positive pilot review. draft=false; timing0 namespace/campaign; real7ACTUALbindings; accepted driver570.195.03; only train/corrected210 inputs and no prior timing payloads/pooling. Independent exact source precheck/execution release remain required.",
+    "experiments/bb_20261108/timing-dev-contract-template.json": "Corrected13-source DRAFT index template with accepted pilot/native driver controls. Index/namespace placeholders and future prior-timing schemas remain nonrunnable; original initial template bytes are preserved in history.",
+    "experiments/bb_20261108/timing-dev.sbatch": "Same40min/8CPU/max2SU batch for allthree indices. Exact sealed path/index cases plus stdlib hash/draft/index guard precede UV. Normal bb-selector and setup controls unchanged.",
+    "experiments/bb_20261108/timing_job.py": "New allocated timing wrapper using the frozen GPU admission/fixtures/native/custody pattern; typed positive pilot gate, indexed source namespace, native driver freeze, immutable base result, metadata bindings and third-job-only reduction."
+  },
+  "goal": "Prepare three identical-source conditional DEV timing jobs and pool exactlythree results on the third allocation, after the full positive actual pilot gate.",
+  "how_to_run": "Timing0 is materialized but not released. Root must obtain the exact full source precheck, authenticate pilot raw14/actual17proof/native controls, commit/push isolated common13source files and timing0 contract, create a fresh source-bound execution release and dispatch once. The common batch uses exact BA_CONTRACT_PATH/index namespaces, private58-package setup and allocated timing_job.py. Future1/2 contracts must preserve the same13source map; no directional release criteria or local numerical/statistical execution.",
+  "hypothesis": "Clean native backward demand profiling selects fewer original-forward activation fields than full I/O while exposing registered mutations at actual backward consumption with transparent execution.",
+  "implementation_summary": [
+    "Batch accepts only the exact timing-INDEX-dev-source/experiments/bb_20261108/timing-INDEX-dev-contract.json combinations for INDEX0/1/2. Its stdlib preflight checks the contract SHA, draft flag and typed index before installation. Driver derives its own index/campaign from the exact source path and checks the matching contract namespace; failure custody cannot adopt an untrusted campaign.",
+    "Reuse fresh private-copy58-package runtime, physical/native-source/batch/account/quota/queue/time admission, all20 CUDA/E1 fixtures, full226-source verification/archive,2opaque allocated input digests, native BLAKE3 c097/sm80,3visible A100 devices and historical source_allocation_guard before model restore. No current pilot/CPU/core/reducer file changed.",
+    "Require base6 genuine ACTUAL prerequisites plus accepted pilot3565466. The pilot release item timing_eligibility must exactly match the typed14-field required vector. This attestation covers a complete84arm/12supportedcase positive pilot; parent authenticates the full profile/clean/matched parity/input/runtime/custody/E1 validity in the actual review.",
+    "Run the unchanged run_timing(out/timing-study,contract) without precreating its directory. Write its returned unwrapped payload exactlyonce to out/timing-study.json before further validation/metadata. Require8 frozen pairs/index,2warmups+6measured updates/arm,128timed+1profile=129 total and exact final8-update fullstate/RNG/postclip-gradient parity for everypair.",
+    "Export timing-method-binding.json from the production-plan declared envelope. Its six SHA fields and production recipe compare scientific source/runtime/graph across jobs while excluding job index, checkout/control paths, current BB execution commit, payload state and timestamps.",
+    "Indices0/1 produce independent raw results and method-binding sidecars only. Index1 may declare job0 validity as a prerequisite; no effect direction is inspected. Index2 requires both earlier accepted actual validity reviews and exactlytwo small pinned result inputs/wrappers; metadata can validate early but prior bytes are read only after current measurements and base-file completion.",
+    "Third-job prior wrappers bind exact raw path/job/index/size/SHA, accepted review SHA and custody SHA. Their release prerequisite items must additionally bind result_sha256 and custody_sha256. Copy the verified small raw files into third-job evidence for portability, then let the reducer independently reread/hash/validate original files. Persist declared3-wrapper bindings before any byte proof/reduction can fail.",
+    "Current index2 wrapper is CURRENT_COMPLETE_PENDING_REVIEW with its actual current result SHA and null review/custody hashes. Invoke aggregate_timing(records,method_plan,method_plan_sha256) exactlyonce; write timing-pooled-analysis.json separately and verify the immutable base result SHA did not change. No subset/replacement/direction-based stop or fabricated current review.",
+    "Keep the source/data/partial failure/native/grant/runtime/fixture/measurement/analysis custody pipeline and600s reserve. Live quota/storage enforce2GB outputs. A failure-only collector derives its namespace from the owned source index, rechecks actual native job/node/batch, and never grants numerical work."
+  ],
+  "independent_source_correction": {
+    "all_exact": true,
+    "archive_files": 15,
+    "archive_manifest_sha256": "7102f522d22f9c489405b0f8bee72046b00c76ed966ec5c7d6eb083b31862a11",
+    "exact_old_package_archive": "artifacts/revision3/bb-20261108/history/timing-initial-6fe7d915/",
+    "finding": "CUDA device loop reused the registered timing index, leaving2 for every job. This would invalidate job0/1 completion/branch metadata after measurements.",
+    "fix": "Only the CUDA loop variable and its device-property/device-record uses changed to device_index; registered index remains the single checkout-derived assignment. Batch and scientific components unchanged.",
+    "independent_rereview": "PENDING exact consolidated source seal",
+    "initial_review_path": "artifacts/revision3/bb-20261108/reviews/timing-source-precheck-initial-6fe7d915.json",
+    "initial_review_sha256": "3b49454d26c1a48098593ec4dbcfac4461b3c00f2dd374841e374e70f6ce403b",
+    "initial_verdict": "MODIFY",
+    "old_driver_sha256": "6fe7d915ad112664a89179e81ad975abc4a630da6e817aaf476fa5860c556cd2",
+    "old_report_sha256": "9ff372a7ad4dab4bbb03944f1ff5d3a760141c4e4757c7b99d9501fb5a027c56",
+    "old_template_sha256": "10e3feeda61ca715382da91ece07a028b1fb0021c1e91fb9141290306e49f5da",
+    "reconstructed_bytes": false,
+    "regression": "AST proves exactlyone index store in main and independent device_index loop; real timing0 scope/hash/7actual/14rawflag checks pass.",
+    "timing_allocation_or_execution_occurred": false
+  },
+  "independent_source_review": "PENDING exact consolidated harness/template/timing0 seal; actual positive pilot qualification is accepted.",
+  "not_performed": [
+    "No remote/auth/push/dispatch, CUDA/model/opaqueinput execution or statistical calculation.",
+    "No changes to pilot/CPU/core/integration/reducer/scientific code, frozen BA reports, README/log or UI.",
+    "No new method endpoint, order, case grid, sample size, estimator, extra compute job, adaptive direction gate or automatic retry."
+  ],
+  "parameter_count": "No trainable model changes; declared delta0. No model instantiated or numerical parameter count computed locally.",
+  "parent_method_id": "BB-DEMAND-20261108-v1",
+  "potential_risks_or_caveats": [
+    "Source and metadata checks cannot establish completion withinwalltime, real timing-path behavior, estimate direction or actual parity/custody. The first registered DEV timing job qualifies this harness in its real workload.",
+    "Canonical runtime hash intentionally includes the identical common source map and native driver version. Any scientific source/hardware/runtime/graph mismatch invalidates pooling rather than silently dropping a job.",
+    "Parent authenticates actual review contents/custody/eligibility before sealing release attestations; runtime checks exact declared SHA/job/scope and typed metadata but does not independently verify review authorship.",
+    "The current third job stays pending actual review even after successful reduction. Exit0 does not itself accept measurements, scientific claims, cost gains or production readiness."
+  ],
+  "run_status": "TIMING0_SOURCE_CANDIDATE_NOT_RUN_PENDING_FULL_SOURCE_PRECHECK_AND_EXECUTION_RELEASE",
+  "sanity_checks_passed": {
+    "bash": "bash -n experiments/bb_20261108/timing-dev.sbatch -- exit0",
+    "metadata_and_static": {
+      "groups": [
+        "All13 common source pins match; no template/report self-hash; frozen reducer36a62 preserved",
+        "Frozen method/20GPUfixtures/24schedule entries retained; template opaque inputs onlytrain+corrected210",
+        "Timing module imports onlystdlib; no numerical library or main/allocation path executed",
+        "Three exact namespaces accepted; five wrong/traversal/index paths andbooleanindex reject without Slurm env",
+        "Synthetic scope metadata exact; draft/boolindex/wrongindex/campaign/cap/CPU/path reject; no actual admission",
+        "Typed14-field positive eligibility structure enforced; booleans cannot substitute counts orviceversa; no ACTUAL authority simulated",
+        "Prior review keys constrain validity/index only; directionwords ignored andboth prior validity reviews required forindex2",
+        "Priorresult schema validateswithout I/O; exact4MiB/invalidSHA/path/duplicatejob/pendingprior/wrongsource/boolindex reject",
+        "Index-shadow regression: main has exactlyone registered index store fromcheckout; CUDAcensus uses independent device_index",
+        "AST proves one basepayload write beforevalidation/bindings; priorbyte readers/reducer onlyafterown timing andonlyindex2; no pilot/E1 call",
+        "Batch40min/8CPU/exclusive/no-requeue and9sealed envkeys match;3exact contract cases andpre-UV hash/draft/index Python body compile",
+        "Settledtiming0 pure scope/hash/eligibility validates7real savedreviews and normalizedraw14fields; human17proofvector distinct",
+        "Conditionaltemplate remainsunrunnable; pilotfourfiles unchanged; no Slurm env/model/numerical module/stats path executed"
+      ],
+      "numerical_execution": false,
+      "physical_or_numerical_admission_executed": false,
+      "remote_calls": 0,
+      "saved_upstream_review_metadata_verified": true,
+      "scientific_imports": false,
+      "slurm_environment_simulated": false,
+      "status": "PASS_METADATA_AND_STATIC_ONLY",
+      "template_releasable": false,
+      "template_sha256": "8ffa70072a496f998bee413d6ae4762241fad53966e74a10c1881528bbf3df4c",
+      "timing0_contract_sha256": "ee8482af7d3ba55c3023b070f29413891fa6915e733d01d0ba804da9c6be612a"
+    },
+    "reproduce": "Save validation source to TEMP.py and run PYTHONDONTWRITEBYTECODE=1 python3 TEMP.py from repository root. Pure metadata/path/scope/hash/type/AST tests, including real settled timing0 upstream metadata; no Slurm environment, numerical import, physical admission or statistics.",
+    "reproducible_validation_source": "import ast\nimport copy\nimport hashlib\nimport importlib.util\nimport json\nfrom pathlib import Path\nimport re\nimport shlex\nimport sys\nfrom unittest.mock import patch\n\nrepo=Path.cwd();b=repo/'experiments/bb_20261108';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\nc=json.loads((b/'timing-dev-contract-template.json').read_text());c0=json.loads((b/'timing-0-dev-contract.json').read_text());checks=[]\nassert c0['files']==c['files'] and c0['draft'] is False and c0['timing_job_index']==0\nfor name,pin in c['files'].items():assert sha(repo/name)==pin,name\nassert len(c['files'])==13 and not any(name.endswith('timing-dev-contract-template.json') or 'implementation-report' in name for name in c['files'])\nassert c['files']['experiments/bb_20261108/aggregate_timing.py']=='36a62cee549542ffbce7f5be4ec2eb4f6d4a3426cd5b5ed98dc9a50b1832b29c'\nchecks.append('All13 common source pins match; no template/report self-hash; frozen reducer36a62 preserved')\nplan=json.loads((b/'method-plan.json').read_text())\nassert c['method_plan']==plan and c['fixture_ids']==plan['gpu_fixture_ids'] and len(set(c['fixture_ids']))==20\nassert len(plan['timing_protocol']['frozen_pair_schedule'])==24\nfor index in range(3):assert len([row for row in plan['timing_protocol']['frozen_pair_schedule'] if row['job_index']==index])==8\nassert {row['role'] for row in c['inputs']}=={'train','corrected210-history1234'}\nchecks.append('Frozen method/20GPUfixtures/24schedule entries retained; template opaque inputs onlytrain+corrected210')\nspec=importlib.util.spec_from_file_location('bb_timing_metadata_only',b/'timing_job.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\nassert not any(name.split('.')[0] in ('torch','numpy','transformers') for name in sys.modules)\nassert set(c['files'])==set(m.SOURCE_FILES)\nchecks.append('Timing module imports onlystdlib; no numerical library or main/allocation path executed')\n\ndef reject(callback):\n    try:callback()\n    except (RuntimeError,ValueError,TypeError,KeyError):return\n    raise AssertionError('Invalid metadata accepted')\n\nfor index in range(3):\n    checkout=m.REMOTE_ROOT/'slurm/bb-20261108'/('timing-%d-dev-source'%index)\n    assert m.checkout_index(checkout)==index\n    assert m.campaign(index)=='bb-20261108-timing-%d-dev-v1'%index\nfor name in ('timing-3-dev-source','timing-00-dev-source','selector-gpu-dev-source','timing-1-dev-source/child','../timing-0-dev-source'):\n    reject(lambda name=name:m.checkout_index(m.REMOTE_ROOT/'slurm/bb-20261108'/name))\nreject(lambda:m.campaign(True))\nchecks.append('Three exact namespaces accepted; five wrong/traversal/index paths andbooleanindex reject without Slurm env')\nvalid=copy.deepcopy(c0)\ncheckout=m.REMOTE_ROOT/'slurm/bb-20261108/timing-0-dev-source';path=checkout/'experiments/bb_20261108/timing-0-dev-contract.json'\nm.verify_timing_scope(checkout,path,valid,0)\nfor changes in ({'draft':True},{'timing_job_index':False},{'timing_job_index':1},{'campaign_id':m.campaign(1)},{'max_su':True},{'cpus':4}):\n    wrong=dict(valid,**changes);reject(lambda wrong=wrong:m.verify_timing_scope(checkout,path,wrong,0))\nreject(lambda:m.verify_timing_scope(checkout,checkout/'arbitrary.json',valid,0))\nchecks.append('Synthetic scope metadata exact; draft/boolindex/wrongindex/campaign/cap/CPU/path reject; no actual admission')\nactual={name:{'verdict':c['required_review_verdicts'][name]} for name in m.BASE_REVIEW_KEYS}\nactual[m.PILOT_REVIEW_KEY]['timing_eligibility']=copy.deepcopy(m.POSITIVE_PILOT_GATE)\nm.verify_timing_reviews(actual,c,0)\nfor field,value in (('execution_complete',1),('arms_not_run_unsupported',False),('supported_cases',11),('parameter_count_delta',False),('scientific_outcome','UNSUPPORTED')):\n    wrong=copy.deepcopy(actual);wrong[m.PILOT_REVIEW_KEY]['timing_eligibility'][field]=value;reject(lambda wrong=wrong:m.verify_timing_reviews(wrong,c,0))\nwrong=copy.deepcopy(actual);del wrong[m.PILOT_REVIEW_KEY]['timing_eligibility']['evidence_complete'];reject(lambda:m.verify_timing_reviews(wrong,c,0))\nchecks.append('Typed14-field positive eligibility structure enforced; booleans cannot substitute counts orviceversa; no ACTUAL authority simulated')\nprior0=copy.deepcopy(actual);prior0[m.timing_review_key(0)]={'verdict':'PROMOTE','timing_direction':'ADVERSE_NOT_USED'}\nm.verify_timing_reviews(prior0,c,1);reject(lambda:m.verify_timing_reviews(prior0,c,0));reject(lambda:m.verify_timing_reviews(prior0,c,2))\nprior01=copy.deepcopy(prior0);prior01[m.timing_review_key(1)]={'verdict':'PROMOTE','timing_direction':'FAVORABLE_NOT_USED'}\nm.verify_timing_reviews(prior01,c,2);reject(lambda:m.verify_timing_reviews(prior01,c,1))\nchecks.append('Prior review keys constrain validity/index only; directionwords ignored andboth prior validity reviews required forindex2')\nm.verify_input_registry(c,0);m.verify_input_registry(c,1)\nthird=copy.deepcopy(c);third['timing_analysis_prior_results']=[]\nbinding={'method_plan_sha256':c['method_plan_sha256'],'selector_core_sha256':c['files']['experiments/bb_20261108/selector.py'],'selector_integration_sha256':c['files']['experiments/bb_20261108/selector_integration.py'],'requirements_lock_sha256':c['files'][c['requirements_lock']],'model_graph_sha256':'a'*64,'runtime_sha256':'b'*64,'production_recipe':plan['timing_protocol']['production_batch']}\nfor index,job in enumerate(('990001','990002')):\n    path=str(m.REMOTE_ROOT/'artifacts'/job/'bb-selector/timing-study.json')\n    third['inputs'].append({'role':m.prior_input_role(index),'timing_job_index':index,'job_id':job,'path':path,'bytes':100,'sha256':'c'*64})\n    third['timing_analysis_prior_results'].append({'job_id':job,'result_path':path,'method_binding':copy.deepcopy(binding),'evidence_attestation':{'status':'ACTUAL_PROMOTED','job_id':job,'result_sha256':'c'*64,'custody_sha256':'d'*64,'review_sha256':'e'*64}})\nwith patch.object(Path,'open',side_effect=AssertionError('Prior timing byte read tooearly')):m.verify_input_registry(third,2)\nfor change in ('size','sha','path','duplicate','status','source','indexbool'):\n    wrong=copy.deepcopy(third)\n    if change=='size':wrong['inputs'][-1]['bytes']=4_194_304\n    if change=='sha':wrong['inputs'][-1]['sha256']='PENDING'\n    if change=='path':wrong['inputs'][-1]['path']='/tmp/arbitrary.json'\n    if change=='duplicate':wrong['timing_analysis_prior_results'][1]['job_id']='990001'\n    if change=='status':wrong['timing_analysis_prior_results'][1]['evidence_attestation']['status']='CURRENT_COMPLETE_PENDING_REVIEW'\n    if change=='source':wrong['timing_analysis_prior_results'][1]['method_binding']['selector_core_sha256']='f'*64\n    if change=='indexbool':wrong['inputs'][-1]['timing_job_index']=True\n    reject(lambda wrong=wrong:m.verify_input_registry(wrong,2))\nchecks.append('Priorresult schema validateswithout I/O; exact4MiB/invalidSHA/path/duplicatejob/pendingprior/wrongsource/boolindex reject')\ntree=ast.parse((b/'timing_job.py').read_text());main=next(node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name=='main')\nregistered_stores=[node for node in ast.walk(main) if isinstance(node,ast.Name) and isinstance(node.ctx,ast.Store) and node.id=='index']\nassert len(registered_stores)==1\nassignment=next(node for node in ast.walk(main) if isinstance(node,ast.Assign) and any(isinstance(target,ast.Name) and target.id=='index' for target in node.targets))\nassert ast.unparse(assignment.value)=='checkout_index(checkout)'\ndevice_loop=next(node for node in ast.walk(main) if isinstance(node,ast.For) and isinstance(node.target,ast.Name) and node.target.id=='device_index')\nassert ast.unparse(device_loop.iter)=='range(3)' and 'get_device_properties(device_index)' in ast.unparse(device_loop)\nchecks.append('Index-shadow regression: main has exactlyone registered index store fromcheckout; CUDAcensus uses independent device_index')\nimports={a.name for node in tree.body if isinstance(node,ast.Import) for a in node.names};assert imports<= {'hashlib','importlib','importlib.util','json','math','os','re','stat','signal','socket','sys','tarfile','traceback','unittest'}\nlines=lambda name:sorted(node.lineno for node in ast.walk(main) if isinstance(node,ast.Call) and ast.unparse(node.func)==name)\nassert lines('common.admit')[0]<lines('verify_timing_scope')[0]<lines('runtime.qualify')[0]<lines('verify_timing_reviews')[0]<lines('verify_opaque_inputs')[0]<lines('run_fixtures')[0]<lines('run_timing')[0]\nwrites=[node for node in ast.walk(main) if isinstance(node,ast.Call) and ast.unparse(node.func)=='common.write' and node.args and ast.unparse(node.args[0])==\"out / 'timing-study.json'\"]\nassert len(writes)==1 and lines('run_timing')[0]<writes[0].lineno<lines('validate_timing_result')[0]<lines('method_binding')[0]<lines('analysis_records')[0]<lines('aggregate_timing')[0]\nbranch=next(node for node in ast.walk(main) if isinstance(node,ast.If) and ast.unparse(node.test)=='index == 2')\nassert all(any(isinstance(node,ast.Call) and ast.unparse(node.func)==name for node in ast.walk(branch)) for name in ('analysis_records','aggregate_timing'))\ncall=next(node for node in ast.walk(branch) if isinstance(node,ast.Call) and ast.unparse(node.func)=='aggregate_timing');assert len(call.args)==3\nassert not lines('run_pilot') and not lines('run_e1_probes')\nchecks.append('AST proves one basepayload write beforevalidation/bindings; priorbyte readers/reducer onlyafterown timing andonlyindex2; no pilot/E1 call')\ntext=(b/'timing-dev.sbatch').read_text();directives=dict(re.findall(r'^#SBATCH --([^=\\s]+)=(.*)$',text,re.M))\nfor key,value in {'job-name':'vg-bb-timing-dev','account':'CCR26063','partition':'gpu-a100-dev','nodes':'1','ntasks':'1','cpus-per-task':'8','time':'00:40:00','signal':'B:USR1@600'}.items():assert directives[key]==value\nfor index in range(3):assert ('$project/slurm/bb-20261108/timing-%d-dev-source/experiments/bb_20261108/timing-%d-dev-contract.json'%(index,index)) in text\ninline=text.split(\"<<'PREFLIGHT'\\n\",1)[1].split('\\nPREFLIGHT',1)[0];ast.parse(inline)\nassert text.index(\"<<'PREFLIGHT'\")<text.index('copy_runtime.py')\nexports={}\nfor line in text.splitlines():\n    if line.startswith('export '):\n        for item in shlex.split(line[7:]):key,value=item.split('=',1);exports[key]=value\nassert all(exports[key]==value for key,value in c['runtime_environment'].items())\nchecks.append('Batch40min/8CPU/exclusive/no-requeue and9sealed envkeys match;3exact contract cases andpre-UV hash/draft/index Python body compile')\nassert c['draft'] is True and type(c['timing_job_index']) is str\nassert c['expected_nvidia_driver_version']==c0['expected_nvidia_driver_version']=='570.195.03'\nreview_path=repo/c0['actual_review_evidence_paths'][m.PILOT_REVIEW_KEY]\nreview=json.loads(review_path.read_text())\nassert sha(review_path)==c0['required_review_sha256'][m.PILOT_REVIEW_KEY]=='39c3d0132150a396a8ed8ae1813622a1939b73696f02aa687bd0ceec1c317f87'\nassert review['verdict']=='PROMOTE' and review['job_id']=='3565466' and review['scope']==c0['required_review_scopes'][m.PILOT_REVIEW_KEY]\nassert review['timing_eligibility']['eligible'] is True and review['timing_eligibility']['release_granted_by_this_review'] is False\nraw_path=repo/'artifacts/revision3/bb-20261108/terminal-3565466/extracted/bb-selector/selector-result.json'\nassert sha(raw_path)=='3b9efbc202ce17fbc1f1a6cd7bc46b600299a058c74ee7f9af8ab9b11ad930c7'\nraw=json.loads(raw_path.read_text());flat14={key:raw[key] for key in m.POSITIVE_PILOT_GATE}\nm.exact_fields(flat14,m.POSITIVE_PILOT_GATE,'Acceptedraw14field eligibility')\nassert len(review['timing_eligibility']['positive_prerequisite_fields'])==17\nreal_reviews={}\nfor key,path in c0['actual_review_evidence_paths'].items():\n    source=repo/path;item=json.loads(source.read_text());assert sha(source)==c0['required_review_sha256'][key]\n    assert item['job_id']==c0['required_review_job_ids'][key] and item['scope']==c0['required_review_scopes'][key] and item['verdict']==c0['required_review_verdicts'][key]\n    real_reviews[key]={'job_id':item['job_id'],'scope':item['scope'],'verdict':item['verdict'],'review_sha256':sha(source)}\nreal_reviews[m.PILOT_REVIEW_KEY]['timing_eligibility']=flat14\nm.verify_timing_reviews(real_reviews,c0,0)\nchecks.append('Settledtiming0 pure scope/hash/eligibility validates7real savedreviews and normalizedraw14fields; human17proofvector distinct')\nfor name,pin in {'gpu_job.py':'49d7af793eb7f8d76d26054ee07d33cd13ea4c2269de7871c91d4958f16a316b','selector-gpu-dev.sbatch':'8201725c4ca9a3be0c38953ea0680293b88a2d94c167853a46722981557546cb','selector-gpu-dev-contract.json':'b38d0a67661d7dce9a1afc405e5476579c6ab60cd6546213a4ba065da6d4bfee','implementation-report-gpu.json':'254dd4258474800f5ed80dafd4fb203e49b835542ec18238068c609cb2bf6dec'}.items():assert sha(b/name)==pin\nassert not any(name.split('.')[0] in ('torch','numpy','transformers') for name in sys.modules)\nchecks.append('Conditionaltemplate remainsunrunnable; pilotfourfiles unchanged; no Slurm env/model/numerical module/stats path executed')\nresult={'status':'PASS_METADATA_AND_STATIC_ONLY','groups':checks,'scientific_imports':False,'numerical_execution':False,'remote_calls':0,'slurm_environment_simulated':False,'physical_or_numerical_admission_executed':False,'saved_upstream_review_metadata_verified':True,'template_releasable':False,'template_sha256':sha(b/'timing-dev-contract-template.json'),'timing0_contract_sha256':sha(b/'timing-0-dev-contract.json')}\nPath('/tmp/bb-timing-metadata-validation.json').write_text(json.dumps(result,indent=2)+'\\n');print(json.dumps(result,indent=2))\n",
+    "ruff": "ruff check timing_job.py: passed; ruff format --check: already formatted. Initial assigned-lambda style issue and independent index-shadow source blocker corrected before timing execution."
+  },
+  "scientific_acceptance": false,
+  "scope": "CONDITIONAL_TIMING_HARNESS_AND_INDEX0_SOURCE_CANDIDATE",
+  "source_sha256": {
+    "timing-0-dev-contract.json": "ee8482af7d3ba55c3023b070f29413891fa6915e733d01d0ba804da9c6be612a",
+    "timing-dev-contract-template.json": "8ffa70072a496f998bee413d6ae4762241fad53966e74a10c1881528bbf3df4c",
+    "timing-dev.sbatch": "4dbe767b2f64607d6369755e969926de9626499666dcbe77839216699ad7e95c",
+    "timing_job.py": "e19f83fba10ff4f167c11e5d0e48b181bb93ee59f64d7554c73ac83c0a4ab44f"
+  },
+  "statistical_preservation": {
+    "amortization": "Owned by frozen reducer; conditional and conservative, not recomputed or interpreted in this engineering task.",
+    "independent_unit": "Slurm job, not microbatch/update/block",
+    "no_selection": "All3 valid jobs required; missing/invalid input fails the full reduction. No optional stopping based on ratio, interval, gain or significance.",
+    "primary": "Two direct consumer/full-forward-I/O matched block log ratios perjob, equal mean withinjob; equal weight across exactly3 Slurm job means; t95 df2 then exponentiate.",
+    "profiling_cost_scope": "Exactly measured profile-call wall including its internal raw exports, plus immutable identity-binding setup and model census admission. Whole process/install/native qualification and separately serialized plan/cost files are excluded. This is not end-to-end job setup cost.",
+    "profiling_updates": "128 timed-arm updates plus1 separately reported production profile update=129 executed perjob; profile cost is not free.",
+    "source": "No estimator changes; separately reviewed reducer36a62 is called only on allocated index2."
+  },
+  "unresolved_gates": [
+    "Independent exact full harness/template/timing0 source precheck and fresh timing0 execution release.",
+    "Fresh physical/source/runtime/native-driver/input/fixture/model/128+1update/8pairparity/custody qualification and actual timing0 validity review.",
+    "Future timing1/2 per-index actual validity/review/result/custody controls; source map/driver/model/runtime/graph must remain comparable, regardless of effect direction.",
+    "Index2 exact3job reduction and independent actual pooled result review. No timing performance conclusion exists from this implementation."
+  ],
+  "updated_at_utc": "2026-11-08T08:55:53.089834+00:00",
+  "upstream_pilot_actual_binding": {
+    "accepted_nvidia_driver": "570.195.03",
+    "job_id": "3565466",
+    "normalization": "Review positive_prerequisite_fields contains17 human-named proof entries. Parent authenticates those and eligible flags, then normalizes ONLY the exact14 required values directly from accepted raw selector-result.json into release.prerequisite_reviews.PILOT.timing_eligibility. Never copy17 into14 or edit the actual review.",
+    "raw_selector_result_sha256": "3b9efbc202ce17fbc1f1a6cd7bc46b600299a058c74ee7f9af8ab9b11ad930c7",
+    "required_raw_fields": {
+      "all_declared_cases_supported": true,
+      "all_detection_expectations_met": true,
+      "arms_declared": 84,
+      "arms_executed": 84,
+      "arms_not_run_unsupported": 0,
+      "cases_declared": 12,
+      "evidence_complete": true,
+      "execution_complete": true,
+      "parameter_count_delta": 0,
+      "scientific_outcome": "EXPECTED_PATTERN",
+      "strict_fingerprint_byte_reduction": true,
+      "supported_cases": 12,
+      "timing_prerequisites_met": true,
+      "unsupported_cases": 0
+    },
+    "review_does_not_grant_timing_release": true,
+    "review_path": "artifacts/revision3/bb-20261108/reviews/actual-pilot-review-3565466.json",
+    "review_sha256": "39c3d0132150a396a8ed8ae1813622a1939b73696f02aa687bd0ceec1c317f87",
+    "scope": "ACTUAL_BB_SELECTOR_PILOT_E1_AND_CUSTODY_REVIEW",
+    "verdict": "PROMOTE"
+  }
+}
