@@ -1,0 +1,251 @@
+{
+  "actual_review_evidence_paths": {
+    "ACTUAL_BB_TIMING_V2_0_VALIDITY_ACCEPTED": "artifacts/revision3/bb-20261108/reviews/actual-timing-v2-0-review-3565520.json",
+    "ACTUAL_BB_TIMING_V2_1_VALIDITY_ACCEPTED": "artifacts/revision3/bb-20261108/reviews/actual-timing-v2-1-review-3565542.json",
+    "ACTUAL_BB_TIMING_V2_2_VALIDITY_ACCEPTED": "artifacts/revision3/bb-20261108/reviews/actual-timing-v2-2-review-3565561.json"
+  },
+  "actual_third_analysis_metadata": {
+    "actual_review_path": "artifacts/revision3/bb-20261108/reviews/actual-timing-v2-2-review-3565561.json",
+    "actual_review_sha256": "9f488b4a0c8caf28ef65ecf03212a7b77b588df5d922e3ffa2ef0e3a8876b845",
+    "fixture_validation_pending": true,
+    "job_id": "3565561",
+    "pooled_analysis_bytes": 41330,
+    "pooled_analysis_sha256": "c49bb696cb43256c3f60ddd34580fdd5465a583dd46e0b3b7ad80dd30c837cc0",
+    "raw_result_bytes": 7218124,
+    "raw_result_sha256": "62d528409a45716463936e661b83b7423a63c7c69d9cd726458294e5a905b56b",
+    "scientific_performance_acceptance": false
+  },
+  "automatic_retry": false,
+  "batch": "experiments/bb_20261108/reducer_validation/cpu-dev.sbatch",
+  "bootstrap_custody_campaign": "bb-20261108-reducer-validation-cpu-dev-v1-environment-setup",
+  "bootstrap_output_max_bytes": 100000000,
+  "bootstrap_output_study": "bb-e1-environment-setup",
+  "campaign_id": "bb-20261108-reducer-validation-cpu-dev-v1",
+  "control_directory_name": "reducer-validation-cpu-dev-control",
+  "copy_study": "e1",
+  "cpus": 8,
+  "cuda_qualification": false,
+  "draft": false,
+  "environment_installation": "FRESH_NODE_LOCAL_COPY_V1",
+  "environment_path": "/tmp/aci-bb-copy-${SLURM_JOB_ID}/env",
+  "exclusive": true,
+  "execution_phase": "CPU_DEV_REDUCER_FIXTURES",
+  "expected_package_count": 58,
+  "experiment_id": "BB-REDUCER-VALIDATION-20261108-v1",
+  "files": {
+    "experiments/ba_20261107/allocated_common.py": "47b10b9e4bdd4d9896dee8177e3f9671d79bc6021ea2c386cd99a05065f8d235",
+    "experiments/ba_20261107/provenance-environment.lock": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+    "experiments/ba_20261107/setup_preflight/checks.py": "fda67b5198bfd03bfadc1e5b790e9a0ede9b818a46c1144db15675f828ec3a2b",
+    "experiments/bb_20261108/aggregate_timing.py": "2568ea44a4d5dceec50941f3b27bbb8aa7840b15bfa55993c81856ec564bcaee",
+    "experiments/bb_20261108/copy_runtime.py": "52bafc899797f4769932240a831a5b40326d1160315a9eb75f9eb3b3083f7eba",
+    "experiments/bb_20261108/e1_diagnostics.py": "c56ac55e6b18fe2ec5a08ea96422434015f060ece044f2bd291c1baf967beffa",
+    "experiments/bb_20261108/method-plan.json": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+    "experiments/bb_20261108/reducer_validation/cpu-dev.sbatch": "187b1f36954dcafabc8eaa50d208d68b47925bd0b21d4fdfba45c43ebc480674",
+    "experiments/bb_20261108/reducer_validation/runner.py": "3670e3c85d0055012e0dc4640c2449b15eed467497aec0fd76a4053ec4dd64e0",
+    "experiments/bb_20261108/reducer_validation/test_reducer_allocated.py": "685189b64e1717fc5ced5afa6e309b5409e594cebc6d38adaeb9e646638bea72"
+  },
+  "fixture_census": {
+    "positive": 1,
+    "single_mutation_negative": 5,
+    "skips_allowed": 0,
+    "total": 6
+  },
+  "fixture_ids": [
+    "test_reducer_allocated.ReducerFixtures.test_positive_same_three_payloads",
+    "test_reducer_allocated.ReducerFixtures.test_missing_record",
+    "test_reducer_allocated.ReducerFixtures.test_duplicate_job_id",
+    "test_reducer_allocated.ReducerFixtures.test_wrong_raw_sha256",
+    "test_reducer_allocated.ReducerFixtures.test_mismatched_runtime_binding",
+    "test_reducer_allocated.ReducerFixtures.test_falsely_promoted_current"
+  ],
+  "fixture_only_current_wrapper": "Use real CPUjobID with CURRENT_COMPLETE_PENDING_REVIEW/nullreview/nullcustody, copying actualthirdrawbytes unchanged; no SLURM/guard spoofing and no independent unit added",
+  "hypothesis": "The unchanged frozen reducer reproduces the same three-payload primary within its existing numeric tolerance and rejects five individually malformed input controls at their intended fail-closed guards.",
+  "independent_timing_unit_added": false,
+  "inputs": [
+    {
+      "bytes": 7218126,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565520/bb-selector/timing-study.json",
+      "role": "timing-v2-result-0",
+      "sha256": "d3d3b13e03bb520e93cde7be1d5c451ef1a8ae1760b898f29b6418fdff044da1"
+    },
+    {
+      "bytes": 7218118,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565542/bb-selector/timing-study.json",
+      "role": "timing-v2-result-1",
+      "sha256": "b259b155ee6b03ae2f90f287d62e8cbadfc10c45be5903a27fba1d6ac7f51b3c"
+    },
+    {
+      "bytes": 7218124,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565561/bb-selector/timing-study.json",
+      "role": "timing-v2-result-2",
+      "sha256": "62d528409a45716463936e661b83b7423a63c7c69d9cd726458294e5a905b56b"
+    },
+    {
+      "bytes": 41330,
+      "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565561/bb-selector/timing-pooled-analysis.json",
+      "role": "actual-third-pooled-analysis",
+      "sha256": "c49bb696cb43256c3f60ddd34580fdd5465a583dd46e0b3b7ad80dd30c837cc0"
+    }
+  ],
+  "job_name": "vg-bb-reducer-validation-cpu-dev",
+  "max_su": 1,
+  "method_plan_path": "experiments/bb_20261108/method-plan.json",
+  "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+  "model_restore": false,
+  "negative_expected_messages": {
+    "duplicate_job_id": "Three distinct decimal job IDs are required",
+    "falsely_promoted_current": "The third job must be current and must not fabricate an actual review",
+    "mismatched_runtime_binding": "Numerical method bindings differ across jobs",
+    "missing_record": "Exactly three complete job records are required",
+    "wrong_raw_sha256": "Raw result SHA256 differs from its parent attestation"
+  },
+  "no_requeue": true,
+  "nodes": 1,
+  "numerical_admission": "Fresh CPU native/source/runtime/input admission before fixture arithmetic; only RESULT_ROOT sandbox override",
+  "output_max_bytes": 2000000000,
+  "output_study": "bb-reducer-validation",
+  "parent_method_id": "BB-DEMAND-20261108-v1",
+  "partition": "development",
+  "pending_release_gates": [
+    "Independent exact final CPUvalidation contract/source precheck",
+    "Parent-normalized threegenuineACTUALreleaseitems includingthirdpooledanalysisSHA andseparateonce-onlyexecutionrelease",
+    "Fresh CPUDEVqueue/budget/account/resources/time/storage/source/runtime/inputadmission",
+    "Allocated sixfixturepasses/fullpartialoutputcustody/independentactualvalidationreview; performanceacceptance remainsseparate"
+  ],
+  "python_version": "3.13.7",
+  "release_extra_actual_fields": [
+    "scope",
+    "validity_for_registered_three_job_pooling:true",
+    "result_sha256",
+    "custody_sha256",
+    "pooled_analysis_sha256 for index2 only"
+  ],
+  "reproduction_clarification_sha256": "90d0e0e979caccad5652a642f44e0bbf514e222f92d973deef74d255587091c6",
+  "required_review_job_ids": {
+    "ACTUAL_BB_TIMING_V2_0_VALIDITY_ACCEPTED": "3565520",
+    "ACTUAL_BB_TIMING_V2_1_VALIDITY_ACCEPTED": "3565542",
+    "ACTUAL_BB_TIMING_V2_2_VALIDITY_ACCEPTED": "3565561"
+  },
+  "required_review_scopes": {
+    "ACTUAL_BB_TIMING_V2_0_VALIDITY_ACCEPTED": "ACTUAL_BB_TIMING_JOB_AND_CUSTODY_REVIEW",
+    "ACTUAL_BB_TIMING_V2_1_VALIDITY_ACCEPTED": "ACTUAL_BB_TIMING_JOB_AND_CUSTODY_REVIEW",
+    "ACTUAL_BB_TIMING_V2_2_VALIDITY_ACCEPTED": "ACTUAL_BB_TIMING_JOB_AND_CUSTODY_REVIEW"
+  },
+  "required_review_sha256": {
+    "ACTUAL_BB_TIMING_V2_0_VALIDITY_ACCEPTED": "01aefc708cc16f7d9e942122e1ce9643834bace2d992a8893d3a6a59b7a61e0d",
+    "ACTUAL_BB_TIMING_V2_1_VALIDITY_ACCEPTED": "1cb15a350d4b22b69c5402d9f0554a1040520005fc0218a074536d636cd7b8b5",
+    "ACTUAL_BB_TIMING_V2_2_VALIDITY_ACCEPTED": "9f488b4a0c8caf28ef65ecf03212a7b77b588df5d922e3ffa2ef0e3a8876b845"
+  },
+  "required_review_verdicts": {
+    "ACTUAL_BB_TIMING_V2_0_VALIDITY_ACCEPTED": "PROMOTE",
+    "ACTUAL_BB_TIMING_V2_1_VALIDITY_ACCEPTED": "PROMOTE",
+    "ACTUAL_BB_TIMING_V2_2_VALIDITY_ACCEPTED": "PROMOTE"
+  },
+  "requirements_lock": "experiments/ba_20261107/provenance-environment.lock",
+  "runtime_environment": {
+    "BB_TEST_DEVICE": "cpu",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "",
+    "MAX_JOBS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_COMPILE_BYTECODE": "0"
+  },
+  "schema": 1,
+  "scientific_acceptance": false,
+  "source_archive": "All10 pinned exact source files plus contract/release; copies of three exact raw inputs and expected analysis retained privately; no model/environment payload duplication",
+  "source_checkout_name": "reducer-validation-cpu-dev-source",
+  "source_review_controls": {
+    "component": {
+      "actual_review": false,
+      "path": "artifacts/revision3/bb-20261108/reviews/reducer-validation-component-precheck.json",
+      "scope": "PRECHECK_ONLY_BB_REDUCER_VALIDATION_COMPONENT_SOURCE",
+      "sha256": "96675a34a2fda90c4b40c9f8827195b72cbb102ca0e3fc76801d8b40998811de",
+      "verdict": "PROMOTE"
+    },
+    "prospective_plan": {
+      "actual_review": false,
+      "path": "artifacts/revision3/bb-20261108/reviews/reducer-validation-plan-precheck.json",
+      "sha256": "3a5c07d24181d05f8847dc1a631ccab097d8dff0e93dec89679496305119af2d",
+      "verdict": "PROMOTE"
+    }
+  },
+  "status": "SOURCE_CANDIDATE_PENDING_EXACT_FINAL_CPU_CONTRACT_PRECHECK_AND_FRESH_RELEASE",
+  "supplement_sha256": "e3bdeab25a77cf439b1ade4dc33d1b7d7e2e0cdaf238886c35738581aa992779",
+  "tasks": 1,
+  "time_limit": "01:00:00",
+  "timing_validation_sources": [
+    {
+      "bytes": 7218126,
+      "cohort_id": "bb-20261108-timing-cap32-v2",
+      "custody_sha256": "9a211ca561ca1cb5c0feb72a3f72d2fc7a01c5b28a751ef97060e514c2ab737f",
+      "job_id": "3565520",
+      "method_binding": {
+        "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+        "model_graph_sha256": "edc5b397fc177d5ed4e51560d0cbc4007d922646f063d29506add1e89caf7acc",
+        "production_recipe": {
+          "accumulation": 32,
+          "microbatch": 4,
+          "sequence": 512
+        },
+        "requirements_lock_sha256": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+        "runtime_sha256": "252644dd527377ce95020e0f5f1ae6ea22b854c02eabd7f1ea5266748c904502",
+        "selector_core_sha256": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+        "selector_integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d"
+      },
+      "result_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565520/bb-selector/timing-study.json",
+      "review_sha256": "01aefc708cc16f7d9e942122e1ce9643834bace2d992a8893d3a6a59b7a61e0d",
+      "sha256": "d3d3b13e03bb520e93cde7be1d5c451ef1a8ae1760b898f29b6418fdff044da1",
+      "timing_job_index": 0
+    },
+    {
+      "bytes": 7218118,
+      "cohort_id": "bb-20261108-timing-cap32-v2",
+      "custody_sha256": "8f6f186da5a331d6dbc3372db969191d64776bfb281d237c0e03e41493a6e556",
+      "job_id": "3565542",
+      "method_binding": {
+        "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+        "model_graph_sha256": "edc5b397fc177d5ed4e51560d0cbc4007d922646f063d29506add1e89caf7acc",
+        "production_recipe": {
+          "accumulation": 32,
+          "microbatch": 4,
+          "sequence": 512
+        },
+        "requirements_lock_sha256": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+        "runtime_sha256": "252644dd527377ce95020e0f5f1ae6ea22b854c02eabd7f1ea5266748c904502",
+        "selector_core_sha256": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+        "selector_integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d"
+      },
+      "result_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565542/bb-selector/timing-study.json",
+      "review_sha256": "1cb15a350d4b22b69c5402d9f0554a1040520005fc0218a074536d636cd7b8b5",
+      "sha256": "b259b155ee6b03ae2f90f287d62e8cbadfc10c45be5903a27fba1d6ac7f51b3c",
+      "timing_job_index": 1
+    },
+    {
+      "bytes": 7218124,
+      "cohort_id": "bb-20261108-timing-cap32-v2",
+      "custody_sha256": "1c952f6c1ba0912ce0761b104d260cbafaaaf18309178dcd65fcf6b21f8f1f0a",
+      "job_id": "3565561",
+      "method_binding": {
+        "method_plan_sha256": "86614b2a265e10cc2ae54e8a0d3fd49b6eaa83b17e55326eef9f158b2ccdf0bb",
+        "model_graph_sha256": "edc5b397fc177d5ed4e51560d0cbc4007d922646f063d29506add1e89caf7acc",
+        "production_recipe": {
+          "accumulation": 32,
+          "microbatch": 4,
+          "sequence": 512
+        },
+        "requirements_lock_sha256": "afbdeae953bef9651d46f9f7441813efa40a84a51247bdfe995b12bda5e460de",
+        "runtime_sha256": "252644dd527377ce95020e0f5f1ae6ea22b854c02eabd7f1ea5266748c904502",
+        "selector_core_sha256": "9550c5c140dfcb413d138542a9d814b2127dbc6a52058a16105b4e1729e10e2e",
+        "selector_integration_sha256": "71cd4e9a4e3cbd348b816dd673200e2c7ee522b4c6b730986f78c422aec92e7d"
+      },
+      "result_path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/artifacts/3565561/bb-selector/timing-study.json",
+      "review_sha256": "9f488b4a0c8caf28ef65ecf03212a7b77b588df5d922e3ffa2ef0e3a8876b845",
+      "sha256": "62d528409a45716463936e661b83b7423a63c7c69d9cd726458294e5a905b56b",
+      "timing_job_index": 2
+    }
+  ],
+  "uv_version": "0.12.3"
+}

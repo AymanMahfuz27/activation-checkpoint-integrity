@@ -42,6 +42,7 @@ def parse_args(argv=None):
         choices=(
             "bb-selector",
             "bb-e1",
+            "bb-reducer-validation",
             "bb-selector-environment-setup",
             "bb-e1-environment-setup",
         ),
