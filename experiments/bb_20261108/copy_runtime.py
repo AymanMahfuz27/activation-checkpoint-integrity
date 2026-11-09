@@ -127,7 +127,11 @@ def expected_versions(checkout, contract):
     )
     expected = parse_lock(checkout / contract["requirements_lock"])
     require(
-        len(expected) == contract["expected_package_count"] and len(expected) == 58,
+        len(expected) == contract["expected_package_count"]
+        and (len(expected), contract["requirements_lock"]) in {
+            (58, "experiments/ba_20261107/provenance-environment.lock"),
+            (68, "experiments/sprint_20261108/model-analysis.lock"),
+        },
         "Exact lock package census differs",
     )
     return expected
