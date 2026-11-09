@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "experiment_id": "SPRINT20261108-TTQ-PILOT",
+  "phase": "pilot",
+  "target_preregistered": false,
+  "target_perplexity": null,
+  "target_confirmation_evaluations": 2,
+  "max_updates": 120,
+  "eval_every": 20,
+  "eval_tokens": 8192,
+  "batch_size": 8,
+  "learning_rate": 0.0006,
+  "weight_decay": 0.01,
+  "clip_norm": 1.0,
+  "checker": {
+    "expected_checkpoint_sha256": "eab49639231cc989d65c04212923eef0ade4aa059b68bcabfe2819007f34e69f"
+  },
+  "max_seconds_per_arm": 180,
+  "seeds": [11],
+  "model": {
+    "vocab_size": 256,
+    "width": 128,
+    "layers": 2,
+    "heads": 4,
+    "ff_multiplier": 4,
+    "sequence_length": 128
+  },
+  "data": {
+    "format": "utf8_bytes",
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/sprint-20261108-tinyshakespeare.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "source_url": "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
+    "split_fractions": [0.9, 0.05, 0.05],
+    "evaluation_split": "calibration"
+  },
+  "arms": [
+    {"name": "clean-disabled", "policy": "disabled", "fault_probability": 0.0},
+    {"name": "clean-valueguard", "policy": "saved_slot", "fault_probability": 0.0},
+    {"name": "fault-disabled", "policy": "disabled", "fault_probability": 0.25},
+    {"name": "fault-valueguard", "policy": "saved_slot", "fault_probability": 0.25},
+    {"name": "fault-simple-input", "policy": "simple_input", "fault_probability": 0.25},
+    {"name": "fault-stock-metadata", "policy": "stock_metadata", "fault_probability": 0.25},
+    {"name": "sham-disabled", "policy": "disabled", "fault_probability": 0.25, "sham": true},
+    {"name": "clean-stock-metadata", "policy": "stock_metadata", "fault_probability": 0.0}
+  ],
+  "fault": {
+    "window": "replay_forward",
+    "kind": "additive_burst",
+    "severity": 4.0,
+    "layer": 0,
+    "seed_offset": 7000003,
+    "sham": false
+  },
+  "notes": "Calibration only. Freeze target, recipe, horizon and independent confirmatory seeds before production. Baselines use the common BLAKE3 backend and are not called full OpGuard."
+}
