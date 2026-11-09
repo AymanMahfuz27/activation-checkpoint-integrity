@@ -1,0 +1,183 @@
+{
+  "administrative_wall_horizon_seconds": 10.0,
+  "arms": [
+    {
+      "fault_probability": 0,
+      "name": "clean-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault_probability": 0,
+      "name": "clean-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault_probability": 0,
+      "name": "clean-stock",
+      "policy": "stock_metadata"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-stock",
+      "policy": "stock_metadata"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-input-filter",
+      "policy": "simple_input"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-sham",
+      "policy": "disabled",
+      "sham": true
+    },
+    {
+      "fault_probability": 0.05,
+      "name": "rare-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault_probability": 0.05,
+      "name": "rare-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault": {
+        "severity": 40.0
+      },
+      "fault_probability": 1,
+      "name": "severe-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault": {
+        "severity": 40.0
+      },
+      "fault_probability": 1,
+      "name": "severe-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault": {
+        "severity": 40.0
+      },
+      "fault_probability": 1,
+      "name": "severe-stock",
+      "policy": "stock_metadata"
+    }
+  ],
+  "batch_size": 8,
+  "checker": {
+    "expected_checkpoint_sha256": "eab49639231cc989d65c04212923eef0ade4aa059b68bcabfe2819007f34e69f"
+  },
+  "clip_norm": 1.0,
+  "comparisons": [
+    {
+      "candidate": "moderate-valueguard",
+      "confidence": 0.95,
+      "reference": "moderate-disabled",
+      "role": "primary"
+    },
+    {
+      "candidate": "clean-valueguard",
+      "confidence": 0.95,
+      "reference": "clean-disabled",
+      "role": "healthy-control"
+    },
+    {
+      "candidate": "moderate-valueguard",
+      "confidence": 0.95,
+      "reference": "moderate-stock",
+      "role": "secondary"
+    },
+    {
+      "candidate": "moderate-valueguard",
+      "confidence": 0.95,
+      "reference": "moderate-input-filter",
+      "role": "secondary"
+    },
+    {
+      "candidate": "rare-valueguard",
+      "confidence": 0.95,
+      "reference": "rare-disabled",
+      "role": "secondary"
+    },
+    {
+      "candidate": "severe-valueguard",
+      "confidence": 0.95,
+      "reference": "severe-disabled",
+      "role": "secondary"
+    },
+    {
+      "candidate": "severe-valueguard",
+      "confidence": 0.95,
+      "reference": "severe-stock",
+      "role": "secondary"
+    }
+  ],
+  "data": {
+    "evaluation_split": "test",
+    "format": "utf8_bytes",
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/sprint-20261108-tinyshakespeare.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "source_url": "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
+    "split_fractions": [
+      0.9,
+      0.05,
+      0.05
+    ]
+  },
+  "endpoint_clock": "checker_cold_elapsed_seconds",
+  "eval_every": 20,
+  "eval_tokens": 8192,
+  "experiment_id": "SPRINT20261108-TTQ-CONFIRMATORY",
+  "fault": {
+    "kind": "additive_burst",
+    "layer": 0,
+    "seed_offset": 7000003,
+    "severity": 4.0,
+    "sham": false,
+    "window": "replay_forward"
+  },
+  "learning_rate": 0.0006,
+  "max_seconds_per_arm": 180,
+  "max_updates": 10000,
+  "model": {
+    "ff_multiplier": 4,
+    "heads": 4,
+    "layers": 2,
+    "sequence_length": 128,
+    "vocab_size": 256,
+    "width": 128
+  },
+  "notes": "Single primary moderate4xRMS/p0.25 comparison. Other regimes exploratory; no selective completion/extension/retargeting. Synthetic faults not physicalrate estimates. Coldclock reconstructed from measuredstartup. No noveltypremise.",
+  "phase": "confirmatory",
+  "registration_sha256": "556c66d1ad872da914fe38cafeede0e154a347e5c645665808d5a3e9212543db",
+  "schema": 1,
+  "seeds": [
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108
+  ],
+  "stopping_mode": "target_or_wall",
+  "target_confirmation_evaluations": 2,
+  "target_perplexity": 35.8,
+  "target_preregistered": true,
+  "weight_decay": 0.01
+}

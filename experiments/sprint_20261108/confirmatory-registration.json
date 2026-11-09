@@ -1,0 +1,164 @@
+{
+  "arms": [
+    {
+      "fault_probability": 0,
+      "name": "clean-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault_probability": 0,
+      "name": "clean-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault_probability": 0,
+      "name": "clean-stock",
+      "policy": "stock_metadata"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-stock",
+      "policy": "stock_metadata"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-input-filter",
+      "policy": "simple_input"
+    },
+    {
+      "fault_probability": 0.25,
+      "name": "moderate-sham",
+      "policy": "disabled",
+      "sham": true
+    },
+    {
+      "fault_probability": 0.05,
+      "name": "rare-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault_probability": 0.05,
+      "name": "rare-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault": {
+        "severity": 40.0
+      },
+      "fault_probability": 1,
+      "name": "severe-disabled",
+      "policy": "disabled"
+    },
+    {
+      "fault": {
+        "severity": 40.0
+      },
+      "fault_probability": 1,
+      "name": "severe-valueguard",
+      "policy": "saved_slot"
+    },
+    {
+      "fault": {
+        "severity": 40.0
+      },
+      "fault_probability": 1,
+      "name": "severe-stock",
+      "policy": "stock_metadata"
+    }
+  ],
+  "comparisons": [
+    {
+      "candidate": "moderate-valueguard",
+      "confidence": 0.95,
+      "reference": "moderate-disabled",
+      "role": "primary"
+    },
+    {
+      "candidate": "clean-valueguard",
+      "confidence": 0.95,
+      "reference": "clean-disabled",
+      "role": "healthy-control"
+    },
+    {
+      "candidate": "moderate-valueguard",
+      "confidence": 0.95,
+      "reference": "moderate-stock",
+      "role": "secondary"
+    },
+    {
+      "candidate": "moderate-valueguard",
+      "confidence": 0.95,
+      "reference": "moderate-input-filter",
+      "role": "secondary"
+    },
+    {
+      "candidate": "rare-valueguard",
+      "confidence": 0.95,
+      "reference": "rare-disabled",
+      "role": "secondary"
+    },
+    {
+      "candidate": "severe-valueguard",
+      "confidence": 0.95,
+      "reference": "severe-disabled",
+      "role": "secondary"
+    },
+    {
+      "candidate": "severe-valueguard",
+      "confidence": 0.95,
+      "reference": "severe-stock",
+      "role": "secondary"
+    }
+  ],
+  "data": {
+    "evaluation_split": "test",
+    "format": "utf8_bytes",
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/sprint-20261108-tinyshakespeare.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "source_url": "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
+    "split_fractions": [
+      0.9,
+      0.05,
+      0.05
+    ]
+  },
+  "endpoint_clock": "checker_cold_elapsed_seconds",
+  "evaluation_every_accepted_updates": 20,
+  "experiment_id": "SPRINT20261108-TTQ-CONFIRMATORY",
+  "fixed_science": "Single primary moderate4xRMS/p0.25 comparison. Other regimes exploratory; no selective completion/extension/retargeting. Synthetic faults not physicalrate estimates. Coldclock reconstructed from measuredstartup. No noveltypremise.",
+  "histories": [
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108
+  ],
+  "horizon_seconds": 10.0,
+  "missing_policy": "Any requiredinvalidendpoint disables wholecontrast, no completecaseinference.",
+  "model": {
+    "ff_multiplier": 4,
+    "heads": 4,
+    "layers": 2,
+    "sequence_length": 128,
+    "vocab_size": 256,
+    "width": 128
+  },
+  "sample_unit": "Independent initialization/dataoffsetseed; arms matched withinhistory, allsharedfixedtask/software/hardware",
+  "target_confirmation_evaluations": 2,
+  "target_origin": "3569341 derived-target.json using frozen75%CEgap rule on pilot3567693 seed11calibrationonly",
+  "target_origin_sha256": "4a1c8db503daf33c92f3490f1b45e3c9b5785550982cf1c1c603d73c98de9099",
+  "target_perplexity": 35.8
+}
