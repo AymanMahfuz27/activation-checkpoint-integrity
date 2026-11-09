@@ -325,7 +325,9 @@ def load_data(config):
     splits = {"train": raw[:train_end], "calibration": raw[train_end:calibration_end],
               "test": raw[calibration_end:]}
     selected = data["evaluation_split"]
-    if selected != ("calibration" if config["phase"] == "pilot" else "test"):
+    if config["phase"] not in ("pilot", "qualification", "confirmatory"):
+        raise RuntimeError("Unknown experiment phase cannot select evaluation data")
+    if selected != ("calibration" if config["phase"] in ("pilot", "qualification") else "test"):
         raise RuntimeError("Pilot and confirmatory evaluation splits are not separated")
     tokens = {name: torch.tensor(list(value), dtype=torch.long) for name, value in splits.items()
               if name in ("train", selected)}
@@ -335,6 +337,7 @@ def load_data(config):
     return tokens["train"], tokens[selected], {
         "sha256": actual, "bytes": len(raw), "vocabulary": "256 byte values",
         "split_boundaries": [0, train_end, calibration_end, len(raw)],
+        "constructed_tensor_splits": list(tokens),
         "evaluation_split": selected, "test_evaluated": selected == "test"}
 
 
@@ -436,11 +439,120 @@ def fault_schedule(config, seed):
     return [(rng.random(), rng.randrange(2 ** 31)) for _ in range(config["max_updates"])]
 
 
+def declared_fault(config, arm):
+    """Merge only preregisterable intervention fields, preserving shared seeds."""
+    overrides = arm.get("fault", {})
+    allowed = {"kind", "severity", "window", "layer", "sham"}
+    if not isinstance(overrides, dict) or set(overrides) - allowed:
+        raise ValueError("Arm fault overrides contain unregistered fields")
+    spec = dict(config["fault"])
+    spec.update(overrides)
+    spec["sham"] = arm.get("sham", spec["sham"])
+    if spec["window"] not in ("replay_forward", "consumer_entry"):
+        raise ValueError("Unknown declared fault window")
+    if spec["kind"] not in ("sign_flip", "scale", "additive_burst", "bit_flip"):
+        raise ValueError("Unknown declared fault kind")
+    if type(spec["layer"]) is not int or not 0 <= spec["layer"] < config["model"]["layers"]:
+        raise ValueError("Declared fault layer outside model")
+    if type(spec["sham"]) is not bool:
+        raise ValueError("Declared sham flag must be boolean")
+    severity = spec["severity"]
+    if type(severity) not in (int, float) or not math.isfinite(severity):
+        raise ValueError("Declared fault severity must be finite")
+    if spec["kind"] == "bit_flip" and (type(severity) is not int or not 0 <= severity <= 30):
+        raise ValueError("Bit flip must name an integer FP32 bit0..30")
+    return spec
+
+
+class TargetWallEndpoint:
+    """Account for a preregistered target or common administrative wall limit.
+
+    Inputs are completed evaluation observations and actual elapsed wall time.
+    Only scheduled evaluations can confirm the target. A confirmation observed
+    after the common horizon stays a late observation, never an earlier event.
+    Failures before the horizon cannot supply an invented restricted-time value.
+    """
+
+    CLOCKS = ("elapsed_seconds", "checker_cold_elapsed_seconds", "instrumented_cold_elapsed_seconds")
+
+    def __init__(self, config):
+        self.target = float(config["target_perplexity"])
+        self.horizon = float(config["administrative_wall_horizon_seconds"])
+        self.clock = config["endpoint_clock"]
+        self.confirmations = config["target_confirmation_evaluations"]
+        self.consecutive_hits = 0
+        self.first_confirmed = None
+        self.first_confirmed_after_horizon = None
+        self.observations = 0
+
+    def observe(self, metric, *, scheduled=True):
+        self.observations += 1
+        if not scheduled:
+            return
+        value = metric["byte_perplexity"]
+        if value is not None and math.isfinite(value) and value <= self.target:
+            self.consecutive_hits += 1
+        else:
+            self.consecutive_hits = 0
+        if self.consecutive_hits < self.confirmations:
+            return
+        elapsed = metric.get("endpoint_clock_values", metric)[self.clock]
+        if elapsed <= self.horizon:
+            if self.first_confirmed is None:
+                self.first_confirmed = copy.deepcopy(metric)
+        elif self.first_confirmed_after_horizon is None:
+            self.first_confirmed_after_horizon = copy.deepcopy(metric)
+
+    def stop_reason(self, elapsed):
+        if self.first_confirmed is not None:
+            return "TARGET_CONFIRMED"
+        if elapsed >= self.horizon:
+            return "COMMON_WALL_HORIZON"
+        return None
+
+    def result(self, observed_stop_elapsed, *, stop_reason, failure):
+        target_reached = self.first_confirmed is not None and failure is None
+        followed_to_horizon = (failure is None and stop_reason == "COMMON_WALL_HORIZON"
+                               and observed_stop_elapsed >= self.horizon)
+        valid = target_reached or followed_to_horizon
+        event_elapsed = None
+        if target_reached:
+            event_elapsed = self.first_confirmed.get("endpoint_clock_values", self.first_confirmed)[self.clock]
+        return {"mode": "target_or_wall", "clock": self.clock,
+                "horizon_seconds": self.horizon,
+                "valid": valid, "event_observed": target_reached,
+                "confirmed_target_elapsed_seconds": event_elapsed,
+                "common_horizon_right_censored": followed_to_horizon,
+                "administrative_censor_elapsed_seconds": self.horizon if followed_to_horizon else None,
+                "restricted_seconds": (event_elapsed if target_reached else self.horizon) if valid else None,
+                "observed_stop_elapsed_seconds": observed_stop_elapsed,
+                "observed_horizon_overshoot_seconds": max(0.0, observed_stop_elapsed - self.horizon),
+                "stop_reason": stop_reason, "failure": failure,
+                "first_confirmed_after_horizon": self.first_confirmed_after_horizon,
+                "endpoint_observation_boundary": "after evaluation synchronization and scientific metric journal flush; later endpoint-control export is outside the observation",
+                "overshoot_scope": "one atomic logical update including rejected attempt, restoration and clean retry, plus final evaluation/journal; overshoot is observed cost, not a substituted censor time"}
+
+
 def validate_config(config):
-    if config["schema"] != 1 or config["phase"] not in ("pilot", "confirmatory"):
+    if config["schema"] != 1 or config["phase"] not in ("pilot", "qualification", "confirmatory"):
         raise ValueError("Unsupported experiment schema/phase")
+    if config["phase"] == "qualification" and config["target_preregistered"] is not False:
+        raise ValueError("Qualification uses an engineering target, not a scientific registration")
     if config["model"]["vocab_size"] != 256 or config["model"]["width"] % config["model"]["heads"]:
         raise ValueError("Invalid declared byte model")
+    stopping_mode = config.get("stopping_mode", "fixed_updates")
+    if stopping_mode not in ("fixed_updates", "target_or_wall"):
+        raise ValueError("Unknown stopping mode")
+    if stopping_mode == "target_or_wall":
+        horizon = config.get("administrative_wall_horizon_seconds")
+        target = config.get("target_perplexity")
+        if (config["phase"] not in ("qualification", "confirmatory") or type(horizon) not in (int, float)
+                or not math.isfinite(horizon) or horizon <= 0
+                or type(target) not in (int, float) or not math.isfinite(target) or target <= 1
+                or config.get("endpoint_clock") not in TargetWallEndpoint.CLOCKS
+                or type(config["target_confirmation_evaluations"]) is not int
+                or config["target_confirmation_evaluations"] != 2):
+            raise ValueError("Target-or-wall requires a qualification or frozen confirmatory target, positive common horizon, clock and two scheduled evaluations")
     if config["phase"] == "confirmatory":
         if (config["target_preregistered"] is not True or not config.get("registration_sha256")
                 or not isinstance(config["target_perplexity"], (float, int))
@@ -457,6 +569,7 @@ def validate_config(config):
     for arm in config["arms"]:
         if arm["policy"] not in POLICIES or not 0 <= arm["fault_probability"] <= 1:
             raise ValueError("Invalid policy/fault probability")
+        declared_fault(config, arm)
 
 
 def run_arm(config, arm, seed, train, heldout, directory):
@@ -479,6 +592,7 @@ def run_arm(config, arm, seed, train, heldout, directory):
         write(directory / "profile.json", {"elapsed_seconds": time.perf_counter() - profile_started,
                                             "plan": plan})
     schedule = fault_schedule(config, seed)
+    arm_fault = declared_fault(config, arm)
     schedule_sha = hashlib.sha256(json.dumps(schedule).encode()).hexdigest()
     accepted = attempts = rejections = 0
     reached = None
@@ -490,8 +604,16 @@ def run_arm(config, arm, seed, train, heldout, directory):
         raise ValueError("Invalid measured cold backend startup")
     checker_cold = backend_cold if arm["policy"] != "disabled" else 0.0
     instrumented_cold = backend_cold if arm["policy"] != "disabled" or arm["fault_probability"] > 0 else 0.0
+    endpoint = TargetWallEndpoint(config) if config.get("stopping_mode", "fixed_updates") == "target_or_wall" else None
+    endpoint_stop_reason = None
 
-    def eval_point():
+    def endpoint_elapsed():
+        elapsed = time.perf_counter() - started
+        offsets = {"elapsed_seconds": 0.0, "checker_cold_elapsed_seconds": checker_cold,
+                   "instrumented_cold_elapsed_seconds": instrumented_cold}
+        return elapsed + offsets[endpoint.clock]
+
+    def eval_point(*, scheduled=True):
         nonlocal reached, consecutive_hits
         metric = evaluate(model, heldout, config)
         synchronize()
@@ -502,6 +624,24 @@ def run_arm(config, arm, seed, train, heldout, directory):
         metric["instrumented_cold_elapsed_seconds"] = metric["elapsed_seconds"] + instrumented_cold
         evaluations.append(metric)
         append(directory / "evaluations.jsonl", metric)
+        if endpoint is not None:
+            # Charge the scientific metric's own flushed journal write. This
+            # later control record preserves its measured completion timestamp
+            # without inventing a recursive timestamp for its own serialization.
+            completed = time.perf_counter() - started
+            metric["endpoint_clock_values"] = {
+                "elapsed_seconds": completed,
+                "checker_cold_elapsed_seconds": completed + checker_cold,
+                "instrumented_cold_elapsed_seconds": completed + instrumented_cold}
+            metric["scheduled_evaluation"] = scheduled
+            endpoint.observe(metric, scheduled=scheduled)
+            reached = endpoint.first_confirmed
+            append(directory / "endpoint-observations.jsonl", {
+                "accepted_updates": accepted, "byte_perplexity": metric["byte_perplexity"],
+                "scheduled": scheduled, "clock_values": metric["endpoint_clock_values"],
+                "consecutive_hits": endpoint.consecutive_hits,
+                "target_confirmed_by_horizon": reached is not None})
+            return metric
         target = config["target_perplexity"]
         if target is not None and metric["byte_perplexity"] is not None and metric["byte_perplexity"] <= target:
             consecutive_hits += 1
@@ -520,9 +660,14 @@ def run_arm(config, arm, seed, train, heldout, directory):
         if not initial_eval["finite"]:
             raise RuntimeError("Nonfinite initial held-out metric")
         while accepted < config["max_updates"]:
-            if time.perf_counter() - started > config["max_seconds_per_arm"]:
-                failure = "ARM_TIME_LIMIT"
-                break
+            if endpoint is not None:
+                endpoint_stop_reason = endpoint.stop_reason(endpoint_elapsed())
+                if endpoint_stop_reason is not None:
+                    break
+            else:
+                if time.perf_counter() - started > config["max_seconds_per_arm"]:
+                    failure = "ARM_TIME_LIMIT"
+                    break
             x, y = batch_for(train, config, accepted, seed=seed)
             backup = None
             if arm["policy"] != "disabled":
@@ -531,7 +676,7 @@ def run_arm(config, arm, seed, train, heldout, directory):
             probability, fault_seed = schedule[accepted]
             spec = None
             if probability < arm["fault_probability"]:
-                spec = dict(config["fault"], seed=fault_seed, sham=arm.get("sham", config["fault"]["sham"]))
+                spec = dict(arm_fault, seed=fault_seed)
             attempt_started = time.perf_counter()
             record, _ = backward_attempt(model, optimizer, controller, x, y, config, arm["policy"], spec, plan)
             attempts += 1
@@ -571,10 +716,16 @@ def run_arm(config, arm, seed, train, heldout, directory):
                 if not metric["finite"]:
                     failure = "NONFINITE_HELDOUT"
                     break
-                # Continue to fixed horizon after crossing: this preserves a
-                # complete loss-vs-time/progress comparison and stopping rule.
+                # V1 continues to its fixed-update horizon; opt-in wall mode
+                # stops at a confirmed event or the registered wall boundary.
+        if endpoint is not None and failure is None and endpoint_stop_reason is None:
+            endpoint_stop_reason = endpoint.stop_reason(endpoint_elapsed())
+            if endpoint_stop_reason is None:
+                failure = "ACCEPTED_UPDATE_SAFETY_LIMIT_BEFORE_COMMON_HORIZON"
         if not evaluations or evaluations[-1]["accepted_updates"] != accepted:
-            eval_point()
+            final_metric = eval_point(scheduled=endpoint is None)
+            if endpoint is not None and not final_metric["finite"]:
+                failure = failure or "NONFINITE_HELDOUT"
     except Exception as error:
         failure = type(error).__name__ + ": " + str(error)
         write(directory / "failure.json", {"error": failure, "traceback": traceback.format_exc()})
@@ -599,6 +750,18 @@ def run_arm(config, arm, seed, train, heldout, directory):
               "time_to_target_is_discrete_evaluation_time": True,
               "fault_schedule_unit": "accepted-update first attempt; rejected transient retries are fault-free",
               "unsupported_is_execution_failure_not_detection": True}
+    if endpoint is not None:
+        offsets = {"elapsed_seconds": 0.0, "checker_cold_elapsed_seconds": checker_cold,
+                   "instrumented_cold_elapsed_seconds": instrumented_cold}
+        endpoint_record = endpoint.result(elapsed + offsets[endpoint.clock],
+                                          stop_reason=endpoint_stop_reason, failure=failure)
+        result["endpoint"] = endpoint_record
+        result["target_reached"] = endpoint_record["event_observed"]
+        result["right_censored"] = endpoint_record["common_horizon_right_censored"]
+        result["censoring_reason"] = ("COMMON_WALL_HORIZON" if result["right_censored"]
+                                       else failure or endpoint_stop_reason)
+    if "fault" in arm:
+        result["declared_fault_spec"] = arm_fault
     write(directory / "result.json", result)
     del optimizer, model, controller
     torch.cuda.empty_cache()

@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "experiment_id": "SPRINT20261108-V2-QUALIFICATION",
+  "phase": "qualification",
+  "target_preregistered": false,
+  "target_perplexity": 1.01,
+  "target_confirmation_evaluations": 2,
+  "max_updates": 10000,
+  "eval_every": 20,
+  "eval_tokens": 8192,
+  "batch_size": 8,
+  "learning_rate": 0.0006,
+  "weight_decay": 0.01,
+  "clip_norm": 1.0,
+  "checker": {
+    "expected_checkpoint_sha256": "eab49639231cc989d65c04212923eef0ade4aa059b68bcabfe2819007f34e69f"
+  },
+  "max_seconds_per_arm": 180,
+  "seeds": [
+    901
+  ],
+  "model": {
+    "vocab_size": 256,
+    "width": 128,
+    "layers": 2,
+    "heads": 4,
+    "ff_multiplier": 4,
+    "sequence_length": 128
+  },
+  "data": {
+    "format": "utf8_bytes",
+    "path": "/scratch/09999/aymanmahfuz/activation-checkpoint-integrity/inputs/sprint-20261108-tinyshakespeare.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "source_url": "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
+    "split_fractions": [
+      0.9,
+      0.05,
+      0.05
+    ],
+    "evaluation_split": "calibration"
+  },
+  "arms": [
+    {
+      "name": "qual-unchecked",
+      "policy": "disabled",
+      "fault_probability": 0.0
+    },
+    {
+      "name": "qual-checked",
+      "policy": "saved_slot",
+      "fault_probability": 0.0
+    }
+  ],
+  "fault": {
+    "window": "replay_forward",
+    "kind": "additive_burst",
+    "severity": 4.0,
+    "layer": 0,
+    "seed_offset": 7000003,
+    "sham": false
+  },
+  "notes": "Engineering-only actual common-wall censor qualification; calibration only, target1.01 deliberately not a scientific target.",
+  "stopping_mode": "target_or_wall",
+  "administrative_wall_horizon_seconds": 1.5,
+  "endpoint_clock": "checker_cold_elapsed_seconds",
+  "comparisons": [
+    {
+      "candidate": "qual-checked",
+      "reference": "qual-unchecked"
+    }
+  ]
+}

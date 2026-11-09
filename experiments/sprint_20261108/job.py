@@ -120,15 +120,31 @@ def main():
         })
         if not result.wasSuccessful() or result.skipped or result.expectedFailures:
             raise RuntimeError("Development fixtures did not all pass normally")
+        if contract.get("calibrate_target", False):
+            calibration = importlib.import_module("experiments.sprint_20261108.calibrate_target")
+            prior = next(item for item in contract["inputs"] if item["role"] == "prior-clean-calibration")
+            calibration.derive(prior["path"], out / "derived-target.json")
+        if contract.get("projection_probe", False):
+            probe = importlib.import_module("experiments.sprint_20261108.selection.projection_probe")
+            probe.run_probe(out / "projection-probe.json")
         module = importlib.import_module(contract["training_module"])
         config = json.loads((checkout / contract["training_config"]).read_text())
         training_out = out / "training"
         training_out.mkdir()
         returned = module.run_study(config, training_out)
+        analysis = None
+        figures = None
+        if contract.get("run_analysis", False):
+            reducer = importlib.import_module("experiments.sprint_20261108.analyze")
+            analysis = reducer.analyze(returned, config, out / "analysis")
+        if contract.get("plot_curves", False):
+            plotter = importlib.import_module("experiments.sprint_20261108.plot_training")
+            figures = plotter.plot_curves(training_out, config, out / "figures")
         common.write(out / "results.json", {
             "execution_complete": True, "status": "PENDING_INDEPENDENT_ACTUAL_REVIEW",
             "scientific_acceptance": False, "study": contract["campaign_id"],
             "training_return": returned,
+            "analysis": analysis, "figures": figures,
         })
         status = 0
     except BaseException as error:
